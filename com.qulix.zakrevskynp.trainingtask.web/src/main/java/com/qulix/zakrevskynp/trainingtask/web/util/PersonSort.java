@@ -1,35 +1,26 @@
 package com.qulix.zakrevskynp.trainingtask.web.util;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Comparator;
+import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 public class PersonSort implements Sort<Person> {
 
     public List<Person> sort(List<Person> persons, String sortField) {
-        Comparator comparator = null;
         if (sortField == null) {
             sortField = "fname";
         }
-        switch(sortField) {
-            case "fname":
-                comparator = Comparator.comparing(Person::getFname);
-                break;
-            case "sname":
-                comparator = Comparator.comparing(Person::getSname);
-                break;
-            case "lname":
-                comparator = Comparator.comparing(Person::getLname);
-                break;
-            case "position":
-                comparator = Comparator.comparing(Person::getPosition);
-                break;
-            default:
-                comparator = Comparator.comparing(Person::getFname);
-                break;
-        }
-        persons.sort(comparator);
+
+        Map<String, Comparator> comparators = new HashMap<>();
+        comparators.put("fname", Comparator.comparing(Person::getFname));
+        comparators.put("sname", Comparator.comparing(Person::getSname));
+        comparators.put("lname", Comparator.comparing(Person::getLname));
+        comparators.put("position", Comparator.comparing(Person::getPosition));
+
+        persons.sort(comparators.get(sortField));
         return persons;
     }
 }
