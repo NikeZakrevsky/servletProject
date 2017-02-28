@@ -1,8 +1,6 @@
-group 'trainingtask'
+group 'com.qulix.zakrevskynp.trainingtask.web'
 
 import groovy.sql.*
-
-version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'war'

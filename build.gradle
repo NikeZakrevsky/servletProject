@@ -1,7 +1,7 @@
-group 'trainingtask'
-version '1.0-SNAPSHOT'
+group 'com.qulix.zakrevskynp.trainingtask.web'
 
 apply plugin: 'java'
+apply plugin: 'war'
 
 repositories {
     mavenCentral()
