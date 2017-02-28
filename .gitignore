@@ -6,3 +6,8 @@ gradle/
 com.qulix.zakrevskynp.trainingtask.web/lib/
 docs/
 lib/
+com.qulix.zakrevskynp.trainingtask.web/src/main/java/com/qulix/zakrevskynp/trainingtask/web/util/TasksSort.java
+com.qulix.zakrevskynp.trainingtask.web/src/main/java/com/qulix/zakrevskynp/trainingtask/web/util/Sort.java
+com.qulix.zakrevskynp.trainingtask.web/src/main/java/com/qulix/zakrevskynp/trainingtask/web/util/ProjectSort.java
+com.qulix.zakrevskynp.trainingtask.web/src/main/resources/
+com.qulix.zakrevskynp.trainingtask.web/src/test/
