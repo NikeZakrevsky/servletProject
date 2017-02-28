@@ -1,4 +1,4 @@
-# ${1:Project Name}
+# Project Name
 Task manager
 ## Usage
 1. Start tomcat server `gradlew startServer`
