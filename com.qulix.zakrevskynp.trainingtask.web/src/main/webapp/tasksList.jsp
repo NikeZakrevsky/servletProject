@@ -24,19 +24,6 @@
     <span style="color: red; ">${error}</span></br>
     <div class="panel panel-default">
         <div class="panel-heading"><span class="lead">Список задач</span></div>
-            <div class="panel-body">
-                <form action = "tasksList" method = "POST">
-                    <select name = "sortField">
-                        <option value = "name" ${"name".equals(sortF) ? 'selected="selected"' : ''}>Название</option>
-                        <option value = "projectShortName" ${"projectShortName".equals(sortF) ? 'selected="selected"' : ''}>Проект</option>
-                        <option value = "startDate" ${"startDate".equals(sortF) ? 'selected="selected"' : ''}>Дата начала</option>
-                        <option value = "endDate" ${"endDate".equals(sortF) ? 'selected="selected"' : ''}>Дата окончания</option>
-                        <option value = "performer" ${"performer".equals(sortF) ? 'selected="selected"' : ''}>Исполнитель</option>
-                        <option value = "status" ${"status".equals(sortF) ? 'selected="selected"' : ''}>Статус</option>
-                    </select>
-                    <button type = "submit" class="btn btn-primary btn-xs">Сортировать</button>
-                </form>
-            </div>
             <div class="tablecontainer">
                 <table class="table table-hover">
                     <thead>

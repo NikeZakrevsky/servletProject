@@ -23,16 +23,6 @@
     <span style="color: red; ">${error}</span></br>
     <div class="panel panel-default">
         <div class="panel-heading"><span class="lead">Список проектов</span></div>
-            <div class="panel-body">
-                <form action = "projectsList" method = "POST">
-                    <select name = "sortField">
-                        <option value = "name" ${"fname".equals(sortF) ? 'selected="selected"' : ''}>Название</option>
-                        <option value = "shortname" ${"sname".equals(sortF) ? 'selected="selected"' : ''}>Сокращенное название</option>
-                        <option value = "description" ${"lname".equals(sortF) ? 'selected="selected"' : ''}>Описание</option>
-                    </select>
-                    <button type = "submit" class="btn btn-primary btn-xs">Сортировать</button>
-                </form>
-            </div>
             <div class="tablecontainer">
                 <table class="table table-hover">
                     <thead>

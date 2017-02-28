@@ -45,7 +45,7 @@
                 <div class="form-group col-md-12">
                     <label class="col-md-2 control-lable">Название</label>
                     <div class="col-md-7">
-                        <input type = "text" name = "name" size = "65" value = "${project.name}"/>
+                        <input type = "text" name = "name" size = "65" maxlength="20" value = "${project.name}"/>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 <div class="form-group col-md-12">
                     <label class="col-md-2 control-lable">Сокращенное название</label>
                     <div class="col-md-7">
-                        <input type = "text" name = "shortName" size = "65" value = "${project.shortName}"/>
+                        <input type = "text" name = "shortName" size = "65" maxlength="20" value = "${project.shortName}"/>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                 <div class="form-group col-md-12">
                     <label class="col-md-2 control-lable">Описание</label>
                     <div class="col-md-7">
-	                    <input type = "text" name = "description" size = "65" value = "${project.description}"/>
+	                    <input type = "text" name = "description" size = "65" maxlength="20" value = "${project.description}"/>
                     </div>
                 </div>
             </div>

@@ -34,7 +34,7 @@
         <div class="row">
             <div class="form-group col-md-12">
                 <div class="col-md-7">
-                    <input type="hidden" name = "id" size = "70" value = "${task.id}" readonly/>
+                    <input type="hidden" name = "id" size = "70" maxlength="20" value = "${task.id}" readonly/>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Название</label>
                 <div class="col-md-7">
-                    <input type = "text" name = "name" size = "70" value = "${task.name}"/>
+                    <input type = "text" name = "name" size = "70" maxlength="20" value = "${task.name}"/>
                 </div>
             </div>
         </div>
