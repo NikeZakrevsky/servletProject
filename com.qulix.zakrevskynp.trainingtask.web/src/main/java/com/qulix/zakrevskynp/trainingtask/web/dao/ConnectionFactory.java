@@ -27,14 +27,14 @@ public class ConnectionFactory {
         try {
             Class.forName(driverUrl);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage());
         }
     }
 
     /**
      * Create connection object
      *
-     * @return
+     * @return new Connection object
      * @throws DAOException
      */
     private Connection createConnection() throws DAOException {
