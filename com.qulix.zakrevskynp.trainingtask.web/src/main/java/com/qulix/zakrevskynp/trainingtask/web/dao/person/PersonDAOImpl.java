@@ -42,7 +42,7 @@ public class PersonDAOImpl implements PersonDAO {
             }
             return persons;
         }
-        catch (SQLException e) {
+        catch (SQLException|ClassNotFoundException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -66,10 +66,11 @@ public class PersonDAOImpl implements PersonDAO {
             preparedStatement.execute();
             connection.commit();
         }
-        catch (SQLException e) {
+        catch (SQLException|ClassNotFoundException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
+
     }
 
     /**
@@ -86,7 +87,7 @@ public class PersonDAOImpl implements PersonDAO {
             preparedStatement.execute();
             connection.commit();
         }
-        catch (SQLException e) {
+        catch (SQLException|ClassNotFoundException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -109,7 +110,7 @@ public class PersonDAOImpl implements PersonDAO {
             resultSet.next();
             return new Person(resultSet.getInt("id"), resultSet.getString("fname"), resultSet.getString("sname"), resultSet.getString("lname"), resultSet.getString("position"));
         }
-        catch (SQLException e) {
+        catch (SQLException|ClassNotFoundException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -135,7 +136,7 @@ public class PersonDAOImpl implements PersonDAO {
             preparedStatement.execute();
             connection.commit();
         }
-        catch (SQLException e) {
+        catch (SQLException|ClassNotFoundException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }

@@ -24,11 +24,6 @@ public class ConnectionFactory {
     private Logger logger = Logger.getLogger(TasksDAOImpl.class.getName());
 
     private ConnectionFactory() {
-        try {
-            Class.forName(driverUrl);
-        } catch (ClassNotFoundException e) {
-            logger.log(Level.SEVERE, e.getMessage());
-        }
     }
 
     /**
@@ -37,7 +32,8 @@ public class ConnectionFactory {
      * @return new Connection object
      * @throws DAOException
      */
-    private Connection createConnection() throws DAOException {
+    private Connection createConnection() throws DAOException, ClassNotFoundException {
+        Class.forName(driverUrl);
         try {
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
@@ -52,7 +48,7 @@ public class ConnectionFactory {
      * @return Connection object
      * @throws DAOException
      */
-    public static Connection getConnection() throws DAOException {
+    public static Connection getConnection() throws DAOException, ClassNotFoundException {
         return instance.createConnection();
     }
 }

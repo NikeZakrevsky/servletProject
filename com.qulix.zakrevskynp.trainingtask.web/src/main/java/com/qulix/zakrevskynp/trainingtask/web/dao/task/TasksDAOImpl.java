@@ -41,7 +41,7 @@ public class TasksDAOImpl implements TasksDAO {
                 Task task = taskUtil.resultSetAsObject(resultSet);
                 tasks.add(task);
             }
-        } catch (SQLException e) {
+        } catch (SQLException|ClassNotFoundException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -61,7 +61,7 @@ public class TasksDAOImpl implements TasksDAO {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             connection.commit();
-        } catch (SQLException e) {
+        } catch (SQLException|ClassNotFoundException e) {
             logger.log(Level.SEVERE, e.getMessage());
         }
     }
@@ -87,7 +87,7 @@ public class TasksDAOImpl implements TasksDAO {
             System.out.println(preparedStatement);
             preparedStatement.execute();
             connection.commit();
-        } catch (SQLException e) {
+        } catch (SQLException|ClassNotFoundException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -110,7 +110,7 @@ public class TasksDAOImpl implements TasksDAO {
             resultSet.next();
             task = taskUtil.resultSetAsObject(resultSet);
             connection.commit();
-        } catch (SQLException e) {
+        } catch (SQLException|ClassNotFoundException e) {
             logger.log(Level.SEVERE, e.getMessage());
         }
         return task;
@@ -137,7 +137,7 @@ public class TasksDAOImpl implements TasksDAO {
             preparedStatement.setInt(8, id);
             preparedStatement.execute();
             connection.commit();
-        } catch (SQLException e) {
+        } catch (SQLException|ClassNotFoundException e) {
         }
     }
 
