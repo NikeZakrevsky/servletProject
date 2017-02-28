@@ -31,10 +31,10 @@ public class TaskDataValidator {
         }
 
         if (name == null || name.equals("")) {
-            errors.add("Имя не должно быть пустым");
+            errors.add("Название не должно быть пустым");
         }
         if (name != null && name.length() > 20) {
-            errors.add("Имя слишком длинное");
+            errors.add("Название слишком длинное");
         }
 
         if (status == null || status.equals("")) {
@@ -45,7 +45,7 @@ public class TaskDataValidator {
         }
 
         if (!time.matches(regex)) {
-            errors.add("Неверная работа");
+            errors.add("Неверное время работы");
         }
 
         return errors;

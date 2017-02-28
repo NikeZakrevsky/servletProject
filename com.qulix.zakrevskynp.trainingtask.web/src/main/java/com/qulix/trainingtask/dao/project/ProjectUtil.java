@@ -12,14 +12,14 @@ import java.sql.SQLException;
 public class ProjectUtil {
     private static final String ID = "id";
     private static final String NAME = "name";
-    private static final String SHORTNAME = "id";
-    private static final String DESCRIPTION = "id";
+    private static final String SHORTNAME = "shortname";
+    private static final String DESCRIPTION = "description";
 
     /**
      * Create object from ResutSet
      *
-     * @param resultSet
-     * @return
+     * @param resultSet resultSet for converting to object
+     * @return created project object
      * @throws SQLException
      */
     public Project resultSetAsObject(ResultSet resultSet) throws SQLException {
@@ -28,7 +28,7 @@ public class ProjectUtil {
 
     /**
      * Set parameters to prepared statement
-     * @param preparedStatement prepared statement for setting parameters
+     * @param preparedStatement link of the prepared statement for setting parameters
      * @param name project's name
      * @param shortName project's short name
      * @param description project's description

@@ -19,7 +19,7 @@ public class PersonUtil {
     /**
      * Create object from ResultSet
      *
-     * @param resultSet
+     * @param resultSet resultSet for converting to object
      * @return created person object
      * @throws SQLException
      */
@@ -29,7 +29,7 @@ public class PersonUtil {
 
     /**
      * Set parameters to prepared statement
-     * @param preparedStatement prepared statement for setting parameters
+     * @param preparedStatement link of the prepared statement for setting parameters
      * @param fname person's first name
      * @param sname person's middle name
      * @param lname person's last name

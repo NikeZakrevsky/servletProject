@@ -11,24 +11,24 @@ public class ProjectDataValidator {
         List<String> errors = new ArrayList<>();
 
         if (name.equals("")) {
-            errors.add("Name must be not empty");
+            errors.add("Название не должно быть пустым");
         }
         if (name.length() > 20) {
-            errors.add("Name is too long");
+            errors.add("Название слишком длинное");
         }
 
         if (shortName.equals("")) {
-            errors.add("Short name must be not empty");
+            errors.add("Сокращённое название не должно быть пустым");
         }
         if (shortName.length() > 20) {
-            errors.add("Short name is too long");
+            errors.add("Сокращённое название слишком длинное");
         }
 
         if (description.equals("")) {
-            errors.add("Description must be not empty");
+            errors.add("Описание не должно быть пустым");
         }
         if (description.length() > 20) {
-            errors.add("Description is too long");
+            errors.add("Описание слишком длинное");
         }
 
         return errors;

@@ -27,8 +27,8 @@ public class TaskUtil {
     /**
      * Create Task object from ResultSet
      *
-     * @param resultSet
-     * @return
+     * @param resultSet resultSet for converting to object
+     * @return created task object
      * @throws SQLException
      */
     public Task resultSetAsObject(ResultSet resultSet) throws SQLException {
@@ -49,7 +49,7 @@ public class TaskUtil {
 
     /**
      *
-     * @param preparedStatement prepared statement for setting parameters
+     * @param preparedStatement link of the prepared statement for setting parameters
      * @param name task's name
      * @param time task's time for job
      * @param startDate task's start date

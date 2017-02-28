@@ -13,7 +13,7 @@
     <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">TestTaskWebsite</a>
+            <a class="navbar-brand" href="#">TaskManager</a>
         </div>
         <ul class="nav navbar-nav">
             <li><a href="projectsList">Проекты</a></li>
@@ -24,7 +24,7 @@
     </nav>
     <div class="generic-container">
     <div class="panel panel-default">
-    <div class="panel-heading"><span class="lead">Ввод задачи</span></div>
+    <div class="panel-heading"><span class="lead">Управление задачами</span></div>
 	<form action = "${action}" method = "POST">
         <div class="form-group col-md-12">
             <c:forEach items="${errors}" var="error">

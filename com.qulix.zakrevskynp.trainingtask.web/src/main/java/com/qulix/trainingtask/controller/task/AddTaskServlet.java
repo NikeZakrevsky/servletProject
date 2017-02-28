@@ -48,7 +48,8 @@ public class AddTaskServlet extends HttpServlet {
             response.sendRedirect("tasksList");
         }
         else {
-            response.sendRedirect("addTask");
+            request.setAttribute("errors", errors);
+            request.getRequestDispatcher("taskView.jsp").forward(request, response);
         }
     }
 
@@ -71,9 +72,6 @@ public class AddTaskServlet extends HttpServlet {
             logger.log(Level.SEVERE, e.getCause().toString());
         }
         request.setAttribute("personsList", personsList);
-        if(errors != null) {
-            request.setAttribute("errors", errors);
-        }
         request.setAttribute("action", "addTask");
         request.getRequestDispatcher("taskView.jsp").forward(request,response);
     }

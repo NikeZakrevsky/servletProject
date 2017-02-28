@@ -20,30 +20,30 @@ public class PersonDataValidator {
         List<String> errors = new ArrayList<>();
 
         if (fname.equals("")) {
-            errors.add("First name must be not empty");
+            errors.add("Имя не должно быть пустым");
         }
         if (fname.length() > 20) {
-            errors.add("First name is too long");
+            errors.add("Имя слишком длинное");
         }
 
         if (sname.equals("")) {
-            errors.add("Second name must be not empty");
+            errors.add("Фамилия не должна быть пустой");
         }
         if (sname.length() > 20) {
-            errors.add("Second name is too long");
+            errors.add("Фамилия слишком длинная");
         }
 
         if (lname.equals("")) {
-            errors.add("Last name must be not empty");
+            errors.add("Отчество не должно быть пустым");
         }
         if (lname.length() > 20) {
-            errors.add("Last name is too long"); }
+            errors.add("Отчество слишком длинное"); }
 
         if (position.equals("")) {
-            errors.add("Position must be not empty");
+            errors.add("Должность не должна быть пустой");
         }
         if (position.length() > 20) {
-            errors.add("Position is too long");
+            errors.add("Должность слишком длинная");
         }
 
         return errors;
