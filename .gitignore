@@ -3,3 +3,6 @@
 build/
 com.qulix.zakrevskynp.trainingtask.web/build/
 gradle/
+com.qulix.zakrevskynp.trainingtask.web/lib/
+docs/
+lib/
