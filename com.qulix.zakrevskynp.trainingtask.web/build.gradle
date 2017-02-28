@@ -1,0 +1,95 @@
+group 'trainingtask'
+
+import groovy.sql.*
+
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.tomcat'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+configurations {
+    driver
+    options
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+dependencies {
+    driver group: 'org.hsqldb', name: 'hsqldb', version: '2.3.4'
+}
+
+dependencies {
+    compile files('lib/javax.servlet-api-3.0.1.jar')
+    compile files('lib/jstl-1.2.jar')
+    compile files('lib/gradle-tomcat-plugin-2.2.4.jar')
+    compile files('lib/hsqldb-2.3.4.jar')
+}
+
+dependencies {
+    def tomcatVersion = '8.0.39'
+        tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+                "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+                "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.5'
+        classpath 'org.hsqldb:hsqldb:2.3.4'
+    }
+}
+
+tomcat {
+    httpPort = 8190
+    stopPort = 8191
+    ajpPort = 8010
+}
+tomcatRun {
+    contextPath = "/"
+    webDefaultXml = file("src/main/webapp/WEB-INF/web.xml")
+}
+tasks.withType(War) {
+    destinationDir = file("build/")
+    archiveName = "${project.name}.war"
+}
+task startServer(dependsOn: 'tomcatRun'){}
+
+task startDatabaseServer(type: Exec) {
+    commandLine 'java', '-cp', 'lib/hsqldb-2.3.4.jar','org.hsqldb.Server','-database.0','file:build/database/training','-dbname.0','testdb'
+}
+
+URLClassLoader loader = GroovyObject.class.classLoader as URLClassLoader
+configurations.driver.each {File file ->  loader.addURL(file.toURL()) }
+
+task createDatabase << {
+    def props = [user: 'sa', password: '', allowMultiQueries: 'true'] as Properties
+    def driver = 'org.hsqldb.jdbcDriver'
+    def url = 'jdbc:hsqldb:hsql://localhost:9001/testdb'
+    def sql = Sql.newInstance(url, props, driver)
+    String sqlFilePath = 'src/main/webapp/WEB-INF/create.sql'
+    String sqlString = new File(sqlFilePath).text
+    sql.execute(sqlString)
+    sql.close()
+}
+
+task dropDatabase << {
+    def props = [user: 'sa', password: '', allowMultiQueries: 'true'] as Properties
+    def driver = 'org.hsqldb.jdbcDriver'
+    def url = 'jdbc:hsqldb:hsql://localhost:9001/testdb'
+    def sql = Sql.newInstance(url, props, driver)
+    String sqlFilePath = 'src/main/webapp/WEB-INF/drop.sql'
+    String sqlString = new File(sqlFilePath).text
+    sql.execute(sqlString)
+    sql.close()
+}
+

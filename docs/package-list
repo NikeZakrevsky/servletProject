@@ -1,0 +1,10 @@
+com.qulix.trainingtask.controller.person
+com.qulix.trainingtask.controller.project
+com.qulix.trainingtask.controller.task
+com.qulix.trainingtask.dao
+com.qulix.trainingtask.dao.exception
+com.qulix.trainingtask.dao.person
+com.qulix.trainingtask.dao.project
+com.qulix.trainingtask.dao.task
+com.qulix.trainingtask.model
+com.qulix.trainingtask.util
