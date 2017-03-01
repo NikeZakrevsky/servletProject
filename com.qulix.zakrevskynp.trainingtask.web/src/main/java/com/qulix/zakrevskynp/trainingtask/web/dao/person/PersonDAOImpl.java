@@ -30,7 +30,7 @@ public class PersonDAOImpl implements PersonDAO {
      * @return list of all persons from database
      * @throws DAOException
      */
-    public List<Person> getPersonsList() throws DAOException {
+    public List<Person> getPersonsList() throws DAOException{
         List<Person> persons = new ArrayList<>();
         try (
                 Connection connection = ConnectionFactory.getConnection();
@@ -42,7 +42,7 @@ public class PersonDAOImpl implements PersonDAO {
             }
             return persons;
         }
-        catch (SQLException|ClassNotFoundException e) {
+        catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -66,7 +66,7 @@ public class PersonDAOImpl implements PersonDAO {
             preparedStatement.execute();
             connection.commit();
         }
-        catch (SQLException|ClassNotFoundException e) {
+        catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -87,7 +87,7 @@ public class PersonDAOImpl implements PersonDAO {
             preparedStatement.execute();
             connection.commit();
         }
-        catch (SQLException|ClassNotFoundException e) {
+        catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -110,7 +110,7 @@ public class PersonDAOImpl implements PersonDAO {
             resultSet.next();
             return new Person(resultSet.getInt("id"), resultSet.getString("fname"), resultSet.getString("sname"), resultSet.getString("lname"), resultSet.getString("position"));
         }
-        catch (SQLException|ClassNotFoundException e) {
+        catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -136,7 +136,7 @@ public class PersonDAOImpl implements PersonDAO {
             preparedStatement.execute();
             connection.commit();
         }
-        catch (SQLException|ClassNotFoundException e) {
+        catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }

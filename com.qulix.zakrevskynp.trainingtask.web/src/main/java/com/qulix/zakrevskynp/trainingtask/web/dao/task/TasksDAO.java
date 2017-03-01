@@ -46,7 +46,7 @@ public interface TasksDAO {
      * @param id task's id
      * @return Task object
      */
-    Task getTaskById(int id);
+    Task getTaskById(int id) throws DAOException;
 
     /**
      *
@@ -60,5 +60,5 @@ public interface TasksDAO {
      * @param personId id of person
      * @throws SQLException
      */
-    void updateTask(int id, String name, int time, String startDate, String endDate, String status, String projectId, String personId) throws SQLException;
+    void updateTask(int id, String name, int time, String startDate, String endDate, String status, String projectId, String personId)  throws DAOException;
 }

@@ -41,7 +41,7 @@ public class TasksDAOImpl implements TasksDAO {
                 Task task = taskUtil.resultSetAsObject(resultSet);
                 tasks.add(task);
             }
-        } catch (SQLException|ClassNotFoundException e) {
+        } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -61,7 +61,7 @@ public class TasksDAOImpl implements TasksDAO {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             connection.commit();
-        } catch (SQLException|ClassNotFoundException e) {
+        } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
         }
     }
@@ -87,7 +87,7 @@ public class TasksDAOImpl implements TasksDAO {
             System.out.println(preparedStatement);
             preparedStatement.execute();
             connection.commit();
-        } catch (SQLException|ClassNotFoundException e) {
+        } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -99,7 +99,7 @@ public class TasksDAOImpl implements TasksDAO {
      * @param id task's id
      * @return Task object
      */
-    public Task getTaskById(int id) {
+    public Task getTaskById(int id) throws DAOException {
         Task task = null;
         try (
             Connection connection = ConnectionFactory.getConnection();
@@ -110,8 +110,9 @@ public class TasksDAOImpl implements TasksDAO {
             resultSet.next();
             task = taskUtil.resultSetAsObject(resultSet);
             connection.commit();
-        } catch (SQLException|ClassNotFoundException e) {
+        } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
+            throw new DAOException(e);
         }
         return task;
     }
@@ -128,7 +129,7 @@ public class TasksDAOImpl implements TasksDAO {
      * @param personId id of person
      * @throws SQLException
      */
-    public void updateTask(int id, String name, int time, String startDate, String endDate, String status, String projectId, String personId) throws SQLException {
+    public void updateTask(int id, String name, int time, String startDate, String endDate, String status, String projectId, String personId) throws DAOException {
         try (
             Connection connection = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
@@ -137,7 +138,9 @@ public class TasksDAOImpl implements TasksDAO {
             preparedStatement.setInt(8, id);
             preparedStatement.execute();
             connection.commit();
-        } catch (SQLException|ClassNotFoundException e) {
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, e.getMessage());
+            throw new DAOException(e);
         }
     }
 

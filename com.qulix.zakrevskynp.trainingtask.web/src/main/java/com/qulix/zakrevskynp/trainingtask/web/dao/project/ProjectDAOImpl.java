@@ -40,7 +40,7 @@ public class ProjectDAOImpl implements ProjectDAO {
             while (resultSet.next()) {
                 projects.add(projectUtil.resultSetAsObject(resultSet));
             }
-        } catch (SQLException|ClassNotFoundException e) {
+        } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -62,7 +62,7 @@ public class ProjectDAOImpl implements ProjectDAO {
             projectUtil.setPreparedStatement(preparedStatement, name, shortName, description);
             preparedStatement.execute();
             connection.commit();
-        } catch (SQLException|ClassNotFoundException e) {
+        } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -83,7 +83,7 @@ public class ProjectDAOImpl implements ProjectDAO {
             preparedStatement.execute();
             connection.commit();
         }
-        catch (SQLException|ClassNotFoundException e) {
+        catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -107,7 +107,7 @@ public class ProjectDAOImpl implements ProjectDAO {
             preparedStatement.setInt(4,id);
             preparedStatement.execute();
             connection.commit();
-        } catch (SQLException|ClassNotFoundException e){
+        } catch (SQLException e){
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -129,7 +129,7 @@ public class ProjectDAOImpl implements ProjectDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             return projectUtil.resultSetAsObject(resultSet);
-        } catch (SQLException|ClassNotFoundException e) {
+        } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }

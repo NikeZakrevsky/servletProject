@@ -49,24 +49,19 @@ public class EditTaskServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        TasksDAO taskDAO = new TasksDAOImpl();
-        Task task = taskDAO.getTaskById(Integer.parseInt(request.getParameter("id")));
-        PersonDAO personDAO = new PersonDAOImpl();
-        ProjectDAO projectDAO = new ProjectDAOImpl();
-        List<Project> projectsList = null;
         Project project = new Project();
         try {
+            TasksDAO taskDAO = new TasksDAOImpl();
+            Task task = taskDAO.getTaskById(Integer.parseInt(request.getParameter("id")));
+            PersonDAO personDAO = new PersonDAOImpl();
+            ProjectDAO projectDAO = new ProjectDAOImpl();
+            List<Project> projectsList = null;
             projectsList = projectDAO.getProjectsList();
             project = projectDAO.getProjectById(task.getProjectId());
-        } catch (DAOException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
-        }
-
-        request.setAttribute("task", task);
-        request.setAttribute("projectsList", projectsList);
-        try {
+            request.setAttribute("task", task);
+            request.setAttribute("projectsList", projectsList);
             request.setAttribute("personsList", personDAO.getPersonsList());
-        } catch (SQLException e) {
+        } catch (DAOException e) {
             logger.log(Level.SEVERE, e.getCause().toString());
         }
         request.setAttribute("projectShortName", project.getShortName());
