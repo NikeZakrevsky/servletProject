@@ -25,7 +25,7 @@ public interface TasksDAO {
      *
      * @param id project's id
      */
-    void removeTask(int id);
+    void removeTask(int id) throws DAOException;
 
     /**
      * Insert task in database

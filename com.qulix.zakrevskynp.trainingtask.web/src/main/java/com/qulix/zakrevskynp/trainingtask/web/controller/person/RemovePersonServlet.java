@@ -37,7 +37,6 @@ public class RemovePersonServlet extends HttpServlet {
             errors.add(e.getCause().getMessage());
             request.setAttribute("error", errors);
             request.getRequestDispatcher("personsList.jsp").forward(request, response);
-            logger.log(Level.SEVERE, e.getCause().toString());
         }
         response.sendRedirect("personsList");
     }

@@ -70,6 +70,10 @@ public class EditTaskServlet extends HttpServlet {
                 tasksDAO.updateTask(task);
             } catch (SQLException e) {
                 logger.log(Level.SEVERE, e.getCause().toString());
+                errors.clear();
+                errors.add(e.getCause().getMessage());
+                request.setAttribute("error", errors);
+                request.getRequestDispatcher("tasksList.jsp").forward(request, response);
             }
             response.sendRedirect("tasksList");
         } else {
@@ -93,6 +97,10 @@ public class EditTaskServlet extends HttpServlet {
             request.getRequestDispatcher("taskView.jsp").forward(request, response);
         } catch (DAOException e) {
             logger.log(Level.SEVERE, e.getCause().toString());
+            errors.clear();
+            errors.add(e.getCause().getMessage());
+            request.setAttribute("error", errors);
+            request.getRequestDispatcher("tasksList.jsp").forward(request, response);
         }
     }
 }

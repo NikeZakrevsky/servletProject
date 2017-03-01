@@ -53,7 +53,7 @@ public class TasksDAOImpl implements TasksDAO {
      *
      * @param id project's id
      */
-    public void removeTask(int id) {
+    public void removeTask(int id) throws DAOException {
         try (
             Connection connection = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)
@@ -63,6 +63,7 @@ public class TasksDAOImpl implements TasksDAO {
             connection.commit();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
+            throw new DAOException(e);
         }
     }
 

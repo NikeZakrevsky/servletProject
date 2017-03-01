@@ -72,6 +72,10 @@ public class AddTaskServlet extends HttpServlet {
                 taskDAO.addTask(task);
             } catch (DAOException e) {
                 logger.log(Level.SEVERE, e.getCause().toString());
+                errors.clear();
+                errors.add(e.getCause().getMessage());
+                request.setAttribute("error", errors);
+                request.getRequestDispatcher("tasksList.jsp").forward(request, response);
             }
             response.sendRedirect("tasksList");
         }
