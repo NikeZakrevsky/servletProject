@@ -25,7 +25,7 @@ public class ConnectionFactory {
     static {
         try {
             dbProperties = new Properties();
-            dbProperties.load(new FileInputStream("jdbc.properties"));
+            dbProperties.load(new FileInputStream("com.qulix.zakrevskynp.trainingtask.web/src/main/resources/jdbc.properties"));
             Class.forName(dbProperties.getProperty("driverClass"));
             url = dbProperties.getProperty("url");
         }

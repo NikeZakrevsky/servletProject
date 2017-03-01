@@ -131,6 +131,12 @@ public class TasksDAOImpl implements TasksDAO {
         }
     }
 
+    /**
+     *
+     * @param id project id
+     * @return List of tasks with specified project id
+     * @throws DAOException
+     */
     public List<Task> getTasksByProjectId(int id) throws DAOException {
         List<Task> tasks = new ArrayList<>();
         try (

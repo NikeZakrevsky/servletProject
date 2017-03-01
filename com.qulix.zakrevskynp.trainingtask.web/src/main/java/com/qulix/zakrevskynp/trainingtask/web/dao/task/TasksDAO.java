@@ -50,5 +50,11 @@ public interface TasksDAO {
      */
     void updateTask(Task task)  throws DAOException;
 
+    /**
+     *
+     * @param id project id
+     * @return List of tasks with specified project id
+     * @throws DAOException
+     */
     List<Task> getTasksByProjectId(int id) throws DAOException;
 }
