@@ -1,12 +1,13 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao.project;
 
+import java.util.List;
+
 import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 
-import java.util.List;
-
 /**
  * CRUD operations for projects
+ * @author Q-NZA
  */
 public interface ProjectDAO {
 

@@ -1,13 +1,14 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao.person;
 
-import com.qulix.zakrevskynp.trainingtask.web.model.Person;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.qulix.zakrevskynp.trainingtask.web.model.Person;
+
 /**
  * Utilities for person's dao layer
+ * @author Q-NZA
  */
 public class PersonUtil {
     private static final String ID = "id";

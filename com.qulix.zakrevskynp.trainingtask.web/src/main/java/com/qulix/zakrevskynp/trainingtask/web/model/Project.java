@@ -2,6 +2,7 @@ package com.qulix.zakrevskynp.trainingtask.web.model;
 
 /**
  * Project entity model
+ * @author Q-NZA
  */
 public class Project {
     private Integer id;

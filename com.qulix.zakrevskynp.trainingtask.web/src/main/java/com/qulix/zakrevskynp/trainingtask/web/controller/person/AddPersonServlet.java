@@ -1,26 +1,27 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.person;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
-import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.model.Person;
-import com.qulix.zakrevskynp.trainingtask.web.util.PersonDataValidator;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
+import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Person;
+import com.qulix.zakrevskynp.trainingtask.web.util.PersonDataValidator;
 
 /**
  * Show view with form for adding new person and handling it data
- *
+ * @author Q-NZA
  */
-
+   
 @WebServlet("/addPerson")
 public class AddPersonServlet extends HttpServlet {
 

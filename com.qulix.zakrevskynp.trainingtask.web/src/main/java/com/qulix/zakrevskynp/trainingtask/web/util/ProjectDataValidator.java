@@ -1,12 +1,13 @@
 package com.qulix.zakrevskynp.trainingtask.web.util;
 
-import com.qulix.zakrevskynp.trainingtask.web.model.Project;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.qulix.zakrevskynp.trainingtask.web.model.Project;
+
 /**
  * Validate project form data
+ * @author Q-NZA
  */
 public class ProjectDataValidator {
     public List<String> validate(Project project) {

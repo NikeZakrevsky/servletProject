@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 /**
  * Custom exception for DAO layer
+ * @author Q-NZA
  */
 public class DAOException extends SQLException {
 

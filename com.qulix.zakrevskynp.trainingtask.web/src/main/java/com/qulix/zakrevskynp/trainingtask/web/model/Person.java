@@ -2,6 +2,7 @@ package com.qulix.zakrevskynp.trainingtask.web.model;
 
 /**
  * Person entity model
+ * @author Q-NZA
  */
 public class Person {
     private Integer id;

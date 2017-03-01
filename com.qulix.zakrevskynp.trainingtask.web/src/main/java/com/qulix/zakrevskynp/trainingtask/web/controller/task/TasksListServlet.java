@@ -1,23 +1,25 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.task;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAO;
-import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.model.Task;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAO;
+import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Task;
+
 /**
  * Show view with list if tasks
+ * @author Q-NZA
  */
 @WebServlet("/tasksList")
 public class TasksListServlet extends HttpServlet {

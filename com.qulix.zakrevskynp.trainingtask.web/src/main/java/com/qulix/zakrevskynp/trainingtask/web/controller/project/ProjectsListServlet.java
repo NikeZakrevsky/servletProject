@@ -1,23 +1,25 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
-import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.model.Project;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
+import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Project;
+
 /**
  * Show view with list of projects
+ * @author Q-NZA
  */
 @WebServlet("/projectsList")
 public class ProjectsListServlet extends HttpServlet {

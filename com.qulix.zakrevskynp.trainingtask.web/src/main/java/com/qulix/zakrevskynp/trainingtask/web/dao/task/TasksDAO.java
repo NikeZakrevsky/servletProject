@@ -1,13 +1,14 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao.task;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.model.Task;
-
 import java.sql.SQLException;
 import java.util.List;
 
+import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.model.Task;
+
 /**
  * CRUD operations for tasks
+ * @author Q-NZA
  */
 public interface TasksDAO {
 
@@ -48,4 +49,6 @@ public interface TasksDAO {
      * @throws SQLException
      */
     void updateTask(Task task)  throws DAOException;
+
+    List<Task> getTasksByProjectId(int id) throws DAOException;
 }

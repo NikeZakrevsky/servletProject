@@ -1,18 +1,19 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao.project;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.ConnectionFactory;
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.model.Project;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.qulix.zakrevskynp.trainingtask.web.dao.ConnectionFactory;
+import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.model.Project;
+
 
 /**
  * Implementation of {@link ProjectDAO} interface
+ * @author Q-NZA
  */
 public class ProjectDAOImpl implements ProjectDAO {
 

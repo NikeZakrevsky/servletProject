@@ -1,27 +1,29 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
-import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAO;
-import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.model.Project;
-import com.qulix.zakrevskynp.trainingtask.web.model.Task;
-import com.qulix.zakrevskynp.trainingtask.web.util.ProjectDataValidator;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
+import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAO;
+import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Project;
+import com.qulix.zakrevskynp.trainingtask.web.model.Task;
+import com.qulix.zakrevskynp.trainingtask.web.util.ProjectDataValidator;
+
 /**
  * Show view with form for editing new project and handling it data
+ * @author Q-NZA
  */
 @WebServlet("/editProject")
 public class EditProjectServlet extends HttpServlet {
@@ -61,9 +63,8 @@ public class EditProjectServlet extends HttpServlet {
         Project project = null;
         List<Task> tasks = new ArrayList<>();
         try {
-            System.out.println("lol" + request.getParameter("id"));
             project = dao.getProjectById(Integer.parseInt(request.getParameter("id")));
-            tasks = tasksDAO.getTasksList();
+            tasks = tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
         } catch (DAOException e) {
             errors.clear();
             logger.log(Level.SEVERE, e.getCause().toString());

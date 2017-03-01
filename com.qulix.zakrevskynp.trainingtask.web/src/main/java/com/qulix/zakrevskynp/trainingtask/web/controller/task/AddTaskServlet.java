@@ -1,8 +1,22 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.task;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TaskUtil;
@@ -13,21 +27,9 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 import com.qulix.zakrevskynp.trainingtask.web.util.TaskDataValidator;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  * Show view with form for adding new task and handling it data
+ * @author Q-NZA
  */
 @WebServlet("/addTask")
 public class AddTaskServlet extends HttpServlet {
@@ -63,9 +65,7 @@ public class AddTaskServlet extends HttpServlet {
         else {
             task.setPersonId(null);
         }
-        errors = validator.validate(request.getParameter("name"), request.getParameter("time"),
-                request.getParameter("start_date"), request.getParameter("end_date"), request.getParameter("status"),
-                request.getParameter("projectId"), request.getParameter("personId"), false);
+        errors = validator.validate(task);
 
         if (errors.size() == 0) {
             try {

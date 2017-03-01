@@ -1,25 +1,26 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
-import com.qulix.zakrevskynp.trainingtask.web.controller.person.AddPersonServlet;
-import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
-import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.model.Project;
-import com.qulix.zakrevskynp.trainingtask.web.util.ProjectDataValidator;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import com.qulix.zakrevskynp.trainingtask.web.controller.person.AddPersonServlet;
+import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
+import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Project;
+import com.qulix.zakrevskynp.trainingtask.web.util.ProjectDataValidator;
 
 /**
  * Show view with form for adding new project and handling it data
+ * @author Q-NZA
  */
 @WebServlet("/addProject")
 public class AddProjectServlet extends HttpServlet {

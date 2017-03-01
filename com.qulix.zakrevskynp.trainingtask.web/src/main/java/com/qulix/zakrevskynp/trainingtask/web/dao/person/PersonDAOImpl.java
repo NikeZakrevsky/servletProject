@@ -1,17 +1,21 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao.person;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.ConnectionFactory;
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.model.Person;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.qulix.zakrevskynp.trainingtask.web.dao.ConnectionFactory;
+import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.model.Person;
+
 /**
  * Implementation of {@link PersonDAO} interface
+ * @author Q-NZA
  */
 public class PersonDAOImpl implements PersonDAO {
     

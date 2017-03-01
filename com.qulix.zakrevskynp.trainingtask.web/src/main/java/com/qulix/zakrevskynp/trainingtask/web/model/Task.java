@@ -4,6 +4,7 @@ import java.sql.Date;
 
 /**
  * Task entity model
+ * @author Q-NZA
  */
 public class Task {
     private Integer id;
@@ -86,10 +87,6 @@ public class Task {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public void setTime(Integer time) {
-        this.time = time;
     }
 
     public Integer getProjectId() {

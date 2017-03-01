@@ -1,75 +1,56 @@
 package com.qulix.zakrevskynp.trainingtask.web.util;
 
-import com.qulix.zakrevskynp.trainingtask.web.model.Person;
-import com.qulix.zakrevskynp.trainingtask.web.model.Project;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
  * Validate task form data
+ * @author Q-NZA
  */
 public class TaskDataValidator {
+    private final String dateFormat = "yyyy-MM-dd";
+    private final String regex = "\\d+";
 
-    private String regex = "\\d+";
+    public List<String> validate(Task task) {
+        List<String> errors = new ArrayList<>();
 
-    public List<String> validate(String name, String time, String start_date, String end_date, String status, String projectId, String personId, boolean isFromProjectForm) {
-        List<String> errors = new ArrayList<String>();
-
-        if (isDateValid(start_date, "yyyy-MM-dd")) {
+        if (isDateValid(task.getStartDate().toString())) {
             errors.add("Неверная дата начала");
         }
-        if (isDateValid(end_date, "yyyy-MM-dd")) {
+        if (isDateValid(task.getEndDate().toString())) {
             errors.add("Неверная дата окончания");
         }
 
-        if (start_date.compareTo(end_date) == 1) {
+        if (task.getStartDate().compareTo(task.getEndDate()) == 1) {
             errors.add("Дата окончания должна быть раньше даты начала");
         }
 
-        if (name == null || name.equals("")) {
+        if (task.getName() == null || task.getName().equals("")) {
             errors.add("Название не должно быть пустым");
         }
-        if (name != null && name.length() > 20) {
+        if (task.getName() != null && task.getName().length() > 20) {
             errors.add("Название слишком длинное");
         }
 
-        if (status == null || status.equals("")) {
+        if (task.getStatus() == null || task.getStatus().equals("")) {
             errors.add("Статус не должен быть пустым");
         }
-        if (status != null && status.length() > 20) {
+        if (task.getStatus() != null && task.getStatus().length() > 20) {
             errors.add("Статус слишком длинный");
         }
 
-        if (!time.matches(regex)) {
+        if (!Integer.toString(task.getTime()).matches(regex)) {
             errors.add("Неверное время работы");
         }
 
         return errors;
     }
 
-    private boolean isPersonInDB(List<Person> personList, int personId) {
-        for (Person person : personList) {
-            if (person.getId() == personId) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isProjectInDB(List<Project> projectList, int projectId) {
-        for (Project project : projectList) {
-            if (project.getId() == projectId) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isDateValid(String dateToValidate, String dateFormat) {
+    private boolean isDateValid(String dateToValidate) {
         if (dateToValidate == null) {
             return false;
         }
@@ -77,7 +58,7 @@ public class TaskDataValidator {
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         sdf.setLenient(false);
         try {
-            Date date = sdf.parse(dateToValidate);
+            sdf.parse(dateToValidate);
         } catch (ParseException e) {
             return true;
         }

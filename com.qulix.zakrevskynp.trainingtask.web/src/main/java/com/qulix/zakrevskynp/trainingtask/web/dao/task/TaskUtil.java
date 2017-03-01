@@ -1,8 +1,5 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao.task;
 
-import com.qulix.zakrevskynp.trainingtask.web.model.Project;
-import com.qulix.zakrevskynp.trainingtask.web.model.Task;
-
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,8 +7,11 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import com.qulix.zakrevskynp.trainingtask.web.model.Task;
+
 /**
  * Utilites for tasks dao layer
+ * @author Q-NZA
  */
 public class TaskUtil {
     private static final String ID = "id";
@@ -71,12 +71,7 @@ public class TaskUtil {
      */
     public Date toDate(String sourceDate) throws ParseException {
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyy-MM-dd");
-        java.util.Date date = null;
-        try {
-            date = sdf1.parse(sourceDate);
-        } catch (ParseException e) {
-            throw e;
-        }
+        java.util.Date date = sdf1.parse(sourceDate);
         return new java.sql.Date(date.getTime());
     }
 }

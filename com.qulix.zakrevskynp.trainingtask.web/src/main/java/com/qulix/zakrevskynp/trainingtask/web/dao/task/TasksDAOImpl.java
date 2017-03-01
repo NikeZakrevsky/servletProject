@@ -1,17 +1,18 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao.task;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.ConnectionFactory;
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.model.Task;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.qulix.zakrevskynp.trainingtask.web.dao.ConnectionFactory;
+import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.model.Task;
+
 /**
  * Implementation of {@link TasksDAO} interface
+ * @author Q-NZA
  */
 public class TasksDAOImpl implements TasksDAO {
     
@@ -128,5 +129,25 @@ public class TasksDAOImpl implements TasksDAO {
             throw new DAOException(e);
         }
     }
+
+    public List<Task> getTasksByProjectId(int id) throws DAOException {
+        List<Task> tasks = new ArrayList<>();
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where project_id = ?")
+        ) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Task task = taskUtil.resultSetAsObject(resultSet);
+                tasks.add(task);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, e.getMessage());
+            throw new DAOException(e);
+        }
+        return tasks;
+    }
+
 
 }

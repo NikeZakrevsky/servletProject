@@ -1,14 +1,13 @@
 package com.qulix.zakrevskynp.trainingtask.web.util;
 
-import com.qulix.zakrevskynp.trainingtask.web.model.Person;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
  * Validate person form data
+ * @author Q-NZA
  */
 public class PersonDataValidator {
 

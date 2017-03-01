@@ -1,13 +1,14 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao.project;
 
-import com.qulix.zakrevskynp.trainingtask.web.model.Project;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.qulix.zakrevskynp.trainingtask.web.model.Project;
+
 /**
  * Utilities for project'd dao layer
+ * @author Q-NZA
  */
 public class ProjectUtil {
     private static final String ID = "id";

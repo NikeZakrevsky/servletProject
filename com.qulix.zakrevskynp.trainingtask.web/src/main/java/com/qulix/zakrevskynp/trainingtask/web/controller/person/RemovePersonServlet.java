@@ -1,22 +1,24 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.person;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
-import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
+import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
+
 /**
  * Handling remove person action
+ * @author Q-NZA
  */
 @WebServlet("/removePerson")
 public class RemovePersonServlet extends HttpServlet {
