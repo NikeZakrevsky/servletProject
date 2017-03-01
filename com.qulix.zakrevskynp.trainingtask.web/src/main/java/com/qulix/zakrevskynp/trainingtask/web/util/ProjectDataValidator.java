@@ -1,5 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web.util;
 
+import com.qulix.zakrevskynp.trainingtask.web.model.Project;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,27 +9,27 @@ import java.util.List;
  * Validate project form data
  */
 public class ProjectDataValidator {
-    public List<String> validate(String name, String shortName, String description) {
+    public List<String> validate(Project project) {
         List<String> errors = new ArrayList<>();
 
-        if (name.equals("")) {
+        if (project.getName().equals("")) {
             errors.add("Название не должно быть пустым");
         }
-        if (name.length() > 20) {
+        if (project.getName().length() > 20) {
             errors.add("Название слишком длинное");
         }
 
-        if (shortName.equals("")) {
+        if (project.getShortName().equals("")) {
             errors.add("Сокращённое название не должно быть пустым");
         }
-        if (shortName.length() > 20) {
+        if (project.getShortName().length() > 20) {
             errors.add("Сокращённое название слишком длинное");
         }
 
-        if (description.equals("")) {
+        if (project.getShortName().equals("")) {
             errors.add("Описание не должно быть пустым");
         }
-        if (description.length() > 20) {
+        if (project.getShortName().length() > 20) {
             errors.add("Описание слишком длинное");
         }
 

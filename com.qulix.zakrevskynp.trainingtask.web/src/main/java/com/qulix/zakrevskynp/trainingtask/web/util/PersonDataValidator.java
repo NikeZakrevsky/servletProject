@@ -1,7 +1,11 @@
 package com.qulix.zakrevskynp.trainingtask.web.util;
 
+import com.qulix.zakrevskynp.trainingtask.web.model.Person;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Validate person form data
@@ -10,39 +14,36 @@ public class PersonDataValidator {
 
     /**
      * Validate person information
-     * @param fname first name
-     * @param sname middle name
-     * @param lname last name
-     * @param position position of person
+     * @param person Person object for validation
      * @return list of errors
      */
-    public List<String> validate(String fname, String sname, String lname, String position) {
+    public List<String> validate(Person person) {
         List<String> errors = new ArrayList<>();
 
-        if (fname.equals("")) {
+        if (person.getFname().equals("")) {
             errors.add("Имя не должно быть пустым");
         }
-        if (fname.length() > 20) {
+        if (person.getFname().length() > 20) {
             errors.add("Имя слишком длинное");
         }
 
-        if (sname.equals("")) {
+        if (person.getSname().equals("")) {
             errors.add("Фамилия не должна быть пустой");
         }
-        if (sname.length() > 20) {
+        if (person.getSname().length() > 20) {
             errors.add("Фамилия слишком длинная");
         }
 
-        if (lname.equals("")) {
+        if (person.getLname().equals("")) {
             errors.add("Отчество не должно быть пустым");
         }
-        if (lname.length() > 20) {
+        if (person.getLname().length() > 20) {
             errors.add("Отчество слишком длинное"); }
 
-        if (position.equals("")) {
+        if (person.getPosition().equals("")) {
             errors.add("Должность не должна быть пустой");
         }
-        if (position.length() > 20) {
+        if (person.getPosition().length() > 20) {
             errors.add("Должность слишком длинная");
         }
 

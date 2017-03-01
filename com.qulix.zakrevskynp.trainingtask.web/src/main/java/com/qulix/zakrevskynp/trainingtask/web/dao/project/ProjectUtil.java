@@ -23,21 +23,20 @@ public class ProjectUtil {
      * @throws SQLException
      */
     public Project resultSetAsObject(ResultSet resultSet) throws SQLException {
-        return new Project(resultSet.getInt(ID), resultSet.getString(NAME), resultSet.getString(SHORTNAME), resultSet.getString(DESCRIPTION));
+        return new Project(resultSet.getInt(ID), resultSet.getString(NAME),
+                resultSet.getString(SHORTNAME), resultSet.getString(DESCRIPTION));
     }
 
     /**
      * Set parameters to prepared statement
      * @param preparedStatement link of the prepared statement for setting parameters
-     * @param name project's name
-     * @param shortName project's short name
-     * @param description project's description
+     * @param project Project object
      * @throws SQLException
      */
-    public void setPreparedStatement(PreparedStatement preparedStatement, String name, String shortName, String description)  throws SQLException {
-        preparedStatement.setString(1, name);
-        preparedStatement.setString(2, shortName);
-        preparedStatement.setString(3, description);
+    public void setPreparedStatement(PreparedStatement preparedStatement, Project project)  throws SQLException {
+        preparedStatement.setString(1, project.getName());
+        preparedStatement.setString(2, project.getShortName());
+        preparedStatement.setString(3, project.getDescription());
     }
 
 }

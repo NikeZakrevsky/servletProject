@@ -31,10 +31,10 @@ public class ProjectDAOImpl implements ProjectDAO {
      * @throws DAOException
      */
     public List<Project> getProjectsList() throws DAOException {
-        List<Project> projects = new ArrayList<Project>();
+        List<Project> projects = new ArrayList<>();
         try (
                 Connection connection = ConnectionFactory.getConnection();
-                Statement statement = connection.createStatement();
+                Statement statement = connection.createStatement()
         ) {
             ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
             while (resultSet.next()) {
@@ -49,17 +49,15 @@ public class ProjectDAOImpl implements ProjectDAO {
 
     /**
      *
-     * @param name project's name
-     * @param shortName project's short name
-     * @param description project's description
+     * @param project {@link Project} object
      * @throws DAOException
      */
-    public void addProject(String name, String shortName, String description) throws DAOException {
+    public void addProject(Project project) throws DAOException {
         try (
             Connection connection = ConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY);
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)
         ) {
-            projectUtil.setPreparedStatement(preparedStatement, name, shortName, description);
+            projectUtil.setPreparedStatement(preparedStatement, project);
             preparedStatement.execute();
             connection.commit();
         } catch (SQLException e) {
@@ -77,7 +75,7 @@ public class ProjectDAOImpl implements ProjectDAO {
     public void removeProject(int id) throws DAOException {
         try (
             Connection connection = ConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY);
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)
         ) {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
@@ -92,22 +90,19 @@ public class ProjectDAOImpl implements ProjectDAO {
     /**
      * Update information about project in database
      *
-     * @param id project's id
-     * @param name project's name
-     * @param shortName project's short name
-     * @param description project's description
+     * @param project {@link Project} object
      * @throws DAOException
      */
-    public void updateProject(int id, String name, String shortName, String description) throws DAOException {
+    public void updateProject(Project project) throws DAOException {
         try (
             Connection connection = ConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY);
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
         ) {
-            projectUtil.setPreparedStatement(preparedStatement, name, shortName, description);
-            preparedStatement.setInt(4,id);
+            projectUtil.setPreparedStatement(preparedStatement, project);
+            preparedStatement.setInt(4, project.getId());
             preparedStatement.execute();
             connection.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException(e);
         }
@@ -123,9 +118,9 @@ public class ProjectDAOImpl implements ProjectDAO {
     public Project getProjectById(int id) throws DAOException {
         try (
             Connection connection = ConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY);
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY)
         ) {
-            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             return projectUtil.resultSetAsObject(resultSet);

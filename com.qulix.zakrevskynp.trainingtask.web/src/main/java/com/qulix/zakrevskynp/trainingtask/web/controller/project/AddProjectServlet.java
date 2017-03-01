@@ -4,6 +4,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.person.AddPersonServlet
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.util.ProjectDataValidator;
 
 import javax.servlet.ServletException;
@@ -24,22 +25,27 @@ import java.util.logging.Logger;
 public class AddProjectServlet extends HttpServlet {
 
     private ProjectDAO projectDAO = new ProjectDAOImpl();
-    private List<String> errors = new ArrayList<>();
     private Logger logger = Logger.getLogger(AddPersonServlet.class.getName());
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        List<String> errors;
         ProjectDataValidator validator = new ProjectDataValidator();
-        errors = validator.validate(request.getParameter("name"), request.getParameter("shortName"), request.getParameter("description"));
-        if(errors.size() == 0) {
+
+        Project project = new Project();
+        project.setName(request.getParameter("name"));
+        project.setShortName(request.getParameter("shortName"));
+        project.setDescription(request.getParameter("description"));
+
+        errors = validator.validate(project);
+        if (errors.size() == 0) {
             try {
-                projectDAO.addProject(request.getParameter("name"), request.getParameter("shortName"), request.getParameter("description"));
+                projectDAO.addProject(project);
             } catch (DAOException e) {
                 logger.log(Level.SEVERE, e.getCause().toString());
                 errors.clear();
                 errors.add(e.getCause().getMessage());
-                request.setAttribute("error",errors);
-                request.getRequestDispatcher("projectList.jsp").forward(request,response);
+                request.setAttribute("error", errors);
+                request.getRequestDispatcher("projectList.jsp").forward(request, response);
             }
             response.sendRedirect("projectsList");
         }
@@ -50,7 +56,7 @@ public class AddProjectServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("action","addProject");
+        request.setAttribute("action", "addProject");
         request.getRequestDispatcher("projectView.jsp").forward(request, response);
     }
 }

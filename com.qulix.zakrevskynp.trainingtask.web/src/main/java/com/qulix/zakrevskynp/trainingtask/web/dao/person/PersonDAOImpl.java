@@ -30,7 +30,7 @@ public class PersonDAOImpl implements PersonDAO {
      * @return list of all persons from database
      * @throws DAOException
      */
-    public List<Person> getPersonsList() throws DAOException{
+    public List<Person> getPersonsList() throws DAOException {
         List<Person> persons = new ArrayList<>();
         try (
                 Connection connection = ConnectionFactory.getConnection();
@@ -50,18 +50,15 @@ public class PersonDAOImpl implements PersonDAO {
 
     /**
      * Inserts new person in database
-     * @param fname person's name
-     * @param sname person's middle name
-     * @param lname person's last name
-     * @param position person's position
+     * @@param person Person object inserted in database
      * @throws DAOException
      */
-    public void addPerson(String fname, String sname, String lname, String position) throws DAOException {
+    public void addPerson(Person person) throws DAOException {
         try (
                 Connection connection =  ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = ConnectionFactory.getConnection().prepareStatement(INSERT_QUERY)
         ) {
-            personUtil.setPreparedStatement(preparedStatement, fname, sname, lname, position);
+            personUtil.setPreparedStatement(preparedStatement, person);
 
             preparedStatement.execute();
             connection.commit();
@@ -103,12 +100,13 @@ public class PersonDAOImpl implements PersonDAO {
     public Person getPersonById(int id) throws DAOException {
         try (
                 Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY);
+                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY)
         ) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            return new Person(resultSet.getInt("id"), resultSet.getString("fname"), resultSet.getString("sname"), resultSet.getString("lname"), resultSet.getString("position"));
+            return new Person(resultSet.getInt("id"), resultSet.getString("fname"), resultSet.getString("sname"),
+                    resultSet.getString("lname"), resultSet.getString("position"));
         }
         catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
@@ -119,20 +117,16 @@ public class PersonDAOImpl implements PersonDAO {
     /**
      * Update information about exist person
      *
-     * @param id person's id
-     * @param fname person's name
-     * @param sname person's middle name
-     * @param lname person's last name
-     * @param position person's position
+     * @param person Person object
      * @throws DAOException
      */
-    public void updatePerson(int id, String fname, String sname, String lname, String position) throws DAOException {
+    public void updatePerson(Person person) throws DAOException {
         try (
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
         ) {
-            personUtil.setPreparedStatement(preparedStatement, fname, sname, lname, position);
-            preparedStatement.setInt(5, id);
+            personUtil.setPreparedStatement(preparedStatement, person);
+            preparedStatement.setInt(5, person.getId());
             preparedStatement.execute();
             connection.commit();
         }

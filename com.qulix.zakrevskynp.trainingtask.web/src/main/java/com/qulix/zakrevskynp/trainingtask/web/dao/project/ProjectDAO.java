@@ -21,12 +21,10 @@ public interface ProjectDAO {
     /**
      * Insert project to database
      *
-     * @param name project's name
-     * @param shortName project's short name
-     * @param description project's description
+     * @param project {@link Project} object
      * @throws DAOException
      */
-    void addProject(String name, String shortName, String description) throws DAOException;
+    void addProject(Project project) throws DAOException;
 
     /**
      * Remove project from database by id
@@ -39,13 +37,10 @@ public interface ProjectDAO {
     /**
      * Update information about project in database
      *
-     * @param id project's id
-     * @param name project's name
-     * @param shortName project's short name
-     * @param description project's description
+     * @param project {@link Project} object
      * @throws DAOException
      */
-    void updateProject(int id, String name, String shortName, String description) throws DAOException;
+    void updateProject(Project project) throws DAOException;
 
     /**
      * Get project id

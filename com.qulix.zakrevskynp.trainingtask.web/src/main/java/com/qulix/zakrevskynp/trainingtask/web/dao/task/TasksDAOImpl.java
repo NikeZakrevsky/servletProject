@@ -36,7 +36,6 @@ public class TasksDAOImpl implements TasksDAO {
                 Statement statement = connection.createStatement()
         ) {
             ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
-            System.out.println(resultSet.getFetchSize());
             while (resultSet.next()) {
                 Task task = taskUtil.resultSetAsObject(resultSet);
                 tasks.add(task);
@@ -56,7 +55,7 @@ public class TasksDAOImpl implements TasksDAO {
     public void removeTask(int id) {
         try (
             Connection connection = ConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY);
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)
         ) {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
@@ -69,22 +68,15 @@ public class TasksDAOImpl implements TasksDAO {
     /**
      * Insert task in database
      *
-     * @param name task's name
-     * @param time task's time for job
-     * @param startDate task's start date
-     * @param endDate task's end date
-     * @param status task's status
-     * @param projectId id of project
-     * @param personId id of person
+     * @param task {@link Task} object
      * @throws DAOException
      */
-    public void addTask(String name, int time, String startDate, String endDate, String status, String projectId, String personId) throws DAOException {
+    public void addTask(Task task) throws DAOException {
         try (
             Connection connection = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)
         ) {
-            taskUtil.setPreparedStatement(preparedStatement, name, time, taskUtil.toDate(startDate), taskUtil.toDate(endDate), status, projectId, personId);
-            System.out.println(preparedStatement);
+            taskUtil.setPreparedStatement(preparedStatement, task);
             preparedStatement.execute();
             connection.commit();
         } catch (SQLException e) {
@@ -100,7 +92,7 @@ public class TasksDAOImpl implements TasksDAO {
      * @return Task object
      */
     public Task getTaskById(int id) throws DAOException {
-        Task task = null;
+        Task task;
         try (
             Connection connection = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where id = ?")
@@ -119,23 +111,16 @@ public class TasksDAOImpl implements TasksDAO {
 
     /**
      *
-     * @param id task's id
-     * @param name task's name
-     * @param time task's time for job
-     * @param startDate task's start date
-     * @param endDate task's end date
-     * @param status task's status
-     * @param projectId id of project
-     * @param personId id of person
+     * @param task {@link Task} object
      * @throws SQLException
      */
-    public void updateTask(int id, String name, int time, String startDate, String endDate, String status, String projectId, String personId) throws DAOException {
+    public void updateTask(Task task) throws DAOException {
         try (
             Connection connection = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
         ) {
-            taskUtil.setPreparedStatement(preparedStatement, name, time, taskUtil.toDate(startDate),  taskUtil.toDate(endDate), status, projectId, personId);
-            preparedStatement.setInt(8, id);
+            taskUtil.setPreparedStatement(preparedStatement, task);
+            preparedStatement.setInt(8, task.getId());
             preparedStatement.execute();
             connection.commit();
         } catch (SQLException e) {

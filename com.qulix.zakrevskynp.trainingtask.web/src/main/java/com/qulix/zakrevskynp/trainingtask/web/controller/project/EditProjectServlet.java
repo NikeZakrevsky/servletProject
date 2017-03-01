@@ -32,16 +32,21 @@ public class EditProjectServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProjectDAO dao = new ProjectDAOImpl();
         ProjectDataValidator validator = new ProjectDataValidator();
-        errors = validator.validate(request.getParameter("name"), request.getParameter("shortName"), request.getParameter("description"));
-        if(errors.size() == 0) {
+        Project project = new Project();
+        project.setId(Integer.parseInt(request.getParameter("id")));
+        project.setName(request.getParameter("name"));
+        project.setShortName(request.getParameter("shortName"));
+        project.setDescription(request.getParameter("description"));
+        errors = validator.validate(project);
+        if (errors.size() == 0) {
             try {
-                dao.updateProject(Integer.parseInt(request.getParameter("id")), request.getParameter("name"), request.getParameter("shortName"), request.getParameter("description"));
+                dao.updateProject(project);
             } catch (DAOException e) {
                 logger.log(Level.SEVERE, e.getCause().toString());
                 errors.clear();
                 errors.add(e.getCause().getMessage());
-                request.setAttribute("error",errors);
-                request.getRequestDispatcher("projectList.jsp").forward(request,response);
+                request.setAttribute("error", errors);
+                request.getRequestDispatcher("projectList.jsp").forward(request, response);
             }
             response.sendRedirect("projectsList");
         }
@@ -56,6 +61,7 @@ public class EditProjectServlet extends HttpServlet {
         Project project = null;
         List<Task> tasks = new ArrayList<>();
         try {
+            System.out.println("lol" + request.getParameter("id"));
             project = dao.getProjectById(Integer.parseInt(request.getParameter("id")));
             tasks = tasksDAO.getTasksList();
         } catch (DAOException e) {
@@ -63,12 +69,12 @@ public class EditProjectServlet extends HttpServlet {
             logger.log(Level.SEVERE, e.getCause().toString());
             errors.add(e.getCause().getMessage());
             request.setAttribute("error", errors);
-            request.getRequestDispatcher("projectList.jsp").forward(request,response);
+            request.getRequestDispatcher("projectList.jsp").forward(request, response);
         }
         request.setAttribute("tasks", tasks);
-        request.setAttribute("project",project);
+        request.setAttribute("project", project);
         request.setAttribute("errors", errors);
-        request.setAttribute("action","editProject");
-        request.getRequestDispatcher("projectView.jsp").forward(request,response);
+        request.setAttribute("action", "editProject");
+        request.getRequestDispatcher("projectView.jsp").forward(request, response);
     }
 }

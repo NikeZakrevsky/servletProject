@@ -24,22 +24,20 @@ public class PersonUtil {
      * @throws SQLException
      */
     public Person resultSetAsObject(ResultSet resultSet) throws SQLException {
-        return new Person(resultSet.getInt(ID), resultSet.getString(FNAME), resultSet.getString(SNAME), resultSet.getString(LNAME), resultSet.getString(POSITION));
+        return new Person(resultSet.getInt(ID), resultSet.getString(FNAME), resultSet.getString(SNAME),
+                resultSet.getString(LNAME), resultSet.getString(POSITION));
     }
 
     /**
      * Set parameters to prepared statement
      * @param preparedStatement link of the prepared statement for setting parameters
-     * @param fname person's first name
-     * @param sname person's middle name
-     * @param lname person's last name
-     * @param position person's position
+     * @param person Person object
      * @throws SQLException
      */
-    public void setPreparedStatement(PreparedStatement preparedStatement, String fname, String sname, String lname, String position) throws SQLException {
-        preparedStatement.setString(1, fname);
-        preparedStatement.setString(2, sname);
-        preparedStatement.setString(3, lname);
-        preparedStatement.setString(4, position);
+    public void setPreparedStatement(PreparedStatement preparedStatement, Person person) throws SQLException {
+        preparedStatement.setString(1, person.getFname());
+        preparedStatement.setString(2, person.getSname());
+        preparedStatement.setString(3, person.getLname());
+        preparedStatement.setString(4, person.getPosition());
     }
 }

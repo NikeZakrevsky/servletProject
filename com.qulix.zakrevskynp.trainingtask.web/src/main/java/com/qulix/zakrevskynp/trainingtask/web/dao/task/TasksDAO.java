@@ -29,16 +29,10 @@ public interface TasksDAO {
     /**
      * Insert task in database
      *
-     * @param name task's name
-     * @param time task's time for job
-     * @param startDate task's start date
-     * @param endDate task's end date
-     * @param status task's status
-     * @param projectId id of project
-     * @param personId id of person
+     * @param task {@link Task} object
      * @throws DAOException
      */
-    void addTask(String name, int time, String startDate, String endDate, String status, String projectId, String personId) throws DAOException;
+    void addTask(Task task) throws DAOException;
 
     /**
      * Get task by id
@@ -50,15 +44,8 @@ public interface TasksDAO {
 
     /**
      *
-     * @param id task's id
-     * @param name task's name
-     * @param time task's time for job
-     * @param startDate task's start date
-     * @param endDate task's end date
-     * @param status task's status
-     * @param projectId id of project
-     * @param personId id of person
+     * @param task {@link Task} object
      * @throws SQLException
      */
-    void updateTask(int id, String name, int time, String startDate, String endDate, String status, String projectId, String personId)  throws DAOException;
+    void updateTask(Task task)  throws DAOException;
 }

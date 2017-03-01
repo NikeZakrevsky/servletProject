@@ -34,11 +34,11 @@ public class ProjectsListServlet extends HttpServlet {
             logger.log(Level.SEVERE, e.getCause().toString());
             errors.clear();
             errors.add(e.getCause().getMessage());
-            request.setAttribute("error",errors);
-            request.getRequestDispatcher("projectsList.jsp").forward(request,response);
+            request.setAttribute("error", errors);
+            request.getRequestDispatcher("projectsList.jsp").forward(request, response);
         }
         request.setAttribute("projects", projectsList);
-        request.getRequestDispatcher("projectsList.jsp").forward(request,response);
+        request.getRequestDispatcher("projectsList.jsp").forward(request, response);
     }
 
     @Override

@@ -10,6 +10,9 @@ public class Person {
     private String lname;
     private String position;
 
+    public Person() {
+    }
+
     public Person(Integer id, String fname, String sname, String lname, String position) {
         this.id = id;
         this.fname = fname;

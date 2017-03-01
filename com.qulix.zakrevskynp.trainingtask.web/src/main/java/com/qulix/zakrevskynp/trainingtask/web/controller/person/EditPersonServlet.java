@@ -29,17 +29,25 @@ public class EditPersonServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PersonDAO personDAO = new PersonDAOImpl();
         PersonDataValidator validator = new PersonDataValidator();
-        errors = validator.validate(request.getParameter("fname"), request.getParameter("sname"), request.getParameter("lname"), request.getParameter("position"));
+
+        Person person = new Person();
+        person.setId(Integer.parseInt(request.getParameter("id")));
+        person.setFname(request.getParameter("fname"));
+        person.setSname(request.getParameter("sname"));
+        person.setLname(request.getParameter("lname"));
+        person.setPosition(request.getParameter("position"));
+
+        errors = validator.validate(person);
         if (errors.size() == 0) {
             try {
-                personDAO.updatePerson(Integer.parseInt(request.getParameter("id")), request.getParameter("fname"), request.getParameter("sname"), request.getParameter("lname"), request.getParameter("position"));
+                personDAO.updatePerson(person);
                 response.sendRedirect("personsList");
             } catch (DAOException e) {
                 logger.log(Level.SEVERE, e.getMessage());
                 errors.clear();
                 errors.add(e.getCause().getMessage());
                 request.setAttribute("errors", errors);
-                request.getRequestDispatcher("personView.jsp").forward(request,response);
+                request.getRequestDispatcher("personView.jsp").forward(request, response);
             }
         }
         else {
@@ -48,7 +56,7 @@ public class EditPersonServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(!request.getParameter("id").equals("")) {
+        if (!request.getParameter("id").equals("")) {
             PersonDAO personDAO = new PersonDAOImpl();
             Person person = null;
             try {

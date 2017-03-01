@@ -29,12 +29,12 @@ public class RemoveProjectServlet extends HttpServlet {
         try {
             dao.removeProject(Integer.parseInt(request.getParameter("id")));
         }
-        catch(DAOException e) {
+        catch (DAOException e) {
             logger.log(Level.SEVERE, e.getCause().toString());
             errors.clear();
             errors.add(e.getCause().getMessage());
-            request.setAttribute("error",errors);
-            request.getRequestDispatcher("projectList.jsp").forward(request,response);
+            request.setAttribute("error", errors);
+            request.getRequestDispatcher("projectList.jsp").forward(request, response);
             logger.log(Level.SEVERE, e.getCause().toString());
         }
 

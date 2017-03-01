@@ -5,6 +5,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.task.TaskUtil;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,11 +36,39 @@ public class EditTaskServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         TaskDataValidator validator = new TaskDataValidator();
-        errors = validator.validate(request.getParameter("name"), request.getParameter("time"), request.getParameter("start_date"), request.getParameter("end_date"), request.getParameter("status"), "", request.getParameter("personId"), true);
-        if(errors.size() == 0) {
+        TaskUtil taskUtil = new TaskUtil();
+        Task task = new Task();
+        task.setId(Integer.parseInt(request.getParameter("id")));
+        task.setName(request.getParameter("name"));
+        task.setTime(Integer.parseInt(request.getParameter("time")));
+        try {
+            task.setStartDate(taskUtil.toDate(request.getParameter("start_date")));
+            task.setEndDate(taskUtil.toDate(request.getParameter("end_date")));
+        } catch (ParseException e) {
+            logger.log(Level.SEVERE, e.getMessage());
+        }
+        task.setStatus(request.getParameter("status"));
+
+        if (request.getParameter("projectId") != null) {
+            task.setProjectId(Integer.parseInt(request.getParameter("projectId")));
+        }
+        else {
+            task.setProjectId(null);
+        }
+
+        if (request.getParameter("personId") != null) {
+            task.setPersonId(Integer.parseInt(request.getParameter("personId")));
+        }
+        else {
+            task.setPersonId(null);
+        }
+        errors = validator.validate(request.getParameter("name"), request.getParameter("time"),
+                request.getParameter("start_date"), request.getParameter("end_date"), request.getParameter("status"), "",
+                request.getParameter("personId"), true);
+        if (errors.size() == 0) {
             TasksDAO tasksDAO = new TasksDAOImpl();
             try {
-                tasksDAO.updateTask(Integer.parseInt(request.getParameter("id")), request.getParameter("name"), Integer.parseInt(request.getParameter("time")), request.getParameter("start_date"), request.getParameter("end_date"), request.getParameter("status"), request.getParameter("projectId"), request.getParameter("personId"));
+                tasksDAO.updateTask(task);
             } catch (SQLException e) {
                 logger.log(Level.SEVERE, e.getCause().toString());
             }
@@ -49,24 +79,21 @@ public class EditTaskServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Project project = new Project();
         try {
             TasksDAO taskDAO = new TasksDAOImpl();
-            Task task = taskDAO.getTaskById(Integer.parseInt(request.getParameter("id")));
             PersonDAO personDAO = new PersonDAOImpl();
             ProjectDAO projectDAO = new ProjectDAOImpl();
-            List<Project> projectsList = null;
-            projectsList = projectDAO.getProjectsList();
-            project = projectDAO.getProjectById(task.getProjectId());
+
+            Task task = taskDAO.getTaskById(Integer.parseInt(request.getParameter("id")));
             request.setAttribute("task", task);
-            request.setAttribute("projectsList", projectsList);
+            request.setAttribute("projectsList", projectDAO.getProjectsList());
             request.setAttribute("personsList", personDAO.getPersonsList());
+            request.setAttribute("projectShortName", task.getProjectShortName());
+            request.setAttribute("errors", errors);
+            request.setAttribute("action", "editTask");
+            request.getRequestDispatcher("taskView.jsp").forward(request, response);
         } catch (DAOException e) {
             logger.log(Level.SEVERE, e.getCause().toString());
         }
-        request.setAttribute("projectShortName", project.getShortName());
-        request.setAttribute("errors", errors);
-        request.setAttribute("action", "editTask");
-        request.getRequestDispatcher("taskView.jsp").forward(request,response);
     }
 }

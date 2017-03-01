@@ -84,20 +84,27 @@ public class Task {
         this.projectShortName = projectShortName;
     }
 
-    public int getProjectId() {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setTime(Integer time) {
+        this.time = time;
+    }
+
+    public Integer getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(int projectId) {
+    public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 
-    public int getPersonId() {
+    public Integer getPersonId() {
         return personId;
     }
 
-    public void setPersonId(int personId) {
+    public void setPersonId(Integer personId) {
         this.personId = personId;
     }
-
 }

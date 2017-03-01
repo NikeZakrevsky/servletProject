@@ -20,13 +20,10 @@ public interface PersonDAO {
 
     /**
      * Inserts new person in database
-     * @param fname person's name
-     * @param sname person's middle name
-     * @param lname person's last name
-     * @param position person's position
+     * @param person Person object inserted in database
      * @throws DAOException
      */
-    void addPerson(String fname, String sname, String lname, String position) throws DAOException;
+    void addPerson(Person person) throws DAOException;
 
     /**
      * Remove person from database by id
@@ -47,12 +44,8 @@ public interface PersonDAO {
     /**
      * Update information about exist person
      *
-     * @param id person's id
-     * @param fname person's name
-     * @param sname person's middle name
-     * @param lname person's last name
-     * @param position person's position
+     * @param person Person object
      * @throws DAOException
      */
-    void updatePerson(int id, String fname, String sname, String lname, String position) throws DAOException;
+    void updatePerson(Person person) throws DAOException;
 }

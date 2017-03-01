@@ -36,13 +36,13 @@ public class TasksListServlet extends HttpServlet {
             logger.log(Level.SEVERE, e.getCause().toString());
             errors.clear();
             errors.add(e.getCause().getMessage());
-            request.setAttribute("error",errors);
-            request.getRequestDispatcher("tasksList.jsp").forward(request,response);
+            request.setAttribute("error", errors);
+            request.getRequestDispatcher("tasksList.jsp").forward(request, response);
         }
         String sortField = request.getParameter("sortField");
         request.setAttribute("sortF", sortField);
         request.setAttribute("tasks", tasksList);
-        request.getRequestDispatcher("tasksList.jsp").forward(request,response);
+        request.getRequestDispatcher("tasksList.jsp").forward(request, response);
     }
 
     @Override

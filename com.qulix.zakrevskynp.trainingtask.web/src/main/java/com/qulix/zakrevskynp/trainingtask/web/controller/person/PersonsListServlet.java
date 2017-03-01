@@ -35,12 +35,12 @@ public class PersonsListServlet extends HttpServlet {
             logger.log(Level.SEVERE, e.getCause().toString());
             errors.clear();
             errors.add(e.getCause().getMessage());
-            request.setAttribute("error",errors);
-            request.getRequestDispatcher("personsList.jsp").forward(request,response);
+            request.setAttribute("error", errors);
+            request.getRequestDispatcher("personsList.jsp").forward(request, response);
         }
         request.setAttribute("error", request.getSession().getAttribute("error"));
         request.setAttribute("persons", personsList);
-        request.getRequestDispatcher("personsList.jsp").forward(request,response);
+        request.getRequestDispatcher("personsList.jsp").forward(request, response);
     }
 
     @Override
