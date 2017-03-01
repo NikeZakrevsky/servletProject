@@ -34,6 +34,7 @@ public class EditTaskServlet extends HttpServlet {
 
     private List<String> errors = new ArrayList<>();
     private Logger logger = Logger.getLogger(EditTaskServlet.class.getName());
+    private String returningPath = "tasksList";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         TaskDataValidator validator = new TaskDataValidator();
@@ -75,13 +76,17 @@ public class EditTaskServlet extends HttpServlet {
                 request.setAttribute("error", errors);
                 request.getRequestDispatcher("tasksList.jsp").forward(request, response);
             }
-            response.sendRedirect("tasksList");
+            response.sendRedirect(returningPath);
         } else {
             response.sendRedirect("editTask?id=" + request.getParameter("id"));
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String referrer = request.getHeader("referer");
+        String[] splited = referrer.split("/");
+        returningPath = splited[splited.length - 1];
         try {
             TasksDAO taskDAO = new TasksDAOImpl();
             PersonDAO personDAO = new PersonDAOImpl();
