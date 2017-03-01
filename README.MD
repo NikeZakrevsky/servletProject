@@ -1,6 +1,6 @@
 # Project Name
 Task manager
-## Build project
+## Building project
 1. Start tomcat server `gradlew startServer`
 2. Start database server `gradlew startDatabaseServer`
 3. Create database (if not already created) `gradlew createDatabase`
