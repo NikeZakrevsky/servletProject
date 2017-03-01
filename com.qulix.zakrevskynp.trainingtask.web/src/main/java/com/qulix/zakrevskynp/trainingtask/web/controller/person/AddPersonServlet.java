@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
-import com.qulix.zakrevskynp.trainingtask.web.util.PersonDataValidator;
+import com.qulix.zakrevskynp.trainingtask.web.validator.PersonDataValidator;
 
 /**
  * Show view with form for adding new person and handling it data
@@ -45,7 +45,7 @@ public class AddPersonServlet extends HttpServlet {
             } catch (DAOException e) {
                 logger.log(Level.SEVERE, e.getMessage());
                 errors.clear();
-                errors.add(e.getCause().getMessage());
+                errors.add(e.getMessage());
                 request.setAttribute("error", errors);
                 request.getRequestDispatcher("personsList.jsp").forward(request, response);
             }

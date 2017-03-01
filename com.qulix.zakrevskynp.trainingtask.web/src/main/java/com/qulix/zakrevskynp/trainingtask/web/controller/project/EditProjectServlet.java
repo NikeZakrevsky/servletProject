@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
-import com.qulix.zakrevskynp.trainingtask.web.util.ProjectDataValidator;
+import com.qulix.zakrevskynp.trainingtask.web.validator.ProjectDataValidator;
 
 /**
  * Show view with form for editing new project and handling it data
@@ -46,7 +46,7 @@ public class EditProjectServlet extends HttpServlet {
             } catch (DAOException e) {
                 logger.log(Level.SEVERE, e.getCause().toString());
                 errors.clear();
-                errors.add(e.getCause().getMessage());
+                errors.add(e.getMessage());
                 request.setAttribute("error", errors);
                 request.getRequestDispatcher("projectList.jsp").forward(request, response);
             }
@@ -68,7 +68,7 @@ public class EditProjectServlet extends HttpServlet {
         } catch (DAOException e) {
             errors.clear();
             logger.log(Level.SEVERE, e.getCause().toString());
-            errors.add(e.getCause().getMessage());
+            errors.add(e.getMessage());
             request.setAttribute("error", errors);
             request.getRequestDispatcher("projectList.jsp").forward(request, response);
         }

@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.person.AddPersonServlet;
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
-import com.qulix.zakrevskynp.trainingtask.web.util.ProjectDataValidator;
+import com.qulix.zakrevskynp.trainingtask.web.validator.ProjectDataValidator;
 
 /**
  * Show view with form for adding new project and handling it data
@@ -44,11 +44,10 @@ public class AddProjectServlet extends HttpServlet {
             } catch (DAOException e) {
                 logger.log(Level.SEVERE, e.getCause().toString());
                 errors.clear();
-                errors.add(e.getCause().getMessage());
+                errors.add(e.getMessage());
                 request.setAttribute("error", errors);
-                request.getRequestDispatcher("projectList.jsp").forward(request, response);
+                request.getRequestDispatcher("projectsList.jsp").forward(request, response);
             }
-            response.sendRedirect("projectsList");
         }
         else {
             request.setAttribute("errors", errors);

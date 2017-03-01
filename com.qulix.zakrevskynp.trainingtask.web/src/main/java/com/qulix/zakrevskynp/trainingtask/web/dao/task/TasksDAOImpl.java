@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.ConnectionFactory;
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
@@ -43,7 +43,7 @@ public class TasksDAOImpl implements TasksDAO {
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
-            throw new DAOException(e);
+            throw new DAOException("Error while getting tasks list", e);
         }
         return tasks;
     }
@@ -63,7 +63,7 @@ public class TasksDAOImpl implements TasksDAO {
             connection.commit();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
-            throw new DAOException(e);
+            throw new DAOException("Error while removing task", e);
         }
     }
 
@@ -83,7 +83,7 @@ public class TasksDAOImpl implements TasksDAO {
             connection.commit();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
-            throw new DAOException(e);
+            throw new DAOException("Error while adding task", e);
         }
     }
 
@@ -106,7 +106,7 @@ public class TasksDAOImpl implements TasksDAO {
             connection.commit();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
-            throw new DAOException(e);
+            throw new DAOException("Error while getting task", e);
         }
         return task;
     }
@@ -127,7 +127,7 @@ public class TasksDAOImpl implements TasksDAO {
             connection.commit();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
-            throw new DAOException(e);
+            throw new DAOException("Error while updating task", e);
         }
     }
 
@@ -151,7 +151,7 @@ public class TasksDAOImpl implements TasksDAO {
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
-            throw new DAOException(e);
+            throw new DAOException("Error while getting tasks", e);
         }
         return tasks;
     }

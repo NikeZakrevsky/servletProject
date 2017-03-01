@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
-import com.qulix.zakrevskynp.trainingtask.web.util.PersonDataValidator;
+import com.qulix.zakrevskynp.trainingtask.web.validator.PersonDataValidator;
 
 /**
  * Show view with form for editing new person and handling it data
@@ -47,7 +47,7 @@ public class EditPersonServlet extends HttpServlet {
             } catch (DAOException e) {
                 logger.log(Level.SEVERE, e.getMessage());
                 errors.clear();
-                errors.add(e.getCause().getMessage());
+                errors.add(e.getMessage());
                 request.setAttribute("errors", errors);
                 request.getRequestDispatcher("personView.jsp").forward(request, response);
             }
@@ -66,7 +66,7 @@ public class EditPersonServlet extends HttpServlet {
             } catch (DAOException e) {
                 logger.log(Level.SEVERE, e.getCause().toString());
                 errors.clear();
-                errors.add(e.getCause().getMessage());
+                errors.add(e.getMessage());
                 request.getRequestDispatcher("personsList.jsp").forward(request, response);
             }
             request.setAttribute("person", person);

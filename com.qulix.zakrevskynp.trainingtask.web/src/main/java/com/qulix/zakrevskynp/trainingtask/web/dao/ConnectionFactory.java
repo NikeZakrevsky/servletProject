@@ -9,7 +9,6 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 
 /**
@@ -40,7 +39,12 @@ public class ConnectionFactory {
      * @return Connection object
      * @throws DAOException
      */
-    public static Connection getConnection() throws SQLException {
-        return  DriverManager.getConnection(url, dbProperties.getProperty("user"), dbProperties.getProperty("password"));
+    public static Connection getConnection() throws DAOException {
+        try {
+            return DriverManager.getConnection(url, dbProperties.getProperty("user"), dbProperties.getProperty("password"));
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, e.getCause().getMessage());
+            throw new DAOException("Connection refused", e);
+        }
     }
 }

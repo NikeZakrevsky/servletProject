@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.project.RemoveProjectServlet;
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 
@@ -34,7 +34,7 @@ public class RemoveTaskServlet extends HttpServlet {
         } catch (DAOException e) {
             logger.log(Level.SEVERE, e.getCause().toString());
             errors.clear();
-            errors.add(e.getCause().getMessage());
+            errors.add(e.getMessage());
             request.setAttribute("error", errors);
             request.getRequestDispatcher("tasksList.jsp").forward(request, response);
         }

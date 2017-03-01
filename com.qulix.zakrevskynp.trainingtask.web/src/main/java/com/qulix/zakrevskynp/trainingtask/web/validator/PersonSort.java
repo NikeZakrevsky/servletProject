@@ -1,4 +1,4 @@
-package com.qulix.zakrevskynp.trainingtask.web.util;
+package com.qulix.zakrevskynp.trainingtask.web.validator;
 
 import java.util.HashMap;
 import java.util.List;

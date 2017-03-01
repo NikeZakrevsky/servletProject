@@ -3,7 +3,7 @@ package com.qulix.zakrevskynp.trainingtask.web.dao.task;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**

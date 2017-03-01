@@ -2,7 +2,7 @@ package com.qulix.zakrevskynp.trainingtask.web.dao.person;
 
 import java.util.List;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**

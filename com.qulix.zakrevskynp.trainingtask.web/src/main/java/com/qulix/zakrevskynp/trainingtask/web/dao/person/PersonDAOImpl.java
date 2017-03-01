@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.ConnectionFactory;
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
@@ -48,7 +48,7 @@ public class PersonDAOImpl implements PersonDAO {
         }
         catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
-            throw new DAOException(e);
+            throw new DAOException("Error while getting persons list", e);
         }
     }
 
@@ -69,7 +69,7 @@ public class PersonDAOImpl implements PersonDAO {
         }
         catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
-            throw new DAOException(e);
+            throw new DAOException("Error while adding person", e);
         }
 
     }
@@ -90,7 +90,7 @@ public class PersonDAOImpl implements PersonDAO {
         }
         catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
-            throw new DAOException(e);
+            throw new DAOException("Error while deleting person", e);
         }
     }
 
@@ -114,7 +114,7 @@ public class PersonDAOImpl implements PersonDAO {
         }
         catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
-            throw new DAOException(e);
+            throw new DAOException("Error while getting person", e);
         }
     }
 
@@ -136,7 +136,7 @@ public class PersonDAOImpl implements PersonDAO {
         }
         catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
-            throw new DAOException(e);
+            throw new DAOException("Error while updating person", e);
         }
     }
-}
+}                         

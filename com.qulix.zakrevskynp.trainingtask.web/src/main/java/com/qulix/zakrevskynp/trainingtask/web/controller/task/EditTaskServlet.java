@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.exception.DAOException;
+import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
@@ -23,7 +23,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.task.TaskUtil;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
-import com.qulix.zakrevskynp.trainingtask.web.util.TaskDataValidator;
+import com.qulix.zakrevskynp.trainingtask.web.validator.TaskDataValidator;
 
 /**
  * Show view with form for editing new person and handling it data
@@ -71,7 +71,7 @@ public class EditTaskServlet extends HttpServlet {
             } catch (SQLException e) {
                 logger.log(Level.SEVERE, e.getCause().toString());
                 errors.clear();
-                errors.add(e.getCause().getMessage());
+                errors.add(e.getMessage());
                 request.setAttribute("error", errors);
                 request.getRequestDispatcher("tasksList.jsp").forward(request, response);
             }
@@ -98,7 +98,7 @@ public class EditTaskServlet extends HttpServlet {
         } catch (DAOException e) {
             logger.log(Level.SEVERE, e.getCause().toString());
             errors.clear();
-            errors.add(e.getCause().getMessage());
+            errors.add(e.getMessage());
             request.setAttribute("error", errors);
             request.getRequestDispatcher("tasksList.jsp").forward(request, response);
         }
