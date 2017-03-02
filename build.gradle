@@ -3,6 +3,8 @@ group 'com.qulix.zakrevskynp.trainingtask.web'
 apply plugin: 'java'
 apply plugin: 'war'
 
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 }
