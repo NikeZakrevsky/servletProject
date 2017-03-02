@@ -48,6 +48,7 @@ public class AddProjectServlet extends HttpServlet {
                 request.setAttribute("error", errors);
                 request.getRequestDispatcher("projectsList.jsp").forward(request, response);
             }
+            response.sendRedirect("projectsList");
         }
         else {
             request.setAttribute("errors", errors);
