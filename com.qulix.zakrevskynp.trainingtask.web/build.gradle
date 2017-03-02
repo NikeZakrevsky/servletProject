@@ -11,6 +11,14 @@ repositories {
     jcenter()
 }
 
+dependencies {
+    compile group: 'org.hsqldb', name: 'hsqldb', version: '2.3.4'
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
+    compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+    compile group: 'com.bmuschko', name: 'gradle-tomcat-plugin', version: '2.2.4'
+
+}
+
 configurations {
     driver
     options
@@ -23,13 +31,7 @@ dependencies {
     driver group: 'org.hsqldb', name: 'hsqldb', version: '2.3.4'
 }
 
-dependencies {
-    compile group: 'org.hsqldb', name: 'hsqldb', version: '2.3.4'
-    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
-    compile group: 'javax.servlet', name: 'jstl', version: '1.2'
-    compile group: 'com.bmuschko', name: 'gradle-tomcat-plugin', version: '2.2.4'
 
-}
 
 dependencies {
     def tomcatVersion = '8.0.39'
@@ -63,8 +65,10 @@ tasks.withType(War) {
 }
 task startServer(dependsOn: 'tomcatRun'){}
 
-task startDatabaseServer(type: Exec) {
-    commandLine 'java', '-cp', 'lib/hsqldb-2.3.4.jar','org.hsqldb.Server','-database.0','file:build/database/training','-dbname.0','testdb'
+task startDatabaseServer(type: JavaExec) {
+	classpath configurations.driver
+    main = 'org.hsqldb.server.Server'
+    args = ['-database.0', 'file:build/database/training', '-dbname.0', 'testdb']
 }
 
 URLClassLoader loader = GroovyObject.class.classLoader as URLClassLoader
@@ -75,7 +79,7 @@ task createDatabase << {
     def driver = 'org.hsqldb.jdbcDriver'
     def url = 'jdbc:hsqldb:hsql://localhost:9001/testdb'
     def sql = Sql.newInstance(url, props, driver)
-    String sqlFilePath = 'src/main/webapp/WEB-INF/create.sql'
+    String sqlFilePath = 'com.qulix.zakrevskynp.trainingtask.web/src/main/webapp/WEB-INF/create.sql'
     String sqlString = new File(sqlFilePath).text
     sql.execute(sqlString)
     sql.close()
@@ -86,7 +90,7 @@ task dropDatabase << {
     def driver = 'org.hsqldb.jdbcDriver'
     def url = 'jdbc:hsqldb:hsql://localhost:9001/testdb'
     def sql = Sql.newInstance(url, props, driver)
-    String sqlFilePath = 'src/main/webapp/WEB-INF/drop.sql'
+    String sqlFilePath = 'com.qulix.zakrevskynp.trainingtask.web/src/main/webapp/WEB-INF/drop.sql'
     String sqlString = new File(sqlFilePath).text
     sql.execute(sqlString)
     sql.close()
