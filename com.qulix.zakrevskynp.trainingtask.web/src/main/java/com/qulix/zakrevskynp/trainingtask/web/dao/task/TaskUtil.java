@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
@@ -20,8 +21,8 @@ public class TaskUtil {
     private static final String STARTDATE = "start_date";
     private static final String ENDDATE = "end_date";
     private static final String STATUS = "status";
-    private static final String PROJECTID = "project_id";
-    private static final String PERSONID = "person_id";
+    private static final String PROJECTID = "projectId";
+    private static final String PERSONID = "personId";
     private static final String SHORTNAME = "shortname";
     private static final String PERSON = "person";
 
@@ -50,17 +51,17 @@ public class TaskUtil {
     /**
      *
      * @param preparedStatement link of the prepared statement for setting parameters
-     * @param task {@link Task} object
+     * @param parameters {@link Task} object
      * @throws SQLException
      */
-    public void setPreparedStatement(PreparedStatement preparedStatement, Task task) throws SQLException {
-        preparedStatement.setString(1, task.getName());
-        preparedStatement.setInt(2, task.getTime());
-        preparedStatement.setDate(3, task.getStartDate());
-        preparedStatement.setDate(4, task.getEndDate());
-        preparedStatement.setString(5, task.getStatus());
-        preparedStatement.setObject(6, task.getProjectId());
-        preparedStatement.setObject(7, task.getPersonId());
+    public void setPreparedStatement(PreparedStatement preparedStatement, Map<String, Object> parameters) throws SQLException {
+        preparedStatement.setString(1, parameters.get(NAME).toString());
+        preparedStatement.setInt(2, Integer.parseInt(parameters.get(TIME).toString()));
+        preparedStatement.setDate(3, (java.sql.Date)parameters.get(STARTDATE));
+        preparedStatement.setDate(4, (java.sql.Date)parameters.get(ENDDATE));
+        preparedStatement.setString(5, (String)parameters.get(STATUS));
+        preparedStatement.setObject(6, parameters.get(PROJECTID));
+        preparedStatement.setObject(7, parameters.get(PERSONID));
     }
 
     /**
@@ -69,9 +70,9 @@ public class TaskUtil {
      * @param sourceDate string for converting
      * @return converted Date object
      */
-    public Date toDate(String sourceDate) throws ParseException {
+    public Date toDate(Object sourceDate) throws ParseException {
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyy-MM-dd");
-        java.util.Date date = sdf1.parse(sourceDate);
+        java.util.Date date = sdf1.parse(sourceDate.toString());
         return new java.sql.Date(date.getTime());
     }
 }

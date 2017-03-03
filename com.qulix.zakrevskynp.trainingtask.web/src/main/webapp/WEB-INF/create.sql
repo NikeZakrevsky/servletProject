@@ -20,12 +20,12 @@ create table tasks (
   start_date date,
   end_date date,
   status varchar(50),
-  project_id INTEGER,
-  person_id INTEGER,
-  constraint project_fk foreign key(project_id) references projects(id)
+  projectId INTEGER,
+  personId INTEGER,
+  constraint project_fk foreign key(projectId) references projects(id)
   on delete set null
   on update cascade,
-  constraint person_fk foreign key(person_id) references persons(id)
+  constraint person_fk foreign key(personId) references persons(id)
   on delete cascade
   on update cascade
 );

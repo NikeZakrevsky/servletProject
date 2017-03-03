@@ -3,6 +3,7 @@ package com.qulix.zakrevskynp.trainingtask.web.dao.person;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
@@ -32,13 +33,13 @@ public class PersonUtil {
     /**
      * Set parameters to prepared statement
      * @param preparedStatement link of the prepared statement for setting parameters
-     * @param person Person object
+     * @param parameters Person object
      * @throws SQLException
      */
-    public void setPreparedStatement(PreparedStatement preparedStatement, Person person) throws SQLException {
-        preparedStatement.setString(1, person.getFname());
-        preparedStatement.setString(2, person.getSname());
-        preparedStatement.setString(3, person.getLname());
-        preparedStatement.setString(4, person.getPosition());
+    public void setPreparedStatement(PreparedStatement preparedStatement, Map<String, Object> parameters) throws SQLException {
+        preparedStatement.setString(1, (String)parameters.get(FNAME));
+        preparedStatement.setString(2, (String)parameters.get(SNAME));
+        preparedStatement.setString(3, (String)parameters.get(LNAME));
+        preparedStatement.setString(4, (String)parameters.get(POSITION));
     }
 }

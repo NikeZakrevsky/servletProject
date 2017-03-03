@@ -1,9 +1,12 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.person;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 import com.qulix.zakrevskynp.trainingtask.web.validator.PersonDataValidator;
 
 /**
@@ -32,17 +34,14 @@ public class AddPersonServlet extends HttpServlet {
         PersonDataValidator validator = new PersonDataValidator();
         PersonDAO personDAO = new PersonDAOImpl();
 
-        Person person = new Person();
-        person.setFname(request.getParameter("fname"));
-        person.setSname(request.getParameter("sname"));
-        person.setLname(request.getParameter("lname"));
-        person.setPosition(request.getParameter("position"));
-        System.out.println(person.getFname());
-        List<String> errors = validator.validate(person);
+        List<String> parametersNames = Collections.list(request.getParameterNames());
+        Map<String, Object> parameters = parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
+
+        List<String> errors = validator.validate(parameters);
 
         if (errors.size() == 0) {
             try {
-                personDAO.addPerson(person);
+                personDAO.addPerson(parameters);
             } catch (DAOException e) {
                 logger.log(Level.SEVERE, e.getMessage());
                 errors.clear();

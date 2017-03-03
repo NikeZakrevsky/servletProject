@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -57,12 +58,12 @@ public class PersonDAOImpl implements PersonDAO {
      * @@param person Person object inserted in database
      * @throws DAOException
      */
-    public void addPerson(Person person) throws DAOException {
+    public void addPerson(Map<String, Object> parameters) throws DAOException {
         try (
                 Connection connection =  ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = ConnectionFactory.getConnection().prepareStatement(INSERT_QUERY)
         ) {
-            personUtil.setPreparedStatement(preparedStatement, person);
+            personUtil.setPreparedStatement(preparedStatement, parameters);
 
             preparedStatement.execute();
             connection.commit();
@@ -121,16 +122,16 @@ public class PersonDAOImpl implements PersonDAO {
     /**
      * Update information about exist person
      *
-     * @param person Person object
+     * @param parameters Person object
      * @throws DAOException
      */
-    public void updatePerson(Person person) throws DAOException {
+    public void updatePerson(Map<String, Object> parameters) throws DAOException {
         try (
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
         ) {
-            personUtil.setPreparedStatement(preparedStatement, person);
-            preparedStatement.setInt(5, person.getId());
+            personUtil.setPreparedStatement(preparedStatement, parameters);
+            preparedStatement.setInt(5, Integer.parseInt(parameters.get("id").toString()));
             preparedStatement.execute();
             connection.commit();
         }

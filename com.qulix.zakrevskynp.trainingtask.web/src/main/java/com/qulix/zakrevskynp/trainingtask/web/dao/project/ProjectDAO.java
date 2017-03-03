@@ -1,6 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao.project;
 
 import java.util.List;
+import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
@@ -22,10 +23,10 @@ public interface ProjectDAO {
     /**
      * Insert project to database
      *
-     * @param project {@link Project} object
+     * @param parameters {@link Project} object
      * @throws DAOException
      */
-    void addProject(Project project) throws DAOException;
+    void addProject(Map<String, Object> parameters) throws DAOException;
 
     /**
      * Remove project from database by id
@@ -38,10 +39,10 @@ public interface ProjectDAO {
     /**
      * Update information about project in database
      *
-     * @param project {@link Project} object
+     * @param parameters {@link Project} object
      * @throws DAOException
      */
-    void updateProject(Project project) throws DAOException;
+    void updateProject(Map<String, Object> parameters) throws DAOException;
 
     /**
      * Get project id

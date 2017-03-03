@@ -2,32 +2,31 @@ package com.qulix.zakrevskynp.trainingtask.web.validator;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.qulix.zakrevskynp.trainingtask.web.model.Project;
+import java.util.Map;
 
 /**
  * Validate project form data
  * @author Q-NZA
  */
 public class ProjectDataValidator {
-    public List<String> validate(Project project) {
+    public List<String> validate(Map<String, Object> parameters) {
         List<String> errors = new ArrayList<>();
 
-        if (project.getName().equals("")) {
+        if (parameters.get("name").toString().equals("")) {
             errors.add("Название не должно быть пустым");
         }
-        if (project.getName().length() > 20) {
+        if (parameters.get("name").toString().length() > 20) {
             errors.add("Название слишком длинное");
         }
 
-        if (project.getShortName().equals("")) {
+        if (parameters.get("shortName").toString().equals("")) {
             errors.add("Сокращённое название не должно быть пустым");
         }
-        if (project.getShortName().length() > 20) {
+        if (parameters.get("shortName").toString().length() > 20) {
             errors.add("Сокращённое название слишком длинное");
         }
 
-        if (project.getDescription().length() > 20) {
+        if (parameters.get("description").toString().length() > 20) {
             errors.add("Описание слишком длинное");
         }
 

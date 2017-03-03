@@ -2,9 +2,12 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.person;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,17 +36,13 @@ public class EditPersonServlet extends HttpServlet {
         PersonDAO personDAO = new PersonDAOImpl();
         PersonDataValidator validator = new PersonDataValidator();
 
-        Person person = new Person();
-        person.setId(Integer.parseInt(request.getParameter("id")));
-        person.setFname(request.getParameter("fname"));
-        person.setSname(request.getParameter("sname"));
-        person.setLname(request.getParameter("lname"));
-        person.setPosition(request.getParameter("position"));
+        List<String> parametersNames = Collections.list(request.getParameterNames());
+        Map<String, Object> parameters = parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
 
-        errors = validator.validate(person);
+        errors = validator.validate(parameters);
         if (errors.size() == 0) {
             try {
-                personDAO.updatePerson(person);
+                personDAO.updatePerson(parameters);
                 response.sendRedirect("personsList");
             } catch (DAOException e) {
                 logger.log(Level.SEVERE, e.getMessage());

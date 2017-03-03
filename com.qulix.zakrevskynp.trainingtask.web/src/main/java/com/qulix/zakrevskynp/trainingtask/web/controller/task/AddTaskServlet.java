@@ -1,11 +1,13 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.task;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,16 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.task.TaskUtil;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.model.Person;
-import com.qulix.zakrevskynp.trainingtask.web.model.Project;
-import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 import com.qulix.zakrevskynp.trainingtask.web.validator.TaskDataValidator;
 
 /**
@@ -34,42 +30,19 @@ import com.qulix.zakrevskynp.trainingtask.web.validator.TaskDataValidator;
 public class AddTaskServlet extends HttpServlet {
 
     private List<String> errors = new ArrayList<>();
-    private TasksDAO taskDAO = new TasksDAOImpl();
     private Logger logger = Logger.getLogger(AddTaskServlet.class.getName());
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        TaskDataValidator validator = new TaskDataValidator();
-        TaskUtil taskUtil = new TaskUtil();
-        Task task = new Task();
-        task.setName(request.getParameter("name"));
-        task.setTime(Integer.parseInt(request.getParameter("time")));
-        try {
-            task.setStartDate(taskUtil.toDate(request.getParameter("start_date")));
-            task.setEndDate(taskUtil.toDate(request.getParameter("end_date")));
-        } catch (ParseException e) {
-            logger.log(Level.SEVERE, e.getMessage());
-        }
-        task.setStatus(request.getParameter("status"));
+        TasksDAO taskDAO = new TasksDAOImpl();
+        List<String> parametersNames = Collections.list(request.getParameterNames());
+        Map<String, Object> parameters = parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
 
-        if (request.getParameter("projectId") != null && !request.getParameter("projectId").equals("")) {
-            task.setProjectId(Integer.parseInt(request.getParameter("projectId")));
-        }
-        else {
-            task.setProjectId(null);
-        }
-
-        if (request.getParameter("personId") != null && !request.getParameter("personId").equals("")) {
-            task.setPersonId(Integer.parseInt(request.getParameter("personId")));
-        }
-        else {
-            task.setPersonId(null);
-        }
-        errors = validator.validate(task);
+        errors = new TaskDataValidator().validate(parameters);
 
         if (errors.size() == 0) {
             try {
-                taskDAO.addTask(task);
+                taskDAO.addTask(parameters);
             } catch (DAOException e) {
                 logger.log(Level.SEVERE, e.getCause().toString());
                 errors.clear();
@@ -87,12 +60,8 @@ public class AddTaskServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            ProjectDAO projectDAO = new ProjectDAOImpl();
-            List<Project> projectsList = projectDAO.getProjectsList();
-            request.setAttribute("projectsList", projectsList);
-            PersonDAO personDAO = new PersonDAOImpl();
-            List<Person> personsList = personDAO.getPersonsList();
-            request.setAttribute("personsList", personsList);
+            request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
+            request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
             request.setAttribute("action", "addTask");
             request.getRequestDispatcher("taskView.jsp").forward(request, response);
         } catch (DAOException e) {

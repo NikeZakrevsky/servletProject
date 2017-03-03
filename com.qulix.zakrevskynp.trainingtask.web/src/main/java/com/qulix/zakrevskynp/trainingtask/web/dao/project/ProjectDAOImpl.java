@@ -3,6 +3,7 @@ package com.qulix.zakrevskynp.trainingtask.web.dao.project;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,15 +51,15 @@ public class ProjectDAOImpl implements ProjectDAO {
 
     /**
      *
-     * @param project {@link Project} object
+     * @param parameters {@link Project} object
      * @throws DAOException
      */
-    public void addProject(Project project) throws DAOException {
+    public void addProject(Map<String, Object> parameters) throws DAOException {
         try (
             Connection connection = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)
         ) {
-            projectUtil.setPreparedStatement(preparedStatement, project);
+            projectUtil.setPreparedStatement(preparedStatement, parameters);
             preparedStatement.execute();
             connection.commit();
         } catch (SQLException e) {
@@ -91,16 +92,16 @@ public class ProjectDAOImpl implements ProjectDAO {
     /**
      * Update information about project in database
      *
-     * @param project {@link Project} object
+     * @param parameters {@link Project} object
      * @throws DAOException
      */
-    public void updateProject(Project project) throws DAOException {
+    public void updateProject(Map<String, Object> parameters) throws DAOException {
         try (
             Connection connection = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
         ) {
-            projectUtil.setPreparedStatement(preparedStatement, project);
-            preparedStatement.setInt(4, project.getId());
+            projectUtil.setPreparedStatement(preparedStatement, parameters);
+            preparedStatement.setInt(4, Integer.parseInt(parameters.get("id").toString()));
             preparedStatement.execute();
             connection.commit();
         } catch (SQLException e) {

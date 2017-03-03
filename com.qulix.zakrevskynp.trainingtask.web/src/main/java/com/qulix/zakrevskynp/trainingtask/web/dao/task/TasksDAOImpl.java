@@ -3,6 +3,7 @@ package com.qulix.zakrevskynp.trainingtask.web.dao.task;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,10 +17,10 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 public class TasksDAOImpl implements TasksDAO {
     
-    private static final String SELECT_QUERY = "SELECT id, name, time, start_date, end_date, status, shortname, project_id, person_id, fname + ' ' + sname + ' ' + lname as person FROM tasks left join projects on tasks.project_id = projects.id left join persons on tasks.person_id = persons.id";
+    private static final String SELECT_QUERY = "SELECT id, name, time, start_date, end_date, status, shortname, projectId, personId, fname + ' ' + sname + ' ' + lname as person FROM tasks left join projects on tasks.projectId = projects.id left join persons on tasks.personId = persons.id";
     private static final String DELETE_QUERY = "delete from tasks where id=?";
-    private static final String INSERT_QUERY = "insert into tasks(name, time, start_date, end_date, status, project_id, person_id) values (?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_QUERY = "update tasks set name = ?, time = ?, start_date = ?, end_date = ?, status = ?, project_id = ?, person_id = ? where id = ?";
+    private static final String INSERT_QUERY = "insert into tasks(name, time, start_date, end_date, status, projectId, personId) values (?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_QUERY = "update tasks set name = ?, time = ?, start_date = ?, end_date = ?, status = ?, projectId = ?, personId = ? where id = ?";
     
     private TaskUtil taskUtil = new TaskUtil();
     private Logger logger = Logger.getLogger(TasksDAOImpl.class.getName());
@@ -70,15 +71,15 @@ public class TasksDAOImpl implements TasksDAO {
     /**
      * Insert task in database
      *
-     * @param task {@link Task} object
+     * @param parameters {@link Task} object
      * @throws DAOException
      */
-    public void addTask(Task task) throws DAOException {
+    public void addTask(Map<String, Object> parameters) throws DAOException {
         try (
             Connection connection = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)
         ) {
-            taskUtil.setPreparedStatement(preparedStatement, task);
+            taskUtil.setPreparedStatement(preparedStatement, parameters);
             preparedStatement.execute();
             connection.commit();
         } catch (SQLException e) {
@@ -113,16 +114,16 @@ public class TasksDAOImpl implements TasksDAO {
 
     /**
      *
-     * @param task {@link Task} object
-     * @throws SQLException
+     * @param parameters {@link Task} object
+     * @throws DAOException
      */
-    public void updateTask(Task task) throws DAOException {
+    public void updateTask(Map<String, Object> parameters) throws DAOException {
         try (
             Connection connection = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
         ) {
-            taskUtil.setPreparedStatement(preparedStatement, task);
-            preparedStatement.setInt(8, task.getId());
+            taskUtil.setPreparedStatement(preparedStatement, parameters);
+            preparedStatement.setInt(8, Integer.parseInt(parameters.get("id").toString()));
             preparedStatement.execute();
             connection.commit();
         } catch (SQLException e) {
@@ -141,7 +142,7 @@ public class TasksDAOImpl implements TasksDAO {
         List<Task> tasks = new ArrayList<>();
         try (
                 Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where project_id = ?")
+                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where projectId = ?")
         ) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();

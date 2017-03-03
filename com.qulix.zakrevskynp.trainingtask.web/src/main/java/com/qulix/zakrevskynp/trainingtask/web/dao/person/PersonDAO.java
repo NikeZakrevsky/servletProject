@@ -1,6 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao.person;
 
 import java.util.List;
+import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
@@ -21,10 +22,10 @@ public interface PersonDAO {
 
     /**
      * Inserts new person in database
-     * @param person Person object inserted in database
+     * @param parameters Person object inserted in database
      * @throws DAOException
      */
-    void addPerson(Person person) throws DAOException;
+    void addPerson(Map<String, Object> parameters) throws DAOException;
 
     /**
      * Remove person from database by id
@@ -45,8 +46,8 @@ public interface PersonDAO {
     /**
      * Update information about exist person
      *
-     * @param person Person object
+     * @param parameters Person object
      * @throws DAOException
      */
-    void updatePerson(Person person) throws DAOException;
+    void updatePerson(Map<String, Object> parameters) throws DAOException;
 }

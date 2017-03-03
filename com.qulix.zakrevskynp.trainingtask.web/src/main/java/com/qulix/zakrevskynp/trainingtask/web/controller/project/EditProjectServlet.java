@@ -2,9 +2,12 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,15 +38,14 @@ public class EditProjectServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         ProjectDAO dao = new ProjectDAOImpl();
         ProjectDataValidator validator = new ProjectDataValidator();
-        Project project = new Project();
-        project.setId(Integer.parseInt(request.getParameter("id")));
-        project.setName(request.getParameter("name"));
-        project.setShortName(request.getParameter("shortName"));
-        project.setDescription(request.getParameter("description"));
-        errors = validator.validate(project);
+
+        List<String> parametersNames = Collections.list(request.getParameterNames());
+        Map<String, Object> parameters = parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
+
+        errors = validator.validate(parameters);
         if (errors.size() == 0) {
             try {
-                dao.updateProject(project);
+                dao.updateProject(parameters);
             } catch (DAOException e) {
                 logger.log(Level.SEVERE, e.getCause().toString());
                 errors.clear();

@@ -2,6 +2,7 @@ package com.qulix.zakrevskynp.trainingtask.web.dao.task;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
@@ -30,10 +31,10 @@ public interface TasksDAO {
     /**
      * Insert task in database
      *
-     * @param task {@link Task} object
+     * @param parameters {@link Task} object
      * @throws DAOException
      */
-    void addTask(Task task) throws DAOException;
+    void addTask(Map<String, Object> parameters) throws DAOException;
 
     /**
      * Get task by id
@@ -45,10 +46,10 @@ public interface TasksDAO {
 
     /**
      *
-     * @param task {@link Task} object
+     * @param parameters {@link Task} object
      * @throws SQLException
      */
-    void updateTask(Task task)  throws DAOException;
+    void updateTask(Map<String, Object> parameters)  throws DAOException;
 
     /**
      *

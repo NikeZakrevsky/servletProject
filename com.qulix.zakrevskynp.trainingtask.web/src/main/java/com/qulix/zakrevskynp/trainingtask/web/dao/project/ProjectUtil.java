@@ -3,6 +3,7 @@ package com.qulix.zakrevskynp.trainingtask.web.dao.project;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 
@@ -13,7 +14,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 public class ProjectUtil {
     private static final String ID = "id";
     private static final String NAME = "name";
-    private static final String SHORTNAME = "shortname";
+    private static final String SHORTNAME = "shortName";
     private static final String DESCRIPTION = "description";
 
     /**
@@ -31,13 +32,13 @@ public class ProjectUtil {
     /**
      * Set parameters to prepared statement
      * @param preparedStatement link of the prepared statement for setting parameters
-     * @param project Project object
+     * @param parameters Project object
      * @throws SQLException
      */
-    public void setPreparedStatement(PreparedStatement preparedStatement, Project project)  throws SQLException {
-        preparedStatement.setString(1, project.getName());
-        preparedStatement.setString(2, project.getShortName());
-        preparedStatement.setString(3, project.getDescription());
+    public void setPreparedStatement(PreparedStatement preparedStatement, Map<String, Object> parameters)  throws SQLException {
+        preparedStatement.setString(1, (String)parameters.get(NAME));
+        preparedStatement.setString(2, (String)parameters.get(SHORTNAME));
+        preparedStatement.setString(3, (String)parameters.get(DESCRIPTION));
     }
 
 }
