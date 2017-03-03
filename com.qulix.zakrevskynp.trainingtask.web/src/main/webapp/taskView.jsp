@@ -76,10 +76,11 @@
                 <label class="col-md-2 control-lable">Исполнитель</label>
                 <div class="col-md-7">
                 <select name = "personId">
-                        <c:forEach items="${personsList}" var="person">
-                            <c:set var="var1" value="${person.fname} ${person.sname} ${person.lname}"/>
-                            <option value="${person.id}" ${var1.equals(task.performer) ? 'selected="selected"' : ''}>${person.fname} ${person.sname} ${person.lname}</option>
-                        </c:forEach>
+                    <option value> -- select an option -- </option>
+                    <c:forEach items="${personsList}" var="person">
+                        <c:set var="var1" value="${person.fname} ${person.sname} ${person.lname}"/>
+                        <option value="${person.id}" ${var1.equals(task.performer) ? 'selected="selected"' : ''}>${person.fname} ${person.sname} ${person.lname}</option>
+                    </c:forEach>
                 </select>
                 </div>
             </div>
@@ -102,6 +103,7 @@
             <label class="col-md-2 control-lable">Проект</label>
                 <div class="col-md-7">
                     <select name="projectId">
+                        <option value> -- select an option -- </option>
                         <c:forEach items="${projectsList}" var="project">
                             <option value="${project.id}" ${project.shortName.equals(projectShortName) ? 'selected="selected"' : ''}>${project.shortName}</option>
                         </c:forEach>

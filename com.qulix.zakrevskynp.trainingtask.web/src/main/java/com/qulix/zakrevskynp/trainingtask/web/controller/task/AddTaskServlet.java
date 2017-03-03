@@ -52,14 +52,14 @@ public class AddTaskServlet extends HttpServlet {
         }
         task.setStatus(request.getParameter("status"));
 
-        if (request.getParameter("projectId") != null) {
+        if (request.getParameter("projectId") != null && !request.getParameter("projectId").equals("")) {
             task.setProjectId(Integer.parseInt(request.getParameter("projectId")));
         }
         else {
             task.setProjectId(null);
         }
 
-        if (request.getParameter("personId") != null) {
+        if (request.getParameter("personId") != null && !request.getParameter("personId").equals("")) {
             task.setPersonId(Integer.parseInt(request.getParameter("personId")));
         }
         else {
