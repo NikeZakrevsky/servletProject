@@ -33,8 +33,9 @@
         </div>
         <div class="row">
             <div class="form-group col-md-12">
+                <label class="col-md-2 control-lable">Идентификатор</label>
                 <div class="col-md-7">
-                    <input type="hidden" name = "id" size = "70" maxlength="20" value = "${task.id}" readonly/>
+                    <input name = "id" size = "70" maxlength="20" value = "${task.id}" readonly/>
                 </div>
             </div>
         </div>

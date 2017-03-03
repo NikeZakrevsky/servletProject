@@ -103,6 +103,7 @@
                     </c:forEach>
                 </table>
             </div>
+            <a href="taskProject?projectId=${project.id}"><button type="button" class="btn btn-success custom-width">Добавить</button></a>
         </div>
 </div>
 </body>

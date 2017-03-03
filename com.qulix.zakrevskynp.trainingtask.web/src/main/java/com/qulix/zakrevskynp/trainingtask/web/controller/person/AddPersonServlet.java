@@ -53,6 +53,8 @@ public class AddPersonServlet extends HttpServlet {
         }
         else {
             request.setAttribute("errors", errors);
+            request.setAttribute("person", parameters);
+            request.setAttribute("action", "addPerson");
             request.getRequestDispatcher("personView.jsp").forward(request, response);
         }
     }

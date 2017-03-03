@@ -53,7 +53,10 @@ public class EditPersonServlet extends HttpServlet {
             }
         }
         else {
-            response.sendRedirect("editPerson?id=" + request.getParameter("id"));
+            request.setAttribute("person", parameters);
+            request.setAttribute("errors", errors);
+            request.setAttribute("action", "editPerson");
+            request.getRequestDispatcher("personView.jsp").forward(request, response);
         }
     }
 

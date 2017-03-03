@@ -39,22 +39,25 @@ public class AddTaskServlet extends HttpServlet {
         Map<String, Object> parameters = parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
 
         errors = new TaskDataValidator().validate(parameters);
-
-        if (errors.size() == 0) {
-            try {
+        try {
+            if (errors.size() == 0) {
                 taskDAO.addTask(parameters);
-            } catch (DAOException e) {
-                logger.log(Level.SEVERE, e.getCause().toString());
-                errors.clear();
-                errors.add(e.getMessage());
-                request.setAttribute("error", errors);
-                request.getRequestDispatcher("tasksList.jsp").forward(request, response);
+                response.sendRedirect("tasksList");
             }
-            response.sendRedirect("tasksList");
-        }
-        else {
-            request.setAttribute("errors", errors);
-            request.getRequestDispatcher("taskView.jsp").forward(request, response);
+            else {
+                request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
+                request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
+                request.setAttribute("action", "addTask");
+                request.setAttribute("errors", errors);
+                request.setAttribute("task", parameters);
+                request.getRequestDispatcher("taskView.jsp").forward(request, response);
+            }
+            } catch (DAOException e) {
+            logger.log(Level.SEVERE, e.getCause().toString());
+            errors.clear();
+            errors.add(e.getMessage());
+            request.setAttribute("error", errors);
+            request.getRequestDispatcher("tasksList.jsp").forward(request, response);
         }
     }
 

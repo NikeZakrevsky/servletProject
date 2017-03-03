@@ -27,6 +27,9 @@ public class RemoveTaskServlet extends HttpServlet {
     private Logger logger = Logger.getLogger(RemoveProjectServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String referrer = request.getHeader("referer");
+        String[] splited = referrer.split("/");
+        String returningPath = splited[splited.length - 1];
 
         TasksDAO tasksDAO = new TasksDAOImpl();
         try {
@@ -38,6 +41,6 @@ public class RemoveTaskServlet extends HttpServlet {
             request.setAttribute("error", errors);
             request.getRequestDispatcher("tasksList.jsp").forward(request, response);
         }
-        response.sendRedirect("tasksList");
+        response.sendRedirect(returningPath);
     }
 }
