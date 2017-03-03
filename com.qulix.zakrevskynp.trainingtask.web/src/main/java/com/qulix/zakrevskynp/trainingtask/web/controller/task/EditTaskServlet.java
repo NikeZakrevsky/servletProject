@@ -37,6 +37,7 @@ public class EditTaskServlet extends HttpServlet {
     private String returningPath = "tasksList";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         TaskDataValidator validator = new TaskDataValidator();
         TaskUtil taskUtil = new TaskUtil();
         Task task = new Task();

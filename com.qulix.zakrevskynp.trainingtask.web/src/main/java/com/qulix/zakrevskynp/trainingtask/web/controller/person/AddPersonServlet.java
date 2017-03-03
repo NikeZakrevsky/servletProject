@@ -28,6 +28,7 @@ public class AddPersonServlet extends HttpServlet {
     private Logger logger = Logger.getLogger(AddPersonServlet.class.getName());
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         PersonDataValidator validator = new PersonDataValidator();
         PersonDAO personDAO = new PersonDAOImpl();
 
@@ -36,7 +37,7 @@ public class AddPersonServlet extends HttpServlet {
         person.setSname(request.getParameter("sname"));
         person.setLname(request.getParameter("lname"));
         person.setPosition(request.getParameter("position"));
-
+        System.out.println(person.getFname());
         List<String> errors = validator.validate(person);
 
         if (errors.size() == 0) {

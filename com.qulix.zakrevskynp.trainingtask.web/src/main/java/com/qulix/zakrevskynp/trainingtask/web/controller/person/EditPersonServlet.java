@@ -29,6 +29,7 @@ public class EditPersonServlet extends HttpServlet {
     private Logger logger = Logger.getLogger(EditPersonServlet.class.getName());
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         PersonDAO personDAO = new PersonDAOImpl();
         PersonDataValidator validator = new PersonDataValidator();
 
