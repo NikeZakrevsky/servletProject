@@ -27,10 +27,7 @@ public class ProjectDataValidator {
             errors.add("Сокращённое название слишком длинное");
         }
 
-        if (project.getShortName().equals("")) {
-            errors.add("Описание не должно быть пустым");
-        }
-        if (project.getShortName().length() > 20) {
+        if (project.getDescription().length() > 20) {
             errors.add("Описание слишком длинное");
         }
 
