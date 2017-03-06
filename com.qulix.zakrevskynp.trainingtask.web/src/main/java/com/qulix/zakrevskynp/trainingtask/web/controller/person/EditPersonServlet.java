@@ -73,7 +73,6 @@ public class EditPersonServlet extends HttpServlet {
                 request.getRequestDispatcher("personsList.jsp").forward(request, response);
             }
             request.setAttribute("person", person);
-            request.setAttribute("errors", errors);
             request.setAttribute("action", "editPerson");
             request.getRequestDispatcher("personView.jsp").forward(request, response);
         } else {

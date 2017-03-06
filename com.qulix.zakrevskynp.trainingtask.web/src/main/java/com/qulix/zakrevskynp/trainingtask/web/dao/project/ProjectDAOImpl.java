@@ -51,7 +51,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 
     /**
      *
-     * @param parameters {@link Project} object
+     * @param parameters data from add project form
      * @throws DAOException
      */
     public void addProject(Map<String, Object> parameters) throws DAOException {
@@ -71,7 +71,7 @@ public class ProjectDAOImpl implements ProjectDAO {
     /**
      * Remove project from database by id
      *
-     * @param id
+     * @param id project id
      * @throws DAOException
      */
     public void removeProject(int id) throws DAOException {
@@ -92,7 +92,7 @@ public class ProjectDAOImpl implements ProjectDAO {
     /**
      * Update information about project in database
      *
-     * @param parameters {@link Project} object
+     * @param parameters data from update project form
      * @throws DAOException
      */
     public void updateProject(Map<String, Object> parameters) throws DAOException {

@@ -33,7 +33,6 @@ public class EditProjectServlet extends HttpServlet {
 
     private List<String> errors = new ArrayList<>();
     private Logger logger = Logger.getLogger(EditProjectServlet.class.getName());
-    Map<String, Object> parameters;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -41,7 +40,7 @@ public class EditProjectServlet extends HttpServlet {
         ProjectDataValidator validator = new ProjectDataValidator();
 
         List<String> parametersNames = Collections.list(request.getParameterNames());
-        parameters = parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
+        Map<String, Object> parameters = parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
 
         errors = validator.validate(parameters);
         try {

@@ -7,6 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Plugin tester</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
@@ -102,8 +103,8 @@
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Проект</label>
                 <div class="col-md-7">
-                    <select name="projectId">
-                        <option value> -- select an option -- </option>
+                    <select name="projectId" ${isDisable ? 'disabled="true"' : ''}>
+                        <option value selected="selected"> -- select an option -- </option>
                         <c:forEach items="${projectsList}" var="project">
                             <option value="${project.id}" ${(project.id == task.projectId) ? 'selected="selected"' : ''}>${project.shortName}</option>
                         </c:forEach>
@@ -111,8 +112,8 @@
                 </div>
             </div>
         </div>
-        <button type="submit">Сохранить</button></td>
-        <a href="tasksList"><button type="button">Отмена</button></a>
+        <button type="submit" class="btn btn-success custom-width">Сохранить</button>
+        <a href="tasksList"><button type="button" class="btn btn-danger custom-width">Отмена</button></a>
     </form>
 </div>
 </div>

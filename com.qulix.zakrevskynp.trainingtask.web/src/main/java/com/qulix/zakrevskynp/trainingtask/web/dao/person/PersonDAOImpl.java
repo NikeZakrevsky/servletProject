@@ -55,7 +55,7 @@ public class PersonDAOImpl implements PersonDAO {
 
     /**
      * Inserts new person in database
-     * @@param person Person object inserted in database
+     * @param parameters data from add person form
      * @throws DAOException
      */
     public void addPerson(Map<String, Object> parameters) throws DAOException {

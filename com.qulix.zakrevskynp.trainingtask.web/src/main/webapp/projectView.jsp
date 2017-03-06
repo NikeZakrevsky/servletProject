@@ -6,6 +6,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Plugin tester</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
 
@@ -65,8 +66,10 @@
                     </div>
                 </div>
             </div>
-            <input type = "submit"/>
+            <button type="submit" class="btn btn-success custom-width">Сохранить</button>
+            <a href="projectsList"><button type="button" class="btn btn-danger custom-width">Отмена</button></a>
 	    </form>
+
 </div>
 </div>
 </div>
@@ -103,8 +106,8 @@
                     </c:forEach>
                 </table>
             </div>
-            <a href="taskProject?projectId=${project.id}"><button type="button" class="btn btn-success custom-width">Добавить</button></a>
         </div>
+        ${action.equals("editProject") ? '<a href="taskProject?projectId=${project.id}"><button type="button" class="btn btn-success custom-width">Добавить</button></a>' : ''}
 </div>
 </body>
 </html>

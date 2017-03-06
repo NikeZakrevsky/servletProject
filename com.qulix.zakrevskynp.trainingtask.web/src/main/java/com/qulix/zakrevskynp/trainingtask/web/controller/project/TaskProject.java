@@ -1,10 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -17,9 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.task.EditTaskServlet;
 import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.validator.TaskDataValidator;
@@ -38,14 +33,15 @@ public class TaskProject extends HttpServlet {
         returningPath = splited[splited.length - 1];
 
         try {
-            PersonDAO personDAO = new PersonDAOImpl();
-            ProjectDAO projectDAO = new ProjectDAOImpl();
 
-            request.setAttribute("projectsList", projectDAO.getProjectsList());
-            request.setAttribute("personsList", personDAO.getPersonsList());
+            request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
+            request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
             if (!request.getParameter("projectId").equals("")) {
-                request.setAttribute("projectShortName", projectDAO.getProjectById(Integer.parseInt(request.getParameter("projectId"))).getShortName());
+                Map<String, Object> task = new HashMap<>();
+                task.put("projectId", Integer.parseInt(request.getParameter("projectId")));
+                request.setAttribute("task", task);
             }
+            request.setAttribute("isDisable", true);
             request.setAttribute("action", "taskProject");
             request.getRequestDispatcher("taskView.jsp").forward(request, response);
         } catch (DAOException e) {
@@ -64,22 +60,25 @@ public class TaskProject extends HttpServlet {
         Map<String, Object> parameters = parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
 
         errors = new TaskDataValidator().validate(parameters);
-
-        if (errors.size() == 0) {
-            try {
+        try {
+            if (errors.size() == 0) {
                 new TasksDAOImpl().addTask(parameters);
-            } catch (DAOException e) {
-                logger.log(Level.SEVERE, e.getCause().toString());
-                errors.clear();
-                errors.add(e.getMessage());
-                request.setAttribute("error", errors);
-                request.getRequestDispatcher("tasksList.jsp").forward(request, response);
+                response.sendRedirect(returningPath);
             }
-            response.sendRedirect(returningPath);
-        }
-        else {
-            request.setAttribute("errors", errors);
-            request.getRequestDispatcher("taskView.jsp").forward(request, response);
+            else {
+                request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
+                request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
+                request.setAttribute("action", "addTask");
+                request.setAttribute("errors", errors);
+                request.setAttribute("task", parameters);
+                request.getRequestDispatcher("taskView.jsp").forward(request, response);
+            }
+        } catch (DAOException e) {
+            logger.log(Level.SEVERE, e.getCause().toString());
+            errors.clear();
+            errors.add(e.getMessage());
+            request.setAttribute("error", errors);
+            request.getRequestDispatcher("tasksList.jsp").forward(request, response);
         }
     }
 }

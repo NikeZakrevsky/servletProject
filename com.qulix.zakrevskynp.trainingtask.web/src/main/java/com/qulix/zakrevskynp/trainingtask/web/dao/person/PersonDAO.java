@@ -22,7 +22,7 @@ public interface PersonDAO {
 
     /**
      * Inserts new person in database
-     * @param parameters Person object inserted in database
+     * @param parameters data from add person form
      * @throws DAOException
      */
     void addPerson(Map<String, Object> parameters) throws DAOException;
