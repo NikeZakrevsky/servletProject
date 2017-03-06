@@ -26,7 +26,7 @@ public interface ProjectDAO {
      * @param parameters {@link Project} object
      * @throws DAOException
      */
-    void addProject(Map<String, Object> parameters) throws DAOException;
+    int addProject(Map<String, Object> parameters) throws DAOException;
 
     /**
      * Remove project from database by id

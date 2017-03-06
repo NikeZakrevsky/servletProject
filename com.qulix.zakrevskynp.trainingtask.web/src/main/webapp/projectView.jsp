@@ -99,7 +99,15 @@
                             <td>${task.performer}</td>
                             <td>${task.status}</td>
                             <td>
-                                <a href="editTask?id=${task.id}"><button type="button" class="btn btn-success custom-width">Изменить</button></a>  <a href="removeTask?id=${task.id}"><button type="button" class="btn btn-danger custom-width">Удалить</button></a>
+                                <a href="editTask?id=${task.id}"><button type="button" class="btn btn-success custom-width">Изменить</button></a>
+                                <c:choose>
+                                    <c:when test="${action.equals('editProject')}">
+                                        <a href="removeTask?id=${task.id}"><button type="button" class="btn btn-danger custom-width">Удалить</button></a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="removeTaskProject?id=${task.id}"><button type="button" class="btn btn-danger custom-width">Удалить</button></a>
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                         </tr>
                     <tbody>
@@ -107,7 +115,7 @@
                 </table>
             </div>
         </div>
-        ${action.equals("editProject") ? '<a href="taskProject?projectId=${project.id}"><button type="button" class="btn btn-success custom-width">Добавить</button></a>' : ''}
+        <a ${action.equals("editProject") ? 'href="taskProject?projectId=${project.id}"' : 'href="addTaskProject"'}><button type="button" class="btn btn-success custom-width">Добавить</button></a>
 </div>
 </body>
 </html>

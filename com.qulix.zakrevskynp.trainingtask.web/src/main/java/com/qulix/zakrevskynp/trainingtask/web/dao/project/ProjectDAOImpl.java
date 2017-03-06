@@ -54,14 +54,18 @@ public class ProjectDAOImpl implements ProjectDAO {
      * @param parameters data from add project form
      * @throws DAOException
      */
-    public void addProject(Map<String, Object> parameters) throws DAOException {
+    public int addProject(Map<String, Object> parameters) throws DAOException {
         try (
             Connection connection = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)
         ) {
             projectUtil.setPreparedStatement(preparedStatement, parameters);
             preparedStatement.execute();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("CALL IDENTITY()");
+            resultSet.next();
             connection.commit();
+            return resultSet.getInt(1);
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
             throw new DAOException("Error while adding project", e);

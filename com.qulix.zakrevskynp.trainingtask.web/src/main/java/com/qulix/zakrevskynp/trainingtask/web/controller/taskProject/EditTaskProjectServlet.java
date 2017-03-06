@@ -1,4 +1,4 @@
-package com.qulix.zakrevskynp.trainingtask.web.controller.project;
+package com.qulix.zakrevskynp.trainingtask.web.controller.taskProject;
 
 import java.io.IOException;
 import java.util.*;
@@ -20,7 +20,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.validator.TaskDataValidator;
 
 @WebServlet("/taskProject")
-public class TaskProject extends HttpServlet {
+public class EditTaskProjectServlet extends HttpServlet {
 
     private String returningPath = "tasksList";
     private List<String> errors = new ArrayList<>();
