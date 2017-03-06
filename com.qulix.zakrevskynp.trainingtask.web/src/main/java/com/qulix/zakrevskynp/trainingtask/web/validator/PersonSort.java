@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
-public class PersonSort implements Sort<Person> {
+public class PersonSort {
 
     public List<Person> sort(List<Person> persons, String sortField) {
         if (sortField == null) {
