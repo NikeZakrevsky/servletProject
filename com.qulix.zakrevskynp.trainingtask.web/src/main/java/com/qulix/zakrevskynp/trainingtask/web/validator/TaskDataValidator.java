@@ -20,20 +20,20 @@ public class TaskDataValidator {
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         sdf.setLenient(false);
         try {
-            Date date = new java.sql.Date(sdf.parse(parameters.get("start_date").toString()).getTime());
-            parameters.put("start_date", date);
+            Date date = new java.sql.Date(sdf.parse(parameters.get("startDate").toString()).getTime());
+            parameters.put("startDate", date);
         } catch (ParseException e) {
             errors.add("Неверная дата начала");
         }
 
         try {
-            Date date = new java.sql.Date(sdf.parse(parameters.get("end_date").toString()).getTime());
-            parameters.put("end_date", date);
+            Date date = new java.sql.Date(sdf.parse(parameters.get("endDate").toString()).getTime());
+            parameters.put("endDate", date);
         } catch (ParseException e) {
             errors.add("Неверная дата окончания");
         }
 
-        if (parameters.get("end_date").toString().compareTo(parameters.get("end_date").toString()) == 1) {
+        if (parameters.get("endDate").toString().compareTo(parameters.get("endDate").toString()) == 1) {
             errors.add("Дата окончания должна быть раньше даты начала");
         }
 

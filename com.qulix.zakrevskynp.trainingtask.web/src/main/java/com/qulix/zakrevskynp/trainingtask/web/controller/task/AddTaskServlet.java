@@ -52,7 +52,7 @@ public class AddTaskServlet extends HttpServlet {
                 request.setAttribute("task", parameters);
                 request.getRequestDispatcher("taskView.jsp").forward(request, response);
             }
-            } catch (DAOException e) {
+        } catch (DAOException e) {
             logger.log(Level.SEVERE, e.getCause().toString());
             errors.clear();
             errors.add(e.getMessage());

@@ -17,9 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
@@ -44,21 +42,25 @@ public class EditTaskServlet extends HttpServlet {
         Map<String, Object> parameters = parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
 
         errors = validator.validate(parameters);
-
-        if (errors.size() == 0) {
-            TasksDAO tasksDAO = new TasksDAOImpl();
-            try {
+        try {
+            if (errors.size() == 0) {
+                TasksDAO tasksDAO = new TasksDAOImpl();
                 tasksDAO.updateTask(parameters);
-            } catch (SQLException e) {
-                logger.log(Level.SEVERE, e.getCause().toString());
-                errors.clear();
-                errors.add(e.getMessage());
-                request.setAttribute("error", errors);
-                request.getRequestDispatcher("tasksList.jsp").forward(request, response);
+                response.sendRedirect(returningPath);
+            } else {
+                request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
+                request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
+                request.setAttribute("action", "addTask");
+                request.setAttribute("errors", errors);
+                request.setAttribute("task", parameters);
+                request.getRequestDispatcher("taskView.jsp").forward(request, response);
             }
-            response.sendRedirect(returningPath);
-        } else {
-            response.sendRedirect("editTask?id=" + request.getParameter("id"));
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, e.getCause().toString());
+            errors.clear();
+            errors.add(e.getMessage());
+            request.setAttribute("error", errors);
+            request.getRequestDispatcher("tasksList.jsp").forward(request, response);
         }
     }
 
@@ -73,18 +75,13 @@ public class EditTaskServlet extends HttpServlet {
             String[] splited = referrer.split("/");
             returningPath = splited[splited.length - 1];
         }
-        System.out.println(returningPath);
         try {
             TasksDAO taskDAO = new TasksDAOImpl();
-            PersonDAO personDAO = new PersonDAOImpl();
-            ProjectDAO projectDAO = new ProjectDAOImpl();
 
             Task task = taskDAO.getTaskById(Integer.parseInt(request.getParameter("id")));
             request.setAttribute("task", task);
-            request.setAttribute("projectsList", projectDAO.getProjectsList());
-            request.setAttribute("personsList", personDAO.getPersonsList());
-            request.setAttribute("projectShortName", task.getProjectShortName());
-            request.setAttribute("errors", errors);
+            request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
+            request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
             request.setAttribute("action", "editTask");
             request.getRequestDispatcher("taskView.jsp").forward(request, response);
         } catch (DAOException e) {

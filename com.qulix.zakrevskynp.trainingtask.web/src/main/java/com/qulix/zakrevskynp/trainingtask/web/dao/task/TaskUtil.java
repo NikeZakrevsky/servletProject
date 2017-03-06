@@ -18,8 +18,8 @@ public class TaskUtil {
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String TIME = "time";
-    private static final String STARTDATE = "start_date";
-    private static final String ENDDATE = "end_date";
+    private static final String STARTDATE = "startDate";
+    private static final String ENDDATE = "endDate";
     private static final String STATUS = "status";
     private static final String PROJECTID = "projectId";
     private static final String PERSONID = "personId";

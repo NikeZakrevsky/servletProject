@@ -70,11 +70,13 @@ public class EditProjectServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProjectDAO dao = new ProjectDAOImpl();
         TasksDAO tasksDAO = new TasksDAOImpl();
-        Project project = null;
-        List<Task> tasks = new ArrayList<>();
         try {
-            project = dao.getProjectById(Integer.parseInt(request.getParameter("id")));
-            tasks = tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
+            Project project = dao.getProjectById(Integer.parseInt(request.getParameter("id")));
+            List<Task> tasks = tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
+            request.setAttribute("tasks", tasks);
+            request.setAttribute("project", project);
+            request.setAttribute("action", "editProject");
+            request.getRequestDispatcher("projectView.jsp").forward(request, response);
         } catch (DAOException e) {
             errors.clear();
             logger.log(Level.SEVERE, e.getCause().toString());
@@ -82,9 +84,6 @@ public class EditProjectServlet extends HttpServlet {
             request.setAttribute("error", errors);
             request.getRequestDispatcher("projectList.jsp").forward(request, response);
         }
-        request.setAttribute("tasks", tasks);
-        request.setAttribute("project", project);
-        request.setAttribute("action", "editProject");
-        request.getRequestDispatcher("projectView.jsp").forward(request, response);
+
     }
 }

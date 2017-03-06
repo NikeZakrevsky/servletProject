@@ -59,7 +59,7 @@
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Дата начала</label>
                 <div class="col-md-7">
-	                <input type = "date" name = "start_date" size = "70"  value = "${task.startDate}"/>
+	                <input type = "date" name = "startDate" size = "70"  value = "${task.startDate}"/>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Дата окончания</label>
                 <div class="col-md-7">
-	                <input type = "date" name = "end_date" size = "70" value = "${task.endDate}"/>
+	                <input type = "date" name = "endDate" size = "70" value = "${task.endDate}"/>
                 </div>
             </div>
         </div>
@@ -79,8 +79,7 @@
                 <select name = "personId">
                     <option value> -- select an option -- </option>
                     <c:forEach items="${personsList}" var="person">
-                        <c:set var="var1" value="${person.fname} ${person.sname} ${person.lname}"/>
-                        <option value="${person.id}" ${var1.equals(task.performer) ? 'selected="selected"' : ''}>${person.fname} ${person.sname} ${person.lname}</option>
+                        <option value="${person.id}" ${(person.id == task.personId) ? 'selected="selected"' : ''}>${person.fname} ${person.sname} ${person.lname}</option>
                     </c:forEach>
                 </select>
                 </div>
@@ -106,7 +105,7 @@
                     <select name="projectId">
                         <option value> -- select an option -- </option>
                         <c:forEach items="${projectsList}" var="project">
-                            <option value="${project.id}" ${project.shortName.equals(projectShortName) ? 'selected="selected"' : ''}>${project.shortName}</option>
+                            <option value="${project.id}" ${(project.id == task.projectId) ? 'selected="selected"' : ''}>${project.shortName}</option>
                         </c:forEach>
                     </select>
                 </div>

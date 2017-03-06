@@ -30,6 +30,7 @@ public class RemoveProjectServlet extends HttpServlet {
         ProjectDAO dao = new ProjectDAOImpl();
         try {
             dao.removeProject(Integer.parseInt(request.getParameter("id")));
+            response.sendRedirect("projectsList");
         }
         catch (DAOException e) {
             logger.log(Level.SEVERE, e.getCause().toString());
@@ -38,7 +39,5 @@ public class RemoveProjectServlet extends HttpServlet {
             request.setAttribute("error", errors);
             request.getRequestDispatcher("projectList.jsp").forward(request, response);
         }
-
-        response.sendRedirect("projectsList");
     }
 }

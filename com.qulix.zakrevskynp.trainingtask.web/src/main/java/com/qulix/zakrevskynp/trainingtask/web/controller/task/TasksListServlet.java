@@ -13,9 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
  * Show view with list if tasks
@@ -25,15 +23,13 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 public class TasksListServlet extends HttpServlet {
 
     private Logger logger = Logger.getLogger(TasksListServlet.class.getName());
-
     private List<String> errors = new ArrayList<>();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        TasksDAO tasksDAO = new TasksDAOImpl();
-        List<Task> tasksList = null;
         try {
-            tasksList = tasksDAO.getTasksList();
+            request.setAttribute("tasks", new TasksDAOImpl().getTasksList());
+            request.getRequestDispatcher("tasksList.jsp").forward(request, response);
         } catch (DAOException e) {
             logger.log(Level.SEVERE, e.getCause().toString());
             errors.clear();
@@ -41,10 +37,6 @@ public class TasksListServlet extends HttpServlet {
             request.setAttribute("error", errors);
             request.getRequestDispatcher("tasksList.jsp").forward(request, response);
         }
-        String sortField = request.getParameter("sortField");
-        request.setAttribute("sortF", sortField);
-        request.setAttribute("tasks", tasksList);
-        request.getRequestDispatcher("tasksList.jsp").forward(request, response);
     }
 
     @Override

@@ -17,10 +17,10 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 public class TasksDAOImpl implements TasksDAO {
     
-    private static final String SELECT_QUERY = "SELECT id, name, time, start_date, end_date, status, shortname, projectId, personId, fname + ' ' + sname + ' ' + lname as person FROM tasks left join projects on tasks.projectId = projects.id left join persons on tasks.personId = persons.id";
+    private static final String SELECT_QUERY = "SELECT id, name, time, startDate, endDate, status, shortname, projectId, personId, fname + ' ' + sname + ' ' + lname as person FROM tasks left join projects on tasks.projectId = projects.id left join persons on tasks.personId = persons.id";
     private static final String DELETE_QUERY = "delete from tasks where id=?";
-    private static final String INSERT_QUERY = "insert into tasks(name, time, start_date, end_date, status, projectId, personId) values (?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_QUERY = "update tasks set name = ?, time = ?, start_date = ?, end_date = ?, status = ?, projectId = ?, personId = ? where id = ?";
+    private static final String INSERT_QUERY = "insert into tasks(name, time, startDate, endDate, status, projectId, personId) values (?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_QUERY = "update tasks set name = ?, time = ?, startDate = ?, endDate = ?, status = ?, projectId = ?, personId = ? where id = ?";
     
     private TaskUtil taskUtil = new TaskUtil();
     private Logger logger = Logger.getLogger(TasksDAOImpl.class.getName());

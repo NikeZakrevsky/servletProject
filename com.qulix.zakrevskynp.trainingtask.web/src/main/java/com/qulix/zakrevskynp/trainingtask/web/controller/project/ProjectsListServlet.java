@@ -13,9 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 
 /**
  * Show view with list of projects
@@ -28,10 +26,9 @@ public class ProjectsListServlet extends HttpServlet {
     private Logger logger = Logger.getLogger(ProjectsListServlet.class.getName());
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ProjectDAO dao = new ProjectDAOImpl();
-        List<Project> projectsList = null;
         try {
-            projectsList = dao.getProjectsList();
+            request.setAttribute("projects", new ProjectDAOImpl().getProjectsList());
+            request.getRequestDispatcher("projectsList.jsp").forward(request, response);
         } catch (DAOException e) {
             logger.log(Level.SEVERE, e.getCause().toString());
             errors.clear();
@@ -39,8 +36,6 @@ public class ProjectsListServlet extends HttpServlet {
             request.setAttribute("error", errors);
             request.getRequestDispatcher("projectsList.jsp").forward(request, response);
         }
-        request.setAttribute("projects", projectsList);
-        request.getRequestDispatcher("projectsList.jsp").forward(request, response);
     }
 
     @Override
