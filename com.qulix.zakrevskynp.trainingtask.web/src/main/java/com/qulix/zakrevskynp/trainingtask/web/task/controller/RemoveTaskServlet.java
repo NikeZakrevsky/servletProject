@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.project.controller.RemoveProjectServlet;
-import com.qulix.zakrevskynp.trainingtask.web.util.CustomException;
+import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAO;
 import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 

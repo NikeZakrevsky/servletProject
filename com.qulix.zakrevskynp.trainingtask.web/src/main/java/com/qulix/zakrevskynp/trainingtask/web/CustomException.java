@@ -1,4 +1,4 @@
-package com.qulix.zakrevskynp.trainingtask.web.util;
+package com.qulix.zakrevskynp.trainingtask.web;
 
 import java.sql.SQLException;
 

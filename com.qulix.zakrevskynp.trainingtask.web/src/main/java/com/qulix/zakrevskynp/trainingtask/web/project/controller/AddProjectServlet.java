@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.qulix.zakrevskynp.trainingtask.web.person.controller.AddPersonServlet;
-import com.qulix.zakrevskynp.trainingtask.web.util.CustomException;
+import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.project.ProjectDataValidator;

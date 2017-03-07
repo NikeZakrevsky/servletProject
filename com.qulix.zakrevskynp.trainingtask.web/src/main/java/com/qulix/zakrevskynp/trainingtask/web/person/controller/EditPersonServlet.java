@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.util.CustomException;
+import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.person.Person;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAO;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
