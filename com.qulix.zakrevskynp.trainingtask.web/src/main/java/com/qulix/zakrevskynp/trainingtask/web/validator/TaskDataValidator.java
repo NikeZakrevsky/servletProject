@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * Validate task form data
@@ -18,6 +19,9 @@ public class TaskDataValidator {
         String regex = "\\d+";
         List<String> errors = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+
+        Predicate<Object> isEmptyAndLength = e -> e.equals("") || e.toString().length() > 20;
+
         sdf.setLenient(false);
         try {
             Date date = new java.sql.Date(sdf.parse(parameters.get("startDate").toString()).getTime());
@@ -37,19 +41,8 @@ public class TaskDataValidator {
             errors.add("Дата окончания должна быть раньше даты начала");
         }
 
-        if (parameters.get("name") == null || parameters.get("name").equals("")) {
-            errors.add("Название не должно быть пустым");
-        }
-        if (parameters.get("name") != null && parameters.get("name").toString().length() > 20) {
-            errors.add("Название слишком длинное");
-        }
-
-        if (parameters.get("status") == null || parameters.get("status").equals("")) {
-            errors.add("Статус не должен быть пустым");
-        }
-        if (parameters.get("status") != null && parameters.get("status").toString().length() > 20) {
-            errors.add("Статус слишком длинный");
-        }
+        if (isEmptyAndLength.test(parameters.get("name"))) errors.add("Неверное поле название");
+        if (isEmptyAndLength.test(parameters.get("status"))) errors.add("Неверное поле статус");
 
         if (!parameters.get("time").toString().matches(regex)) {
             errors.add("Неверное время работы");

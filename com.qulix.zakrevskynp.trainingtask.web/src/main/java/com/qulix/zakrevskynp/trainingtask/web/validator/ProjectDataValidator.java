@@ -3,6 +3,7 @@ package com.qulix.zakrevskynp.trainingtask.web.validator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * Validate project form data
@@ -12,23 +13,11 @@ public class ProjectDataValidator {
     public List<String> validate(Map<String, Object> parameters) {
         List<String> errors = new ArrayList<>();
 
-        if (parameters.get("name").toString().equals("")) {
-            errors.add("Название не должно быть пустым");
-        }
-        if (parameters.get("name").toString().length() > 20) {
-            errors.add("Название слишком длинное");
-        }
+        Predicate<Object> isEmptyAndLength = e -> e.equals("") || e.toString().length() > 20;
 
-        if (parameters.get("shortName").toString().equals("")) {
-            errors.add("Сокращённое название не должно быть пустым");
-        }
-        if (parameters.get("shortName").toString().length() > 20) {
-            errors.add("Сокращённое название слишком длинное");
-        }
-
-        if (parameters.get("description").toString().length() > 20) {
-            errors.add("Описание слишком длинное");
-        }
+        if (isEmptyAndLength.test(parameters.get("name"))) errors.add("Неверное поле название");
+        if (isEmptyAndLength.test(parameters.get("shortName"))) errors.add("Неверное поле сокращённое название");
+        if (isEmptyAndLength.test(parameters.get("description"))) errors.add("Неверное поле описание");
 
         return errors;
     }

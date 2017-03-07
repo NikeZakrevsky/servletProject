@@ -3,6 +3,7 @@ package com.qulix.zakrevskynp.trainingtask.web.validator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * Validate person form data
@@ -18,32 +19,12 @@ public class PersonDataValidator {
     public List<String> validate(Map<String, Object> parameters) {
         List<String> errors = new ArrayList<>();
 
-        if (parameters.get("fname").toString().equals("")) {
-            errors.add("Имя не должно быть пустым");
-        }
-        if (parameters.get("fname").toString().length() > 20) {
-            errors.add("Имя слишком длинное");
-        }
+        Predicate<Object> isEmptyAndLength = e -> e.equals("") || e.toString().length() > 20;
 
-        if (parameters.get("sname").toString().equals("")) {
-            errors.add("Фамилия не должна быть пустой");
-        }
-        if (parameters.get("sname").toString().length() > 20) {
-            errors.add("Фамилия слишком длинная");
-        }
-
-        if (parameters.get("lname").toString().equals("")) {
-            errors.add("Отчество не должно быть пустым");
-        }
-        if (parameters.get("lname").toString().length() > 20) {
-            errors.add("Отчество слишком длинное"); }
-
-        if (parameters.get("position").equals("")) {
-            errors.add("Должность не должна быть пустой");
-        }
-        if (parameters.get("position").toString().length() > 20) {
-            errors.add("Должность слишком длинная");
-        }
+        if(isEmptyAndLength.test(parameters.get("fname"))) errors.add("Неверное поле имя");
+        if (isEmptyAndLength.test(parameters.get("sname"))) errors.add("Неверное поле фамилия");
+        if (isEmptyAndLength.test(parameters.get("lname"))) errors.add("Неверное поле отчество");
+        if (isEmptyAndLength.test(parameters.get("position"))) errors.add("Неверное поле должность");
 
         return errors;
     }
