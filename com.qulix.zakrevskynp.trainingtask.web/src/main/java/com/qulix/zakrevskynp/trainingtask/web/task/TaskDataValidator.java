@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Validate task form data
  * @author Q-NZA
  */
 public class TaskDataValidator {
+    private static Logger logger = Logger.getLogger(TaskDataValidator.class.getName());
 
     public List<String> validate(Map<String, Object> parameters) {
         String dateFormat = "yyyy-MM-dd";
@@ -27,6 +30,7 @@ public class TaskDataValidator {
             Date date = new java.sql.Date(sdf.parse(parameters.get("startDate").toString()).getTime());
             parameters.put("startDate", date);
         } catch (ParseException e) {
+            logger.log(Level.SEVERE, e.getCause().toString());
             errors.add("Неверная дата начала");
         }
 
@@ -34,6 +38,7 @@ public class TaskDataValidator {
             Date date = new java.sql.Date(sdf.parse(parameters.get("endDate").toString()).getTime());
             parameters.put("endDate", date);
         } catch (ParseException e) {
+            logger.log(Level.SEVERE, e.getCause().toString());
             errors.add("Неверная дата окончания");
         }
 

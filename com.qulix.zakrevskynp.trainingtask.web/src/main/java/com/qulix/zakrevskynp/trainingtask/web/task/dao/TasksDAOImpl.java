@@ -4,8 +4,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.qulix.zakrevskynp.trainingtask.web.ConnectionFactory;
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
@@ -23,7 +21,6 @@ public class TasksDAOImpl implements TasksDAO {
     private static final String UPDATE_QUERY = "update tasks set name = ?, time = ?, startDate = ?, endDate = ?, status = ?, projectId = ?, personId = ? where id = ?";
     
     private TaskUtil taskUtil = new TaskUtil();
-    private Logger logger = Logger.getLogger(TasksDAOImpl.class.getName());
 
     /**
      * Get all task from database
@@ -43,7 +40,6 @@ public class TasksDAOImpl implements TasksDAO {
                 tasks.add(task);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while getting tasks list", e);
         }
         return tasks;
@@ -63,7 +59,6 @@ public class TasksDAOImpl implements TasksDAO {
             preparedStatement.execute();
             connection.commit();
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while removing task", e);
         }
     }
@@ -83,7 +78,6 @@ public class TasksDAOImpl implements TasksDAO {
             preparedStatement.execute();
             connection.commit();
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while adding task", e);
         }
     }
@@ -106,7 +100,6 @@ public class TasksDAOImpl implements TasksDAO {
             task = taskUtil.resultSetAsObject(resultSet);
             connection.commit();
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while getting task", e);
         }
         return task;
@@ -127,7 +120,6 @@ public class TasksDAOImpl implements TasksDAO {
             preparedStatement.execute();
             connection.commit();
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while updating task", e);
         }
     }
@@ -151,7 +143,6 @@ public class TasksDAOImpl implements TasksDAO {
                 tasks.add(task);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while getting tasks", e);
         }
         return tasks;

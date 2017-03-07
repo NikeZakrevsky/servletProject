@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.qulix.zakrevskynp.trainingtask.web.ConnectionFactory;
@@ -43,7 +42,6 @@ public class ProjectDAOImpl implements ProjectDAO {
                 projects.add(projectUtil.resultSetAsObject(resultSet));
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while getting projects list", e);
         }
         return projects;
@@ -67,7 +65,6 @@ public class ProjectDAOImpl implements ProjectDAO {
             connection.commit();
             return resultSet.getInt(1);
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while adding project", e);
         }
     }
@@ -88,7 +85,6 @@ public class ProjectDAOImpl implements ProjectDAO {
             connection.commit();
         }
         catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while deleting project", e);
         }
     }
@@ -109,7 +105,6 @@ public class ProjectDAOImpl implements ProjectDAO {
             preparedStatement.execute();
             connection.commit();
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while updating project", e);
         }
     }
@@ -131,7 +126,6 @@ public class ProjectDAOImpl implements ProjectDAO {
             resultSet.next();
             return projectUtil.resultSetAsObject(resultSet);
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while getting project", e);
         }
     }

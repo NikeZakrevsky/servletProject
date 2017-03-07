@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.qulix.zakrevskynp.trainingtask.web.ConnectionFactory;
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
@@ -27,7 +25,6 @@ public class PersonDAOImpl implements PersonDAO {
     private static final String UPDATE_QUERY = "update persons set fname = ?, sname = ?, lname = ?, position = ? where id = ?";
 
     private PersonUtil personUtil = new PersonUtil();
-    private Logger logger = Logger.getLogger(PersonDAOImpl.class.getName());
 
     /**
      * Gets list of persons
@@ -48,7 +45,6 @@ public class PersonDAOImpl implements PersonDAO {
             return persons;
         }
         catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while getting persons list", e);
         }
     }
@@ -69,7 +65,6 @@ public class PersonDAOImpl implements PersonDAO {
             connection.commit();
         }
         catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while adding person", e);
         }
 
@@ -90,7 +85,6 @@ public class PersonDAOImpl implements PersonDAO {
             connection.commit();
         }
         catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while deleting person", e);
         }
     }
@@ -114,7 +108,6 @@ public class PersonDAOImpl implements PersonDAO {
                     resultSet.getString("lname"), resultSet.getString("position"));
         }
         catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while getting person", e);
         }
     }
@@ -136,7 +129,6 @@ public class PersonDAOImpl implements PersonDAO {
             connection.commit();
         }
         catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
             throw new CustomException("Error while updating person", e);
         }
     }

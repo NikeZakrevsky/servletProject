@@ -43,7 +43,6 @@ public class ConnectionFactory {
         try {
             return DriverManager.getConnection(url, dbProperties.getProperty("user"), dbProperties.getProperty("password"));
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getCause().getMessage());
             throw new CustomException("Connection refused", e);
         }
     }

@@ -21,4 +21,4 @@
  * This package contains dao classes related to employee entity
  *
  */
-package com.qulix.trainingtask.controller.person;
+package com.qulix.zakrevskynp.trainingtask.web.person;

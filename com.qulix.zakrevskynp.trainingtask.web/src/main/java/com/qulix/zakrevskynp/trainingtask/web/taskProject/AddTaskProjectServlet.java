@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -15,13 +17,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
-import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.person.Person;
+import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.task.TaskDataValidator;
 
 @WebServlet("/addTaskProject")
 public class AddTaskProjectServlet extends HttpServlet {
+
     private int id = 0;
+    private Logger logger = Logger.getLogger(AddTaskProjectServlet.class.getName());
+    private List<String> errors = new ArrayList<>();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,7 +34,11 @@ public class AddTaskProjectServlet extends HttpServlet {
             request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
             request.getRequestDispatcher("taskView.jsp").forward(request, response);
         } catch (CustomException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getCause().toString());
+            errors.clear();
+            errors.add(e.getMessage());
+            request.setAttribute("error", errors);
+            request.getRequestDispatcher("tasksList.jsp").forward(request, response);
         }
     }
 
@@ -54,7 +63,11 @@ public class AddTaskProjectServlet extends HttpServlet {
         try {
             person = new PersonDAOImpl().getPersonById((int)parameters.get("personId"));
         } catch (CustomException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getCause().toString());
+            errors.clear();
+            errors.add(e.getMessage());
+            request.setAttribute("error", errors);
+            request.getRequestDispatcher("tasksList.jsp").forward(request, response);
         }
         parameters.put("performer", person.getFname() + " " +  person.getSname() + " " + person.getLname());
         id++;
