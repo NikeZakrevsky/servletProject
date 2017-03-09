@@ -12,12 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.task.controller.EditTaskServlet;
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.task.TaskDataValidator;
+import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
 @WebServlet("/taskProject")
 public class AddTaskProjectBdServlet extends HttpServlet {
@@ -31,9 +30,7 @@ public class AddTaskProjectBdServlet extends HttpServlet {
         String referrer = request.getHeader("referer");
         String[] splited = referrer.split("/");
         returningPath = splited[splited.length - 1];
-
         try {
-
             request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
             request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
             if (!request.getParameter("projectId").equals("")) {
