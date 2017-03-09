@@ -26,6 +26,7 @@ public class ProjectsListServlet extends HttpServlet {
     private Logger logger = Logger.getLogger(ProjectsListServlet.class.getName());
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().invalidate();
         try {
             request.setAttribute("projects", new ProjectDAOImpl().getProjectsList());
             request.getRequestDispatcher("projectsList.jsp").forward(request, response);

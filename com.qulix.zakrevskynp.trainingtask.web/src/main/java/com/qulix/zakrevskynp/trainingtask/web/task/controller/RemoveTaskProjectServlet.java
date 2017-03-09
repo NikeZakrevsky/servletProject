@@ -17,6 +17,7 @@ public class RemoveTaskProjectServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("tasks");
+        tasks.forEach(task -> System.out.println(task.get("id")));
         tasks.removeIf(task -> (Integer) task.get("id") == Integer.parseInt(request.getParameter("id")));
         session.setAttribute("tasks", tasks);
         response.sendRedirect("addProject");
