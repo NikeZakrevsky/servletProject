@@ -22,7 +22,7 @@ public interface PersonDAO {
 
     /**
      * Inserts new person in database
-     * @param parameters data from add person form
+     * @param parameters person form data
      * @throws CustomException
      */
     void addPerson(Map<String, Object> parameters) throws CustomException;
@@ -46,7 +46,7 @@ public interface PersonDAO {
     /**
      * Update information about exist person
      *
-     * @param parameters Person object
+     * @param parameters person form data
      * @throws CustomException
      */
     void updatePerson(Map<String, Object> parameters) throws CustomException;

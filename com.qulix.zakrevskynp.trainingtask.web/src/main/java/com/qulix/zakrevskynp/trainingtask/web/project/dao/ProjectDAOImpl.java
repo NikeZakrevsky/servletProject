@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import com.qulix.zakrevskynp.trainingtask.web.ConnectionFactory;
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
@@ -24,7 +23,6 @@ public class ProjectDAOImpl implements ProjectDAO {
     private static final String UPDATE_QUERY = "update projects set name = ?, shortname = ?, description = ? where id = ?";
 
     private ProjectUtil projectUtil = new ProjectUtil();
-    private Logger logger = Logger.getLogger(ProjectDAOImpl.class.getName());
     /**
      * Get all projects from database
      *
@@ -49,7 +47,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 
     /**
      *
-     * @param parameters data from add project form
+     * @param parameters project form data
      * @throws CustomException
      */
     public int addProject(Map<String, Object> parameters) throws CustomException {
@@ -92,7 +90,7 @@ public class ProjectDAOImpl implements ProjectDAO {
     /**
      * Update information about project in database
      *
-     * @param parameters data from update project form
+     * @param parameters project form data
      * @throws CustomException
      */
     public void updateProject(Map<String, Object> parameters) throws CustomException {

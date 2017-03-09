@@ -66,7 +66,7 @@ public class TasksDAOImpl implements TasksDAO {
     /**
      * Insert task in database
      *
-     * @param parameters {@link Task} object
+     * @param parameters task form data
      * @throws CustomException
      */
     public void addTask(Map<String, Object> parameters) throws CustomException {
@@ -107,7 +107,7 @@ public class TasksDAOImpl implements TasksDAO {
 
     /**
      *
-     * @param parameters {@link Task} object
+     * @param parameters task form data
      * @throws CustomException
      */
     public void updateTask(Map<String, Object> parameters) throws CustomException {

@@ -13,7 +13,7 @@ public class PersonDataValidator {
 
     /**
      * Validate person information
-     * @param parameters Person object for validation
+     * @param parameters person form data
      * @return list of errors
      */
     public List<String> validate(Map<String, Object> parameters) {

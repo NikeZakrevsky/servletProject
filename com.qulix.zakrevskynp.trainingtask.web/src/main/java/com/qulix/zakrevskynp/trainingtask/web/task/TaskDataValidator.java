@@ -17,6 +17,11 @@ import java.util.logging.Logger;
 public class TaskDataValidator {
     private static Logger logger = Logger.getLogger(TaskDataValidator.class.getName());
 
+    /**
+     * Validate task information
+     * @param parameters form parameters for validation
+     * @return list of errors
+     */
     public List<String> validate(Map<String, Object> parameters) {
         String dateFormat = "yyyy-MM-dd";
         String regex = "\\d+";

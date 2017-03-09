@@ -1,11 +1,8 @@
 package com.qulix.zakrevskynp.trainingtask.web.task.dao;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;
@@ -51,7 +48,7 @@ public class TaskUtil {
     /**
      *
      * @param preparedStatement link of the prepared statement for setting parameters
-     * @param parameters {@link Task} object
+     * @param parameters task form data
      * @throws SQLException
      */
     public void setPreparedStatement(PreparedStatement preparedStatement, Map<String, Object> parameters) throws SQLException {
@@ -62,17 +59,5 @@ public class TaskUtil {
         preparedStatement.setString(5, (String)parameters.get(STATUS));
         preparedStatement.setObject(6, parameters.get(PROJECTID));
         preparedStatement.setObject(7, parameters.get(PERSONID));
-    }
-
-    /**
-     * Convert string to date
-     *
-     * @param sourceDate string for converting
-     * @return converted Date object
-     */
-    public Date toDate(Object sourceDate) throws ParseException {
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyy-MM-dd");
-        java.util.Date date = sdf1.parse(sourceDate.toString());
-        return new java.sql.Date(date.getTime());
     }
 }

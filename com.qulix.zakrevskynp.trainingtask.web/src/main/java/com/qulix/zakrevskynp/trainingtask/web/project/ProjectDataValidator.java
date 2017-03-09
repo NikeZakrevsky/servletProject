@@ -10,6 +10,12 @@ import java.util.function.Predicate;
  * @author Q-NZA
  */
 public class ProjectDataValidator {
+
+    /**
+     * Validate project information
+     * @param parameters project form data
+     * @return list of errors
+     */
     public List<String> validate(Map<String, Object> parameters) {
         List<String> errors = new ArrayList<>();
 
