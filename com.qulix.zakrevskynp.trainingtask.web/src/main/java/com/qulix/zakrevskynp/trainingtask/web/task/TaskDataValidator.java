@@ -26,24 +26,28 @@ public class TaskDataValidator {
         Predicate<Object> isEmptyAndLength = e -> e.equals("") || e.toString().length() > 20;
 
         sdf.setLenient(false);
+        java.util.Date startDate = null;
         try {
-            Date date = new java.sql.Date(sdf.parse(parameters.get("startDate").toString()).getTime());
+            startDate = sdf.parse(parameters.get("startDate").toString());
+            Date date = new Date(startDate.getTime());
             parameters.put("startDate", date);
         } catch (ParseException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
+            logger.log(Level.SEVERE, e.getMessage());
             errors.add("Неверная дата начала");
         }
-
+        java.util.Date endDate = null;
         try {
-            Date date = new java.sql.Date(sdf.parse(parameters.get("endDate").toString()).getTime());
+            endDate = sdf.parse(parameters.get("endDate").toString());
+            Date date = new java.sql.Date(endDate.getTime());
             parameters.put("endDate", date);
         } catch (ParseException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
+            logger.log(Level.SEVERE, e.getMessage());
             errors.add("Неверная дата окончания");
         }
-
-        if (parameters.get("endDate").toString().compareTo(parameters.get("endDate").toString()) == 1) {
-            errors.add("Дата окончания должна быть раньше даты начала");
+        if(startDate != null && endDate != null) {
+            if (!startDate.before(endDate)) {
+                errors.add("Дата окончания должна быть раньше даты начала");
+            }
         }
 
         if (isEmptyAndLength.test(parameters.get("name"))) errors.add("Неверное поле название");
@@ -66,7 +70,7 @@ public class TaskDataValidator {
         else {
             parameters.put("personId", null);
         }
-        
+
         return errors;
     }
 }

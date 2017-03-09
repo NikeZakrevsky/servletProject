@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
+import com.qulix.zakrevskynp.trainingtask.web.person.PersonDataValidator;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAO;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.person.PersonDataValidator;
 
 /**
  * Show view with form for adding new person and handling it data

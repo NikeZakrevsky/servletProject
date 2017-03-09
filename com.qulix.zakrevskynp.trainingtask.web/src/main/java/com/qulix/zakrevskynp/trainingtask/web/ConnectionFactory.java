@@ -21,6 +21,9 @@ public class ConnectionFactory {
 
     private static Logger logger = Logger.getLogger(TasksDAOImpl.class.getName());
 
+    private ConnectionFactory() {
+    }
+
     static {
         try {
             dbProperties = new Properties();

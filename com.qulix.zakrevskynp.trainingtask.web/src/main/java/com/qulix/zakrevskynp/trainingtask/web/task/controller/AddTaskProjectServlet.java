@@ -1,4 +1,4 @@
-package com.qulix.zakrevskynp.trainingtask.web.taskProject;
+package com.qulix.zakrevskynp.trainingtask.web.task.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import com.qulix.zakrevskynp.trainingtask.web.task.TaskDataValidator;
 @WebServlet("/addTaskProject")
 public class AddTaskProjectServlet extends HttpServlet {
 
-    private int id = 0;
+    private Integer id = 0;
     private Logger logger = Logger.getLogger(AddTaskProjectServlet.class.getName());
     private List<String> errors = new ArrayList<>();
 
@@ -44,6 +44,7 @@ public class AddTaskProjectServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         if (session.getAttribute("tasks") == null) {
             List<Map<String, Object>> tasks = new ArrayList<>();
@@ -57,26 +58,36 @@ public class AddTaskProjectServlet extends HttpServlet {
 
         TaskDataValidator taskDataValidator = new TaskDataValidator();
 
-        parameters.put("id", id);
-        Person person = new Person();
-        taskDataValidator.validate(parameters);
+
+        errors = taskDataValidator.validate(parameters);
         try {
-            person = new PersonDAOImpl().getPersonById((int)parameters.get("personId"));
+            if (errors.size() == 0) {
+                parameters.put("id", id);
+                if(parameters.get("personId") != null) {
+                    Person person = new PersonDAOImpl().getPersonById((int) parameters.get("personId"));
+                    parameters.put("performer", person.getFname() + " " + person.getSname() + " " + person.getLname());
+                }
+                id++;
+                tasks.add(parameters);
+                session.setAttribute("tasks", tasks);
+
+                request.setAttribute("action", "addProject");
+                request.setAttribute("tasks", tasks);
+                response.sendRedirect("addProject");
+            }
+            else {
+                request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
+                request.setAttribute("action", "addTaskProject");
+                request.setAttribute("errors", errors);
+                request.setAttribute("task", parameters);
+                request.getRequestDispatcher("taskView.jsp").forward(request, response);
+            }
         } catch (CustomException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
+            logger.log(Level.SEVERE, e.getMessage());
             errors.clear();
             errors.add(e.getMessage());
             request.setAttribute("error", errors);
             request.getRequestDispatcher("tasksList.jsp").forward(request, response);
         }
-        parameters.put("performer", person.getFname() + " " +  person.getSname() + " " + person.getLname());
-        id++;
-        tasks.add(parameters);
-
-        session.setAttribute("tasks", tasks);
-
-        request.setAttribute("action", "addProject");
-        request.setAttribute("tasks", tasks);
-        response.sendRedirect("addProject");
     }
 }

@@ -7,7 +7,6 @@ import java.sql.SQLException;
  * @author Q-NZA
  */
 public class CustomException extends SQLException {
-
     public CustomException() {
         super();
     }

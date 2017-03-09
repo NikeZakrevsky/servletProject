@@ -50,7 +50,7 @@ public class EditTaskServlet extends HttpServlet {
             } else {
                 request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
                 request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
-                request.setAttribute("action", "addTask");
+                request.setAttribute("action", "editTask");
                 request.setAttribute("errors", errors);
                 request.setAttribute("task", parameters);
                 request.getRequestDispatcher("taskView.jsp").forward(request, response);

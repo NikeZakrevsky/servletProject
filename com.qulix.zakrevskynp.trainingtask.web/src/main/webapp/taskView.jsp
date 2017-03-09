@@ -8,6 +8,7 @@
 	<title>Plugin tester</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
 
 <body>
@@ -26,7 +27,7 @@
     <div class="generic-container">
     <div class="panel panel-default">
     <div class="panel-heading"><span class="lead">Управление задачами</span></div>
-	<form action = "${action}" method = "POST">
+	<form onsubmit="document.getElementById('lol').disabled = false;" action = "${action}" method = "POST">
         <div class="form-group col-md-12">
             <c:forEach items="${errors}" var="error">
                 <span style="color: red; ">${error}</span></br>
@@ -103,12 +104,13 @@
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Проект</label>
                 <div class="col-md-7">
-                    <select name="projectId" ${isDisable ? 'disabled="true"' : ''}>
+                    <select id = "lol" name="projectId" ${isDisable ? 'disabled="true"' : ''}>
                         <option value selected="selected"> -- select an option -- </option>
                         <c:forEach items="${projectsList}" var="project">
                             <option value="${project.id}" ${(project.id == task.projectId) ? 'selected="selected"' : ''}>${project.shortName}</option>
                         </c:forEach>
                     </select>
+
                 </div>
             </div>
         </div>
