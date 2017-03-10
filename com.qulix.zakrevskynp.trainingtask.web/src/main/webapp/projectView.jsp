@@ -25,7 +25,7 @@
     </nav>
 	<div class="generic-container">
     <div class="panel panel-default">
-    <div class="panel-heading"><span class="lead">Управдение проектами</span></div>
+    <div class="panel-heading"><span class="lead">Управление проектами</span></div>
     <br/>
     <div class="formcontainer">
 	    <form action = "${action}" method = "POST">

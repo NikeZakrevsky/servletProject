@@ -75,7 +75,6 @@ public class TaskDataValidator {
         else {
             parameters.put("personId", null);
         }
-
         return errors;
     }
 }
