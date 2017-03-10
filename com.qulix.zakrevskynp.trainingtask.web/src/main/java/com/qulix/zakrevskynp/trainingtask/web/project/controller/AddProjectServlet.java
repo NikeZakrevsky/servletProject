@@ -77,6 +77,8 @@ public class AddProjectServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("action", "addProject");
+        request.getSession(true).setAttribute("path", "addProject");
+        request.setAttribute("path", "addProject");
         HttpSession session = request.getSession();
         List<Map<String, Object>> tasks = (List<Map<String, Object>>)session.getAttribute("tasks");
         request.setAttribute("tasks", tasks);

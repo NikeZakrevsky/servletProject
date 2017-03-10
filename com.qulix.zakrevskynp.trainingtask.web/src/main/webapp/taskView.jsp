@@ -115,7 +115,7 @@
             </div>
         </div>
         <button type="submit" class="btn btn-success custom-width">Сохранить</button>
-        <a href="tasksList"><button type="button" class="btn btn-danger custom-width">Отмена</button></a>
+        <a href="${path}"><button type="button" class="btn btn-danger custom-width">Отмена</button></a>
     </form>
 </div>
 </div>

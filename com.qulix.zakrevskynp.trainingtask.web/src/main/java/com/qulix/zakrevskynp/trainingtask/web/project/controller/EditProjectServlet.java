@@ -53,7 +53,6 @@ public class EditProjectServlet extends HttpServlet {
                 List<Task> tasks = new TasksDAOImpl().getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
                 request.setAttribute("tasks", tasks);
                 request.setAttribute("errors", errors);
-                request.getSession(true).setAttribute("path", "editProject?id=" + request.getParameter("id"));
                 request.setAttribute("action", "editProject");
                 request.getRequestDispatcher("projectView.jsp").forward(request, response);
             }
@@ -76,6 +75,8 @@ public class EditProjectServlet extends HttpServlet {
             request.setAttribute("tasks", tasks);
             request.setAttribute("project", project);
             request.setAttribute("action", "editProject");
+            request.getSession(true).setAttribute("path", "editProject?id=" + request.getParameter("id"));
+            request.setAttribute("path", "editProject?id=" + request.getParameter("id"));
             request.getRequestDispatcher("projectView.jsp").forward(request, response);
         } catch (CustomException e) {
             errors.clear();

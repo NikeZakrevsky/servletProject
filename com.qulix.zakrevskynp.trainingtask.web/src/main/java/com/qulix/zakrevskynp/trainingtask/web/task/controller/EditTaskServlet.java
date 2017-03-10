@@ -66,15 +66,8 @@ public class EditTaskServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if(request.getSession(false).getAttribute("path") != null) {
-            returningPath = request.getSession(false).getAttribute("path").toString();
-            request.getSession().invalidate();
-        }
-        else {
-            String referrer = request.getHeader("referer");
-            String[] splited = referrer.split("/");
-            returningPath = splited[splited.length - 1];
-        }
+        returningPath = request.getSession(false).getAttribute("path").toString();
+
         try {
             TasksDAO taskDAO = new TasksDAOImpl();
 
