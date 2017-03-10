@@ -17,12 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.project.Project;
+import com.qulix.zakrevskynp.trainingtask.web.project.ProjectDataValidator;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.project.ProjectDataValidator;
-import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAO;
-import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;
+import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
 /**
  * Show view with form for editing new project and handling it data
@@ -33,10 +32,10 @@ public class EditProjectServlet extends HttpServlet {
 
     private List<String> errors = new ArrayList<>();
     private Logger logger = Logger.getLogger(EditProjectServlet.class.getName());
+    private ProjectDAO dao = new ProjectDAOImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        ProjectDAO dao = new ProjectDAOImpl();
         ProjectDataValidator validator = new ProjectDataValidator();
 
         List<String> parametersNames = Collections.list(request.getParameterNames());
@@ -67,14 +66,14 @@ public class EditProjectServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ProjectDAO dao = new ProjectDAOImpl();
-        TasksDAO tasksDAO = new TasksDAOImpl();
         try {
             Project project = dao.getProjectById(Integer.parseInt(request.getParameter("id")));
-            List<Task> tasks = tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
+            List<Task> tasks = new TasksDAOImpl().getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
+
             request.setAttribute("tasks", tasks);
             request.setAttribute("project", project);
             request.setAttribute("action", "editProject");
+
             request.getSession(true).setAttribute("path", "editProject?id=" + request.getParameter("id"));
             request.setAttribute("path", "editProject?id=" + request.getParameter("id"));
             request.getRequestDispatcher("projectView.jsp").forward(request, response);

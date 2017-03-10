@@ -28,18 +28,17 @@ import com.qulix.zakrevskynp.trainingtask.web.person.PersonDataValidator;
 @WebServlet("/editPerson")
 public class EditPersonServlet extends HttpServlet {
 
-    private List<String> errors = new ArrayList<>();
     private Logger logger = Logger.getLogger(EditPersonServlet.class.getName());
+    private List<String> errors = new ArrayList<>();
+    private PersonDAO personDAO = new PersonDAOImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        PersonDAO personDAO = new PersonDAOImpl();
-        PersonDataValidator validator = new PersonDataValidator();
 
         List<String> parametersNames = Collections.list(request.getParameterNames());
         Map<String, Object> parameters = parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
 
-        errors = validator.validate(parameters);
+        errors = new PersonDataValidator().validate(parameters);
         if (errors.size() == 0) {
             try {
                 personDAO.updatePerson(parameters);
@@ -61,23 +60,16 @@ public class EditPersonServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (!request.getParameter("id").equals("")) {
-            PersonDAO personDAO = new PersonDAOImpl();
-            Person person = null;
-            try {
-                person = personDAO.getPersonById(Integer.parseInt(request.getParameter("id")));
-            } catch (CustomException e) {
-                logger.log(Level.SEVERE, e.getCause().toString());
-                errors.clear();
-                errors.add(e.getMessage());
-                request.getRequestDispatcher("personsList.jsp").forward(request, response);
-            }
+        try {
+            Person person  = personDAO.getPersonById(Integer.parseInt(request.getParameter("id")));
             request.setAttribute("person", person);
             request.setAttribute("action", "editPerson");
             request.getRequestDispatcher("personView.jsp").forward(request, response);
-        } else {
-            request.setAttribute("errors", errors);
-            request.getRequestDispatcher("personView.jsp").forward(request, response);
+        } catch (CustomException e) {
+            logger.log(Level.SEVERE, e.getCause().toString());
+            errors.clear();
+            errors.add(e.getMessage());
+            request.getRequestDispatcher("personsList.jsp").forward(request, response);
         }
     }
 }

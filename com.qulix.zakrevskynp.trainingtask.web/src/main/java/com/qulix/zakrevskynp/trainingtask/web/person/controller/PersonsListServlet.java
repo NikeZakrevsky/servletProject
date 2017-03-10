@@ -30,9 +30,11 @@ public class PersonsListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PersonDAO personDAO = new PersonDAOImpl();
-        List<Person> personsList = null;
         try {
-            personsList = personDAO.getPersonsList();
+            List<Person> personsList = personDAO.getPersonsList();
+            request.setAttribute("error", request.getSession().getAttribute("error"));
+            request.setAttribute("persons", personsList);
+            request.getRequestDispatcher("personsList.jsp").forward(request, response);
         } catch (CustomException e) {
             logger.log(Level.SEVERE, e.getCause().toString());
             errors.clear();
@@ -40,9 +42,7 @@ public class PersonsListServlet extends HttpServlet {
             request.setAttribute("error", errors);
             request.getRequestDispatcher("personsList.jsp").forward(request, response);
         }
-        request.setAttribute("error", request.getSession().getAttribute("error"));
-        request.setAttribute("persons", personsList);
-        request.getRequestDispatcher("personsList.jsp").forward(request, response);
+
     }
 
     @Override

@@ -26,7 +26,7 @@ public interface ProjectDAO {
      * @param parameters {@link Project} object
      * @throws CustomException
      */
-    int addProject(Map<String, Object> parameters) throws CustomException;
+    void addProject(Map<String, Object> parameters, List<Map<String, Object>> tasks) throws CustomException;
 
     /**
      * Remove project from database by id

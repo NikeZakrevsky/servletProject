@@ -46,21 +46,17 @@ public class AddTaskProjectServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
-        if (session.getAttribute("tasks") == null) {
-            List<Map<String, Object>> tasks = new ArrayList<>();
-            session.setAttribute("tasks", tasks);
-        }
 
-        List<Map<String, Object>> tasks = (List<Map<String, Object>>)session.getAttribute("tasks");
+        HttpSession session = request.getSession();
+        List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("tasks");
+        if (tasks == null) {
+            tasks = new ArrayList<>();
+        }
 
         List<String> parametersNames = Collections.list(request.getParameterNames());
         Map<String, Object> parameters = parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
 
-        TaskDataValidator taskDataValidator = new TaskDataValidator();
-
-
-        errors = taskDataValidator.validate(parameters);
+        errors = new TaskDataValidator().validate(parameters);
         try {
             if (errors.size() == 0) {
                 parameters.put("id", id);

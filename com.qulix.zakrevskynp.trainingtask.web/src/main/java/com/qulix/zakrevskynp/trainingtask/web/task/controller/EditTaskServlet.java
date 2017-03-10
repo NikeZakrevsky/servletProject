@@ -33,7 +33,7 @@ public class EditTaskServlet extends HttpServlet {
 
     private List<String> errors = new ArrayList<>();
     private Logger logger = Logger.getLogger(EditTaskServlet.class.getName());
-    private String returningPath = "tasksList";
+    private String returningPath;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -65,17 +65,8 @@ public class EditTaskServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        if(request.getSession(false).getAttribute("path") != null) {
-            returningPath = request.getSession(false).getAttribute("path").toString();
-            request.getSession().invalidate();
-        }
-        else {
-            String referrer = request.getHeader("referer");
-            String[] splited = referrer.split("/");
-            returningPath = splited[splited.length - 1];
-        }
         request.setAttribute("path", "tasksList");
+        returningPath = request.getSession(false).getAttribute("path").toString();
         try {
             TasksDAO taskDAO = new TasksDAOImpl();
 

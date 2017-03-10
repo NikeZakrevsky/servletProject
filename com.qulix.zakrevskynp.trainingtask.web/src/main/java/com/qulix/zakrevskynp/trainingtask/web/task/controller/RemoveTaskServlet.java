@@ -27,7 +27,7 @@ public class RemoveTaskServlet extends HttpServlet {
     private Logger logger = Logger.getLogger(RemoveProjectServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String returningPath = request.getSession().getAttribute("path").toString();
+        String returningPath = request.getSession(false).getAttribute("path").toString();
         TasksDAO tasksDAO = new TasksDAOImpl();
         try {
             tasksDAO.removeTask(Integer.parseInt(request.getParameter("id")));

@@ -21,7 +21,7 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 @WebServlet("/taskProject")
 public class AddTaskProjectBdServlet extends HttpServlet {
 
-    private String returningPath = "tasksList";
+    private String returningPath;
     private List<String> errors = new ArrayList<>();
     private Logger logger = Logger.getLogger(EditTaskServlet.class.getName());
 
@@ -55,7 +55,6 @@ public class AddTaskProjectBdServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         List<String> parametersNames = Collections.list(request.getParameterNames());
         Map<String, Object> parameters = parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
-        System.out.println(parameters.get("projectId"));
         errors = new TaskDataValidator().validate(parameters);
         try {
             if (errors.size() == 0) {

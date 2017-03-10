@@ -2,7 +2,6 @@ package com.qulix.zakrevskynp.trainingtask.web.project.controller;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -21,8 +20,6 @@ import com.qulix.zakrevskynp.trainingtask.web.person.controller.AddPersonServlet
 import com.qulix.zakrevskynp.trainingtask.web.project.ProjectDataValidator;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAO;
-import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
 /**
  * Show view with form for adding new project and handling it data
@@ -36,29 +33,17 @@ public class AddProjectServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        ProjectDataValidator validator = new ProjectDataValidator();
-        //TaskDataValidator taskDataValidator = new TaskDataValidator();
+
         List<String> parametersNames = Collections.list(request.getParameterNames());
         Map<String, Object> parameters = parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
 
-        List<String> errors = validator.validate(parameters);
+        List<String> errors = new ProjectDataValidator().validate(parameters);
         if (errors.size() == 0) {
             try {
-                int id = projectDAO.addProject(parameters);
-                TasksDAO tasksDAO = new TasksDAOImpl();
                 List<Map<String, Object>> tasks = (List<Map<String, Object>>)request.getSession().getAttribute("tasks");
-                if(tasks != null) {
-                    Iterator<Map<String, Object>> iterator = tasks.iterator();
-                    if (tasks.size() != 0) {
-                        while (iterator.hasNext()) {
-                            Map<String, Object> task = iterator.next();
-                            task.put("projectId", id);
-                            //taskDataValidator.validate(task);
-                            tasksDAO.addTask(task);
-                        }
-                    }
-                    request.getSession().invalidate();
-                }
+                projectDAO.addProject(parameters, tasks);
+                request.getSession().invalidate();
+                response.sendRedirect("projectsList");
             } catch (CustomException e) {
                 logger.log(Level.SEVERE, e.getCause().toString());
                 errors.clear();
@@ -66,7 +51,6 @@ public class AddProjectServlet extends HttpServlet {
                 request.setAttribute("error", errors);
                 request.getRequestDispatcher("projectsList.jsp").forward(request, response);
             }
-            response.sendRedirect("projectsList");
         }
         else {
             request.setAttribute("project", parameters);

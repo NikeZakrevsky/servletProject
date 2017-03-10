@@ -23,7 +23,6 @@ public class ProjectDataValidator {
 
         if (isEmptyAndLength.test(parameters.get("name"))) errors.add("Неверное поле название");
         if (isEmptyAndLength.test(parameters.get("shortName"))) errors.add("Неверное поле сокращённое название");
-        if (isEmptyAndLength.test(parameters.get("description"))) errors.add("Неверное поле описание");
 
         return errors;
     }

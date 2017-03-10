@@ -26,10 +26,10 @@ public class RemovePersonServlet extends HttpServlet {
     private Logger logger = Logger.getLogger(RemovePersonServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         PersonDAO personDAO = new PersonDAOImpl();
         try {
             personDAO.removePerson(Integer.parseInt(request.getParameter("id")));
+            response.sendRedirect("personsList");
         }
         catch (CustomException e) {
             logger.log(Level.SEVERE, e.getMessage());
@@ -38,6 +38,6 @@ public class RemovePersonServlet extends HttpServlet {
             request.setAttribute("error", errors);
             request.getRequestDispatcher("personsList.jsp").forward(request, response);
         }
-        response.sendRedirect("personsList");
+
     }
 }

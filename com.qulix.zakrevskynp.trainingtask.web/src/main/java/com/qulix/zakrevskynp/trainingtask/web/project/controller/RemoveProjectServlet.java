@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
-import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
 
 /**
@@ -27,9 +26,8 @@ public class RemoveProjectServlet extends HttpServlet {
     private Logger logger = Logger.getLogger(RemoveProjectServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ProjectDAO dao = new ProjectDAOImpl();
         try {
-            dao.removeProject(Integer.parseInt(request.getParameter("id")));
+            new ProjectDAOImpl().removeProject(Integer.parseInt(request.getParameter("id")));
             response.sendRedirect("projectsList");
         }
         catch (CustomException e) {

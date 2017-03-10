@@ -2,12 +2,14 @@ package com.qulix.zakrevskynp.trainingtask.web.project.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.ConnectionFactory;
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.project.Project;
+import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
 
 /**
@@ -50,7 +52,7 @@ public class ProjectDAOImpl implements ProjectDAO {
      * @param parameters project form data
      * @throws CustomException
      */
-    public int addProject(Map<String, Object> parameters) throws CustomException {
+    public void addProject(Map<String, Object> parameters, List<Map<String, Object>> tasks) throws CustomException {
         try (
             Connection connection = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)
@@ -61,7 +63,17 @@ public class ProjectDAOImpl implements ProjectDAO {
             ResultSet resultSet = statement.executeQuery("CALL IDENTITY()");
             resultSet.next();
             connection.commit();
-            return resultSet.getInt(1);
+            TasksDAOImpl tasksDAO = new TasksDAOImpl();
+            if (tasks != null) {
+                Iterator<Map<String, Object>> iterator = tasks.iterator();
+                if (tasks.size() != 0) {
+                    while (iterator.hasNext()) {
+                        Map<String, Object> task = iterator.next();
+                        task.put("projectId", resultSet.getInt(1));
+                        tasksDAO.addTask(task);
+                    }
+                }
+            }
         } catch (SQLException e) {
             throw new CustomException("Error while adding project", e);
         }

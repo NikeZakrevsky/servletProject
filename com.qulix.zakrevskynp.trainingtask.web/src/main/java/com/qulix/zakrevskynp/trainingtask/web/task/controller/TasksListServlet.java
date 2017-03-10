@@ -28,6 +28,7 @@ public class TasksListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            request.getSession().setAttribute("path", "tasksList");
             request.setAttribute("tasks", new TasksDAOImpl().getTasksList());
             request.getRequestDispatcher("tasksList.jsp").forward(request, response);
         } catch (CustomException e) {

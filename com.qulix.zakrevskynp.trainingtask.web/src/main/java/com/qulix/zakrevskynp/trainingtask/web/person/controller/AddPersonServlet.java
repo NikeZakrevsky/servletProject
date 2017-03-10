@@ -42,14 +42,14 @@ public class AddPersonServlet extends HttpServlet {
         if (errors.size() == 0) {
             try {
                 personDAO.addPerson(parameters);
+                response.sendRedirect("personsList");
             } catch (CustomException e) {
                 logger.log(Level.SEVERE, e.getMessage());
                 errors.clear();
                 errors.add(e.getMessage());
-                request.setAttribute("error", errors);
+                request.setAttribute("errors", errors);
                 request.getRequestDispatcher("personsList.jsp").forward(request, response);
             }
-            response.sendRedirect("personsList");
         }
         else {
             request.setAttribute("errors", errors);
