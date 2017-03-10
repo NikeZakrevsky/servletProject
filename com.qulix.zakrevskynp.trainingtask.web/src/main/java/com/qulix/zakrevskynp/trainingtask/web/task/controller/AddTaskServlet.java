@@ -66,6 +66,7 @@ public class AddTaskServlet extends HttpServlet {
             request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
             request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
             request.setAttribute("action", "addTask");
+            request.setAttribute("path", "tasksList");
             request.getRequestDispatcher("taskView.jsp").forward(request, response);
         } catch (CustomException e) {
             logger.log(Level.SEVERE, e.getCause().toString());
