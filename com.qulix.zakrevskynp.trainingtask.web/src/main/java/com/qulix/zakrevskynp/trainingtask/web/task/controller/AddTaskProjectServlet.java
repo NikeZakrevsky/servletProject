@@ -2,29 +2,27 @@ package com.qulix.zakrevskynp.trainingtask.web.task.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
-import com.qulix.zakrevskynp.trainingtask.web.person.Person;
+import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.task.TaskDataValidator;
+import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAO;
+import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
 @WebServlet("/addTaskProject")
-public class AddTaskProjectServlet extends HttpServlet {
+public class AddTaskProjectServlet extends CustomServlet {
 
-    private Integer id = 0;
     private Logger logger = Logger.getLogger(AddTaskProjectServlet.class.getName());
     private List<String> errors = new ArrayList<>();
 
@@ -48,26 +46,13 @@ public class AddTaskProjectServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         HttpSession session = request.getSession();
-        List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("tasks");
-        if (tasks == null) {
-            tasks = new ArrayList<>();
-        }
-
-        List<String> parametersNames = Collections.list(request.getParameterNames());
-        Map<String, Object> parameters = parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
-
+        TasksDAO tasksDAO = new TasksDAOImpl();
+        Map<String, Object> parameters = getParametersFromRequest(request);
         errors = new TaskDataValidator().validate(parameters);
         try {
             if (errors.size() == 0) {
-                parameters.put("id", id);
-                if(parameters.get("personId") != null) {
-                    Person person = new PersonDAOImpl().getPersonById((int) parameters.get("personId"));
-                    parameters.put("performer", person.getFname() + " " + person.getSname() + " " + person.getLname());
-                }
-                id++;
-                tasks.add(parameters);
+                List<Map<String, Object>> tasks = tasksDAO.addTask(parameters, session);
                 session.setAttribute("tasks", tasks);
-
                 request.setAttribute("action", "addProject");
                 request.setAttribute("tasks", tasks);
                 response.sendRedirect("addProject");

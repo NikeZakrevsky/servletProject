@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;
 
@@ -34,6 +36,8 @@ public interface TasksDAO {
      * @param parameters {@link Task} object
      * @throws CustomException
      */
+    List<Map<String, Object>> addTask(Map<String, Object> parameters, HttpSession session) throws CustomException;
+
     void addTask(Map<String, Object> parameters) throws CustomException;
 
     /**
@@ -50,7 +54,7 @@ public interface TasksDAO {
      * @throws SQLException
      */
     void updateTask(Map<String, Object> parameters)  throws CustomException;
-
+    void updateTask(Map<String, Object> parameters, HttpSession session, int id)  throws CustomException;
     /**
      *
      * @param id project id

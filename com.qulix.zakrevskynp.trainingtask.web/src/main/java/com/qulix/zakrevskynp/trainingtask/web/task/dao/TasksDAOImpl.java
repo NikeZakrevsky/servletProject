@@ -2,11 +2,16 @@ package com.qulix.zakrevskynp.trainingtask.web.task.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import com.qulix.zakrevskynp.trainingtask.web.ConnectionFactory;
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
+import com.qulix.zakrevskynp.trainingtask.web.person.Person;
+import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;
 
 /**
@@ -19,7 +24,9 @@ public class TasksDAOImpl implements TasksDAO {
     private static final String DELETE_QUERY = "delete from tasks where id=?";
     private static final String INSERT_QUERY = "insert into tasks(name, time, startDate, endDate, status, projectId, personId) values (?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_QUERY = "update tasks set name = ?, time = ?, startDate = ?, endDate = ?, status = ?, projectId = ?, personId = ? where id = ?";
-    
+
+    private static int id = 0;
+
     private TaskUtil taskUtil = new TaskUtil();
 
     /**
@@ -82,6 +89,21 @@ public class TasksDAOImpl implements TasksDAO {
         }
     }
 
+    @Override
+    public List<Map<String, Object>> addTask(Map<String, Object> parameters, HttpSession session) throws CustomException {
+        List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("tasks");
+        if (tasks == null) {
+            tasks = new ArrayList<>();
+        }
+        parameters.put("id", generateId());
+        if(parameters.get("personId") != null) {
+            Person person = new PersonDAOImpl().getPersonById((int) parameters.get("personId"));
+            parameters.put("performer", person.getFname() + " " + person.getSname() + " " + person.getLname());
+        }
+        tasks.add(parameters);
+        return tasks;
+    }
+
     /**
      * Get task by id
      *
@@ -124,6 +146,27 @@ public class TasksDAOImpl implements TasksDAO {
         }
     }
 
+    @Override
+    public void updateTask(Map<String, Object> parameters, HttpSession session, int id) throws CustomException {
+        List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("tasks");
+        Iterator iterator = tasks.iterator();
+        int i = 0;
+        while (iterator.hasNext()) {
+            Map<String, Object> task = (Map<String, Object>) iterator.next();
+            if ((Integer) task.get("id") == id) {
+                parameters.put("id", Integer.parseInt(parameters.get("id").toString()));
+                if (parameters.get("personId") != null) {
+                    Person person = new PersonDAOImpl().getPersonById((int) parameters.get("personId"));
+                    parameters.put("performer", person.getFname() + " " + person.getSname() + " " + person.getLname());
+                }
+                tasks.set(i, parameters);
+                break;
+            }
+            i++;
+        }
+        session.setAttribute("tasks", tasks);
+    }
+
     /**
      *
      * @param id project id
@@ -148,5 +191,8 @@ public class TasksDAOImpl implements TasksDAO {
         return tasks;
     }
 
+    private int generateId() {
+        return id++;
+    }
 
 }

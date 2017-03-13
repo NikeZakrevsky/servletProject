@@ -56,4 +56,6 @@ public class AddPersonServlet extends CustomServlet {
         request.setAttribute("action", "addPerson");
         request.getRequestDispatcher("personView.jsp").forward(request, response);
     }
+
+
 }
