@@ -65,7 +65,7 @@ public class EditTaskServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("path", request.getSession().getAttribute("Path").toString());
+        request.setAttribute("path", request.getSession().getAttribute("path").toString());
         returningPath = request.getSession(false).getAttribute("path").toString();
         try {
             TasksDAO taskDAO = new TasksDAOImpl();
