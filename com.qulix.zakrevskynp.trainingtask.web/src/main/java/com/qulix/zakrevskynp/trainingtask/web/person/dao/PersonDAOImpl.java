@@ -33,20 +33,19 @@ public class PersonDAOImpl implements PersonDAO {
      * @throws CustomException
      */
     public List<Person> getPersonsList() throws CustomException {
-        List<Person> persons = new ArrayList<>();
-        try (
+        return (List<Person>) execute("Error while getting persons list", () -> {
+            try (
                 Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY)
-        ) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                persons.add(personUtil.resultSetAsObject(resultSet));
+                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY);
+            ) {
+                List<Person> persons = new ArrayList<>();
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    persons.add(personUtil.resultSetAsObject(resultSet));
+                }
+                return persons;
             }
-            return persons;
-        }
-        catch (SQLException e) {
-            throw new CustomException("Error while getting persons list", e);
-        }
+        });
     }
 
     /**
@@ -54,20 +53,18 @@ public class PersonDAOImpl implements PersonDAO {
      * @param parameters data from add person form
      * @throws CustomException
      */
-    public void addPerson(Map<String, Object> parameters) throws CustomException {
-        try (
+    public boolean addPerson(Map<String, Object> parameters) throws CustomException {
+        return (boolean) execute("Error while adding person", () -> {
+            try (
                 Connection connection =  ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = ConnectionFactory.getConnection().prepareStatement(INSERT_QUERY)
-        ) {
-            personUtil.setPreparedStatement(preparedStatement, parameters);
-
-            preparedStatement.execute();
-            connection.commit();
-        }
-        catch (SQLException e) {
-            throw new CustomException("Error while adding person", e);
-        }
-
+            ) {
+                personUtil.setPreparedStatement(preparedStatement, parameters);
+                preparedStatement.execute();
+                connection.commit();
+                return true;
+            }
+        });
     }
 
     /**
@@ -75,18 +72,18 @@ public class PersonDAOImpl implements PersonDAO {
      * @param id person's id
      * @throws CustomException
      */
-    public void removePerson(int id) throws CustomException {
-        try (
+    public boolean removePerson(int id) throws CustomException {
+        return (boolean) execute("Error while deleting person", () -> {
+            try (
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)
-        ) {
-            preparedStatement.setInt(1, id);
-            preparedStatement.execute();
-            connection.commit();
-        }
-        catch (SQLException e) {
-            throw new CustomException("Error while deleting person", e);
-        }
+            ) {
+                preparedStatement.setInt(1, id);
+                preparedStatement.execute();
+                connection.commit();
+                return true;
+            }
+        });
     }
 
     /**
@@ -97,19 +94,17 @@ public class PersonDAOImpl implements PersonDAO {
      * @throws CustomException
      */
     public Person getPersonById(int id) throws CustomException {
-        try (
+        return (Person)execute("Error while getting person", () -> {
+            try (
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY)
-        ) {
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            return new Person(resultSet.getInt("id"), resultSet.getString("fname"), resultSet.getString("sname"),
-                    resultSet.getString("lname"), resultSet.getString("position"));
-        }
-        catch (SQLException e) {
-            throw new CustomException("Error while getting person", e);
-        }
+            ) {
+                preparedStatement.setInt(1, id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                resultSet.next();
+                return personUtil.resultSetAsObject(resultSet);
+            }
+        });
     }
 
     /**
@@ -118,18 +113,26 @@ public class PersonDAOImpl implements PersonDAO {
      * @param parameters Person object
      * @throws CustomException
      */
-    public void updatePerson(Map<String, Object> parameters) throws CustomException {
-        try (
+    public boolean updatePerson(Map<String, Object> parameters) throws CustomException {
+        return (boolean) execute("Error while updating person", () -> {
+            try (
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
-        ) {
-            personUtil.setPreparedStatement(preparedStatement, parameters);
-            preparedStatement.setInt(5, Integer.parseInt(parameters.get("id").toString()));
-            preparedStatement.execute();
-            connection.commit();
-        }
-        catch (SQLException e) {
-            throw new CustomException("Error while updating person", e);
+            ) {
+                personUtil.setPreparedStatement(preparedStatement, parameters);
+                preparedStatement.setInt(5, Integer.parseInt(parameters.get("id").toString()));
+                preparedStatement.execute();
+                connection.commit();
+                return true;
+            }
+        });
+    }
+
+    private Object execute(String message, Executable ex) throws CustomException {
+        try {
+            return ex.exec();
+        } catch (SQLException e) {
+            throw new CustomException(message, e);
         }
     }
-}                         
+}

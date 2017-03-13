@@ -25,14 +25,14 @@ public interface PersonDAO {
      * @param parameters person form data
      * @throws CustomException
      */
-    void addPerson(Map<String, Object> parameters) throws CustomException;
+    boolean addPerson(Map<String, Object> parameters) throws CustomException;
 
     /**
      * Remove person from database by id
      * @param id person's id
      * @throws CustomException
      */
-    void removePerson(int id) throws CustomException;
+    boolean removePerson(int id) throws CustomException;
 
     /**
      * Gets person by id
@@ -49,5 +49,5 @@ public interface PersonDAO {
      * @param parameters person form data
      * @throws CustomException
      */
-    void updatePerson(Map<String, Object> parameters) throws CustomException;
+    boolean updatePerson(Map<String, Object> parameters) throws CustomException;
 }

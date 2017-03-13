@@ -1,22 +1,19 @@
 package com.qulix.zakrevskynp.trainingtask.web.person.controller;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
+import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.PersonDataValidator;
-import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAO;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 
 /**
@@ -25,23 +22,19 @@ import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
  */
    
 @WebServlet("/addPerson")
-public class AddPersonServlet extends HttpServlet {
+public class AddPersonServlet extends CustomServlet {
 
     private Logger logger = Logger.getLogger(AddPersonServlet.class.getName());
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        PersonDataValidator validator = new PersonDataValidator();
-        PersonDAO personDAO = new PersonDAOImpl();
 
-        List<String> parametersNames = Collections.list(request.getParameterNames());
-        Map<String, Object> parameters = parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
-
-        List<String> errors = validator.validate(parameters);
+        Map<String, Object> parameters = getParametersFromRequest(request);
+        List<String> errors = new PersonDataValidator().validate(parameters);
 
         if (errors.size() == 0) {
             try {
-                personDAO.addPerson(parameters);
+                new PersonDAOImpl().addPerson(parameters);
                 response.sendRedirect("personsList");
             } catch (CustomException e) {
                 logger.log(Level.SEVERE, e.getMessage());

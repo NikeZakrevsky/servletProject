@@ -27,9 +27,7 @@ public class AddTaskProjectBdServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String referrer = request.getHeader("referer");
-        String[] splited = referrer.split("/");
-        returningPath = splited[splited.length - 1];
+        returningPath = request.getSession().getAttribute("path").toString();
         try {
             request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
             request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
