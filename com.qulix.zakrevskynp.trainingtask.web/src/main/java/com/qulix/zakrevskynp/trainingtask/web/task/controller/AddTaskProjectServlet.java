@@ -52,7 +52,7 @@ public class AddTaskProjectServlet extends CustomServlet {
         try {
             if (errors.size() == 0) {
                 List<Map<String, Object>> tasks = tasksDAO.addTask(parameters, session);
-                session.setAttribute("tasks", tasks);
+                session.setAttribute("resultTasks", tasks);
                 request.setAttribute("action", "addProject");
                 request.setAttribute("tasks", tasks);
                 response.sendRedirect("addProject");

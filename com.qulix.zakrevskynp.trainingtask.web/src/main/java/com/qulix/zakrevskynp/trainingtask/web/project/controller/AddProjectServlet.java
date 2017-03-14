@@ -42,7 +42,7 @@ public class AddProjectServlet extends HttpServlet {
         List<String> errors = new ProjectDataValidator().validate(parameters);
         if (errors.size() == 0) {
             try {
-                List<Map<String, Object>> tasks = (List<Map<String, Object>>)request.getSession().getAttribute("tasks");
+                List<Map<String, Object>> tasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
                 projectDAO.addProject(parameters, tasks);
                 request.getSession().invalidate();
             } catch (CustomException e) {
@@ -66,7 +66,8 @@ public class AddProjectServlet extends HttpServlet {
         request.getSession(true).setAttribute("path", "addProject");
         request.setAttribute("path", "addProject");
         HttpSession session = request.getSession();
-        List<Map<String, Object>> tasks = (List<Map<String, Object>>)session.getAttribute("tasks");
+        List<Map<String, Object>> tasks = (List<Map<String, Object>>)session.getAttribute("resultTasks");
+        session.setAttribute("resultTask", tasks);
         request.setAttribute("tasks", tasks);
         request.getRequestDispatcher("projectView.jsp").forward(request, response);
     }

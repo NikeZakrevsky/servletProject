@@ -31,7 +31,6 @@ public class EditTaskProjectServlet extends CustomServlet {
         request.setAttribute("path", request.getSession().getAttribute("path").toString());
         returningPath = request.getSession(false).getAttribute("path").toString();
         List<Map<String, Object>> tasks = (List<Map<String, Object>>) request.getSession().getAttribute("resultTasks");
-        System.out.println(tasks);
         Iterator iterator = tasks.iterator();
         while (iterator.hasNext()) {
             Map<String, Object> task = (Map<String, Object>) iterator.next();
