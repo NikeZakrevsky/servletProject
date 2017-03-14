@@ -2,6 +2,7 @@ package com.qulix.zakrevskynp.trainingtask.web.project.controller;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -20,6 +21,7 @@ import com.qulix.zakrevskynp.trainingtask.web.person.controller.AddPersonServlet
 import com.qulix.zakrevskynp.trainingtask.web.project.ProjectDataValidator;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
 /**
  * Show view with form for adding new project and handling it data
@@ -43,7 +45,6 @@ public class AddProjectServlet extends HttpServlet {
                 List<Map<String, Object>> tasks = (List<Map<String, Object>>)request.getSession().getAttribute("tasks");
                 projectDAO.addProject(parameters, tasks);
                 request.getSession().invalidate();
-                response.sendRedirect("projectsList");
             } catch (CustomException e) {
                 logger.log(Level.SEVERE, e.getCause().toString());
                 errors.clear();
@@ -51,6 +52,7 @@ public class AddProjectServlet extends HttpServlet {
                 request.setAttribute("error", errors);
                 request.getRequestDispatcher("projectsList.jsp").forward(request, response);
             }
+            response.sendRedirect("projectsList");
         }
         else {
             request.setAttribute("project", parameters);

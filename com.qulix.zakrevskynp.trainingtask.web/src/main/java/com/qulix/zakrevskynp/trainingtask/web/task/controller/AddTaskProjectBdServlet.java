@@ -2,12 +2,11 @@ package com.qulix.zakrevskynp.trainingtask.web.task.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,6 +33,11 @@ public class AddTaskProjectBdServlet extends CustomServlet {
         try {
             request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
             request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
+            if (!request.getParameter("projectId").equals("")) {
+                Map<String, Object> task = new HashMap<>();
+                task.put("projectId", Integer.parseInt(request.getParameter("projectId")));
+                request.setAttribute("task", task);
+            }
             request.setAttribute("isDisable", true);
             request.setAttribute("action", "taskProject");
             request.getRequestDispatcher("taskView.jsp").forward(request, response);
