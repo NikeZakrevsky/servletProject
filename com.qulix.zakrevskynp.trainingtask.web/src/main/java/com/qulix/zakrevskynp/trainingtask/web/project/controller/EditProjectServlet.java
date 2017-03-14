@@ -46,8 +46,8 @@ public class EditProjectServlet extends HttpServlet {
                 dao.updateProject(parameters);
                 List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
                 TasksDAOImpl tasksDAO = new TasksDAOImpl();
-                for (Task task : tasksDAO.getTasksList()) {
-                    tasksDAO.removeTask(task.getId());
+                for (Map<String, Object> task: tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter("id")))) {
+                    tasksDAO.removeTask(Integer.parseInt(task.get("id").toString()));
                 }
                 for (Map<String, Object> task : resultTasks) {
                     tasksDAO.addTask(task);
