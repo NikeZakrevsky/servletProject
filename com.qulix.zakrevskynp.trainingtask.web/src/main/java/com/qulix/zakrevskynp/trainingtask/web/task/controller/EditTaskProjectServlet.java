@@ -64,19 +64,26 @@ public class EditTaskProjectServlet extends CustomServlet {
         TasksDAOImpl tasksDAO = new TasksDAOImpl();
 
         errors = validator.validate(parameters);
-
-        if (errors.size() == 0) {
-            try {
+        try {
+            if (errors.size() == 0) {
                 tasksDAO.updateTask(parameters, request.getSession(), Integer.parseInt(request.getParameter("id")));
                 response.sendRedirect(returningPath);
             }
-            catch (CustomException e) {
-                logger.log(Level.SEVERE, e.getCause().toString());
-                errors.clear();
-                errors.add(e.getMessage());
-                request.setAttribute("error", errors);
-                request.getRequestDispatcher("tasksView.jsp").forward(request, response);
+            else {
+                request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
+                request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
+                request.setAttribute("action", "editTaskProject");
+                request.setAttribute("errors", errors);
+                request.setAttribute("task", parameters);
+                request.getRequestDispatcher("taskView.jsp").forward(request, response);
             }
+        }
+        catch (CustomException e) {
+            logger.log(Level.SEVERE, e.getCause().toString());
+            errors.clear();
+            errors.add(e.getMessage());
+            request.setAttribute("error", errors);
+            request.getRequestDispatcher("tasksView.jsp").forward(request, response);
         }
     }
 }
