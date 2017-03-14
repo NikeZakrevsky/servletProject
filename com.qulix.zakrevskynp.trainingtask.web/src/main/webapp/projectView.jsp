@@ -96,20 +96,11 @@
                             <td>${task.name}</td>
                             <td>${task.startDate}</td>
                             <td>${task.endDate}</td>
-                            <td>${task.performer}</td>
+                            <td>${task.person}</td>
                             <td>${task.status}</td>
                             <td>
-
-                                <c:choose>
-                                    <c:when test="${action.equals('editProject')}">
-                                        <a href="removeTask?id=${task.id}"><button type="button" class="btn btn-danger custom-width">Удалить</button></a>
-                                        <a href="editTask?id=${task.id}"><button type="button" class="btn btn-success custom-width">Изменить</button></a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a href="removeTaskProject?id=${task.id}"><button type="button" class="btn btn-danger custom-width">Удалить</button></a>
-                                        <a href="editTaskProject?id=${task.id}"><button type="button" class="btn btn-success custom-width">Изменить</button></a>
-                                    </c:otherwise>
-                                </c:choose>
+                                <a href="removeTaskProject?id=${task.id}"><button type="button" class="btn btn-danger custom-width">Удалить</button></a>
+                                <a href="editTaskProject?id=${task.id}"><button type="button" class="btn btn-success custom-width">Изменить</button></a>
                             </td>
                         </tr>
                     <tbody>

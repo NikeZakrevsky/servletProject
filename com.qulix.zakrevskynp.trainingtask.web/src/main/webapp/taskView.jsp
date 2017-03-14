@@ -27,7 +27,7 @@
     <div class="generic-container">
     <div class="panel panel-default">
     <div class="panel-heading"><span class="lead">Управление задачами</span></div>
-	<form onsubmit="document.getElementById('lol').disabled = false;" action = "${action}" method = "POST">
+	<form action = "${action}" method = "POST">
         <div class="form-group col-md-12">
             <c:forEach items="${errors}" var="error">
                 <span style="color: red; ">${error}</span></br>
@@ -100,11 +100,12 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" name = "projectId" value = "${task.projectId}">
         <div class="row">
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Проект</label>
                 <div class="col-md-7">
-                    <select id = "lol" name="projectId" ${isDisable ? 'disabled="true"' : ''}>
+                    <select id = "lol" name="projectId1" disabled>
                         <option value selected="selected"> -- select an option -- </option>
                         <c:forEach items="${projectsList}" var="project">
                             <option value="${project.id}" ${(project.id == task.projectId) ? 'selected="selected"' : ''}>${project.shortName}</option>

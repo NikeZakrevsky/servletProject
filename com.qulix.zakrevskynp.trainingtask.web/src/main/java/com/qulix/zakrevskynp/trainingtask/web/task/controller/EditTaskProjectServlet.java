@@ -15,6 +15,7 @@ import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.Person;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.task.TaskDataValidator;
 import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
@@ -23,11 +24,14 @@ public class EditTaskProjectServlet extends CustomServlet {
 
     private List<String> errors = new ArrayList<>();
     private Logger logger = Logger.getLogger(AddTaskProjectServlet.class.getName());
-    
+    private String returningPath;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        List<Map<String, Object>> tasks = (List<Map<String, Object>>) request.getSession().getAttribute("tasks");
+        request.setAttribute("path", request.getSession().getAttribute("path").toString());
+        returningPath = request.getSession(false).getAttribute("path").toString();
+        List<Map<String, Object>> tasks = (List<Map<String, Object>>) request.getSession().getAttribute("resultTasks");
+        System.out.println(tasks);
         Iterator iterator = tasks.iterator();
         while (iterator.hasNext()) {
             Map<String, Object> task = (Map<String, Object>) iterator.next();
@@ -35,6 +39,7 @@ public class EditTaskProjectServlet extends CustomServlet {
             if ((Integer)task.get("id") == Integer.parseInt(request.getParameter("id"))) {
                 try {
                     request.setAttribute("task", task);
+                    request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
                     request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
                     request.setAttribute("isDisable", true);
                     request.getRequestDispatcher("taskView.jsp").forward(request, response);
@@ -63,7 +68,7 @@ public class EditTaskProjectServlet extends CustomServlet {
         if (errors.size() == 0) {
             try {
                 tasksDAO.updateTask(parameters, request.getSession(), Integer.parseInt(request.getParameter("id")));
-                response.sendRedirect("addProject");
+                response.sendRedirect(returningPath);
             }
             catch (CustomException e) {
                 logger.log(Level.SEVERE, e.getCause().toString());

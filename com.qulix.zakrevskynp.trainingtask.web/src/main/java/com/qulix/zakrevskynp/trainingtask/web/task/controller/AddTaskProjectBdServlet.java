@@ -53,19 +53,20 @@ public class AddTaskProjectBdServlet extends CustomServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
+        request.setAttribute("isDisable", true);
         Map<String, Object> parameters = getParametersFromRequest(request);
         errors = new TaskDataValidator().validate(parameters);
 
         try {
             if (errors.size() == 0) {
-                new TasksDAOImpl().addTask(parameters);
+                List<Map<String, Object>> resultTasks = new TasksDAOImpl().addTask(parameters, request.getSession());
+                request.getSession().setAttribute("resultTasks", resultTasks);
                 response.sendRedirect(returningPath);
             }
             else {
                 request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
                 request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
-                request.setAttribute("action", "addTask");
+                request.setAttribute("action", "addTaskProject");
                 request.setAttribute("errors", errors);
                 request.setAttribute("task", parameters);
                 request.getRequestDispatcher("taskView.jsp").forward(request, response);

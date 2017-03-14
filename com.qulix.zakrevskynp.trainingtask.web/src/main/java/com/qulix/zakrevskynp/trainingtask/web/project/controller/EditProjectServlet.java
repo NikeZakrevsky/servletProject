@@ -1,10 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web.project.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -21,6 +18,7 @@ import com.qulix.zakrevskynp.trainingtask.web.project.ProjectDataValidator;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;
+import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAO;
 import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
 /**
@@ -33,6 +31,7 @@ public class EditProjectServlet extends HttpServlet {
     private List<String> errors = new ArrayList<>();
     private Logger logger = Logger.getLogger(EditProjectServlet.class.getName());
     private ProjectDAO dao = new ProjectDAOImpl();
+    private List<Map<String, Object>> resultTasks;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -45,11 +44,19 @@ public class EditProjectServlet extends HttpServlet {
         try {
             if (errors.size() == 0) {
                 dao.updateProject(parameters);
+                List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
+                TasksDAOImpl tasksDAO = new TasksDAOImpl();
+                for (Task task : tasksDAO.getTasksList()) {
+                    tasksDAO.removeTask(task.getId());
+                }
+                for (Map<String, Object> task : resultTasks) {
+                    tasksDAO.addTask(task);
+                }
                 response.sendRedirect("projectsList");
             }
             else {
                 request.setAttribute("project", parameters);
-                List<Task> tasks = new TasksDAOImpl().getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
+                List<Map<String, Object>> tasks = new TasksDAOImpl().getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
                 request.setAttribute("tasks", tasks);
                 request.setAttribute("errors", errors);
                 request.setAttribute("action", "editProject");
@@ -67,10 +74,20 @@ public class EditProjectServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Project project = dao.getProjectById(Integer.parseInt(request.getParameter("id")));
-            List<Task> tasks = new TasksDAOImpl().getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
 
-            request.setAttribute("tasks", tasks);
+            if (request.getSession().getAttribute("resultTasks") == null) {
+                resultTasks = new ArrayList<>();
+                List<Map<String, Object>> tasks = new TasksDAOImpl().getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
+                if (tasks != null) {
+                    tasks.forEach(resultTasks::add);
+                }
+                request.getSession().setAttribute("resultTasks", resultTasks);
+            }
+            else
+                resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
+
+            Project project = dao.getProjectById(Integer.parseInt(request.getParameter("id")));
+            request.setAttribute("tasks", resultTasks);
             request.setAttribute("project", project);
             request.setAttribute("action", "editProject");
 

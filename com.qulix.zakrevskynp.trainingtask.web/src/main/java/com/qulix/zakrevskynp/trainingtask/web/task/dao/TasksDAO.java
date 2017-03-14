@@ -61,5 +61,5 @@ public interface TasksDAO {
      * @return List of tasks with specified project id
      * @throws CustomException
      */
-    List<Task> getTasksByProjectId(int id) throws CustomException;
+    List<Map<String, Object>> getTasksByProjectId(int id) throws CustomException;
 }

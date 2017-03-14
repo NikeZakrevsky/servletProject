@@ -2,7 +2,11 @@ package com.qulix.zakrevskynp.trainingtask.web.task.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;
@@ -43,6 +47,26 @@ public class TaskUtil {
         task.setProjectShortName(resultSet.getString(SHORTNAME));
         task.setPerformer(resultSet.getString(PERSON));
         return task;
+    }
+
+    /**
+     * Convert the ResultSet to a List of Maps, where each Map represents a row with columnNames and columValues
+     * @param rs
+     * @return
+     * @throws SQLException
+     */
+    public List<Map<String, Object>> resultSetToList(ResultSet rs) throws SQLException {
+        ResultSetMetaData md = rs.getMetaData();
+        int columns = md.getColumnCount();
+        List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+        while (rs.next()){
+            Map<String, Object> row = new HashMap<String, Object>(columns);
+            for(int i = 1; i <= columns; ++i){
+                row.put(md.getColumnName(i), rs.getObject(i));
+            }
+            rows.add(row);
+        }
+        return rows;
     }
 
     /**

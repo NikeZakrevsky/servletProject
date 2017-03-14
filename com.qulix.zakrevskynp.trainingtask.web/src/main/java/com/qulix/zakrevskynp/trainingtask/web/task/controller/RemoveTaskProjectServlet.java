@@ -11,15 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
+
 @WebServlet("/removeTaskProject")
 public class RemoveTaskProjectServlet extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("tasks");
-        tasks.forEach(task -> System.out.println(task.get("id")));
-        tasks.removeIf(task -> (Integer) task.get("id") == Integer.parseInt(request.getParameter("id")));
-        session.setAttribute("tasks", tasks);
-        response.sendRedirect("addProject");
+        String returningPath = request.getSession(false).getAttribute("path").toString();
+        new TasksDAOImpl().removeTask(Integer.parseInt(request.getParameter("id")), session);
+        session.setAttribute("resultTasks", session.getAttribute("resultTasks"));
+        response.sendRedirect(returningPath);
     }
 }

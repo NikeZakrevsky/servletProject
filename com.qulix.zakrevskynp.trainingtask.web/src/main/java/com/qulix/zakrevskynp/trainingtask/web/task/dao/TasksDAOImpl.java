@@ -20,10 +20,10 @@ import com.qulix.zakrevskynp.trainingtask.web.task.Task;
  */
 public class TasksDAOImpl implements TasksDAO {
     
-    private static final String SELECT_QUERY = "SELECT id, name, time, startDate, endDate, status, shortname, projectId, personId, fname + ' ' + sname + ' ' + lname as person FROM tasks left join projects on tasks.projectId = projects.id left join persons on tasks.personId = persons.id";
-    private static final String DELETE_QUERY = "delete from tasks where id=?";
-    private static final String INSERT_QUERY = "insert into tasks(name, time, startDate, endDate, status, projectId, personId) values (?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_QUERY = "update tasks set name = ?, time = ?, startDate = ?, endDate = ?, status = ?, projectId = ?, personId = ? where id = ?";
+    private static final String SELECT_QUERY = "SELECT \"id\", \"name\", \"time\", \"startDate\", \"endDate\", \"status\", \"shortname\", \"projectId\", \"personId\", \"fname\" + ' ' + \"sname\" + ' ' + \"lname\" as \"person\" FROM \"tasks\" left join \"projects\" on \"tasks\".\"projectId\" = \"projects\".\"id\" left join \"persons\" on \"tasks\".\"personId\" = \"persons\".\"id\"";
+    private static final String DELETE_QUERY = "delete from \"tasks\" where \"id\"=?";
+    private static final String INSERT_QUERY = "insert into \"tasks\"(\"name\", \"time\", \"startDate\", \"endDate\", \"status\", \"projectId\", \"personId\") values (?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_QUERY = "update \"tasks\" set \"name\" = ?, \"time\" = ?, \"startDate\" = ?, \"endDate\" = ?, \"status\" = ?, \"projectId\" = ?, \"personId\" = ? where \"id\" = ?";
 
     private static int id = 0;
 
@@ -91,11 +91,17 @@ public class TasksDAOImpl implements TasksDAO {
 
     @Override
     public List<Map<String, Object>> addTask(Map<String, Object> parameters, HttpSession session) throws CustomException {
-        List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("tasks");
+        List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("resultTasks");
         if (tasks == null) {
             tasks = new ArrayList<>();
         }
-        parameters.put("id", generateId());
+        int max = -1;
+        for(Map<String, Object> task : tasks) {
+            if(Integer.parseInt(task.get("id").toString()) > max) {
+                max = Integer.parseInt(task.get("id").toString());
+            }
+        }
+        parameters.put("id", max + 1);
         if(parameters.get("personId") != null) {
             Person person = new PersonDAOImpl().getPersonById((int) parameters.get("personId"));
             parameters.put("performer", person.getFname() + " " + person.getSname() + " " + person.getLname());
@@ -114,7 +120,7 @@ public class TasksDAOImpl implements TasksDAO {
         Task task;
         try (
             Connection connection = ConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where id = ?")
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where \"id\" = ?")
         ) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -148,7 +154,7 @@ public class TasksDAOImpl implements TasksDAO {
 
     @Override
     public void updateTask(Map<String, Object> parameters, HttpSession session, int id) throws CustomException {
-        List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("tasks");
+        List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("resultTasks");
         Iterator iterator = tasks.iterator();
         int i = 0;
         while (iterator.hasNext()) {
@@ -157,14 +163,21 @@ public class TasksDAOImpl implements TasksDAO {
                 parameters.put("id", Integer.parseInt(parameters.get("id").toString()));
                 if (parameters.get("personId") != null) {
                     Person person = new PersonDAOImpl().getPersonById((int) parameters.get("personId"));
-                    parameters.put("performer", person.getFname() + " " + person.getSname() + " " + person.getLname());
+                    parameters.put("person", person.getFname() + " " + person.getSname() + " " + person.getLname());
                 }
                 tasks.set(i, parameters);
                 break;
             }
             i++;
         }
-        session.setAttribute("tasks", tasks);
+        session.setAttribute("resultTasks", tasks);
+    }
+
+    public void removeTask(int id, HttpSession session) {
+        List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("resultTasks");
+        tasks.forEach(task -> System.out.println(task.get("id")));
+        tasks.removeIf(task -> (Integer) task.get("id") == id);
+        session.setAttribute("resultTasks", tasks);
     }
 
     /**
@@ -173,22 +186,19 @@ public class TasksDAOImpl implements TasksDAO {
      * @return List of tasks with specified project id
      * @throws CustomException
      */
-    public List<Task> getTasksByProjectId(int id) throws CustomException {
+    public List<Map<String, Object>> getTasksByProjectId(int id) throws CustomException {
         List<Task> tasks = new ArrayList<>();
         try (
                 Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where projectId = ?")
+                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where \"projectId\" = ?")
         ) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Task task = taskUtil.resultSetAsObject(resultSet);
-                tasks.add(task);
-            }
+            return taskUtil.resultSetToList(resultSet);
         } catch (SQLException e) {
             throw new CustomException("Error while getting tasks", e);
         }
-        return tasks;
+
     }
 
     private int generateId() {
