@@ -74,6 +74,8 @@ public class EditTaskServlet extends HttpServlet {
             request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
             request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
             request.setAttribute("action", "editTask");
+            if(!returningPath.equals("tasksList"))
+                request.setAttribute("isDisable", true);
             request.getRequestDispatcher("taskView.jsp").forward(request, response);
         } catch (CustomException e) {
             logger.log(Level.SEVERE, e.getCause().toString());
