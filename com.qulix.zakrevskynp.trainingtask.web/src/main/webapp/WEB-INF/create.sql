@@ -22,10 +22,10 @@ create table "tasks" (
   "status" varchar(50),
   "projectId" INTEGER,
   "personId" INTEGER,
-  constraint project_fk foreign key("projectId") references "projects"("id")
+  constraint "project_fk" foreign key("projectId") references "projects"("id")
   on delete set null
   on update cascade,
-  constraint person_fk foreign key("personId") references "persons"("id")
+  constraint "person_fk" foreign key("personId") references "persons"("id")
   on delete cascade
   on update cascade
 );

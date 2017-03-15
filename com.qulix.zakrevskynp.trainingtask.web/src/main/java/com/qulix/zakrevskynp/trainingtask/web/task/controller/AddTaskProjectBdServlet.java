@@ -30,6 +30,7 @@ public class AddTaskProjectBdServlet extends CustomServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         returningPath = request.getSession().getAttribute("path").toString();
+        System.out.println(returningPath);
         try {
             request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
             request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
@@ -56,7 +57,6 @@ public class AddTaskProjectBdServlet extends CustomServlet {
         request.setAttribute("isDisable", true);
         Map<String, Object> parameters = getParametersFromRequest(request);
         errors = new TaskDataValidator().validate(parameters);
-
         try {
             if (errors.size() == 0) {
                 List<Map<String, Object>> resultTasks = new TasksDAOImpl().addTask(parameters, request.getSession());
@@ -66,7 +66,7 @@ public class AddTaskProjectBdServlet extends CustomServlet {
             else {
                 request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
                 request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
-                request.setAttribute("action", "addTaskProject");
+                request.setAttribute("action", "taskProject");
                 request.setAttribute("errors", errors);
                 request.setAttribute("task", parameters);
                 request.getRequestDispatcher("taskView.jsp").forward(request, response);

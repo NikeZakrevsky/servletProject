@@ -44,6 +44,12 @@ public class EditTaskServlet extends HttpServlet {
         errors = validator.validate(parameters);
         try {
             if (errors.size() == 0) {
+                if (parameters.get("projectId1").equals("")) {
+                    parameters.put("projectId", null);
+                }
+                else {
+                    parameters.put("projectId", parameters.get("projectId1"));
+                }
                 TasksDAO tasksDAO = new TasksDAOImpl();
                 tasksDAO.updateTask(parameters);
                 response.sendRedirect(returningPath);

@@ -37,6 +37,12 @@ public class AddTaskServlet extends CustomServlet {
 
         try {
             if (errors.size() == 0) {
+                if (parameters.get("projectId1").equals("")) {
+                    parameters.put("projectId", null);
+                }
+                else {
+                    parameters.put("projectId", parameters.get("projectId1"));
+                }
                 new TasksDAOImpl().addTask(parameters);
                 response.sendRedirect("tasksList");
             }
@@ -49,7 +55,7 @@ public class AddTaskServlet extends CustomServlet {
                 request.getRequestDispatcher("taskView.jsp").forward(request, response);
             }
         } catch (CustomException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
+            logger.log(Level.SEVERE, e.getMessage());
             errors.clear();
             errors.add(e.getMessage());
             request.setAttribute("error", errors);

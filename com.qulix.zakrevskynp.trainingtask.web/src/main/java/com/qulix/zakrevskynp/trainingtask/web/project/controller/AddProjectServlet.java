@@ -55,8 +55,11 @@ public class AddProjectServlet extends HttpServlet {
             response.sendRedirect("projectsList");
         }
         else {
+            HttpSession session = request.getSession();
             request.setAttribute("project", parameters);
             request.setAttribute("errors", errors);
+            List<Map<String, Object>> tasks = (List<Map<String, Object>>)session.getAttribute("resultTasks");
+            request.setAttribute("tasks", tasks);
             request.getRequestDispatcher("projectView.jsp").forward(request, response);
         }
     }

@@ -56,8 +56,8 @@ public class EditProjectServlet extends HttpServlet {
             }
             else {
                 request.setAttribute("project", parameters);
-                List<Map<String, Object>> tasks = new TasksDAOImpl().getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
-                request.setAttribute("tasks", tasks);
+                List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
+                request.setAttribute("tasks", resultTasks);
                 request.setAttribute("errors", errors);
                 request.setAttribute("action", "editProject");
                 request.getRequestDispatcher("projectView.jsp").forward(request, response);
