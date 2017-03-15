@@ -8,12 +8,12 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.project.controller.RemoveProjectServlet;
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
+import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
+import com.qulix.zakrevskynp.trainingtask.web.project.controller.RemoveProjectServlet;
 import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAO;
 import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
@@ -22,7 +22,7 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
  * @author Q-NZA
  */
 @WebServlet("/removeTask")
-public class RemoveTaskServlet extends HttpServlet {
+public class RemoveTaskServlet extends CustomServlet {
     private List<String> errors = new ArrayList<>();
     private Logger logger = Logger.getLogger(RemoveProjectServlet.class.getName());
 

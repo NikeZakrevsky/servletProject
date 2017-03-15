@@ -8,11 +8,11 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
+import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
 
 /**
@@ -20,7 +20,7 @@ import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
  * @author Q-NZA
  */
 @WebServlet("/projectsList")
-public class ProjectsListServlet extends HttpServlet {
+public class ProjectsListServlet extends CustomServlet {
 
     private List<String> errors = new ArrayList<>();
     private Logger logger = Logger.getLogger(ProjectsListServlet.class.getName());

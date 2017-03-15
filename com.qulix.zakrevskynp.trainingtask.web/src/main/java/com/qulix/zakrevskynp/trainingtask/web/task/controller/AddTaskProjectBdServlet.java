@@ -30,7 +30,7 @@ public class AddTaskProjectBdServlet extends CustomServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         returningPath = request.getSession().getAttribute("path").toString();
-        System.out.println(returningPath);
+
         try {
             request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
             request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
