@@ -33,9 +33,9 @@ public class TasksDAOImpl implements TasksDAO {
      * Get all task from database
      *
      * @return list of all tasks in database
-     * @throws CustomException
+     * @
      */
-    public List<Task> getTasksList() throws CustomException {
+    public List<Task> getTasksList()  {
         List<Task> tasks = new ArrayList<>();
         try (
                 Connection connection = ConnectionFactory.getConnection();
@@ -57,7 +57,7 @@ public class TasksDAOImpl implements TasksDAO {
      *
      * @param id project's id
      */
-    public void removeTask(int id) throws CustomException {
+    public void removeTask(int id)  {
         try (
             Connection connection = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)
@@ -74,9 +74,9 @@ public class TasksDAOImpl implements TasksDAO {
      * Insert task in database
      *
      * @param parameters task form data
-     * @throws CustomException
+     * @
      */
-    public void addTask(Map<String, Object> parameters) throws CustomException {
+    public void addTask(Map<String, Object> parameters)  {
         try (
             Connection connection = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)
@@ -90,7 +90,7 @@ public class TasksDAOImpl implements TasksDAO {
     }
 
     @Override
-    public List<Map<String, Object>> addTask(Map<String, Object> parameters, HttpSession session) throws CustomException {
+    public List<Map<String, Object>> addTask(Map<String, Object> parameters, HttpSession session)  {
         List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("resultTasks");
         if (tasks == null) {
             tasks = new ArrayList<>();
@@ -116,7 +116,7 @@ public class TasksDAOImpl implements TasksDAO {
      * @param id task's id
      * @return Task object
      */
-    public Task getTaskById(int id) throws CustomException {
+    public Task getTaskById(int id)  {
         Task task;
         try (
             Connection connection = ConnectionFactory.getConnection();
@@ -136,9 +136,9 @@ public class TasksDAOImpl implements TasksDAO {
     /**
      *
      * @param parameters task form data
-     * @throws CustomException
+     * @
      */
-    public void updateTask(Map<String, Object> parameters) throws CustomException {
+    public void updateTask(Map<String, Object> parameters)  {
         try (
             Connection connection = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
@@ -153,7 +153,7 @@ public class TasksDAOImpl implements TasksDAO {
     }
 
     @Override
-    public void updateTask(Map<String, Object> parameters, HttpSession session, int id) throws CustomException {
+    public void updateTask(Map<String, Object> parameters, HttpSession session, int id)  {
         List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("resultTasks");
         Iterator iterator = tasks.iterator();
         int i = 0;
@@ -184,9 +184,9 @@ public class TasksDAOImpl implements TasksDAO {
      *
      * @param id project id
      * @return List of tasks with specified project id
-     * @throws CustomException
+     * @
      */
-    public List<Map<String, Object>> getTasksByProjectId(int id) throws CustomException {
+    public List<Map<String, Object>> getTasksByProjectId(int id)  {
         List<Task> tasks = new ArrayList<>();
         try (
                 Connection connection = ConnectionFactory.getConnection();

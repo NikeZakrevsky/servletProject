@@ -35,47 +35,31 @@ public class AddTaskServlet extends CustomServlet {
         Map<String, Object> parameters = getParametersFromRequest(request);
         errors = new TaskDataValidator().validate(parameters);
 
-        try {
-            if (errors.size() == 0) {
-                if (parameters.get("projectId1").equals("")) {
-                    parameters.put("projectId", null);
-                }
-                else {
-                    parameters.put("projectId", parameters.get("projectId1"));
-                }
-                new TasksDAOImpl().addTask(parameters);
-                response.sendRedirect("tasksList");
+        if (errors.size() == 0) {
+            if (parameters.get("projectId1").equals("")) {
+                parameters.put("projectId", null);
             }
             else {
-                request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
-                request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
-                request.setAttribute("action", "addTask");
-                request.setAttribute("errors", errors);
-                request.setAttribute("task", parameters);
-                request.getRequestDispatcher("taskView.jsp").forward(request, response);
+                parameters.put("projectId", parameters.get("projectId1"));
             }
-        } catch (CustomException e) {
-            logger.log(Level.SEVERE, e.getMessage());
-            errors.clear();
-            errors.add(e.getMessage());
-            request.setAttribute("error", errors);
-            request.getRequestDispatcher("tasksList.jsp").forward(request, response);
+            new TasksDAOImpl().addTask(parameters);
+            response.sendRedirect("tasksList");
+        }
+        else {
+            request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
+            request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
+            request.setAttribute("action", "addTask");
+            request.setAttribute("errors", errors);
+            request.setAttribute("task", parameters);
+            request.getRequestDispatcher("taskView.jsp").forward(request, response);
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
-            request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
-            request.setAttribute("action", "addTask");
-            request.setAttribute("path", "tasksList");
-            request.getRequestDispatcher("taskView.jsp").forward(request, response);
-        } catch (CustomException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
-            errors.clear();
-            errors.add(e.getMessage());
-            request.setAttribute("error", errors);
-            request.getRequestDispatcher("tasksList.jsp").forward(request, response);
-        }
+        request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
+        request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
+        request.setAttribute("action", "addTask");
+        request.setAttribute("path", "tasksList");
+        request.getRequestDispatcher("taskView.jsp").forward(request, response);
     }
 }

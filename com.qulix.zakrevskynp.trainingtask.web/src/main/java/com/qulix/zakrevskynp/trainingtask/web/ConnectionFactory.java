@@ -32,7 +32,7 @@ public class ConnectionFactory {
             url = dbProperties.getProperty("url");
         }
         catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "1023");
         }
     }
 
@@ -42,11 +42,7 @@ public class ConnectionFactory {
      * @return Connection object
      * @throws CustomException
      */
-    public static Connection getConnection() throws CustomException {
-        try {
-            return DriverManager.getConnection(url, dbProperties.getProperty("user"), dbProperties.getProperty("password"));
-        } catch (SQLException e) {
-            throw new CustomException("Connection refused", e);
-        }
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(url, dbProperties.getProperty("user"), dbProperties.getProperty("password"));
     }
 }

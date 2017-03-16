@@ -113,7 +113,7 @@
                 <a href="taskProject?projectId=${project.id}"><button type="button" class="btn btn-success custom-width">Добавить</button></a>
             </c:when>
             <c:otherwise>
-                <a href="addTaskProject"><button type="button" class="btn btn-success custom-width">Добавить</button></a>
+                <a href="taskProject"><button type="button" class="btn btn-success custom-width">Добавить</button></a>
             </c:otherwise>
         </c:choose>
 </div>

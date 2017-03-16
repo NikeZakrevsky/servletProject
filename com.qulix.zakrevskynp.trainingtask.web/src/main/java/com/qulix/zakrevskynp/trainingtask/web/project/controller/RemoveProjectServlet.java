@@ -26,16 +26,7 @@ public class RemoveProjectServlet extends CustomServlet {
     private Logger logger = Logger.getLogger(RemoveProjectServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            new ProjectDAOImpl().removeProject(Integer.parseInt(request.getParameter("id")));
-            response.sendRedirect("projectsList");
-        }
-        catch (CustomException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
-            errors.clear();
-            errors.add(e.getMessage());
-            request.setAttribute("error", errors);
-            request.getRequestDispatcher("projectList.jsp").forward(request, response);
-        }
+        new ProjectDAOImpl().removeProject(Integer.parseInt(request.getParameter("id")));
+        response.sendRedirect("projectsList");
     }
 }

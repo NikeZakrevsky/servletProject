@@ -27,17 +27,9 @@ public class TasksListServlet extends CustomServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            request.getSession().setAttribute("path", "tasksList");
-            request.setAttribute("tasks", new TasksDAOImpl().getTasksList());
-            request.getRequestDispatcher("tasksList.jsp").forward(request, response);
-        } catch (CustomException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
-            errors.clear();
-            errors.add(e.getMessage());
-            request.setAttribute("error", errors);
-            request.getRequestDispatcher("tasksList.jsp").forward(request, response);
-        }
+        request.getSession().setAttribute("path", "tasksList");
+        request.setAttribute("tasks", new TasksDAOImpl().getTasksList());
+        request.getRequestDispatcher("tasksList.jsp").forward(request, response);
     }
 
     @Override

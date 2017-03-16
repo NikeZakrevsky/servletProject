@@ -29,7 +29,6 @@ import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
 public class AddProjectServlet extends CustomServlet {
 
     private ProjectDAO projectDAO = new ProjectDAOImpl();
-    private Logger logger = Logger.getLogger(AddPersonServlet.class.getName());
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -38,17 +37,9 @@ public class AddProjectServlet extends CustomServlet {
 
         List<String> errors = new ProjectDataValidator().validate(parameters);
         if (errors.size() == 0) {
-            try {
-                List<Map<String, Object>> tasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
-                projectDAO.addProject(parameters, tasks);
-                request.getSession().invalidate();
-            } catch (CustomException e) {
-                logger.log(Level.SEVERE, e.getCause().toString());
-                errors.clear();
-                errors.add(e.getMessage());
-                request.setAttribute("error", errors);
-                request.getRequestDispatcher("projectsList.jsp").forward(request, response);
-            }
+            List<Map<String, Object>> tasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
+            projectDAO.addProject(parameters, tasks);
+            request.getSession().invalidate();
             response.sendRedirect("projectsList");
         }
         else {

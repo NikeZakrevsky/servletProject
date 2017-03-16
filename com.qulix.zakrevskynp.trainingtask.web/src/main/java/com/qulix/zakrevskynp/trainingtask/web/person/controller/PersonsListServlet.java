@@ -24,24 +24,14 @@ import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 @WebServlet("/personsList")
 public class PersonsListServlet extends CustomServlet {
 
-    private List<String> errors = new ArrayList<>();
-    private Logger logger = Logger.getLogger(PersonsListServlet.class.getName());
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<String> errors = new ArrayList<>();
         PersonDAO personDAO = new PersonDAOImpl();
-        try {
-            List<Person> personsList = personDAO.getPersonsList();
-            request.setAttribute("error", request.getSession().getAttribute("error"));
-            request.setAttribute("persons", personsList);
-            request.getRequestDispatcher("personsList.jsp").forward(request, response);
-        } catch (CustomException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
-            errors.clear();
-            errors.add(e.getMessage());
-            request.setAttribute("error", errors);
-            request.getRequestDispatcher("personsList.jsp").forward(request, response);
-        }
+        List<Person> personsList = personDAO.getPersonsList();
+        request.setAttribute("error", request.getSession().getAttribute("error"));
+        request.setAttribute("persons", personsList);
+        request.getRequestDispatcher("personsList.jsp").forward(request, response);
 
     }
 

@@ -30,9 +30,9 @@ public class PersonDAOImpl implements PersonDAO {
      * Gets list of persons
      *
      * @return list of all persons from database
-     * @throws CustomException
+     * @
      */
-    public List<Person> getPersonsList() throws CustomException {
+    public List<Person> getPersonsList()  {
         return (List<Person>) execute("Error while getting persons list", () -> {
             try (
                 Connection connection = ConnectionFactory.getConnection();
@@ -51,9 +51,9 @@ public class PersonDAOImpl implements PersonDAO {
     /**
      * Inserts new person in database
      * @param parameters data from add person form
-     * @throws CustomException
+     * @
      */
-    public boolean addPerson(Map<String, Object> parameters) throws CustomException {
+    public boolean addPerson(Map<String, Object> parameters)  {
         return (boolean) execute("Error while adding person", () -> {
             try (
                 Connection connection =  ConnectionFactory.getConnection();
@@ -70,9 +70,9 @@ public class PersonDAOImpl implements PersonDAO {
     /**
      * Remove person from database by id
      * @param id person's id
-     * @throws CustomException
+     * @
      */
-    public boolean removePerson(int id) throws CustomException {
+    public boolean removePerson(int id)  {
         return (boolean) execute("Error while deleting person", () -> {
             try (
                 Connection connection = ConnectionFactory.getConnection();
@@ -91,9 +91,9 @@ public class PersonDAOImpl implements PersonDAO {
      *
      * @param id person's id
      * @return person by id
-     * @throws CustomException
+     * @
      */
-    public Person getPersonById(int id) throws CustomException {
+    public Person getPersonById(int id)  {
         return (Person)execute("Error while getting person", () -> {
             try (
                 Connection connection = ConnectionFactory.getConnection();
@@ -111,9 +111,9 @@ public class PersonDAOImpl implements PersonDAO {
      * Update information about exist person
      *
      * @param parameters Person object
-     * @throws CustomException
+     * @
      */
-    public boolean updatePerson(Map<String, Object> parameters) throws CustomException {
+    public boolean updatePerson(Map<String, Object> parameters){
         return (boolean) execute("Error while updating person", () -> {
             try (
                 Connection connection = ConnectionFactory.getConnection();
@@ -128,11 +128,11 @@ public class PersonDAOImpl implements PersonDAO {
         });
     }
 
-    private Object execute(String message, Executable ex) throws CustomException {
+    private Object execute(String message, Executable ex) {
         try {
             return ex.exec();
         } catch (SQLException e) {
-            throw new CustomException(message, e);
+            throw new RuntimeException(message, e);
         }
     }
 }

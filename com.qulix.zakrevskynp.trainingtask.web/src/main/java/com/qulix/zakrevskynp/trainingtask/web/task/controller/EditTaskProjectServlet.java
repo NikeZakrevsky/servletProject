@@ -23,7 +23,7 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 public class EditTaskProjectServlet extends CustomServlet {
 
     private List<String> errors = new ArrayList<>();
-    private Logger logger = Logger.getLogger(AddTaskProjectServlet.class.getName());
+    private Logger logger = Logger.getLogger(EditTaskProjectServlet.class.getName());
     private String returningPath;
 
     @Override
@@ -36,20 +36,11 @@ public class EditTaskProjectServlet extends CustomServlet {
             Map<String, Object> task = (Map<String, Object>) iterator.next();
 
             if ((Integer)task.get("id") == Integer.parseInt(request.getParameter("id"))) {
-                try {
-                    request.setAttribute("task", task);
-                    request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
-                    request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
-                    request.setAttribute("isDisable", true);
-                    request.getRequestDispatcher("taskView.jsp").forward(request, response);
-                }
-                catch (CustomException e) {
-                    logger.log(Level.SEVERE, e.getCause().toString());
-                    errors.clear();
-                    errors.add(e.getMessage());
-                    request.setAttribute("error", errors);
-                    request.getRequestDispatcher("tasksList.jsp").forward(request, response);
-                }
+                request.setAttribute("task", task);
+                request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
+                request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
+                request.setAttribute("isDisable", true);
+                request.getRequestDispatcher("taskView.jsp").forward(request, response);
             }
         }
     }
@@ -63,26 +54,17 @@ public class EditTaskProjectServlet extends CustomServlet {
         TasksDAOImpl tasksDAO = new TasksDAOImpl();
 
         errors = validator.validate(parameters);
-        try {
-            if (errors.size() == 0) {
-                tasksDAO.updateTask(parameters, request.getSession(), Integer.parseInt(request.getParameter("id")));
-                response.sendRedirect(returningPath);
-            }
-            else {
-                request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
-                request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
-                request.setAttribute("action", "editTaskProject");
-                request.setAttribute("errors", errors);
-                request.setAttribute("task", parameters);
-                request.getRequestDispatcher("taskView.jsp").forward(request, response);
-            }
+        if (errors.size() == 0) {
+            tasksDAO.updateTask(parameters, request.getSession(), Integer.parseInt(request.getParameter("id")));
+            response.sendRedirect(returningPath);
         }
-        catch (CustomException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
-            errors.clear();
-            errors.add(e.getMessage());
-            request.setAttribute("error", errors);
-            request.getRequestDispatcher("tasksView.jsp").forward(request, response);
+        else {
+            request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
+            request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
+            request.setAttribute("action", "editTaskProject");
+            request.setAttribute("errors", errors);
+            request.setAttribute("task", parameters);
+            request.getRequestDispatcher("taskView.jsp").forward(request, response);
         }
     }
 }

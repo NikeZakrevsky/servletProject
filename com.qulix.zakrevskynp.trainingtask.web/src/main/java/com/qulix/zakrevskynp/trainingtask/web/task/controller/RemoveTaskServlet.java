@@ -29,15 +29,7 @@ public class RemoveTaskServlet extends CustomServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String returningPath = request.getSession(false).getAttribute("path").toString();
         TasksDAO tasksDAO = new TasksDAOImpl();
-        try {
-            tasksDAO.removeTask(Integer.parseInt(request.getParameter("id")));
-        } catch (CustomException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
-            errors.clear();
-            errors.add(e.getMessage());
-            request.setAttribute("error", errors);
-            request.getRequestDispatcher("tasksList.jsp").forward(request, response);
-        }
+        tasksDAO.removeTask(Integer.parseInt(request.getParameter("id")));
         response.sendRedirect(returningPath);
     }
 }

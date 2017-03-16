@@ -41,53 +41,36 @@ public class EditTaskServlet extends CustomServlet {
         Map<String, Object> parameters = getParametersFromRequest(request);
 
         errors = validator.validate(parameters);
-        try {
-            if (errors.size() == 0) {
-                if (parameters.get("projectId1").equals("")) {
-                    parameters.put("projectId", null);
-                }
-                else {
-                    parameters.put("projectId", parameters.get("projectId1"));
-                }
-                TasksDAO tasksDAO = new TasksDAOImpl();
-                tasksDAO.updateTask(parameters);
-                response.sendRedirect(returningPath);
-            } else {
-                request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
-                request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
-                request.setAttribute("action", "editTask");
-                request.setAttribute("errors", errors);
-                request.setAttribute("task", parameters);
-                request.getRequestDispatcher("taskView.jsp").forward(request, response);
+        if (errors.size() == 0) {
+            if (parameters.get("projectId1").equals("")) {
+                parameters.put("projectId", null);
             }
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
-            errors.clear();
-            errors.add(e.getMessage());
-            request.setAttribute("error", errors);
-            request.getRequestDispatcher("tasksList.jsp").forward(request, response);
+            else {
+                parameters.put("projectId", parameters.get("projectId1"));
+            }
+            new TasksDAOImpl().updateTask(parameters);
+            response.sendRedirect(returningPath);
+        } else {
+            request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
+            request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
+            request.setAttribute("action", "editTask");
+            request.setAttribute("errors", errors);
+            request.setAttribute("task", parameters);
+            request.getRequestDispatcher("taskView.jsp").forward(request, response);
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("path", request.getSession().getAttribute("path").toString());
         returningPath = request.getSession(false).getAttribute("path").toString();
-        try {
-            TasksDAO taskDAO = new TasksDAOImpl();
-            Task task = taskDAO.getTaskById(Integer.parseInt(request.getParameter("id")));
-            request.setAttribute("task", task);
-            request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
-            request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
-            request.setAttribute("action", "editTask");
-            if(!returningPath.equals("tasksList"))
-                request.setAttribute("isDisable", true);
-            request.getRequestDispatcher("taskView.jsp").forward(request, response);
-        } catch (CustomException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
-            errors.clear();
-            errors.add(e.getMessage());
-            request.setAttribute("error", errors);
-            request.getRequestDispatcher("tasksList.jsp").forward(request, response);
-        }
+        TasksDAO taskDAO = new TasksDAOImpl();
+        Task task = taskDAO.getTaskById(Integer.parseInt(request.getParameter("id")));
+        request.setAttribute("task", task);
+        request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
+        request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
+        request.setAttribute("action", "editTask");
+        if(!returningPath.equals("tasksList"))
+            request.setAttribute("isDisable", true);
+        request.getRequestDispatcher("taskView.jsp").forward(request, response);
     }
 }

@@ -9,4 +9,8 @@
 	<welcome-file-list>
 		<welcome-file>projectsList.jsp</welcome-file>
 	</welcome-file-list>
+
+	<error-page>
+	    <location>/errorHandler</location>
+	</error-page>
 </web-app>

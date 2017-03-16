@@ -36,39 +36,29 @@ public class EditProjectServlet extends CustomServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        ProjectDataValidator validator = new ProjectDataValidator();
-
+        
         Map<String, Object> parameters = getParametersFromRequest(request);
-
+        ProjectDataValidator validator = new ProjectDataValidator();
         errors = validator.validate(parameters);
-        try {
-            if (errors.size() == 0) {
-                dao.updateProject(parameters);
-                List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
-                TasksDAOImpl tasksDAO = new TasksDAOImpl();
-                for (Map<String, Object> task: tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter("id")))) {
-                    tasksDAO.removeTask(Integer.parseInt(task.get("id").toString()));
-                }
-                for (Map<String, Object> task : resultTasks) {
-                    tasksDAO.addTask(task);
-                }
-                response.sendRedirect("projectsList");
+        if (errors.size() == 0) {
+            dao.updateProject(parameters);
+            List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
+            TasksDAOImpl tasksDAO = new TasksDAOImpl();
+            for (Map<String, Object> task: tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter("id")))) {
+                tasksDAO.removeTask(Integer.parseInt(task.get("id").toString()));
             }
-            else {
-                request.setAttribute("project", parameters);
-                List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
-                request.setAttribute("tasks", resultTasks);
-                request.setAttribute("errors", errors);
-                request.setAttribute("action", "editProject");
-                request.getRequestDispatcher("projectView.jsp").forward(request, response);
+            for (Map<String, Object> task : resultTasks) {
+                tasksDAO.addTask(task);
             }
-        } catch (CustomException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
-            errors.clear();
-            errors.add(e.getMessage());
-            request.setAttribute("error", errors);
-            request.getRequestDispatcher("projectList.jsp").forward(request, response);
-
+            response.sendRedirect("projectsList");
+            }
+        else {
+            request.setAttribute("project", parameters);
+            List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
+            request.setAttribute("tasks", resultTasks);
+            request.setAttribute("errors", errors);
+            request.setAttribute("action", "editProject");
+            request.getRequestDispatcher("projectView.jsp").forward(request, response);
         }
     }
 

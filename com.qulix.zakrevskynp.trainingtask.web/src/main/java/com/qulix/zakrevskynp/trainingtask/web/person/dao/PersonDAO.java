@@ -16,38 +16,38 @@ public interface PersonDAO {
      * Gets list of persons
      *
      * @return list of all persons from database
-     * @throws CustomException
+     * @
      */
-    List<Person> getPersonsList() throws CustomException;
+    List<Person> getPersonsList() ;
 
     /**
      * Inserts new person in database
      * @param parameters person form data
-     * @throws CustomException
+     * @
      */
-    boolean addPerson(Map<String, Object> parameters) throws CustomException;
+    boolean addPerson(Map<String, Object> parameters) ;
 
     /**
      * Remove person from database by id
      * @param id person's id
-     * @throws CustomException
+     * @
      */
-    boolean removePerson(int id) throws CustomException;
+    boolean removePerson(int id) ;
 
     /**
      * Gets person by id
      *
      * @param id person's id
      * @return person by id
-     * @throws CustomException
+     * @
      */
-    Person getPersonById(int id) throws CustomException;
+    Person getPersonById(int id) ;
 
     /**
      * Update information about exist person
      *
      * @param parameters person form data
-     * @throws CustomException
+     * @
      */
-    boolean updatePerson(Map<String, Object> parameters) throws CustomException;
+    boolean updatePerson(Map<String, Object> parameters) ;
 }

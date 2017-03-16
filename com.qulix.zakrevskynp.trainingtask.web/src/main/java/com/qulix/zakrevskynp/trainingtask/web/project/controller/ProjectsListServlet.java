@@ -25,18 +25,10 @@ public class ProjectsListServlet extends CustomServlet {
     private List<String> errors = new ArrayList<>();
     private Logger logger = Logger.getLogger(ProjectsListServlet.class.getName());
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().invalidate();
-        try {
-            request.setAttribute("projects", new ProjectDAOImpl().getProjectsList());
-            request.getRequestDispatcher("projectsList.jsp").forward(request, response);
-        } catch (CustomException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
-            errors.clear();
-            errors.add(e.getMessage());
-            request.setAttribute("error", errors);
-            request.getRequestDispatcher("projectsList.jsp").forward(request, response);
-        }
+        request.setAttribute("projects", new ProjectDAOImpl().getProjectsList());
+        request.getRequestDispatcher("projectsList.jsp").forward(request, response);
     }
 
     @Override

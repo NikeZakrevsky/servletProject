@@ -24,8 +24,6 @@ import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 @WebServlet("/addPerson")
 public class AddPersonServlet extends CustomServlet {
 
-    private Logger logger = Logger.getLogger(AddPersonServlet.class.getName());
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
@@ -33,16 +31,8 @@ public class AddPersonServlet extends CustomServlet {
         List<String> errors = new PersonDataValidator().validate(parameters);
 
         if (errors.size() == 0) {
-            try {
-                new PersonDAOImpl().addPerson(parameters);
-                response.sendRedirect("personsList");
-            } catch (CustomException e) {
-                logger.log(Level.SEVERE, e.getMessage());
-                errors.clear();
-                errors.add(e.getMessage());
-                request.setAttribute("errors", errors);
-                request.getRequestDispatcher("personsList.jsp").forward(request, response);
-            }
+            new PersonDAOImpl().addPerson(parameters);
+            response.sendRedirect("personsList");
         }
         else {
             request.setAttribute("errors", errors);
@@ -56,6 +46,4 @@ public class AddPersonServlet extends CustomServlet {
         request.setAttribute("action", "addPerson");
         request.getRequestDispatcher("personView.jsp").forward(request, response);
     }
-
-
 }

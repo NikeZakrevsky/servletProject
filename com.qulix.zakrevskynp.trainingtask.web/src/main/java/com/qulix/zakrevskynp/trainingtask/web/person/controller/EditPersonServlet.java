@@ -26,27 +26,18 @@ import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 @WebServlet("/editPerson")
 public class EditPersonServlet extends CustomServlet {
 
-    private Logger logger = Logger.getLogger(EditPersonServlet.class.getName());
-    private List<String> errors = new ArrayList<>();
     private PersonDAO personDAO = new PersonDAOImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
+        List<String> errors = new ArrayList<>();
         Map<String, Object> parameters = getParametersFromRequest(request);
 
         errors = new PersonDataValidator().validate(parameters);
         if (errors.size() == 0) {
-            try {
-                personDAO.updatePerson(parameters);
-                response.sendRedirect("personsList");
-            } catch (CustomException e) {
-                logger.log(Level.SEVERE, e.getMessage());
-                errors.clear();
-                errors.add(e.getMessage());
-                request.setAttribute("errors", errors);
-                request.getRequestDispatcher("personView.jsp").forward(request, response);
-            }
+            personDAO.updatePerson(parameters);
+            response.sendRedirect("personsList");
         }
         else {
             request.setAttribute("person", parameters);
@@ -57,16 +48,9 @@ public class EditPersonServlet extends CustomServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            Person person  = personDAO.getPersonById(Integer.parseInt(request.getParameter("id")));
-            request.setAttribute("person", person);
-            request.setAttribute("action", "editPerson");
-            request.getRequestDispatcher("personView.jsp").forward(request, response);
-        } catch (CustomException e) {
-            logger.log(Level.SEVERE, e.getCause().toString());
-            errors.clear();
-            errors.add(e.getMessage());
-            request.getRequestDispatcher("personsList.jsp").forward(request, response);
-        }
+        Person person  = personDAO.getPersonById(Integer.parseInt(request.getParameter("id")));
+        request.setAttribute("person", person);
+        request.setAttribute("action", "editPerson");
+        request.getRequestDispatcher("personView.jsp").forward(request, response);
     }
 }
