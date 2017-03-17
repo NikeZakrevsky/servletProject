@@ -25,7 +25,6 @@ import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 public class AddPersonServlet extends CustomServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
 
         Map<String, Object> parameters = getParametersFromRequest(request);
         List<String> errors = new PersonDataValidator().validate(parameters);

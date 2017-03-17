@@ -18,7 +18,7 @@ public interface ProjectDAO {
      * @return list of all projects from database
      * @throws CustomException
      */
-    List<Project> getProjectsList() throws CustomException;
+    List<Project> getProjectsList();
 
     /**
      * Insert project to database
@@ -26,7 +26,7 @@ public interface ProjectDAO {
      * @param parameters {@link Project} object
      * @throws CustomException
      */
-    void addProject(Map<String, Object> parameters, List<Map<String, Object>> tasks) throws CustomException;
+    boolean addProject(Map<String, Object> parameters, List<Map<String, Object>> tasks);
 
     /**
      * Remove project from database by id
@@ -34,7 +34,7 @@ public interface ProjectDAO {
      * @param id
      * @throws CustomException
      */
-    void removeProject(int id) throws CustomException;
+    boolean removeProject(int id);
 
     /**
      * Update information about project in database
@@ -42,7 +42,7 @@ public interface ProjectDAO {
      * @param parameters {@link Project} object
      * @throws CustomException
      */
-    void updateProject(Map<String, Object> parameters) throws CustomException;
+    boolean updateProject(Map<String, Object> parameters);
 
     /**
      * Get project id
@@ -51,5 +51,5 @@ public interface ProjectDAO {
      * @return Project object
      * @throws CustomException
      */
-    Project getProjectById(int id) throws CustomException;
+    Project getProjectById(int id);
 }

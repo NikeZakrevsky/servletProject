@@ -30,7 +30,6 @@ public class AddTaskServlet extends CustomServlet {
     private Logger logger = Logger.getLogger(AddTaskServlet.class.getName());
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
 
         Map<String, Object> parameters = getParametersFromRequest(request);
         errors = new TaskDataValidator().validate(parameters);

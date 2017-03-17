@@ -19,26 +19,26 @@ public interface TasksDAO {
      * Get all task from database
      *
      * @return list of all tasks in database
-     * @throws CustomException
+     * @
      */
-    List<Task> getTasksList() throws CustomException;
+    List<Task> getTasksList() ;
 
     /**
      * Remove project from database by id
      *
      * @param id project's id
      */
-    void removeTask(int id) throws CustomException;
+    boolean removeTask(int id) ;
 
     /**
      * Insert task in database
      *
      * @param parameters {@link Task} object
-     * @throws CustomException
+     * @
      */
-    List<Map<String, Object>> addTask(Map<String, Object> parameters, HttpSession session) throws CustomException;
+    List<Map<String, Object>> addTask(Map<String, Object> parameters, HttpSession session) ;
 
-    void addTask(Map<String, Object> parameters) throws CustomException;
+    boolean addTask(Map<String, Object> parameters) ;
 
     /**
      * Get task by id
@@ -46,20 +46,20 @@ public interface TasksDAO {
      * @param id task's id
      * @return Task object
      */
-    Task getTaskById(int id) throws CustomException;
+    Task getTaskById(int id) ;
 
     /**
      *
      * @param parameters {@link Task} object
      * @throws SQLException
      */
-    void updateTask(Map<String, Object> parameters)  throws CustomException;
-    void updateTask(Map<String, Object> parameters, HttpSession session, int id)  throws CustomException;
+    boolean updateTask(Map<String, Object> parameters)  ;
+    void updateTask(Map<String, Object> parameters, HttpSession session, int id)  ;
     /**
      *
      * @param id project id
      * @return List of tasks with specified project id
-     * @throws CustomException
+     * @
      */
-    List<Map<String, Object>> getTasksByProjectId(int id) throws CustomException;
+    List<Map<String, Object>> getTasksByProjectId(int id) ;
 }

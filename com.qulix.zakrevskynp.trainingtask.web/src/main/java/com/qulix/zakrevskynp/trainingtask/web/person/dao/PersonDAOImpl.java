@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.ConnectionFactory;
-import com.qulix.zakrevskynp.trainingtask.web.CustomException;
+import com.qulix.zakrevskynp.trainingtask.web.Executable;
 import com.qulix.zakrevskynp.trainingtask.web.person.Person;
 
 /**
@@ -24,6 +24,12 @@ public class PersonDAOImpl implements PersonDAO {
     private static final String SELECT_BY_ID_QUERY = "select \"id\", \"fname\", \"sname\", \"lname\", \"position\" FROM \"persons\" where \"id\"=?";
     private static final String UPDATE_QUERY = "update \"persons\" set \"fname\" = ?, \"sname\" = ?, \"lname\" = ?, \"position\" = ? where \"id\" = ?";
 
+    private static final String ADD_PERSON_ERROR = "Error while adding person";
+    private static final String REMOVE_PERSON_ERROR = "Error while deleting person";
+    private static final String GET_PERSONS_LIST_ERROR = "Error while getting persons list";
+    private static final String GET_PERSON_BY_ID_ERROR = "Error while getting person";
+    private static final String UPDATE_PERSON_ERROR = "Error while updating person";
+
     private PersonUtil personUtil = new PersonUtil();
 
     /**
@@ -33,7 +39,7 @@ public class PersonDAOImpl implements PersonDAO {
      * @
      */
     public List<Person> getPersonsList()  {
-        return (List<Person>) execute("Error while getting persons list", () -> {
+        return (List<Person>) execute(GET_PERSONS_LIST_ERROR, () -> {
             try (
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY);
@@ -54,7 +60,7 @@ public class PersonDAOImpl implements PersonDAO {
      * @
      */
     public boolean addPerson(Map<String, Object> parameters)  {
-        return (boolean) execute("Error while adding person", () -> {
+        return (boolean) execute(ADD_PERSON_ERROR, () -> {
             try (
                 Connection connection =  ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = ConnectionFactory.getConnection().prepareStatement(INSERT_QUERY)
@@ -73,7 +79,7 @@ public class PersonDAOImpl implements PersonDAO {
      * @
      */
     public boolean removePerson(int id)  {
-        return (boolean) execute("Error while deleting person", () -> {
+        return (boolean) execute(REMOVE_PERSON_ERROR, () -> {
             try (
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)
@@ -94,7 +100,7 @@ public class PersonDAOImpl implements PersonDAO {
      * @
      */
     public Person getPersonById(int id)  {
-        return (Person)execute("Error while getting person", () -> {
+        return (Person)execute(GET_PERSON_BY_ID_ERROR, () -> {
             try (
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY)
@@ -114,7 +120,7 @@ public class PersonDAOImpl implements PersonDAO {
      * @
      */
     public boolean updatePerson(Map<String, Object> parameters){
-        return (boolean) execute("Error while updating person", () -> {
+        return (boolean) execute(UPDATE_PERSON_ERROR, () -> {
             try (
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)

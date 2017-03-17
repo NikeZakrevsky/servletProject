@@ -35,7 +35,6 @@ public class EditProjectServlet extends CustomServlet {
     private List<Map<String, Object>> resultTasks;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
         
         Map<String, Object> parameters = getParametersFromRequest(request);
         ProjectDataValidator validator = new ProjectDataValidator();
@@ -63,34 +62,25 @@ public class EditProjectServlet extends CustomServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-
-            if (request.getSession().getAttribute("resultTasks") == null) {
-                resultTasks = new ArrayList<>();
-                List<Map<String, Object>> tasks = new TasksDAOImpl().getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
-                if (tasks != null) {
-                    tasks.forEach(resultTasks::add);
-                }
-                request.getSession().setAttribute("resultTasks", resultTasks);
+        if (request.getSession().getAttribute("resultTasks") == null) {
+            resultTasks = new ArrayList<>();
+            List<Map<String, Object>> tasks = new TasksDAOImpl().getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
+            if (tasks != null) {
+                tasks.forEach(resultTasks::add);
             }
-            else
-                resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
-
-            Project project = dao.getProjectById(Integer.parseInt(request.getParameter("id")));
-            request.setAttribute("tasks", resultTasks);
-            request.setAttribute("project", project);
-            request.setAttribute("action", "editProject");
-
-            request.getSession(true).setAttribute("path", "editProject?id=" + request.getParameter("id"));
-            request.setAttribute("path", "editProject?id=" + request.getParameter("id"));
-            request.getRequestDispatcher("projectView.jsp").forward(request, response);
-        } catch (CustomException e) {
-            errors.clear();
-            logger.log(Level.SEVERE, e.getCause().toString());
-            errors.add(e.getMessage());
-            request.setAttribute("error", errors);
-            request.getRequestDispatcher("projectList.jsp").forward(request, response);
+            request.getSession().setAttribute("resultTasks", resultTasks);
         }
+        else
+            resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
+
+        Project project = dao.getProjectById(Integer.parseInt(request.getParameter("id")));
+        request.setAttribute("tasks", resultTasks);
+        request.setAttribute("project", project);
+        request.setAttribute("action", "editProject");
+
+        request.getSession(true).setAttribute("path", "editProject?id=" + request.getParameter("id"));
+        request.setAttribute("path", "editProject?id=" + request.getParameter("id"));
+        request.getRequestDispatcher("projectView.jsp").forward(request, response);
 
     }
 }

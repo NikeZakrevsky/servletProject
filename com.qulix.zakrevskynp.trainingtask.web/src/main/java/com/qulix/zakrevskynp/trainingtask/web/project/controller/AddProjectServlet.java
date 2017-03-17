@@ -31,7 +31,6 @@ public class AddProjectServlet extends CustomServlet {
     private ProjectDAO projectDAO = new ProjectDAOImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
 
         Map<String, Object> parameters = getParametersFromRequest(request);
 

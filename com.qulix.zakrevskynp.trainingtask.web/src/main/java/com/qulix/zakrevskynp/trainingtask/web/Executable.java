@@ -1,4 +1,4 @@
-package com.qulix.zakrevskynp.trainingtask.web.person.dao;
+package com.qulix.zakrevskynp.trainingtask.web;
 
 
 import java.sql.SQLException;

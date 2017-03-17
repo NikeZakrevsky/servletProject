@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import com.qulix.zakrevskynp.trainingtask.web.ConnectionFactory;
-import com.qulix.zakrevskynp.trainingtask.web.CustomException;
+import com.qulix.zakrevskynp.trainingtask.web.Executable;
 import com.qulix.zakrevskynp.trainingtask.web.person.Person;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;
@@ -25,6 +25,12 @@ public class TasksDAOImpl implements TasksDAO {
     private static final String INSERT_QUERY = "insert into \"tasks\"(\"name\", \"time\", \"startDate\", \"endDate\", \"status\", \"projectId\", \"personId\") values (?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_QUERY = "update \"tasks\" set \"name\" = ?, \"time\" = ?, \"startDate\" = ?, \"endDate\" = ?, \"status\" = ?, \"projectId\" = ?, \"personId\" = ? where \"id\" = ?";
 
+    private static final String GET_TASKS_LIST_ERROR = "Error while getting tasks list";
+    private static final String REMOVE_TASKS_ERROR = "Error while removing task";
+    private static final String ADD_TASK_ERROR = "Error while adding task";
+    private static final String UPDATE_TASKS_ERROR = "Error while updating task";
+    private static final String GET_TASKS_BY_ID_ERROR = "Error while getting task";
+
     private static int id = 0;
 
     private TaskUtil taskUtil = new TaskUtil();
@@ -36,20 +42,20 @@ public class TasksDAOImpl implements TasksDAO {
      * @
      */
     public List<Task> getTasksList()  {
-        List<Task> tasks = new ArrayList<>();
-        try (
-                Connection connection = ConnectionFactory.getConnection();
-                Statement statement = connection.createStatement()
-        ) {
-            ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
-            while (resultSet.next()) {
-                Task task = taskUtil.resultSetAsObject(resultSet);
-                tasks.add(task);
+        return (List<Task>) execute(GET_TASKS_LIST_ERROR, () -> {
+            List<Task> tasks = new ArrayList<>();
+            try (
+                    Connection connection = ConnectionFactory.getConnection();
+                    Statement statement = connection.createStatement()
+            ) {
+                ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
+                while (resultSet.next()) {
+                    Task task = taskUtil.resultSetAsObject(resultSet);
+                    tasks.add(task);
+                }
             }
-        } catch (SQLException e) {
-            throw new CustomException("Error while getting tasks list", e);
-        }
-        return tasks;
+            return tasks;
+        });
     }
 
     /**
@@ -57,17 +63,18 @@ public class TasksDAOImpl implements TasksDAO {
      *
      * @param id project's id
      */
-    public void removeTask(int id)  {
-        try (
-            Connection connection = ConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)
-        ) {
-            preparedStatement.setInt(1, id);
-            preparedStatement.execute();
-            connection.commit();
-        } catch (SQLException e) {
-            throw new CustomException("Error while removing task", e);
-        }
+    public boolean removeTask(int id)  {
+        return (boolean) execute(REMOVE_TASKS_ERROR, () -> {
+            try (
+                    Connection connection = ConnectionFactory.getConnection();
+                    PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)
+            ) {
+                preparedStatement.setInt(1, id);
+                preparedStatement.execute();
+                connection.commit();
+            }
+            return true;
+        });
     }
 
     /**
@@ -76,17 +83,18 @@ public class TasksDAOImpl implements TasksDAO {
      * @param parameters task form data
      * @
      */
-    public void addTask(Map<String, Object> parameters)  {
-        try (
-            Connection connection = ConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)
-        ) {
-            taskUtil.setPreparedStatement(preparedStatement, parameters);
-            preparedStatement.execute();
-            connection.commit();
-        } catch (SQLException e) {
-            throw new CustomException("Error while adding task", e);
-        }
+    public boolean addTask(Map<String, Object> parameters)  {
+        return (boolean) execute(ADD_TASK_ERROR, () -> {
+            try (
+                    Connection connection = ConnectionFactory.getConnection();
+                    PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)
+            ) {
+                taskUtil.setPreparedStatement(preparedStatement, parameters);
+                preparedStatement.execute();
+                connection.commit();
+            }
+            return true;
+        });
     }
 
     @Override
@@ -117,20 +125,20 @@ public class TasksDAOImpl implements TasksDAO {
      * @return Task object
      */
     public Task getTaskById(int id)  {
-        Task task;
-        try (
-            Connection connection = ConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where \"id\" = ?")
-        ) {
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            task = taskUtil.resultSetAsObject(resultSet);
-            connection.commit();
-        } catch (SQLException e) {
-            throw new CustomException("Error while getting task", e);
-        }
-        return task;
+        return (Task) execute(GET_TASKS_BY_ID_ERROR, () -> {
+            Task task;
+            try (
+                    Connection connection = ConnectionFactory.getConnection();
+                    PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where \"id\" = ?")
+            ) {
+                preparedStatement.setInt(1, id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                resultSet.next();
+                task = taskUtil.resultSetAsObject(resultSet);
+                connection.commit();
+            }
+            return task;
+        });
     }
 
     /**
@@ -138,18 +146,19 @@ public class TasksDAOImpl implements TasksDAO {
      * @param parameters task form data
      * @
      */
-    public void updateTask(Map<String, Object> parameters)  {
-        try (
-            Connection connection = ConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
-        ) {
-            taskUtil.setPreparedStatement(preparedStatement, parameters);
-            preparedStatement.setInt(8, Integer.parseInt(parameters.get("id").toString()));
-            preparedStatement.execute();
-            connection.commit();
-        } catch (SQLException e) {
-            throw new CustomException("Error while updating task", e);
-        }
+    public boolean updateTask(Map<String, Object> parameters)  {
+        return (boolean) execute(UPDATE_TASKS_ERROR, () -> {
+            try (
+                    Connection connection = ConnectionFactory.getConnection();
+                    PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
+            ) {
+                taskUtil.setPreparedStatement(preparedStatement, parameters);
+                preparedStatement.setInt(8, Integer.parseInt(parameters.get("id").toString()));
+                preparedStatement.execute();
+                connection.commit();
+            }
+            return true;
+        });
     }
 
     @Override
@@ -187,22 +196,26 @@ public class TasksDAOImpl implements TasksDAO {
      * @
      */
     public List<Map<String, Object>> getTasksByProjectId(int id)  {
-        List<Task> tasks = new ArrayList<>();
-        try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where \"projectId\" = ?")
-        ) {
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            return taskUtil.resultSetToList(resultSet);
-        } catch (SQLException e) {
-            throw new CustomException("Error while getting tasks", e);
-        }
+        return (List<Map<String, Object>>) execute(GET_TASKS_LIST_ERROR, () -> {
+            List<Task> tasks = new ArrayList<>();
+            try (
+                    Connection connection = ConnectionFactory.getConnection();
+                    PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where \"projectId\" = ?")
+            ) {
+                preparedStatement.setInt(1, id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                return taskUtil.resultSetToList(resultSet);
+            }
+        });
 
     }
 
-    private int generateId() {
-        return id++;
+    private Object execute(String message, Executable ex) {
+        try {
+            return ex.exec();
+        } catch (SQLException e) {
+            throw new RuntimeException(message, e);
+        }
     }
 
 }

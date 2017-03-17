@@ -29,7 +29,6 @@ public class EditPersonServlet extends CustomServlet {
     private PersonDAO personDAO = new PersonDAOImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
 
         List<String> errors = new ArrayList<>();
         Map<String, Object> parameters = getParametersFromRequest(request);
