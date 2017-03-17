@@ -8,6 +8,11 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Extend HttpServlet
+ *
+ * @author Q-NZA
+ */
 public class CustomServlet extends HttpServlet {
 
     protected Map<String, Object> getParametersFromRequest(HttpServletRequest request) {

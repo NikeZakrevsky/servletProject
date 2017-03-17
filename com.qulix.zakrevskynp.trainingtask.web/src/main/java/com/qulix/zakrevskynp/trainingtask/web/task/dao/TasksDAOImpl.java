@@ -20,10 +20,15 @@ import com.qulix.zakrevskynp.trainingtask.web.task.Task;
  */
 public class TasksDAOImpl implements TasksDAO {
     
-    private static final String SELECT_QUERY = "SELECT \"id\", \"name\", \"time\", \"startDate\", \"endDate\", \"status\", \"shortname\", \"projectId\", \"personId\", \"fname\" + ' ' + \"sname\" + ' ' + \"lname\" as \"person\" FROM \"tasks\" left join \"projects\" on \"tasks\".\"projectId\" = \"projects\".\"id\" left join \"persons\" on \"tasks\".\"personId\" = \"persons\".\"id\"";
+    private static final String SELECT_QUERY = "SELECT \"id\", \"name\", \"time\", \"startDate\", \"endDate\", " +
+            "\"status\", \"shortname\", \"projectId\", \"personId\", \"fname\" + ' ' + \"sname\" + ' ' + \"lname\" " +
+            "as \"person\" FROM \"tasks\" left join \"projects\" on \"tasks\".\"projectId\" = \"projects\".\"id\" left join " +
+            "\"persons\" on \"tasks\".\"personId\" = \"persons\".\"id\"";
     private static final String DELETE_QUERY = "delete from \"tasks\" where \"id\"=?";
-    private static final String INSERT_QUERY = "insert into \"tasks\"(\"name\", \"time\", \"startDate\", \"endDate\", \"status\", \"projectId\", \"personId\") values (?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_QUERY = "update \"tasks\" set \"name\" = ?, \"time\" = ?, \"startDate\" = ?, \"endDate\" = ?, \"status\" = ?, \"projectId\" = ?, \"personId\" = ? where \"id\" = ?";
+    private static final String INSERT_QUERY = "insert into \"tasks\"(\"name\", \"time\", \"startDate\", \"endDate\", " +
+            "\"status\", \"projectId\", \"personId\") values (?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_QUERY = "update \"tasks\" set \"name\" = ?, \"time\" = ?, \"startDate\" = ?, " +
+            "\"endDate\" = ?, \"status\" = ?, \"projectId\" = ?, \"personId\" = ? where \"id\" = ?";
 
     private static final String GET_TASKS_LIST_ERROR = "Error while getting tasks list";
     private static final String REMOVE_TASKS_ERROR = "Error while removing task";
@@ -104,13 +109,13 @@ public class TasksDAOImpl implements TasksDAO {
             tasks = new ArrayList<>();
         }
         int max = -1;
-        for(Map<String, Object> task : tasks) {
-            if(Integer.parseInt(task.get("id").toString()) > max) {
+        for (Map<String, Object> task : tasks) {
+            if (Integer.parseInt(task.get("id").toString()) > max) {
                 max = Integer.parseInt(task.get("id").toString());
             }
         }
         parameters.put("id", max + 1);
-        if(parameters.get("personId") != null) {
+        if (parameters.get("personId") != null) {
             Person person = new PersonDAOImpl().getPersonById((int) parameters.get("personId"));
             parameters.put("performer", person.getFname() + " " + person.getSname() + " " + person.getLname());
         }
@@ -184,7 +189,6 @@ public class TasksDAOImpl implements TasksDAO {
 
     public void removeTask(int id, HttpSession session) {
         List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("resultTasks");
-        tasks.forEach(task -> System.out.println(task.get("id")));
         tasks.removeIf(task -> (Integer) task.get("id") == id);
         session.setAttribute("resultTasks", tasks);
     }

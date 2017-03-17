@@ -1,20 +1,17 @@
 package com.qulix.zakrevskynp.trainingtask.web.project.controller;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.project.Project;
 import com.qulix.zakrevskynp.trainingtask.web.project.ProjectDataValidator;
@@ -34,6 +31,7 @@ public class EditProjectServlet extends CustomServlet {
     private ProjectDAO dao = new ProjectDAOImpl();
     private List<Map<String, Object>> resultTasks;
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         Map<String, Object> parameters = getParametersFromRequest(request);
@@ -50,7 +48,7 @@ public class EditProjectServlet extends CustomServlet {
                 tasksDAO.addTask(task);
             }
             response.sendRedirect("projectsList");
-            }
+        }
         else {
             request.setAttribute("project", parameters);
             List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
@@ -61,18 +59,20 @@ public class EditProjectServlet extends CustomServlet {
         }
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("resultTasks") == null) {
             resultTasks = new ArrayList<>();
-            List<Map<String, Object>> tasks = new TasksDAOImpl().getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
+            TasksDAOImpl tasksDAO = new TasksDAOImpl();
+            List<Map<String, Object>> tasks =  tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
             if (tasks != null) {
                 tasks.forEach(resultTasks::add);
             }
             request.getSession().setAttribute("resultTasks", resultTasks);
         }
-        else
-            resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
-
+        else {
+            resultTasks = (List<Map<String, Object>>) request.getSession().getAttribute("resultTasks");
+        }
         Project project = dao.getProjectById(Integer.parseInt(request.getParameter("id")));
         request.setAttribute("tasks", resultTasks);
         request.setAttribute("project", project);

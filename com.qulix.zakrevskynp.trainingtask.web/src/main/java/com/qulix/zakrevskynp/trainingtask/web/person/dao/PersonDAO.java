@@ -1,9 +1,9 @@
 package com.qulix.zakrevskynp.trainingtask.web.person.dao;
 
+
 import java.util.List;
 import java.util.Map;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.person.Person;
 
 /**
@@ -18,21 +18,21 @@ public interface PersonDAO {
      * @return list of all persons from database
      * @
      */
-    List<Person> getPersonsList() ;
+    List<Person> getPersonsList();
 
     /**
      * Inserts new person in database
      * @param parameters person form data
      * @
      */
-    boolean addPerson(Map<String, Object> parameters) ;
+    boolean addPerson(Map<String, Object> parameters);
 
     /**
      * Remove person from database by id
      * @param id person's id
      * @
      */
-    boolean removePerson(int id) ;
+    boolean removePerson(int id);
 
     /**
      * Gets person by id
@@ -41,7 +41,7 @@ public interface PersonDAO {
      * @return person by id
      * @
      */
-    Person getPersonById(int id) ;
+    Person getPersonById(int id);
 
     /**
      * Update information about exist person
@@ -49,5 +49,5 @@ public interface PersonDAO {
      * @param parameters person form data
      * @
      */
-    boolean updatePerson(Map<String, Object> parameters) ;
+    boolean updatePerson(Map<String, Object> parameters);
 }

@@ -1,18 +1,16 @@
 package com.qulix.zakrevskynp.trainingtask.web.task.controller;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
@@ -27,8 +25,8 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 public class AddTaskServlet extends CustomServlet {
 
     private List<String> errors = new ArrayList<>();
-    private Logger logger = Logger.getLogger(AddTaskServlet.class.getName());
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Map<String, Object> parameters = getParametersFromRequest(request);
@@ -54,6 +52,7 @@ public class AddTaskServlet extends CustomServlet {
         }
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
         request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());

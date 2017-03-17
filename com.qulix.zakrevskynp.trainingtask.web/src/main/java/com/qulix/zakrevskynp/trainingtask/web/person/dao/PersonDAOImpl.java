@@ -18,11 +18,15 @@ import com.qulix.zakrevskynp.trainingtask.web.person.Person;
  */
 public class PersonDAOImpl implements PersonDAO {
     
-    private static final String SELECT_QUERY = "SELECT \"id\", \"fname\", \"sname\", \"lname\", \"position\" FROM \"persons\"";
-    private static final String INSERT_QUERY = "insert into \"persons\"(\"fname\", \"sname\", \"lname\", \"position\") values (?, ?, ?, ?)";
+    private static final String SELECT_QUERY = "SELECT \"id\", \"fname\", \"sname\", \"lname\", " +
+            "\"position\" FROM \"persons\"";
+    private static final String INSERT_QUERY = "insert into \"persons\"(\"fname\", \"sname\", \"lname\", " +
+            "\"position\") values (?, ?, ?, ?)";
     private static final String DELETE_QUERY = "delete from \"persons\" where \"id\"=?";
-    private static final String SELECT_BY_ID_QUERY = "select \"id\", \"fname\", \"sname\", \"lname\", \"position\" FROM \"persons\" where \"id\"=?";
-    private static final String UPDATE_QUERY = "update \"persons\" set \"fname\" = ?, \"sname\" = ?, \"lname\" = ?, \"position\" = ? where \"id\" = ?";
+    private static final String SELECT_BY_ID_QUERY = "select \"id\", \"fname\", \"sname\", \"lname\", " +
+            "\"position\" FROM \"persons\" where \"id\"=?";
+    private static final String UPDATE_QUERY = "update \"persons\" set \"fname\" = ?, \"sname\" = ?, " +
+            "\"lname\" = ?, \"position\" = ? where \"id\" = ?";
 
     private static final String ADD_PERSON_ERROR = "Error while adding person";
     private static final String REMOVE_PERSON_ERROR = "Error while deleting person";
@@ -119,7 +123,7 @@ public class PersonDAOImpl implements PersonDAO {
      * @param parameters Person object
      * @
      */
-    public boolean updatePerson(Map<String, Object> parameters){
+    public boolean updatePerson(Map<String, Object> parameters) {
         return (boolean) execute(UPDATE_PERSON_ERROR, () -> {
             try (
                 Connection connection = ConnectionFactory.getConnection();

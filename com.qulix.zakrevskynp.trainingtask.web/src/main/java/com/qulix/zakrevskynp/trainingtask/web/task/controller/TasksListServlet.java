@@ -1,17 +1,15 @@
 package com.qulix.zakrevskynp.trainingtask.web.task.controller;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
@@ -22,7 +20,6 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 @WebServlet("/tasksList")
 public class TasksListServlet extends CustomServlet {
 
-    private Logger logger = Logger.getLogger(TasksListServlet.class.getName());
     private List<String> errors = new ArrayList<>();
 
     @Override

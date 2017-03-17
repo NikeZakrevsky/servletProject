@@ -9,6 +9,10 @@ import java.util.logging.Logger;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 
+/**
+ * Handle and process errors
+ * @author Q-NZA
+ */
 @WebFilter(filterName = "errorHandlerServlet", urlPatterns = {"/*"})
 public class ErrorHandler implements Filter {
     
@@ -20,10 +24,10 @@ public class ErrorHandler implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain ch) throws IOException, ServletException {
         try {
             request.setCharacterEncoding("UTF-8");
-            chain.doFilter(request, response);
+            ch.doFilter(request, response);
         }
         catch (Exception e) {
             Logger logger = Logger.getLogger(e.getStackTrace()[0].getClassName());

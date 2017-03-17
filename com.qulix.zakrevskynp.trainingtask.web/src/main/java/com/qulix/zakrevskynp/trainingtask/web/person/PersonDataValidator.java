@@ -21,11 +21,18 @@ public class PersonDataValidator {
 
         Predicate<Object> isEmptyAndLength = e -> e.equals("") || e.toString().length() > 20;
 
-        if(isEmptyAndLength.test(parameters.get("fname"))) errors.add("Неверное поле имя");
-        if (isEmptyAndLength.test(parameters.get("sname"))) errors.add("Неверное поле фамилия");
-        if (isEmptyAndLength.test(parameters.get("lname"))) errors.add("Неверное поле отчество");
-        if (isEmptyAndLength.test(parameters.get("position"))) errors.add("Неверное поле должность");
-
+        if (isEmptyAndLength.test(parameters.get("fname"))) {
+            errors.add("Неверное поле имя");
+        }
+        if (isEmptyAndLength.test(parameters.get("sname"))) {
+            errors.add("Неверное поле фамилия");
+        }
+        if (isEmptyAndLength.test(parameters.get("lname"))) {
+            errors.add("Неверное поле отчество");
+        }
+        if (isEmptyAndLength.test(parameters.get("position"))) {
+            errors.add("Неверное поле должность");
+        }
         return errors;
     }
 }

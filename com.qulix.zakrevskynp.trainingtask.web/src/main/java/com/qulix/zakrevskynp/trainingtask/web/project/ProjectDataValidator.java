@@ -21,8 +21,13 @@ public class ProjectDataValidator {
 
         Predicate<Object> isEmptyAndLength = e -> e.equals("") || e.toString().length() > 20;
 
-        if (isEmptyAndLength.test(parameters.get("name"))) errors.add("Неверное поле название");
-        if (isEmptyAndLength.test(parameters.get("shortName"))) errors.add("Неверное поле сокращённое название");
+        if (isEmptyAndLength.test(parameters.get("name"))) {
+            errors.add("Неверное поле название");
+        }
+
+        if (isEmptyAndLength.test(parameters.get("shortName"))) {
+            errors.add("Неверное поле сокращённое название");
+        }
 
         return errors;
     }

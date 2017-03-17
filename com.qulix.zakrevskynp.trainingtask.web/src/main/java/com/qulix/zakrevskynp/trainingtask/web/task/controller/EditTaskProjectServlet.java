@@ -1,19 +1,18 @@
 package com.qulix.zakrevskynp.trainingtask.web.task.controller;
 
+
 import java.io.IOException;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
-import com.qulix.zakrevskynp.trainingtask.web.person.Person;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.task.TaskDataValidator;
@@ -23,7 +22,6 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 public class EditTaskProjectServlet extends CustomServlet {
 
     private List<String> errors = new ArrayList<>();
-    private Logger logger = Logger.getLogger(EditTaskProjectServlet.class.getName());
     private String returningPath;
 
     @Override

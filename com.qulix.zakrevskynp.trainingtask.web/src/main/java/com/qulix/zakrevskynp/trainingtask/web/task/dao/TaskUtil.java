@@ -59,9 +59,9 @@ public class TaskUtil {
         ResultSetMetaData md = rs.getMetaData();
         int columns = md.getColumnCount();
         List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
-        while (rs.next()){
+        while (rs.next()) {
             Map<String, Object> row = new HashMap<String, Object>(columns);
-            for(int i = 1; i <= columns; ++i){
+            for (int i = 1; i <= columns; ++i) {
                 row.put(md.getColumnName(i), rs.getObject(i));
             }
             rows.add(row);

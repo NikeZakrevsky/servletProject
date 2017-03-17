@@ -1,18 +1,16 @@
 package com.qulix.zakrevskynp.trainingtask.web.person.controller;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.Person;
 import com.qulix.zakrevskynp.trainingtask.web.person.PersonDataValidator;
@@ -28,6 +26,7 @@ public class EditPersonServlet extends CustomServlet {
 
     private PersonDAO personDAO = new PersonDAOImpl();
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         List<String> errors = new ArrayList<>();
@@ -46,6 +45,7 @@ public class EditPersonServlet extends CustomServlet {
         }
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Person person  = personDAO.getPersonById(Integer.parseInt(request.getParameter("id")));
         request.setAttribute("person", person);

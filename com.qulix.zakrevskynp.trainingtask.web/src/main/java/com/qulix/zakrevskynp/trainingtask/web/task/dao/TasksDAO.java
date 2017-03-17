@@ -1,13 +1,12 @@
 package com.qulix.zakrevskynp.trainingtask.web.task.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;
+
 
 /**
  * CRUD operations for tasks
@@ -21,14 +20,14 @@ public interface TasksDAO {
      * @return list of all tasks in database
      * @
      */
-    List<Task> getTasksList() ;
+    List<Task> getTasksList();
 
     /**
      * Remove project from database by id
      *
      * @param id project's id
      */
-    boolean removeTask(int id) ;
+    boolean removeTask(int id);
 
     /**
      * Insert task in database
@@ -36,9 +35,9 @@ public interface TasksDAO {
      * @param parameters {@link Task} object
      * @
      */
-    List<Map<String, Object>> addTask(Map<String, Object> parameters, HttpSession session) ;
+    List<Map<String, Object>> addTask(Map<String, Object> parameters, HttpSession session);
 
-    boolean addTask(Map<String, Object> parameters) ;
+    boolean addTask(Map<String, Object> parameters);
 
     /**
      * Get task by id
@@ -46,20 +45,20 @@ public interface TasksDAO {
      * @param id task's id
      * @return Task object
      */
-    Task getTaskById(int id) ;
+    Task getTaskById(int id);
 
     /**
      *
      * @param parameters {@link Task} object
      * @throws SQLException
      */
-    boolean updateTask(Map<String, Object> parameters)  ;
-    void updateTask(Map<String, Object> parameters, HttpSession session, int id)  ;
+    boolean updateTask(Map<String, Object> parameters);
+    void updateTask(Map<String, Object> parameters, HttpSession session, int id);
     /**
      *
      * @param id project id
      * @return List of tasks with specified project id
      * @
      */
-    List<Map<String, Object>> getTasksByProjectId(int id) ;
+    List<Map<String, Object>> getTasksByProjectId(int id);
 }

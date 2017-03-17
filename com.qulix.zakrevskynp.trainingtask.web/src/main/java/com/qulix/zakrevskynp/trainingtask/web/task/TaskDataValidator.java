@@ -49,14 +49,18 @@ public class TaskDataValidator {
             logger.log(Level.SEVERE, e.getMessage());
             errors.add("Неверная дата окончания");
         }
-        if(startDate != null && endDate != null) {
+        if (startDate != null && endDate != null) {
             if (!startDate.before(endDate)) {
                 errors.add("Дата окончания должна быть раньше даты начала");
             }
         }
 
-        if (isEmptyAndLength.test(parameters.get("name"))) errors.add("Неверное поле название");
-        if (isEmptyAndLength.test(parameters.get("status"))) errors.add("Неверное поле статус");
+        if (isEmptyAndLength.test(parameters.get("name"))) {
+            errors.add("Неверное поле название");
+        }
+        if (isEmptyAndLength.test(parameters.get("status"))) {
+            errors.add("Неверное поле статус");
+        }
 
         if (!parameters.get("time").toString().matches(regex) || parameters.get("time").toString().length() > 8) {
             errors.add("Неверное время работы");
