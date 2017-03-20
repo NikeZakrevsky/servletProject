@@ -32,7 +32,7 @@ public class ConnectionFactory {
             url = dbProperties.getProperty("url");
         }
         catch (Exception e) {
-            logger.log(Level.SEVERE, "1023");
+            logger.log(Level.SEVERE, "Can not connect");
         }
     }
 

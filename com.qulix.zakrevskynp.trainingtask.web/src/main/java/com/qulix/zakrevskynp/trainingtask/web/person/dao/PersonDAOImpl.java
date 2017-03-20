@@ -40,7 +40,6 @@ public class PersonDAOImpl implements PersonDAO {
      * Gets list of persons
      *
      * @return list of all persons from database
-     * @
      */
     public List<Person> getPersonsList()  {
         return (List<Person>) execute(GET_PERSONS_LIST_ERROR, () -> {
@@ -61,7 +60,6 @@ public class PersonDAOImpl implements PersonDAO {
     /**
      * Inserts new person in database
      * @param parameters data from add person form
-     * @
      */
     public boolean addPerson(Map<String, Object> parameters)  {
         return (boolean) execute(ADD_PERSON_ERROR, () -> {
@@ -80,7 +78,6 @@ public class PersonDAOImpl implements PersonDAO {
     /**
      * Remove person from database by id
      * @param id person's id
-     * @
      */
     public boolean removePerson(int id)  {
         return (boolean) execute(REMOVE_PERSON_ERROR, () -> {
@@ -101,7 +98,6 @@ public class PersonDAOImpl implements PersonDAO {
      *
      * @param id person's id
      * @return person by id
-     * @
      */
     public Person getPersonById(int id)  {
         return (Person)execute(GET_PERSON_BY_ID_ERROR, () -> {
@@ -121,7 +117,6 @@ public class PersonDAOImpl implements PersonDAO {
      * Update information about exist person
      *
      * @param parameters Person object
-     * @
      */
     public boolean updatePerson(Map<String, Object> parameters) {
         return (boolean) execute(UPDATE_PERSON_ERROR, () -> {
