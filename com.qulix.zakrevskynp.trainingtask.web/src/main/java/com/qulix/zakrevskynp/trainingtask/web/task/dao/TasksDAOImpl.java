@@ -201,12 +201,6 @@ public class TasksDAOImpl implements TasksDAO {
         session.setAttribute("resultTasks", tasks);
     }
 
-    /**
-     * Insert task in database
-     * @param parameters data from add task form
-     * @param session {@link HttpSession} object for getting tasks list
-     * @return list of tasks with added new task
-     */
     public void removeTask(int id, HttpSession session) {
         List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("resultTasks");
         tasks.removeIf(task -> (Integer) task.get("id") == id);

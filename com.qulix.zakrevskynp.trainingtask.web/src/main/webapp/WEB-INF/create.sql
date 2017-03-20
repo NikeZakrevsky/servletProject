@@ -26,6 +26,6 @@ create table "tasks" (
   on delete set null
   on update cascade,
   constraint "person_fk" foreign key("personId") references "persons"("id")
-  on delete cascade
+  on delete set null
   on update cascade
 );
