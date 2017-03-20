@@ -18,6 +18,10 @@ import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.task.TaskDataValidator;
 import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
+/**
+ * Show edit task form and handling form data for editing task in session
+ * @author Q-NZA
+ */
 @WebServlet("/editTaskProject")
 public class EditTaskProjectServlet extends CustomServlet {
 

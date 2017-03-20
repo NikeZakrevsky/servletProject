@@ -18,6 +18,10 @@ import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.task.TaskDataValidator;
 import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
+/**
+ * Show add task form and handling it data for adding task in session
+ * @author Q-NZA
+ */
 @WebServlet("/taskProject")
 public class AddTaskProjectServlet extends CustomServlet {
 

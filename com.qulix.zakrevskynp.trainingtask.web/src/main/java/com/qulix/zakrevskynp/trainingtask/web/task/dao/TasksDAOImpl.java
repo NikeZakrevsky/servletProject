@@ -102,6 +102,13 @@ public class TasksDAOImpl implements TasksDAO {
         });
     }
 
+    /**
+     * Insert task in database
+     *
+     * @param parameters data from add task form
+     * @param session {@link HttpSession} object
+     * @return list of tasks with added new task
+     */
     @Override
     public List<Map<String, Object>> addTask(Map<String, Object> parameters, HttpSession session)  {
         List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("resultTasks");
@@ -167,6 +174,12 @@ public class TasksDAOImpl implements TasksDAO {
         });
     }
 
+    /**
+     * Update task in session
+     * @param parameters data from update task form for getting tasks list
+     * @param session {@link HttpSession} object
+     * @param id task's id
+     */
     @Override
     public void updateTask(Map<String, Object> parameters, HttpSession session, int id)  {
         List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("resultTasks");
@@ -188,6 +201,12 @@ public class TasksDAOImpl implements TasksDAO {
         session.setAttribute("resultTasks", tasks);
     }
 
+    /**
+     * Insert task in database
+     * @param parameters data from add task form
+     * @param session {@link HttpSession} object for getting tasks list
+     * @return list of tasks with added new task
+     */
     public void removeTask(int id, HttpSession session) {
         List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("resultTasks");
         tasks.removeIf(task -> (Integer) task.get("id") == id);

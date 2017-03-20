@@ -11,6 +11,10 @@ import javax.servlet.http.HttpSession;
 import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
+/**
+ * Show remove task form and handling it data for removing task in session
+ * @author Q-NZA
+ */
 @WebServlet("/removeTaskProject")
 public class RemoveTaskProjectServlet extends CustomServlet {
 

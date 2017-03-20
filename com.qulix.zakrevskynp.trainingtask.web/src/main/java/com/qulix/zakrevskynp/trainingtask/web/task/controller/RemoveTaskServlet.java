@@ -14,7 +14,7 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAO;
 import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
 /**
- * Handling remove task action
+ * Show remove task form and handling it data for removing task in database
  * @author Q-NZA
  */
 @WebServlet("/removeTask")
