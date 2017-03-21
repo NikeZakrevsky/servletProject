@@ -68,54 +68,54 @@
             </div>
             <button type="submit" class="btn btn-success custom-width">Сохранить</button>
             <a href="projectsList"><button type="button" class="btn btn-danger custom-width">Отмена</button></a>
-	    </form>
 
-</div>
-</div>
-</div>
-<div class="generic-container">
-    <div class="panel panel-default">
-        <div class="panel-heading"><span class="lead">Список задач</span></div>
-            <div class="tablecontainer">
-                <table class="table table-hover">
-                    <thead>
-                          <tr>
-                              <th>Идентификатор</th>
-                              <th>Название</th>
-                              <th>Дата начала</th>
-                              <th>Дата окончания</th>
-                              <th>Исполнитель</th>
-                              <th>Статус</th>
-                              <th width="20%"></th>
-                          </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${tasks}" var="task">
-                        <tr>
-                            <td>${task.id}</td>
-                            <td>${task.name}</td>
-                            <td>${task.startDate}</td>
-                            <td>${task.endDate}</td>
-                            <td>${task.person}</td>
-                            <td>${task.status}</td>
-                            <td>
-                                <a href="removeTaskProject?id=${task.id}"><button type="button" class="btn btn-danger custom-width">Удалить</button></a>
-                                <a href="editTaskProject?id=${task.id}"><button type="button" class="btn btn-success custom-width">Изменить</button></a>
-                            </td>
-                        </tr>
-                    <tbody>
-                    </c:forEach>
-                </table>
+            <div class="generic-container">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><span class="lead">Список задач</span></div>
+                        <div class="tablecontainer">
+                            <table class="table table-hover">
+                                <thead>
+                                      <tr>
+                                          <th>Идентификатор</th>
+                                          <th>Название</th>
+                                          <th>Дата начала</th>
+                                          <th>Дата окончания</th>
+                                          <th>Исполнитель</th>
+                                          <th>Статус</th>
+                                          <th width="20%"></th>
+                                      </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${tasks}" var="task">
+                                    <tr>
+                                        <td>${task.id}</td>
+                                        <td>${task.name}</td>
+                                        <td>${task.startDate}</td>
+                                        <td>${task.endDate}</td>
+                                        <td>${task.person}</td>
+                                        <td>${task.status}</td>
+                                        <td>
+                                            <button onclick="this.form.action = 'removeTaskProject?taskId=${task.id}&id=${project.id}'" type="submit" class="btn btn-danger custom-width">Удалить</button>
+                                            <button onclick = "this.form.action = 'editTaskProject1?taskId=${task.id}'" type="submit" class="btn btn-success custom-width">Изменить</button>
+                                        </td>
+                                    </tr>
+                                <tbody>
+                                </c:forEach>
+                            </table>
+                        </div>
+                    </div>
+                    <c:choose>
+                        <c:when test="${action.equals('editProject')}">
+                            <button onclick = "this.form.action = 'taskProject1?projectId=${project.id}'" type="submit" class="btn btn-success custom-width">Добавить</button>
+                        </c:when>
+                        <c:otherwise>
+                            <button onclick = "this.form.action = 'taskProject1'" type="submit" class="btn btn-success custom-width">Добавить</button>
+                        </c:otherwise>
+                    </c:choose>
             </div>
-        </div>
-        <c:choose>
-            <c:when test="${action.equals('editProject')}">
-                <a href="taskProject?projectId=${project.id}"><button type="button" class="btn btn-success custom-width">Добавить</button></a>
-            </c:when>
-            <c:otherwise>
-                <a href="taskProject"><button type="button" class="btn btn-success custom-width">Добавить</button></a>
-            </c:otherwise>
-        </c:choose>
+	    </form>
+</div>
+</div>
 </div>
 </body>
 </html>

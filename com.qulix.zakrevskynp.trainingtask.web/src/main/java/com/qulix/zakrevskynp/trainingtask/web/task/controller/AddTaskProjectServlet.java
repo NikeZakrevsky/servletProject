@@ -28,21 +28,6 @@ public class AddTaskProjectServlet extends CustomServlet {
     private String returningPath;
     private List<String> errors = new ArrayList<>();
 
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        returningPath = request.getSession().getAttribute("path").toString();
-
-        request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
-        request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
-        if (request.getParameter("projectId") != null) {
-            Map<String, Object> task = new HashMap<>();
-            task.put("projectId", Integer.parseInt(request.getParameter("projectId")));
-            request.setAttribute("task", task);
-        }
-        request.setAttribute("isDisable", true);
-        request.setAttribute("action", "taskProject");
-        request.getRequestDispatcher("taskView.jsp").forward(request, response);
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -52,7 +37,7 @@ public class AddTaskProjectServlet extends CustomServlet {
         if (errors.size() == 0) {
             List<Map<String, Object>> resultTasks = new TasksDAOImpl().addTask(parameters, request.getSession());
             request.getSession().setAttribute("resultTasks", resultTasks);
-            response.sendRedirect(returningPath);
+            response.sendRedirect(request.getSession().getAttribute("path").toString());
         }
         else {
             request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());

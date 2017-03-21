@@ -42,6 +42,7 @@ public class EditProjectServlet extends CustomServlet {
             List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
             TasksDAOImpl tasksDAO = new TasksDAOImpl();
             for (Map<String, Object> task: tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter("id")))) {
+                System.out.println(task);
                 tasksDAO.removeTask(Integer.parseInt(task.get("id").toString()));
             }
             for (Map<String, Object> task : resultTasks) {
@@ -54,7 +55,6 @@ public class EditProjectServlet extends CustomServlet {
             List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
             request.setAttribute("tasks", resultTasks);
             request.setAttribute("errors", errors);
-            request.setAttribute("action", "editProject");
             request.getRequestDispatcher("projectView.jsp").forward(request, response);
         }
     }
@@ -73,14 +73,17 @@ public class EditProjectServlet extends CustomServlet {
         else {
             resultTasks = (List<Map<String, Object>>) request.getSession().getAttribute("resultTasks");
         }
-        Project project = dao.getProjectById(Integer.parseInt(request.getParameter("id")));
+        if (request.getSession().getAttribute("project") == null) {
+            Project project = dao.getProjectById(Integer.parseInt(request.getParameter("id")));
+            request.setAttribute("project", project);
+        }
+        else {
+            request.setAttribute("project", request.getSession().getAttribute("project"));
+        }
         request.setAttribute("tasks", resultTasks);
-        request.setAttribute("project", project);
-        request.setAttribute("action", "editProject");
 
         request.getSession(true).setAttribute("path", "editProject?id=" + request.getParameter("id"));
         request.setAttribute("path", "editProject?id=" + request.getParameter("id"));
         request.getRequestDispatcher("projectView.jsp").forward(request, response);
-
     }
 }

@@ -19,16 +19,13 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 public class RemoveTaskProjectServlet extends CustomServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println(getParametersFromRequest(request));
+        request.getSession().setAttribute("project", getParametersFromRequest(request));
         HttpSession session = request.getSession();
         String returningPath = request.getSession(false).getAttribute("path").toString();
-        new TasksDAOImpl().removeTask(Integer.parseInt(request.getParameter("id")), session);
+        new TasksDAOImpl().removeTask(Integer.parseInt(request.getParameter("taskId")), session);
         session.setAttribute("resultTasks", session.getAttribute("resultTasks"));
         response.sendRedirect(returningPath);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
     }
 }
