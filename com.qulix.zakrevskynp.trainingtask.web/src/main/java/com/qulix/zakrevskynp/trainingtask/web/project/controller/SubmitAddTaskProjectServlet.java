@@ -22,12 +22,11 @@ public class SubmitAddTaskProjectServlet extends CustomServlet {
         Map<String, Object> parameters = getParametersFromRequest(request);
         request.getSession().setAttribute("project", parameters);
         returningPath = request.getSession().getAttribute("path").toString();
-
         request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
         request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
-        if (request.getParameter("projectId") != null) {
+        if (!request.getParameter("id").equals("")) {
             Map<String, Object> task = new HashMap<>();
-            task.put("projectId", Integer.parseInt(request.getParameter("projectId")));
+            task.put("projectId", Integer.parseInt(request.getParameter("id")));
             request.setAttribute("task", task);
         }
         request.setAttribute("isDisable", true);

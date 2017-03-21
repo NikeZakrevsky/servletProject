@@ -5,7 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,13 +45,32 @@ public class EditProjectServlet extends CustomServlet {
             dao.updateProject(parameters);
             List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
             TasksDAOImpl tasksDAO = new TasksDAOImpl();
-            for (Map<String, Object> task: tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter("id")))) {
-                System.out.println(task);
-                tasksDAO.removeTask(Integer.parseInt(task.get("id").toString()));
-            }
-            for (Map<String, Object> task : resultTasks) {
-                tasksDAO.addTask(task);
-            }
+            List<Map<String, Object>> tasksList = tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
+            Set<Object> t1 = tasksList.stream().map(task -> task.get("id")).collect(Collectors.toSet());
+            Set<Object> t2 = resultTasks.stream().map(task -> task.get("id")).collect(Collectors.toSet());
+
+            List<Map<String, Object>> removeList = new ArrayList<>();
+            List<Map<String, Object>> updateList = new ArrayList<>();
+            List<Map<String, Object>> addList = new ArrayList<>();
+
+            tasksList.forEach(x -> {
+                if (!t2.contains(x.get("id"))) {
+                    tasksDAO.removeTask(Integer.parseInt(x.get("id").toString()));
+                }
+            });
+
+            resultTasks.forEach(x -> {
+                if (t1.contains(x.get("id"))) {
+                    tasksDAO.updateTask(x);
+                }
+            });
+
+            resultTasks.forEach(x -> {
+                if (!t1.contains(x.get("id"))) {
+                    tasksDAO.addTask(x);
+                }
+            });
+            
             response.sendRedirect("projectsList");
         }
         else {
@@ -68,6 +91,9 @@ public class EditProjectServlet extends CustomServlet {
             if (tasks != null) {
                 tasks.forEach(resultTasks::add);
             }
+            System.out.println("rt");
+            System.out.println(resultTasks);
+            System.out.println("rt");
             request.getSession().setAttribute("resultTasks", resultTasks);
         }
         else {

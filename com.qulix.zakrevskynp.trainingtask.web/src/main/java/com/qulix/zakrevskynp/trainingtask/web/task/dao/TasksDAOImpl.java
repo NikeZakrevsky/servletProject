@@ -115,13 +115,12 @@ public class TasksDAOImpl implements TasksDAO {
         if (tasks == null) {
             tasks = new ArrayList<>();
         }
-        int max = -1;
         for (Map<String, Object> task : tasks) {
-            if (Integer.parseInt(task.get("id").toString()) > max) {
-                max = Integer.parseInt(task.get("id").toString());
+            if (Integer.parseInt(task.get("id").toString()) > id) {
+                id = Integer.parseInt(task.get("id").toString());
             }
         }
-        parameters.put("id", max + 1);
+        parameters.put("id", id + 1);
         if (parameters.get("personId") != null) {
             Person person = new PersonDAOImpl().getPersonById((int) parameters.get("personId"));
             parameters.put("person", person.getFname() + " " + person.getSname() + " " + person.getLname());
@@ -202,6 +201,9 @@ public class TasksDAOImpl implements TasksDAO {
     }
 
     public void removeTask(int id, HttpSession session) {
+        if (id > this.id) {
+            this.id = id;
+        }
         List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("resultTasks");
         tasks.removeIf(task -> (Integer) task.get("id") == id);
         session.setAttribute("resultTasks", tasks);
@@ -236,4 +238,7 @@ public class TasksDAOImpl implements TasksDAO {
         }
     }
 
+    public static int getId() {
+        return id++;
+    }
 }

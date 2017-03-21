@@ -30,7 +30,7 @@ public class SubmitEditTaskProjectServlet extends CustomServlet {
         Iterator iterator = tasks.iterator();
         while (iterator.hasNext()) {
             Map<String, Object> task = (Map<String, Object>) iterator.next();
-
+            System.out.println(task);
             if ((Integer)task.get("id") == Integer.parseInt(request.getParameter("taskId"))) {
                 request.setAttribute("task", task);
                 request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
