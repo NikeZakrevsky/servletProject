@@ -20,7 +20,6 @@ public class RemoveTaskProjectServlet extends CustomServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(getParametersFromRequest(request));
         request.getSession().setAttribute("project", getParametersFromRequest(request));
         HttpSession session = request.getSession();
         String returningPath = request.getSession(false).getAttribute("path").toString();

@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -91,9 +89,6 @@ public class EditProjectServlet extends CustomServlet {
             if (tasks != null) {
                 tasks.forEach(resultTasks::add);
             }
-            System.out.println("rt");
-            System.out.println(resultTasks);
-            System.out.println("rt");
             request.getSession().setAttribute("resultTasks", resultTasks);
         }
         else {

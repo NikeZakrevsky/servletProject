@@ -22,7 +22,6 @@ public class SubmitEditTaskProjectServlet extends CustomServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(getParametersFromRequest(request));
         request.getSession().setAttribute("project", getParametersFromRequest(request));
         request.setAttribute("path", request.getSession().getAttribute("path").toString());
         returningPath = request.getSession(false).getAttribute("path").toString();
@@ -30,7 +29,6 @@ public class SubmitEditTaskProjectServlet extends CustomServlet {
         Iterator iterator = tasks.iterator();
         while (iterator.hasNext()) {
             Map<String, Object> task = (Map<String, Object>) iterator.next();
-            System.out.println(task);
             if ((Integer)task.get("id") == Integer.parseInt(request.getParameter("taskId"))) {
                 request.setAttribute("task", task);
                 request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());

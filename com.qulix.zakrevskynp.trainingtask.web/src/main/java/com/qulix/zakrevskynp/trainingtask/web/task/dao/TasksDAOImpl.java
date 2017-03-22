@@ -125,7 +125,6 @@ public class TasksDAOImpl implements TasksDAO {
             Person person = new PersonDAOImpl().getPersonById((int) parameters.get("personId"));
             parameters.put("person", person.getFname() + " " + person.getSname() + " " + person.getLname());
         }
-        System.out.println(parameters);
         tasks.add(parameters);
         return tasks;
     }

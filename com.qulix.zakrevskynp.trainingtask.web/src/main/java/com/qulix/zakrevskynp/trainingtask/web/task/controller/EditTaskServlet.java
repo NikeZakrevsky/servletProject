@@ -65,8 +65,9 @@ public class EditTaskServlet extends CustomServlet {
         request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
         request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
         request.setAttribute("action", "editTask");
-        if (!returningPath.equals("tasksList"))
+        if (!returningPath.equals("tasksList")) {
             request.setAttribute("isDisable", true);
+        }
         request.getRequestDispatcher("taskView.jsp").forward(request, response);
     }
 }
