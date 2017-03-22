@@ -13,6 +13,10 @@ import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
 
+/**
+ * Save project form data, while add tasks
+ * @author Q-NZA
+ */
 @WebServlet("/taskProject1")
 public class SubmitAddTaskProjectServlet extends CustomServlet {
     private String returningPath;

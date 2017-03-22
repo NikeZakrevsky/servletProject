@@ -15,6 +15,10 @@ import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
 
+/**
+ * Save project form data, while edit tasks
+ * @author Q-NZA
+ */
 @WebServlet("/editTaskProject1")
 public class SubmitEditTaskProjectServlet extends CustomServlet {
 
