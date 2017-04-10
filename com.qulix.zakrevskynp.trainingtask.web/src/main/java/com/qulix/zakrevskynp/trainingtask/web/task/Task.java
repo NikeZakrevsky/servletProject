@@ -10,7 +10,7 @@ import java.sql.Date;
 public class Task {
     private Integer id;
     private String name;
-    private Integer time;
+    private Integer workTime;
     private Date startDate;
     private Date endDate;
     private String status;
@@ -39,11 +39,11 @@ public class Task {
     }
 
     public int getTime() {
-        return time;
+        return workTime;
     }
 
     public void setTime(int time) {
-        this.time = time;
+        this.workTime = time;
     }
 
     public Date getStartDate() {
