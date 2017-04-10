@@ -20,15 +20,11 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
  */
 public class ProjectDAOImpl implements ProjectDAO {
 
-    private static final String SELECT_QUERY = "SELECT \"id\", \"name\", \"shortname\", " +
-            "\"description\" FROM \"projects\"";
-    private static final String INSERT_QUERY = "insert into \"projects\"(\"name\", \"shortname\", " +
-            "\"description\") values (?, ?, ?)";
-    private static final String DELETE_QUERY = "delete from \"projects\" where \"id\"=?";
-    private static final String SELECT_BY_ID_QUERY = "select \"id\", \"name\", \"shortname\", " +
-            "\"description\" FROM \"projects\" where \"id\" =?";
-    private static final String UPDATE_QUERY = "update \"projects\" set \"name\" = ?, \"shortname\" = ?, " +
-            "\"description\" = ? where \"id\" = ?";
+    private static final String SELECT_QUERY = "SELECT id, name, shortname, description FROM projects";
+    private static final String INSERT_QUERY = "insert into projects(name, shortname, description) values (?, ?, ?)";
+    private static final String DELETE_QUERY = "delete from projects where id=?";
+    private static final String SELECT_BY_ID_QUERY = "select id, name, shortname, description FROM projects where id =?";
+    private static final String UPDATE_QUERY = "update projects set name = ?, shortname = ?, description = ? where id = ?";
 
     private static final String ADD_PROJECT_ERROR = "Error while adding project";
     private static final String REMOVE_PROJECT_ERROR = "Error while deleting project";

@@ -19,15 +19,15 @@ import com.qulix.zakrevskynp.trainingtask.web.task.Task;
  */
 public class TasksDAOImpl implements TasksDAO {
     
-    private static final String SELECT_QUERY = "SELECT \"id\", \"name\", \"time\", \"startDate\", \"endDate\", " +
-            "\"status\", \"shortname\", \"projectId\", \"personId\", \"fname\" + ' ' + \"sname\" + ' ' + \"lname\" " +
-            "as \"person\" FROM \"tasks\" left join \"projects\" on \"tasks\".\"projectId\" = \"projects\".\"id\" left join " +
-            "\"persons\" on \"tasks\".\"personId\" = \"persons\".\"id\"";
-    private static final String DELETE_QUERY = "delete from \"tasks\" where \"id\"=?";
-    private static final String INSERT_QUERY = "insert into \"tasks\"(\"name\", \"time\", \"startDate\", \"endDate\", " +
-            "\"status\", \"projectId\", \"personId\") values (?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_QUERY = "update \"tasks\" set \"name\" = ?, \"time\" = ?, \"startDate\" = ?, " +
-            "\"endDate\" = ?, \"status\" = ?, \"projectId\" = ?, \"personId\" = ? where \"id\" = ?";
+    private static final String SELECT_QUERY = "SELECT id, name, time, startDate, endDate, " +
+            "status, shortname, projectId, personId, fname + ' ' + sname + ' ' + lname " +
+            "as person FROM tasks left join projects on tasks.projectId = projects.id left join " +
+            "persons on tasks.personId = persons.id";
+    private static final String DELETE_QUERY = "delete from tasks where id=?";
+    private static final String INSERT_QUERY = "insert into tasks(name, time, startDate, endDate, " +
+            "status, projectId, personId) values (?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_QUERY = "update tasks set name = ?, time = ?, startDate = ?, " +
+            "endDate = ?, status = ?, projectId = ?, personId = ? where id = ?";
 
     private static final String GET_TASKS_LIST_ERROR = "Error while getting tasks list";
     private static final String REMOVE_TASKS_ERROR = "Error while removing task";
@@ -139,7 +139,7 @@ public class TasksDAOImpl implements TasksDAO {
             Task task;
             try (
                     Connection connection = ConnectionFactory.getConnection();
-                    PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where \"id\" = ?")
+                    PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where id = ?")
             ) {
                 preparedStatement.setInt(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -217,7 +217,7 @@ public class TasksDAOImpl implements TasksDAO {
             List<Task> tasks = new ArrayList<>();
             try (
                     Connection connection = ConnectionFactory.getConnection();
-                    PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where \"projectId\" = ?")
+                    PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where projectId = ?")
             ) {
                 preparedStatement.setInt(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
