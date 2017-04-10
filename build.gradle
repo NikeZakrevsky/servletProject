@@ -1,6 +1,13 @@
 group 'com.qulix.zakrevskynp.trainingtask.web'
 
 allprojects {
+
+    apply plugin: 'checkstyle'
+
+    checkstyle {
+        configFile = rootProject.file("com.qulix.zakrevskynp.trainingtask.web/src/main/resources/checkstyle.xml")
+    }
+    
     repositories {
         mavenCentral()
     }

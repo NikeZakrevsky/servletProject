@@ -45,22 +45,22 @@ public class EditProjectServlet extends CustomProjectServlet {
             Set<Object> t2 = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
 
             tasksList.forEach(x -> {
-                if (!t2.contains(x.getId())) {
-                    tasksDAO.removeTask(x.getId());
-                }
-            });
+                    if (!t2.contains(x.getId())) {
+                        tasksDAO.removeTask(x.getId());
+                    }
+                });
 
             resultTasks.forEach(x -> {
-                if (t1.contains(x.getId())) {
-                    tasksDAO.updateTask(x);
-                }
-            });
+                    if (t1.contains(x.getId())) {
+                        tasksDAO.updateTask(x);
+                    }
+                });
 
             resultTasks.forEach(x -> {
-                if (!t1.contains(x.getId())) {
-                    tasksDAO.addTask(x);
-                }
-            });
+                    if (!t1.contains(x.getId())) {
+                        tasksDAO.addTask(x);
+                    }
+                });
             
             response.sendRedirect("projectsList");
         }

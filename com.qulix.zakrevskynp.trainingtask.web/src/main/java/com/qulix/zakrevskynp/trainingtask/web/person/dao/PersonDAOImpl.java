@@ -34,17 +34,20 @@ public class PersonDAOImpl implements PersonDAO {
      *
      * @return list of all persons from database
      */
+    @SuppressWarnings("unchecked")
+
+
     public List<Person> getPersonsList()  {
         return (List<Person>) ExecuteDAO.execute(GET_PERSONS_LIST_ERROR, (connection) -> {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY);) {
-                List<Person> persons = new ArrayList<>();
-                ResultSet resultSet = preparedStatement.executeQuery();
-                while (resultSet.next()) {
-                    persons.add(personUtil.resultSetAsObject(resultSet));
+                try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY)) {
+                    List<Person> persons = new ArrayList<>();
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                        persons.add(personUtil.resultSetAsObject(resultSet));
+                    }
+                    return persons;
                 }
-                return persons;
-            }
-        });
+            });
     }
 
     /**
@@ -53,13 +56,13 @@ public class PersonDAOImpl implements PersonDAO {
      */
     public void addPerson(Person person)  {
         ExecuteDAO.execute(ADD_PERSON_ERROR, (connection) -> {
-            try (PreparedStatement preparedStatement = ConnectionFactory.getConnection().prepareStatement(INSERT_QUERY)) {
-                personUtil.setPreparedStatement(preparedStatement, person);
-                preparedStatement.execute();
-                connection.commit();
-                return true;
-            }
-        });
+                try (PreparedStatement preparedStatement = ConnectionFactory.getConnection().prepareStatement(INSERT_QUERY)) {
+                    personUtil.setPreparedStatement(preparedStatement, person);
+                    preparedStatement.execute();
+                    connection.commit();
+                    return true;
+                }
+            });
     }
 
     /**
@@ -68,13 +71,13 @@ public class PersonDAOImpl implements PersonDAO {
      */
     public void removePerson(int id)  {
         ExecuteDAO.execute(REMOVE_PERSON_ERROR, (connection) -> {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)) {
-                preparedStatement.setInt(1, id);
-                preparedStatement.execute();
-                connection.commit();
-                return true;
-            }
-        });
+                try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)) {
+                    preparedStatement.setInt(1, id);
+                    preparedStatement.execute();
+                    connection.commit();
+                    return true;
+                }
+            });
     }
 
     /**
@@ -85,13 +88,13 @@ public class PersonDAOImpl implements PersonDAO {
      */
     public Person getPersonById(int id)  {
         return (Person) ExecuteDAO.execute(GET_PERSON_BY_ID_ERROR, (connection) -> {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY)) {
-                preparedStatement.setInt(1, id);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                resultSet.next();
-                return personUtil.resultSetAsObject(resultSet);
-            }
-        });
+                try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY)) {
+                    preparedStatement.setInt(1, id);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    resultSet.next();
+                    return personUtil.resultSetAsObject(resultSet);
+                }
+            });
     }
 
     /**
@@ -101,13 +104,13 @@ public class PersonDAOImpl implements PersonDAO {
      */
     public void updatePerson(Person person) {
         ExecuteDAO.execute(UPDATE_PERSON_ERROR, (connection) -> {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
-                personUtil.setPreparedStatement(preparedStatement, person);
-                preparedStatement.setInt(5, person.getId());
-                preparedStatement.execute();
-                connection.commit();
-                return true;
-            }
-        });
+                try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
+                    personUtil.setPreparedStatement(preparedStatement, person);
+                    preparedStatement.setInt(5, person.getId());
+                    preparedStatement.execute();
+                    connection.commit();
+                    return true;
+                }
+            });
     }
 }

@@ -4,7 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * Created by ZakrevskyNP on 10.04.2017.
+ * Execute actions from @{{@link Executable}}
+ * @author Q-NZA
  */
 public class ExecuteDAO {
     public static Object execute(String message, Executable ex) {

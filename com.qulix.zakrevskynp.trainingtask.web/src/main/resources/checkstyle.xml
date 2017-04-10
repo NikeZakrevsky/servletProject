@@ -3,7 +3,7 @@
         "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
         "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 
-<!-- 
+<!--
     Checkstyle rules definition file.
     Checkstyle provides many checks that you can apply to your sourcecode.
     http://checkstyle.sourceforge.net/availablechecks.html
@@ -97,8 +97,8 @@
             <property name="tokens" value="METHOD_DEF, VARIABLE_DEF, ANNOTATION_FIELD_DEF, INTERFACE_DEF, CLASS_DEF, ENUM_DEF, RESOURCE"/>
         </module>
 
-        <!-- 
-            Temporarily disabled due bug with unicode symbols 
+        <!--
+            Temporarily disabled due bug with unicode symbols
             for example if we have comment line of non-US chars with length of 100
             then checkstyle will complain.
         -->
@@ -144,12 +144,12 @@
             <property name="groups" value="java,javax,org,net,com"/>
             <property name="ordered" value="false"/>
             <property name="separated" value="true"/>
-        </module>        
+        </module>
         <module name="UnusedImports"/>
 
 
-        <!-- 
-            Javadoc rules 
+        <!--
+            Javadoc rules
          -->
 
         <module name="JavadocStyle">
@@ -229,7 +229,7 @@
             <property name="max" value="7"/>
         </module>
 
-<!--        
+<!--
         <module name="CyclomaticComplexity">
             <property name="max" value="7"/>
         </module>
@@ -248,7 +248,7 @@
         <module name="MagicNumber">
             <property name="ignoreNumbers" value="0, 0.5, 1, -1, 2"/>
         </module>
-    
+
         <module name="MultipleStringLiterals">
             <property name="allowedDuplicates" value="2"/>
         </module>

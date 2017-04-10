@@ -46,18 +46,19 @@ public class TasksDAOImpl implements TasksDAO {
      * @return list of all tasks in database
      * @
      */
+    @SuppressWarnings("unchecked")
     public List<Task> getTasksList()  {
         return (List<Task>) ExecuteDAO.execute(GET_TASKS_LIST_ERROR, (connection) -> {
-            List<Task> tasks = new ArrayList<>();
-            try (Statement statement = connection.createStatement()) {
-                ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
-                while (resultSet.next()) {
-                    Task task = taskUtil.resultSetAsObject(resultSet);
-                    tasks.add(task);
+                List<Task> tasks = new ArrayList<>();
+                try (Statement statement = connection.createStatement()) {
+                    ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
+                    while (resultSet.next()) {
+                        Task task = taskUtil.resultSetAsObject(resultSet);
+                        tasks.add(task);
+                    }
                 }
-            }
-            return tasks;
-        });
+                return tasks;
+            });
     }
 
     /**
@@ -67,13 +68,13 @@ public class TasksDAOImpl implements TasksDAO {
      */
     public boolean removeTask(int id)  {
         return (boolean) ExecuteDAO.execute(REMOVE_TASKS_ERROR, (connection) -> {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)) {
-                preparedStatement.setInt(1, id);
-                preparedStatement.execute();
-                connection.commit();
-            }
-            return true;
-        });
+                try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)) {
+                    preparedStatement.setInt(1, id);
+                    preparedStatement.execute();
+                    connection.commit();
+                }
+                return true;
+            });
     }
 
     /**
@@ -84,13 +85,13 @@ public class TasksDAOImpl implements TasksDAO {
      */
     public boolean addTask(Task task)  {
         return (boolean) ExecuteDAO.execute(ADD_TASK_ERROR, (connection) -> {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
-                taskUtil.setPreparedStatement(preparedStatement, task);
-                preparedStatement.execute();
-                connection.commit();
-            }
-            return true;
-        });
+                try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
+                    taskUtil.setPreparedStatement(preparedStatement, task);
+                    preparedStatement.execute();
+                    connection.commit();
+                }
+                return true;
+            });
     }
 
     /**
@@ -128,16 +129,16 @@ public class TasksDAOImpl implements TasksDAO {
      */
     public Task getTaskById(int id)  {
         return (Task) ExecuteDAO.execute(GET_TASKS_BY_ID_ERROR, (connection) -> {
-            Task task;
-            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where id = ?")) {
-                preparedStatement.setInt(1, id);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                resultSet.next();
-                task = taskUtil.resultSetAsObject(resultSet);
-                connection.commit();
-            }
-            return task;
-        });
+                Task task;
+                try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where id = ?")) {
+                    preparedStatement.setInt(1, id);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    resultSet.next();
+                    task = taskUtil.resultSetAsObject(resultSet);
+                    connection.commit();
+                }
+                return task;
+            });
     }
 
     /**
@@ -147,14 +148,14 @@ public class TasksDAOImpl implements TasksDAO {
      */
     public boolean updateTask(Task task)  {
         return (boolean) ExecuteDAO.execute(UPDATE_TASKS_ERROR, (connection) -> {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
-                taskUtil.setPreparedStatement(preparedStatement, task);
-                preparedStatement.setInt(8, task.getId());
-                preparedStatement.execute();
-                connection.commit();
-            }
-            return true;
-        });
+                try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
+                    taskUtil.setPreparedStatement(preparedStatement, task);
+                    preparedStatement.setInt(8, task.getId());
+                    preparedStatement.execute();
+                    connection.commit();
+                }
+                return true;
+            });
     }
 
     /**
@@ -198,14 +199,15 @@ public class TasksDAOImpl implements TasksDAO {
      * @return List of tasks with specified project id
      * @
      */
+    @SuppressWarnings("unchecked")
     public List<Task> getTasksByProjectId(int id)  {
         return (List<Task>) ExecuteDAO.execute(GET_TASKS_LIST_ERROR, (connection) -> {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where projectId = ?")) {
-                preparedStatement.setInt(1, id);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                return taskUtil.resultSetToList(resultSet);
-            }
-        });
+                try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where projectId = ?")) {
+                    preparedStatement.setInt(1, id);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    return taskUtil.resultSetToList(resultSet);
+                }
+            });
 
     }
 }

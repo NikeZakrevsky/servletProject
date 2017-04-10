@@ -5,6 +5,10 @@ import java.util.Map;
 import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.project.Project;
 
+/**
+ * Custom extension of @{{@link CustomServlet}} for project dao layer
+ * @author Q-NZA
+ */
 public class CustomProjectServlet extends CustomServlet {
 
     private static final String ID = "id";
