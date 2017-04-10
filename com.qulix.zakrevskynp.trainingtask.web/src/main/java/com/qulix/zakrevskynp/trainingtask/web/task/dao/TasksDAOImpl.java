@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -88,13 +87,13 @@ public class TasksDAOImpl implements TasksDAO {
      * @param parameters task form data
      * @
      */
-    public boolean addTask(Map<String, Object> parameters)  {
+    public boolean addTask(Task task)  {
         return (boolean) execute(ADD_TASK_ERROR, () -> {
             try (
                     Connection connection = ConnectionFactory.getConnection();
                     PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)
             ) {
-                taskUtil.setPreparedStatement(preparedStatement, parameters);
+                taskUtil.setPreparedStatement(preparedStatement, task);
                 preparedStatement.execute();
                 connection.commit();
             }
@@ -110,22 +109,22 @@ public class TasksDAOImpl implements TasksDAO {
      * @return list of tasks with added new task
      */
     @Override
-    public List<Map<String, Object>> addTask(Map<String, Object> parameters, HttpSession session)  {
-        List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("resultTasks");
+    public List<Task> addTask(Task task, HttpSession session)  {
+        List<Task> tasks = (List<Task>) session.getAttribute("resultTasks");
         if (tasks == null) {
             tasks = new ArrayList<>();
         }
-        for (Map<String, Object> task : tasks) {
-            if (Integer.parseInt(task.get("id").toString()) > id) {
-                id = Integer.parseInt(task.get("id").toString());
+        for (Task task1 : tasks) {
+            if (task1.getId() > id) {
+                id = task1.getId();
             }
         }
-        parameters.put("id", id + 1);
-        if (parameters.get("personId") != null) {
-            Person person = new PersonDAOImpl().getPersonById((int) parameters.get("personId"));
-            parameters.put("person", person.getFname() + " " + person.getSname() + " " + person.getLname());
+        task.setId(id + 1);
+        if (task.getPersonId() != null) {
+            Person person = new PersonDAOImpl().getPersonById(task.getPersonId());
+            task.setPerformer(person.getFname() + " " + person.getSname() + " " + person.getLname());
         }
-        tasks.add(parameters);
+        tasks.add(task);
         return tasks;
     }
 
@@ -157,14 +156,14 @@ public class TasksDAOImpl implements TasksDAO {
      * @param parameters task form data
      * @
      */
-    public boolean updateTask(Map<String, Object> parameters)  {
+    public boolean updateTask(Task task)  {
         return (boolean) execute(UPDATE_TASKS_ERROR, () -> {
             try (
                     Connection connection = ConnectionFactory.getConnection();
                     PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
             ) {
-                taskUtil.setPreparedStatement(preparedStatement, parameters);
-                preparedStatement.setInt(8, Integer.parseInt(parameters.get("id").toString()));
+                taskUtil.setPreparedStatement(preparedStatement, task);
+                preparedStatement.setInt(8, task.getId());
                 preparedStatement.execute();
                 connection.commit();
             }
@@ -179,19 +178,18 @@ public class TasksDAOImpl implements TasksDAO {
      * @param id task's id
      */
     @Override
-    public void updateTask(Map<String, Object> parameters, HttpSession session, int id)  {
-        List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("resultTasks");
+    public void updateTask(Task task, HttpSession session, int id)  {
+        List<Task> tasks = (List<Task>) session.getAttribute("resultTasks");
         Iterator iterator = tasks.iterator();
         int i = 0;
         while (iterator.hasNext()) {
-            Map<String, Object> task = (Map<String, Object>) iterator.next();
-            if ((Integer) task.get("id") == id) {
-                parameters.put("id", Integer.parseInt(parameters.get("id").toString()));
-                if (parameters.get("personId") != null) {
-                    Person person = new PersonDAOImpl().getPersonById((int) parameters.get("personId"));
-                    parameters.put("person", person.getFname() + " " + person.getSname() + " " + person.getLname());
+            Task task1 = (Task) iterator.next();
+            if (task1.getId() == id) {
+                if (task.getPersonId() != null) {
+                    Person person = new PersonDAOImpl().getPersonById(task.getPersonId());
+                    task.setPerformer(person.getFname() + " " + person.getSname() + " " + person.getLname());
                 }
-                tasks.set(i, parameters);
+                tasks.set(i, task);
                 break;
             }
             i++;
@@ -203,8 +201,8 @@ public class TasksDAOImpl implements TasksDAO {
         if (id > this.id) {
             this.id = id;
         }
-        List<Map<String, Object>> tasks = (List<Map<String, Object>>) session.getAttribute("resultTasks");
-        tasks.removeIf(task -> (Integer) task.get("id") == id);
+        List<Task> tasks = (List<Task>) session.getAttribute("resultTasks");
+        tasks.removeIf(task -> (Integer) task.getId() == id);
         session.setAttribute("resultTasks", tasks);
     }
 
@@ -214,8 +212,8 @@ public class TasksDAOImpl implements TasksDAO {
      * @return List of tasks with specified project id
      * @
      */
-    public List<Map<String, Object>> getTasksByProjectId(int id)  {
-        return (List<Map<String, Object>>) execute(GET_TASKS_LIST_ERROR, () -> {
+    public List<Task> getTasksByProjectId(int id)  {
+        return (List<Task>) execute(GET_TASKS_LIST_ERROR, () -> {
             List<Task> tasks = new ArrayList<>();
             try (
                     Connection connection = ConnectionFactory.getConnection();

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.task.Task;
 
 /**
  * Save project form data, while edit tasks
@@ -29,11 +30,11 @@ public class SubmitEditTaskProjectServlet extends CustomServlet {
         request.getSession().setAttribute("project", getParametersFromRequest(request));
         request.setAttribute("path", request.getSession().getAttribute("path").toString());
         returningPath = request.getSession(false).getAttribute("path").toString();
-        List<Map<String, Object>> tasks = (List<Map<String, Object>>) request.getSession().getAttribute("resultTasks");
+        List<Task> tasks = (List<Task>) request.getSession().getAttribute("resultTasks");
         Iterator iterator = tasks.iterator();
         while (iterator.hasNext()) {
-            Map<String, Object> task = (Map<String, Object>) iterator.next();
-            if ((Integer)task.get("id") == Integer.parseInt(request.getParameter("taskId"))) {
+            Task task = (Task) iterator.next();
+            if ((Integer)task.getId() == Integer.parseInt(request.getParameter("taskId"))) {
                 request.setAttribute("task", task);
                 request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
                 request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());

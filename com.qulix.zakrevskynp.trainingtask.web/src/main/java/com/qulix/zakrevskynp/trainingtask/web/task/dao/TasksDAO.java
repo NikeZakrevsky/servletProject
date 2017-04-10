@@ -1,7 +1,6 @@
 package com.qulix.zakrevskynp.trainingtask.web.task.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -34,14 +33,14 @@ public interface TasksDAO {
      * @param session {@link HttpSession} object for getting tasks list
      * @return list of tasks with added new task
      */
-    List<Map<String, Object>> addTask(Map<String, Object> parameters, HttpSession session);
+    List<Task> addTask(Task task, HttpSession session);
 
     /**
      *
      * @param parameters
      * @return
      */
-    boolean addTask(Map<String, Object> parameters);
+    boolean addTask(Task task);
 
     /**
      * Get task by id
@@ -56,7 +55,7 @@ public interface TasksDAO {
      * @param parameters data from update task form
      * @throws SQLException
      */
-    boolean updateTask(Map<String, Object> parameters);
+    boolean updateTask(Task task);
 
     /**
      * Update task in session
@@ -64,11 +63,11 @@ public interface TasksDAO {
      * @param session {@link HttpSession} object
      * @param id task's id
      */
-    void updateTask(Map<String, Object> parameters, HttpSession session, int id);
+    void updateTask(Task task, HttpSession session, int id);
 
     /**
      * @param id project id
      * @return List of tasks with specified project id
      */
-    List<Map<String, Object>> getTasksByProjectId(int id);
+    List<Task> getTasksByProjectId(int id);
 }

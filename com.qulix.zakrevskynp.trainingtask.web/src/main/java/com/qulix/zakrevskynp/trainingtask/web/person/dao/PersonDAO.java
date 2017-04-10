@@ -25,7 +25,7 @@ public interface PersonDAO {
      * @param parameters person form data
      * @
      */
-    boolean addPerson(Map<String, Object> parameters);
+    boolean addPerson(Person person);
 
     /**
      * Remove person from database by id
@@ -49,5 +49,5 @@ public interface PersonDAO {
      * @param parameters person form data
      * @
      */
-    boolean updatePerson(Map<String, Object> parameters);
+    boolean updatePerson(Person person);
 }

@@ -11,16 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
+import com.qulix.zakrevskynp.trainingtask.web.project.Project;
 import com.qulix.zakrevskynp.trainingtask.web.project.ProjectDataValidator;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.task.Task;
 
 /**
  * Show view with form for adding new project and handling it data
  * @author Q-NZA
  */
 @WebServlet("/addProject")
-public class AddProjectServlet extends CustomServlet {
+public class AddProjectServlet extends CustomProjectServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,8 +30,9 @@ public class AddProjectServlet extends CustomServlet {
 
         List<String> errors = new ProjectDataValidator().validate(parameters);
         if (errors.size() == 0) {
-            List<Map<String, Object>> tasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
-            new ProjectDAOImpl().addProject(parameters, tasks);
+            Project project = parametersToObject(parameters);
+            List<Task> tasks = (List<Task>) request.getSession().getAttribute("resultTasks");
+            new ProjectDAOImpl().addProject(project, tasks);
             request.getSession().invalidate();
             response.sendRedirect("projectsList");
         }
@@ -50,7 +52,7 @@ public class AddProjectServlet extends CustomServlet {
         request.getSession(true).setAttribute("path", "addProject");
         request.setAttribute("path", "addProject");
         HttpSession session = request.getSession();
-        List<Map<String, Object>> tasks = (List<Map<String, Object>>)session.getAttribute("resultTasks");
+        List<Task> tasks = (List<Task>)session.getAttribute("resultTasks");
         session.setAttribute("resultTask", tasks);
         request.setAttribute("tasks", tasks);
         request.getRequestDispatcher("projectView.jsp").forward(request, response);

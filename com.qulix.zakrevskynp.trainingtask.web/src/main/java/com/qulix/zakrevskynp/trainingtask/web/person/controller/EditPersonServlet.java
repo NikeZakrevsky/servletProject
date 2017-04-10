@@ -22,7 +22,7 @@ import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
  * @author Q-NZA
  */
 @WebServlet("/editPerson")
-public class EditPersonServlet extends CustomServlet {
+public class EditPersonServlet extends CustomPersonServlet {
 
     private PersonDAO personDAO = new PersonDAOImpl();
 
@@ -34,7 +34,8 @@ public class EditPersonServlet extends CustomServlet {
 
         errors = new PersonDataValidator().validate(parameters);
         if (errors.size() == 0) {
-            personDAO.updatePerson(parameters);
+            Person person = parametersToObject(parameters);
+            personDAO.updatePerson(person);
             response.sendRedirect("personsList");
         }
         else {

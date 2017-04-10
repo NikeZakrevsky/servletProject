@@ -24,7 +24,7 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
  * @author Q-NZA
  */
 @WebServlet("/editTask")
-public class EditTaskServlet extends CustomServlet {
+public class EditTaskServlet extends CustomTaskServlet {
 
     private List<String> errors = new ArrayList<>();
     private String returningPath;
@@ -37,13 +37,14 @@ public class EditTaskServlet extends CustomServlet {
 
         errors = validator.validate(parameters);
         if (errors.size() == 0) {
-            if (parameters.get("projectId1").equals("")) {
+            Task task = parametersToObject(parameters);
+            /*if (parameters.get("projectId1").equals("")) {
                 parameters.put("projectId", null);
-            }
+            }                                                               !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             else {
                 parameters.put("projectId", parameters.get("projectId1"));
-            }
-            new TasksDAOImpl().updateTask(parameters);
+            }*/
+            new TasksDAOImpl().updateTask(task);
             response.sendRedirect(returningPath);
         } else {
             request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());

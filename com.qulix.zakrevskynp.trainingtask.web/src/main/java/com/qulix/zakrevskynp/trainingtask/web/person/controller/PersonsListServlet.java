@@ -19,7 +19,7 @@ import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
  * @author Q-NZA
  */
 @WebServlet("/personsList")
-public class PersonsListServlet extends CustomServlet {
+public class PersonsListServlet extends CustomPersonServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

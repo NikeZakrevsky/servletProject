@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
+import com.qulix.zakrevskynp.trainingtask.web.person.Person;
 import com.qulix.zakrevskynp.trainingtask.web.person.PersonDataValidator;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 
@@ -20,7 +21,7 @@ import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
  */
    
 @WebServlet("/addPerson")
-public class AddPersonServlet extends CustomServlet {
+public class AddPersonServlet extends CustomPersonServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,7 +30,8 @@ public class AddPersonServlet extends CustomServlet {
         List<String> errors = new PersonDataValidator().validate(parameters);
 
         if (errors.size() == 0) {
-            new PersonDAOImpl().addPerson(parameters);
+            Person person = parametersToObject(parameters);
+            new PersonDAOImpl().addPerson(person);
             response.sendRedirect("personsList");
         }
         else {

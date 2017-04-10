@@ -36,10 +36,10 @@ public class PersonUtil {
      * @param parameters Person object
      * @throws SQLException
      */
-    public void setPreparedStatement(PreparedStatement preparedStatement, Map<String, Object> parameters) throws SQLException {
-        preparedStatement.setString(1, (String)parameters.get(FNAME));
-        preparedStatement.setString(2, (String)parameters.get(SNAME));
-        preparedStatement.setString(3, (String)parameters.get(LNAME));
-        preparedStatement.setString(4, (String)parameters.get(POSITION));
+    public void setPreparedStatement(PreparedStatement preparedStatement, Person person) throws SQLException {
+        preparedStatement.setString(1, (String) person.getFname());
+        preparedStatement.setString(2, (String) person.getSname());
+        preparedStatement.setString(3, (String) person.getLname());
+        preparedStatement.setString(4, (String) person.getPosition());
     }
 }

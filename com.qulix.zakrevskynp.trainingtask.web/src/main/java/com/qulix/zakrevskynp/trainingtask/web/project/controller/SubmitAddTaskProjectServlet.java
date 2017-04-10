@@ -23,6 +23,7 @@ public class SubmitAddTaskProjectServlet extends CustomServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("lolololololol");
         Map<String, Object> parameters = getParametersFromRequest(request);
         request.getSession().setAttribute("project", parameters);
         returningPath = request.getSession().getAttribute("path").toString();

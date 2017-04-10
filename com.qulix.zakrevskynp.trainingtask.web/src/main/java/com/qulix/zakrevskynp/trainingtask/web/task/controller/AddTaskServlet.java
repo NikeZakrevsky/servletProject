@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.task.Task;
 import com.qulix.zakrevskynp.trainingtask.web.task.TaskDataValidator;
 import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
@@ -22,7 +23,7 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
  * @author Q-NZA
  */
 @WebServlet("/addTask")
-public class AddTaskServlet extends CustomServlet {
+public class AddTaskServlet extends CustomTaskServlet {
 
     private List<String> errors = new ArrayList<>();
 
@@ -33,13 +34,9 @@ public class AddTaskServlet extends CustomServlet {
         errors = new TaskDataValidator().validate(parameters);
 
         if (errors.size() == 0) {
-            if (parameters.get("projectId1").equals("")) {
-                parameters.put("projectId", null);
-            }
-            else {
-                parameters.put("projectId", parameters.get("projectId1"));
-            }
-            new TasksDAOImpl().addTask(parameters);
+            Task task = parametersToObject(parameters);
+            System.out.println(task);
+            new TasksDAOImpl().addTask(task);
             response.sendRedirect("tasksList");
         }
         else {

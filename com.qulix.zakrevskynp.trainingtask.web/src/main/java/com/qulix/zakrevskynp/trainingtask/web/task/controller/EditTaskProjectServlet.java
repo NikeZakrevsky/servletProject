@@ -11,9 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.task.Task;
 import com.qulix.zakrevskynp.trainingtask.web.task.TaskDataValidator;
 import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
@@ -22,7 +22,7 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
  * @author Q-NZA
  */
 @WebServlet("/editTaskProject")
-public class EditTaskProjectServlet extends CustomServlet {
+public class EditTaskProjectServlet extends CustomTaskServlet {
 
     private List<String> errors = new ArrayList<>();
     private String returningPath;
@@ -36,8 +36,9 @@ public class EditTaskProjectServlet extends CustomServlet {
         returningPath = request.getSession().getAttribute("path").toString();
         errors = validator.validate(parameters);
         if (errors.size() == 0) {
+            Task task = parametersToObject(parameters);
             TasksDAOImpl tasksDAO = new TasksDAOImpl();
-            tasksDAO.updateTask(parameters, request.getSession(), Integer.parseInt(request.getParameter("id")));
+            tasksDAO.updateTask(task, request.getSession(), Integer.parseInt(request.getParameter("id")));
             response.sendRedirect(returningPath);
         }
         else {

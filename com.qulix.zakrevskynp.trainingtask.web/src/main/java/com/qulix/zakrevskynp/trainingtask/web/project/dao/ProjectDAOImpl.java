@@ -10,6 +10,7 @@ import com.qulix.zakrevskynp.trainingtask.web.ConnectionFactory;
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.Executable;
 import com.qulix.zakrevskynp.trainingtask.web.project.Project;
+import com.qulix.zakrevskynp.trainingtask.web.task.Task;
 import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 
 
@@ -64,13 +65,13 @@ public class ProjectDAOImpl implements ProjectDAO {
      * @param parameters project form data
      * @throws CustomException
      */
-    public boolean addProject(Map<String, Object> parameters, List<Map<String, Object>> tasks) {
+    public boolean addProject(Project project, List<Task> tasks) {
         return (boolean) execute(ADD_PROJECT_ERROR, () -> {
             try (
                     Connection connection = ConnectionFactory.getConnection();
                     PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)
             ) {
-                projectUtil.setPreparedStatement(preparedStatement, parameters);
+                projectUtil.setPreparedStatement(preparedStatement, project);
                 preparedStatement.execute();
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery("CALL IDENTITY()");
@@ -78,11 +79,11 @@ public class ProjectDAOImpl implements ProjectDAO {
                 connection.commit();
                 TasksDAOImpl tasksDAO = new TasksDAOImpl();
                 if (tasks != null) {
-                    Iterator<Map<String, Object>> iterator = tasks.iterator();
+                    Iterator<Task> iterator = tasks.iterator();
                     if (tasks.size() != 0) {
                         while (iterator.hasNext()) {
-                            Map<String, Object> task = iterator.next();
-                            task.put("projectId", resultSet.getInt(1));
+                            Task task = iterator.next();
+                            task.setProjectId(resultSet.getInt(1));
                             tasksDAO.addTask(task);
                         }
                     }
@@ -118,14 +119,14 @@ public class ProjectDAOImpl implements ProjectDAO {
      * @param parameters project form data
      * @throws CustomException
      */
-    public boolean updateProject(Map<String, Object> parameters) {
+    public boolean updateProject(Project project) {
         return (boolean) execute(UPDATE_PROJECT_ERROR, () -> {
             try (
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
             ) {
-                projectUtil.setPreparedStatement(preparedStatement, parameters);
-                preparedStatement.setInt(4, Integer.parseInt(parameters.get("id").toString()));
+                projectUtil.setPreparedStatement(preparedStatement, project);
+                preparedStatement.setInt(4, project.getId());
                 preparedStatement.execute();
                 connection.commit();
             }

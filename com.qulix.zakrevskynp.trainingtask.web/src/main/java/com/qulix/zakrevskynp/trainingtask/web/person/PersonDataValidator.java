@@ -21,6 +21,13 @@ public class PersonDataValidator {
 
         Predicate<Object> isEmptyAndLength = e -> e.equals("") || e.toString().length() > 20;
 
+        if (!parameters.get("id").equals("")) {
+            parameters.put("id", Integer.parseInt(parameters.get("id").toString()));
+        }
+        else {
+            parameters.put("id", null);
+        }
+
         if (isEmptyAndLength.test(parameters.get("fname"))) {
             errors.add("Неверное поле имя");
         }

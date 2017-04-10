@@ -35,10 +35,10 @@ public class ProjectUtil {
      * @param parameters Project object
      * @throws SQLException
      */
-    public void setPreparedStatement(PreparedStatement preparedStatement, Map<String, Object> parameters)  throws SQLException {
-        preparedStatement.setString(1, (String)parameters.get(NAME));
-        preparedStatement.setString(2, (String)parameters.get(SHORTNAME));
-        preparedStatement.setString(3, (String)parameters.get(DESCRIPTION));
+    public void setPreparedStatement(PreparedStatement preparedStatement, Project project)  throws SQLException {
+        preparedStatement.setString(1, (String) project.getName());
+        preparedStatement.setString(2, (String) project.getShortName());
+        preparedStatement.setString(3, (String) project.getDescription());
     }
 
 }

@@ -16,7 +16,7 @@ import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
  * @author Q-NZA
  */
 @WebServlet("/removePerson")
-public class RemovePersonServlet extends CustomServlet {
+public class RemovePersonServlet extends CustomPersonServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

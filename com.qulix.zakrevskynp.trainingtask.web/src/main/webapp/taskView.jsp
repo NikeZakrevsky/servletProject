@@ -106,7 +106,7 @@
             <label class="col-md-2 control-lable">Проект</label>
                 <div class="col-md-7">
                     <select id = "lol" name="projectId1" ${isDisable ? 'disabled="true"' : ''}>
-                        <option value selected="selected"> -- select an option -- </option>
+                        <option value="" selected="selected"> -- select an option -- </option>
                         <c:forEach items="${projectsList}" var="project">
                             <option value="${project.id}" ${(project.id == task.projectId) ? 'selected="selected"' : ''}>${project.shortName}</option>
                         </c:forEach>

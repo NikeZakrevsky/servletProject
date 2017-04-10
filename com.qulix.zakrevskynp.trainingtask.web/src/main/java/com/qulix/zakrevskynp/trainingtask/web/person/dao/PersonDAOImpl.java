@@ -61,13 +61,13 @@ public class PersonDAOImpl implements PersonDAO {
      * Inserts new person in database
      * @param parameters data from add person form
      */
-    public boolean addPerson(Map<String, Object> parameters)  {
+    public boolean addPerson(Person person)  {
         return (boolean) execute(ADD_PERSON_ERROR, () -> {
             try (
                 Connection connection =  ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = ConnectionFactory.getConnection().prepareStatement(INSERT_QUERY)
             ) {
-                personUtil.setPreparedStatement(preparedStatement, parameters);
+                personUtil.setPreparedStatement(preparedStatement, person);
                 preparedStatement.execute();
                 connection.commit();
                 return true;
@@ -118,14 +118,14 @@ public class PersonDAOImpl implements PersonDAO {
      *
      * @param parameters Person object
      */
-    public boolean updatePerson(Map<String, Object> parameters) {
+    public boolean updatePerson(Person person) {
         return (boolean) execute(UPDATE_PERSON_ERROR, () -> {
             try (
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
             ) {
-                personUtil.setPreparedStatement(preparedStatement, parameters);
-                preparedStatement.setInt(5, Integer.parseInt(parameters.get("id").toString()));
+                personUtil.setPreparedStatement(preparedStatement, person);
+                preparedStatement.setInt(5, person.getId());
                 preparedStatement.execute();
                 connection.commit();
                 return true;

@@ -5,9 +5,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;
 
@@ -55,18 +53,14 @@ public class TaskUtil {
      * @return
      * @throws SQLException
      */
-    public List<Map<String, Object>> resultSetToList(ResultSet rs) throws SQLException {
+    public List<Task> resultSetToList(ResultSet rs) throws SQLException {
         ResultSetMetaData md = rs.getMetaData();
         int columns = md.getColumnCount();
-        List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+        List<Task> tasks = new ArrayList<Task>();
         while (rs.next()) {
-            Map<String, Object> row = new HashMap<String, Object>(columns);
-            for (int i = 1; i <= columns; ++i) {
-                row.put(md.getColumnName(i), rs.getObject(i));
-            }
-            rows.add(row);
+            tasks.add(resultSetAsObject(rs));
         }
-        return rows;
+        return tasks;
     }
 
     /**
@@ -75,13 +69,13 @@ public class TaskUtil {
      * @param parameters task form data
      * @throws SQLException
      */
-    public void setPreparedStatement(PreparedStatement preparedStatement, Map<String, Object> parameters) throws SQLException {
-        preparedStatement.setString(1, parameters.get(NAME).toString());
-        preparedStatement.setInt(2, Integer.parseInt(parameters.get(TIME).toString()));
-        preparedStatement.setDate(3, (java.sql.Date)parameters.get(STARTDATE));
-        preparedStatement.setDate(4, (java.sql.Date)parameters.get(ENDDATE));
-        preparedStatement.setString(5, (String)parameters.get(STATUS));
-        preparedStatement.setObject(6, parameters.get(PROJECTID));
-        preparedStatement.setObject(7, parameters.get(PERSONID));
+    public void setPreparedStatement(PreparedStatement preparedStatement, Task task) throws SQLException {
+        preparedStatement.setString(1, task.getName());
+        preparedStatement.setInt(2, task.getTime());
+        preparedStatement.setDate(3, task.getStartDate());
+        preparedStatement.setDate(4, task.getEndDate());
+        preparedStatement.setString(5, task.getStatus());
+        preparedStatement.setObject(6, task.getProjectId());
+        preparedStatement.setObject(7, task.getPersonId());
     }
 }

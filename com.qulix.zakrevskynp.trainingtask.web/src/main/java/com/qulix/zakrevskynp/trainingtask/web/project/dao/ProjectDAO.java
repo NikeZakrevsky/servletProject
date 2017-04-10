@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.project.Project;
+import com.qulix.zakrevskynp.trainingtask.web.task.Task;
 
 /**
  * CRUD operations for projects
@@ -26,7 +27,7 @@ public interface ProjectDAO {
      * @param parameters {@link Project} object
      * @throws CustomException
      */
-    boolean addProject(Map<String, Object> parameters, List<Map<String, Object>> tasks);
+    boolean addProject(Project project, List<Task> tasks);
 
     /**
      * Remove project from database by id
@@ -42,7 +43,7 @@ public interface ProjectDAO {
      * @param parameters {@link Project} object
      * @throws CustomException
      */
-    boolean updateProject(Map<String, Object> parameters);
+    boolean updateProject(Project project);
 
     /**
      * Get project id
