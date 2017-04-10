@@ -16,6 +16,11 @@ public class CustomProjectServlet extends CustomServlet {
     private static final String SHORTNAME = "shortName";
     private static final String DESCRIPTION = "description";
 
+    /**
+     * Convert map with request parameters to @{{@link Project}} object
+     * @param parameters map with request parameters
+     * @return @{{@link Project}} object
+     */
     protected Project parametersToObject(Map<String, Object> parameters) {
         Project project = new Project();
         if (parameters.get(ID) != null) {

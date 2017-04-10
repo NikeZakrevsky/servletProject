@@ -36,15 +36,13 @@ public class TasksDAOImpl implements TasksDAO {
     private static final String UPDATE_TASKS_ERROR = "Error while updating task";
     private static final String GET_TASKS_BY_ID_ERROR = "Error while getting task";
 
-    private static int id = 0;
+    private int id = 0;
 
     private TaskUtil taskUtil = new TaskUtil();
 
     /**
      * Get all task from database
-     *
      * @return list of all tasks in database
-     * @
      */
     @SuppressWarnings("unchecked")
     public List<Task> getTasksList()  {
@@ -63,11 +61,10 @@ public class TasksDAOImpl implements TasksDAO {
 
     /**
      * Remove project from database by id
-     *
      * @param id project's id
      */
-    public boolean removeTask(int id)  {
-        return (boolean) ExecuteDAO.execute(REMOVE_TASKS_ERROR, (connection) -> {
+    public void removeTask(int id)  {
+        ExecuteDAO.execute(REMOVE_TASKS_ERROR, (connection) -> {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)) {
                     preparedStatement.setInt(1, id);
                     preparedStatement.execute();
@@ -79,12 +76,10 @@ public class TasksDAOImpl implements TasksDAO {
 
     /**
      * Insert task in database
-     *
      * @param task task form data
-     * @
      */
-    public boolean addTask(Task task)  {
-        return (boolean) ExecuteDAO.execute(ADD_TASK_ERROR, (connection) -> {
+    public void addTask(Task task)  {
+        ExecuteDAO.execute(ADD_TASK_ERROR, (connection) -> {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
                     taskUtil.setPreparedStatement(preparedStatement, task);
                     preparedStatement.execute();
@@ -102,6 +97,7 @@ public class TasksDAOImpl implements TasksDAO {
      * @return list of tasks with added new task
      */
     @Override
+    @SuppressWarnings("unchecked")
     public List<Task> addTask(Task task, HttpSession session)  {
         List<Task> tasks = (List<Task>) session.getAttribute("resultTasks");
         if (tasks == null) {
@@ -123,7 +119,6 @@ public class TasksDAOImpl implements TasksDAO {
 
     /**
      * Get task by id
-     *
      * @param id task's id
      * @return Task object
      */
@@ -142,12 +137,11 @@ public class TasksDAOImpl implements TasksDAO {
     }
 
     /**
-     *
+     * Update task in database
      * @param task task form data
-     * @
      */
-    public boolean updateTask(Task task)  {
-        return (boolean) ExecuteDAO.execute(UPDATE_TASKS_ERROR, (connection) -> {
+    public void updateTask(Task task)  {
+        ExecuteDAO.execute(UPDATE_TASKS_ERROR, (connection) -> {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
                     taskUtil.setPreparedStatement(preparedStatement, task);
                     preparedStatement.setInt(8, task.getId());
@@ -165,6 +159,7 @@ public class TasksDAOImpl implements TasksDAO {
      * @param id task's id
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void updateTask(Task task, HttpSession session, int id)  {
         List<Task> tasks = (List<Task>) session.getAttribute("resultTasks");
         Iterator iterator = tasks.iterator();
@@ -184,6 +179,12 @@ public class TasksDAOImpl implements TasksDAO {
         session.setAttribute("resultTasks", tasks);
     }
 
+    /**
+     * Remove task from session
+     * @param id task id
+     * @param session @{{@link HttpSession}} object
+     */
+    @SuppressWarnings("unchecked")
     public void removeTask(int id, HttpSession session) {
         if (id > this.id) {
             this.id = id;
@@ -194,10 +195,9 @@ public class TasksDAOImpl implements TasksDAO {
     }
 
     /**
-     *
+     * Get tasks list for project
      * @param id project id
      * @return List of tasks with specified project id
-     * @
      */
     @SuppressWarnings("unchecked")
     public List<Task> getTasksByProjectId(int id)  {

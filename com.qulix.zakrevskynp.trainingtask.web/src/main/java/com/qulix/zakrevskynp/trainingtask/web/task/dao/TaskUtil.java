@@ -12,7 +12,7 @@ import com.qulix.zakrevskynp.trainingtask.web.task.Task;
  * Utilites for tasks dao layer
  * @author Q-NZA
  */
-public class TaskUtil {
+class TaskUtil {
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String TIME = "time";
@@ -26,12 +26,10 @@ public class TaskUtil {
 
     /**
      * Create Task object from ResultSet
-     *
      * @param resultSet resultSet for converting to object
      * @return created task object
-     * @throws SQLException
      */
-    public Task resultSetAsObject(ResultSet resultSet) throws SQLException {
+    Task resultSetAsObject(ResultSet resultSet) throws SQLException {
         Task task = new Task();
         task.setId(resultSet.getInt(ID));
         task.setName(resultSet.getString(NAME));
@@ -48,11 +46,11 @@ public class TaskUtil {
 
     /**
      * Convert the ResultSet to a List of Maps, where each Map represents a row with columnNames and columValues
-     * @param rs
-     * @return
-     * @throws SQLException
+     * @param rs @{{@link ResultSet}} object converted to list
+     * @return tasks list
+     * @throws SQLException throws while getting data from result set
      */
-    public List<Task> resultSetToList(ResultSet rs) throws SQLException {
+    List<Task> resultSetToList(ResultSet rs) throws SQLException {
         List<Task> tasks = new ArrayList<>();
         while (rs.next()) {
             tasks.add(resultSetAsObject(rs));
@@ -61,12 +59,12 @@ public class TaskUtil {
     }
 
     /**
-     *
+     * Set parameters to prepared statement
      * @param preparedStatement link of the prepared statement for setting parameters
-     * @param parameters task form data
-     * @throws SQLException
+     * @param task task form data
+     * @throws SQLException throws while setting parameters to prepared statement
      */
-    public void setPreparedStatement(PreparedStatement preparedStatement, Task task) throws SQLException {
+    void setPreparedStatement(PreparedStatement preparedStatement, Task task) throws SQLException {
         preparedStatement.setString(1, task.getName());
         preparedStatement.setInt(2, task.getTime());
         preparedStatement.setDate(3, task.getStartDate());

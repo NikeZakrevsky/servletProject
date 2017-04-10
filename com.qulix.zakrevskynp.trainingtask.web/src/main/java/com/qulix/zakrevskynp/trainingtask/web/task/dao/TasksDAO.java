@@ -25,22 +25,21 @@ public interface TasksDAO {
      *
      * @param id project's id
      */
-    boolean removeTask(int id);
+    void removeTask(int id);
 
     /**
-     * Insert task in database
-     * @param parameters data from add task form
-     * @param session {@link HttpSession} object for getting tasks list
+     * Create new task in database
+     * @param task data from add task form
+     * @param session {@link HttpSession} object
      * @return list of tasks with added new task
      */
     List<Task> addTask(Task task, HttpSession session);
 
     /**
-     *
-     * @param parameters
-     * @return
+     * Create new task in session
+     * @param task data from add task form
      */
-    boolean addTask(Task task);
+    void addTask(Task task);
 
     /**
      * Get task by id
@@ -52,14 +51,13 @@ public interface TasksDAO {
 
     /**
      * Update task in database
-     * @param parameters data from update task form
-     * @throws SQLException
+     * @param task data from update task form
      */
-    boolean updateTask(Task task);
+    void updateTask(Task task);
 
     /**
      * Update task in session
-     * @param parameters data from update task form for getting tasks list
+     * @param task data from update task
      * @param session {@link HttpSession} object
      * @param id task's id
      */

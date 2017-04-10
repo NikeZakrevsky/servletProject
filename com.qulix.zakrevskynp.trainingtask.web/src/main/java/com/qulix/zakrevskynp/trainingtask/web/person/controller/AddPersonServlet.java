@@ -18,7 +18,6 @@ import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
  * Show view with form for adding new person and handling it data
  * @author Q-NZA
  */
-   
 @WebServlet("/addPerson")
 public class AddPersonServlet extends CustomPersonServlet {
 

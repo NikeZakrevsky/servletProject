@@ -17,12 +17,25 @@ import javax.servlet.annotation.WebFilter;
 public class ErrorHandler implements Filter {
     
     private List<String> errors = new ArrayList<>();
-    
+
+    /**
+     * Initialize filter
+     * @param filterConfig @{{@link FilterConfig}} object
+     * @throws ServletException servlet exception
+     */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
 
+    /**
+     * Process exceptions and log it
+     * @param request @{({@link ServletRequest}} object
+     * @param response @{({@link ServletResponse}} object
+     * @param ch @{{@link FilterChain}} object
+     * @throws IOException throws while forwarding request
+     * @throws ServletException throws while forwarding request
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain ch) throws IOException, ServletException {
         try {

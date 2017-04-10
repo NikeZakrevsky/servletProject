@@ -5,6 +5,10 @@ import java.util.Map;
 import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.Person;
 
+/**
+ * Custom extension of @{{@link CustomServlet}} for person dao layer
+ * @author Q-NZA
+ */
 class CustomPersonServlet extends CustomServlet {
 
     private static final String ID = "id";
@@ -13,6 +17,11 @@ class CustomPersonServlet extends CustomServlet {
     private static final String LAST_NAME = "lname";
     private static final String POSITION = "position";
 
+    /**
+     * Convert map with request parameters to @{{@link Person}} object
+     * @param parameters map with request parameters
+     * @return @{{@link Person}} object
+     */
     protected Person parametersToObject(Map<String, Object> parameters) {
         Person person = new Person();
         if (parameters.get(ID) != null) {

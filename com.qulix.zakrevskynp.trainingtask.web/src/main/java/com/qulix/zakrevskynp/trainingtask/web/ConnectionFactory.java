@@ -40,7 +40,7 @@ public class ConnectionFactory {
      * Get exist connection
      *
      * @return Connection object
-     * @throws CustomException
+     * @throws SQLException throws while getting connection to database
      */
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, dbProperties.getProperty("user"), dbProperties.getProperty("password"));

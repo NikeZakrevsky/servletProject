@@ -6,6 +6,10 @@ import java.util.Map;
 import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;
 
+/**
+ * Custom extension of @{{@link CustomServlet}} for task dao layer
+ * @author Q-NZA
+ */
 public class CustomTaskServlet extends CustomServlet {
     private static final String ID = "id";
     private static final String NAME = "name";
@@ -18,6 +22,11 @@ public class CustomTaskServlet extends CustomServlet {
     private static final String SHORTNAME = "shortname";
     private static final String PERSON = "person";
 
+    /**
+     * Convert map with request parameters to @{{@link Task}} object
+     * @param parameters map with request parameters
+     * @return @{{@link Task}} object
+     */
     protected Task parametersToObject(Map<String, Object> parameters) {
         Task task = new Task();
         task.setId((Integer) parameters.get(ID));

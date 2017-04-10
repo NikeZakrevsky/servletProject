@@ -13,42 +13,32 @@ public interface ProjectDAO {
 
     /**
      * Get all projects from database
-     *
      * @return list of all projects from database
-     * @throws CustomException
      */
     List<Project> getProjectsList();
 
     /**
      * Insert project to database
-     *
-     * @param parameters {@link Project} object
-     * @throws CustomException
+     * @param project {@link Project} object
      */
-    boolean addProject(Project project, List<Task> tasks);
+    void addProject(Project project, List<Task> tasks);
 
     /**
      * Remove project from database by id
-     *
-     * @param id
-     * @throws CustomException
+     * @param id project id
      */
-    boolean removeProject(int id);
+    void removeProject(int id);
 
     /**
      * Update information about project in database
-     *
-     * @param parameters {@link Project} object
-     * @throws CustomException
+     * @param project {@link Project} object
      */
-    boolean updateProject(Project project);
+    void updateProject(Project project);
 
     /**
      * Get project id
-     *
      * @param id project's id
      * @return Project object
-     * @throws CustomException
      */
     Project getProjectById(int id);
 }

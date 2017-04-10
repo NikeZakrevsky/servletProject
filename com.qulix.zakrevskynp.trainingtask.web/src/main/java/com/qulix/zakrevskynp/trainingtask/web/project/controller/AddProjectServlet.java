@@ -24,6 +24,7 @@ import com.qulix.zakrevskynp.trainingtask.web.task.Task;
 public class AddProjectServlet extends CustomProjectServlet {
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Map<String, Object> parameters = getParametersFromRequest(request);
@@ -47,6 +48,7 @@ public class AddProjectServlet extends CustomProjectServlet {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("action", "addProject");
         request.getSession(true).setAttribute("path", "addProject");

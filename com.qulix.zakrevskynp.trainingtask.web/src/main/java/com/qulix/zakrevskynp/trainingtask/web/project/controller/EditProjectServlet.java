@@ -30,6 +30,7 @@ public class EditProjectServlet extends CustomProjectServlet {
     private ProjectDAO dao = new ProjectDAOImpl();
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Map<String, Object> parameters = getParametersFromRequest(request);
@@ -45,22 +46,22 @@ public class EditProjectServlet extends CustomProjectServlet {
             Set<Object> t2 = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
 
             tasksList.forEach(x -> {
-                    if (!t2.contains(x.getId())) {
-                        tasksDAO.removeTask(x.getId());
-                    }
-                });
+                if (!t2.contains(x.getId())) {
+                    tasksDAO.removeTask(x.getId());
+                }
+            });
 
             resultTasks.forEach(x -> {
-                    if (t1.contains(x.getId())) {
-                        tasksDAO.updateTask(x);
-                    }
-                });
+                if (t1.contains(x.getId())) {
+                    tasksDAO.updateTask(x);
+                }
+            });
 
             resultTasks.forEach(x -> {
-                    if (!t1.contains(x.getId())) {
-                        tasksDAO.addTask(x);
-                    }
-                });
+                if (!t1.contains(x.getId())) {
+                    tasksDAO.addTask(x);
+                }
+            });
             
             response.sendRedirect("projectsList");
         }
@@ -74,6 +75,7 @@ public class EditProjectServlet extends CustomProjectServlet {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Task> resultTasks;
         if (request.getSession().getAttribute("resultTasks") == null) {
