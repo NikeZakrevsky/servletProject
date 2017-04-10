@@ -234,8 +234,4 @@ public class TasksDAOImpl implements TasksDAO {
             throw new RuntimeException(message, e);
         }
     }
-
-    public static int getId() {
-        return id++;
-    }
 }
