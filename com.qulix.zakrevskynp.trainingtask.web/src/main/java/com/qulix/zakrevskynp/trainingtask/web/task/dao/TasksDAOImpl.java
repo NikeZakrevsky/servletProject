@@ -1,14 +1,15 @@
 package com.qulix.zakrevskynp.trainingtask.web.task.dao;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import com.qulix.zakrevskynp.trainingtask.web.ConnectionFactory;
-import com.qulix.zakrevskynp.trainingtask.web.Executable;
+import com.qulix.zakrevskynp.trainingtask.web.ExecuteDAO;
 import com.qulix.zakrevskynp.trainingtask.web.person.Person;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;
@@ -46,12 +47,9 @@ public class TasksDAOImpl implements TasksDAO {
      * @
      */
     public List<Task> getTasksList()  {
-        return (List<Task>) execute(GET_TASKS_LIST_ERROR, () -> {
+        return (List<Task>) ExecuteDAO.execute(GET_TASKS_LIST_ERROR, (connection) -> {
             List<Task> tasks = new ArrayList<>();
-            try (
-                    Connection connection = ConnectionFactory.getConnection();
-                    Statement statement = connection.createStatement()
-            ) {
+            try (Statement statement = connection.createStatement()) {
                 ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
                 while (resultSet.next()) {
                     Task task = taskUtil.resultSetAsObject(resultSet);
@@ -68,11 +66,8 @@ public class TasksDAOImpl implements TasksDAO {
      * @param id project's id
      */
     public boolean removeTask(int id)  {
-        return (boolean) execute(REMOVE_TASKS_ERROR, () -> {
-            try (
-                    Connection connection = ConnectionFactory.getConnection();
-                    PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)
-            ) {
+        return (boolean) ExecuteDAO.execute(REMOVE_TASKS_ERROR, (connection) -> {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)) {
                 preparedStatement.setInt(1, id);
                 preparedStatement.execute();
                 connection.commit();
@@ -84,15 +79,12 @@ public class TasksDAOImpl implements TasksDAO {
     /**
      * Insert task in database
      *
-     * @param parameters task form data
+     * @param task task form data
      * @
      */
     public boolean addTask(Task task)  {
-        return (boolean) execute(ADD_TASK_ERROR, () -> {
-            try (
-                    Connection connection = ConnectionFactory.getConnection();
-                    PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)
-            ) {
+        return (boolean) ExecuteDAO.execute(ADD_TASK_ERROR, (connection) -> {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
                 taskUtil.setPreparedStatement(preparedStatement, task);
                 preparedStatement.execute();
                 connection.commit();
@@ -104,7 +96,7 @@ public class TasksDAOImpl implements TasksDAO {
     /**
      * Insert task in database
      *
-     * @param parameters data from add task form
+     * @param task data from add task form
      * @param session {@link HttpSession} object
      * @return list of tasks with added new task
      */
@@ -135,12 +127,9 @@ public class TasksDAOImpl implements TasksDAO {
      * @return Task object
      */
     public Task getTaskById(int id)  {
-        return (Task) execute(GET_TASKS_BY_ID_ERROR, () -> {
+        return (Task) ExecuteDAO.execute(GET_TASKS_BY_ID_ERROR, (connection) -> {
             Task task;
-            try (
-                    Connection connection = ConnectionFactory.getConnection();
-                    PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where id = ?")
-            ) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where id = ?")) {
                 preparedStatement.setInt(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 resultSet.next();
@@ -153,15 +142,12 @@ public class TasksDAOImpl implements TasksDAO {
 
     /**
      *
-     * @param parameters task form data
+     * @param task task form data
      * @
      */
     public boolean updateTask(Task task)  {
-        return (boolean) execute(UPDATE_TASKS_ERROR, () -> {
-            try (
-                    Connection connection = ConnectionFactory.getConnection();
-                    PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
-            ) {
+        return (boolean) ExecuteDAO.execute(UPDATE_TASKS_ERROR, (connection) -> {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
                 taskUtil.setPreparedStatement(preparedStatement, task);
                 preparedStatement.setInt(8, task.getId());
                 preparedStatement.execute();
@@ -173,7 +159,7 @@ public class TasksDAOImpl implements TasksDAO {
 
     /**
      * Update task in session
-     * @param parameters data from update task form for getting tasks list
+     * @param task data from update task form for getting tasks list
      * @param session {@link HttpSession} object
      * @param id task's id
      */
@@ -202,7 +188,7 @@ public class TasksDAOImpl implements TasksDAO {
             this.id = id;
         }
         List<Task> tasks = (List<Task>) session.getAttribute("resultTasks");
-        tasks.removeIf(task -> (Integer) task.getId() == id);
+        tasks.removeIf(task -> task.getId() == id);
         session.setAttribute("resultTasks", tasks);
     }
 
@@ -213,25 +199,14 @@ public class TasksDAOImpl implements TasksDAO {
      * @
      */
     public List<Task> getTasksByProjectId(int id)  {
-        return (List<Task>) execute(GET_TASKS_LIST_ERROR, () -> {
+        return (List<Task>) ExecuteDAO.execute(GET_TASKS_LIST_ERROR, (connection) -> {
             List<Task> tasks = new ArrayList<>();
-            try (
-                    Connection connection = ConnectionFactory.getConnection();
-                    PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where projectId = ?")
-            ) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where projectId = ?")) {
                 preparedStatement.setInt(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 return taskUtil.resultSetToList(resultSet);
             }
         });
 
-    }
-
-    private Object execute(String message, Executable ex) {
-        try {
-            return ex.exec();
-        } catch (SQLException e) {
-            throw new RuntimeException(message, e);
-        }
     }
 }

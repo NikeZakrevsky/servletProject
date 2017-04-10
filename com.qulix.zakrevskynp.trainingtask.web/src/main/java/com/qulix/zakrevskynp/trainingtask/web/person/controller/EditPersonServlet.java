@@ -2,7 +2,6 @@ package com.qulix.zakrevskynp.trainingtask.web.person.controller;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.Person;
 import com.qulix.zakrevskynp.trainingtask.web.person.PersonDataValidator;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAO;
@@ -28,11 +26,9 @@ public class EditPersonServlet extends CustomPersonServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        List<String> errors = new ArrayList<>();
         Map<String, Object> parameters = getParametersFromRequest(request);
 
-        errors = new PersonDataValidator().validate(parameters);
+        List<String> errors = new PersonDataValidator().validate(parameters);
         if (errors.size() == 0) {
             Person person = parametersToObject(parameters);
             personDAO.updatePerson(person);

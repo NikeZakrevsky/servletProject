@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.Person;
 import com.qulix.zakrevskynp.trainingtask.web.person.PersonDataValidator;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
@@ -28,7 +27,6 @@ public class AddPersonServlet extends CustomPersonServlet {
 
         Map<String, Object> parameters = getParametersFromRequest(request);
         List<String> errors = new PersonDataValidator().validate(parameters);
-
         if (errors.size() == 0) {
             Person person = parametersToObject(parameters);
             new PersonDAOImpl().addPerson(person);

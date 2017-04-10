@@ -1,7 +1,6 @@
 package com.qulix.zakrevskynp.trainingtask.web.person.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.Person;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAO;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
@@ -23,7 +21,6 @@ public class PersonsListServlet extends CustomPersonServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<String> errors = new ArrayList<>();
         PersonDAO personDAO = new PersonDAOImpl();
         List<Person> personsList = personDAO.getPersonsList();
         request.setAttribute("error", request.getSession().getAttribute("error"));

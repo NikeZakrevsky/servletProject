@@ -1,15 +1,12 @@
 package com.qulix.zakrevskynp.trainingtask.web.person.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.ConnectionFactory;
-import com.qulix.zakrevskynp.trainingtask.web.Executable;
+import com.qulix.zakrevskynp.trainingtask.web.ExecuteDAO;
 import com.qulix.zakrevskynp.trainingtask.web.person.Person;
 
 /**
@@ -38,11 +35,8 @@ public class PersonDAOImpl implements PersonDAO {
      * @return list of all persons from database
      */
     public List<Person> getPersonsList()  {
-        return (List<Person>) execute(GET_PERSONS_LIST_ERROR, () -> {
-            try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY);
-            ) {
+        return (List<Person>) ExecuteDAO.execute(GET_PERSONS_LIST_ERROR, (connection) -> {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY);) {
                 List<Person> persons = new ArrayList<>();
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
@@ -55,14 +49,11 @@ public class PersonDAOImpl implements PersonDAO {
 
     /**
      * Inserts new person in database
-     * @param parameters data from add person form
+     * @param person data from add person form
      */
-    public boolean addPerson(Person person)  {
-        return (boolean) execute(ADD_PERSON_ERROR, () -> {
-            try (
-                Connection connection =  ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = ConnectionFactory.getConnection().prepareStatement(INSERT_QUERY)
-            ) {
+    public void addPerson(Person person)  {
+        ExecuteDAO.execute(ADD_PERSON_ERROR, (connection) -> {
+            try (PreparedStatement preparedStatement = ConnectionFactory.getConnection().prepareStatement(INSERT_QUERY)) {
                 personUtil.setPreparedStatement(preparedStatement, person);
                 preparedStatement.execute();
                 connection.commit();
@@ -75,12 +66,9 @@ public class PersonDAOImpl implements PersonDAO {
      * Remove person from database by id
      * @param id person's id
      */
-    public boolean removePerson(int id)  {
-        return (boolean) execute(REMOVE_PERSON_ERROR, () -> {
-            try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)
-            ) {
+    public void removePerson(int id)  {
+        ExecuteDAO.execute(REMOVE_PERSON_ERROR, (connection) -> {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)) {
                 preparedStatement.setInt(1, id);
                 preparedStatement.execute();
                 connection.commit();
@@ -96,11 +84,8 @@ public class PersonDAOImpl implements PersonDAO {
      * @return person by id
      */
     public Person getPersonById(int id)  {
-        return (Person)execute(GET_PERSON_BY_ID_ERROR, () -> {
-            try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY)
-            ) {
+        return (Person) ExecuteDAO.execute(GET_PERSON_BY_ID_ERROR, (connection) -> {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY)) {
                 preparedStatement.setInt(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 resultSet.next();
@@ -112,14 +97,11 @@ public class PersonDAOImpl implements PersonDAO {
     /**
      * Update information about exist person
      *
-     * @param parameters Person object
+     * @param person Person object
      */
-    public boolean updatePerson(Person person) {
-        return (boolean) execute(UPDATE_PERSON_ERROR, () -> {
-            try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
-            ) {
+    public void updatePerson(Person person) {
+        ExecuteDAO.execute(UPDATE_PERSON_ERROR, (connection) -> {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
                 personUtil.setPreparedStatement(preparedStatement, person);
                 preparedStatement.setInt(5, person.getId());
                 preparedStatement.execute();
@@ -127,13 +109,5 @@ public class PersonDAOImpl implements PersonDAO {
                 return true;
             }
         });
-    }
-
-    private Object execute(String message, Executable ex) {
-        try {
-            return ex.exec();
-        } catch (SQLException e) {
-            throw new RuntimeException(message, e);
-        }
     }
 }

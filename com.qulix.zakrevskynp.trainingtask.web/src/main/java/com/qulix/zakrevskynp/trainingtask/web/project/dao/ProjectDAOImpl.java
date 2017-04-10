@@ -1,14 +1,14 @@
 package com.qulix.zakrevskynp.trainingtask.web.project.dao;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import com.qulix.zakrevskynp.trainingtask.web.ConnectionFactory;
 import com.qulix.zakrevskynp.trainingtask.web.CustomException;
-import com.qulix.zakrevskynp.trainingtask.web.Executable;
+import com.qulix.zakrevskynp.trainingtask.web.ExecuteDAO;
 import com.qulix.zakrevskynp.trainingtask.web.project.Project;
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;
 import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
@@ -41,12 +41,9 @@ public class ProjectDAOImpl implements ProjectDAO {
      * @throws CustomException
      */
     public List<Project> getProjectsList() {
-        return (List<Project>) execute(GET_PROJECTS_LIST_ERROR, () -> {
+        return (List<Project>) ExecuteDAO.execute(GET_PROJECTS_LIST_ERROR, (connection) -> {
             List<Project> projects = new ArrayList<>();
-            try (
-                    Connection connection = ConnectionFactory.getConnection();
-                    Statement statement = connection.createStatement()
-            ) {
+            try (Statement statement = connection.createStatement()) {
                 ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
                 while (resultSet.next()) {
                     projects.add(projectUtil.resultSetAsObject(resultSet));
@@ -58,15 +55,10 @@ public class ProjectDAOImpl implements ProjectDAO {
 
     /**
      *
-     * @param parameters project form data
-     * @throws CustomException
      */
     public boolean addProject(Project project, List<Task> tasks) {
-        return (boolean) execute(ADD_PROJECT_ERROR, () -> {
-            try (
-                    Connection connection = ConnectionFactory.getConnection();
-                    PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)
-            ) {
+        return (boolean) ExecuteDAO.execute(ADD_PROJECT_ERROR, (connection) -> {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
                 projectUtil.setPreparedStatement(preparedStatement, project);
                 preparedStatement.execute();
                 Statement statement = connection.createStatement();
@@ -96,11 +88,8 @@ public class ProjectDAOImpl implements ProjectDAO {
      * @throws CustomException
      */
     public boolean removeProject(int id) {
-        return (boolean) execute(REMOVE_PROJECT_ERROR, () -> {
-            try (
-                    Connection connection = ConnectionFactory.getConnection();
-                    PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)
-            ) {
+        return (boolean) ExecuteDAO.execute(REMOVE_PROJECT_ERROR, (connection) -> {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)) {
                 preparedStatement.setInt(1, id);
                 preparedStatement.execute();
                 connection.commit();
@@ -112,15 +101,12 @@ public class ProjectDAOImpl implements ProjectDAO {
     /**
      * Update information about project in database
      *
-     * @param parameters project form data
+     * @param project form data
      * @throws CustomException
      */
     public boolean updateProject(Project project) {
-        return (boolean) execute(UPDATE_PROJECT_ERROR, () -> {
-            try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)
-            ) {
+        return (boolean) ExecuteDAO.execute(UPDATE_PROJECT_ERROR, (connection) -> {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
                 projectUtil.setPreparedStatement(preparedStatement, project);
                 preparedStatement.setInt(4, project.getId());
                 preparedStatement.execute();
@@ -138,11 +124,8 @@ public class ProjectDAOImpl implements ProjectDAO {
      * @throws CustomException
      */
     public Project getProjectById(int id) {
-        return (Project) execute(GET_PROJECT_BY_ID_ERROR, () -> {
-            try (
-                    Connection connection = ConnectionFactory.getConnection();
-                    PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY)
-            ) {
+        return (Project) ExecuteDAO.execute(GET_PROJECT_BY_ID_ERROR, (connection) -> {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY)) {
                 preparedStatement.setInt(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 resultSet.next();
@@ -151,11 +134,4 @@ public class ProjectDAOImpl implements ProjectDAO {
         });
     }
 
-    private Object execute(String message, Executable ex) {
-        try {
-            return ex.exec();
-        } catch (SQLException e) {
-            throw new RuntimeException(message, e);
-        }
-    }
 }

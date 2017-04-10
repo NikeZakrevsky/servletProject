@@ -2,7 +2,6 @@ package com.qulix.zakrevskynp.trainingtask.web.person.dao;
 
 
 import java.util.List;
-import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.person.Person;
 
@@ -22,17 +21,17 @@ public interface PersonDAO {
 
     /**
      * Inserts new person in database
-     * @param parameters person form data
+     * @param person person form data
      * @
      */
-    boolean addPerson(Person person);
+    void addPerson(Person person);
 
     /**
      * Remove person from database by id
      * @param id person's id
      * @
      */
-    boolean removePerson(int id);
+    void removePerson(int id);
 
     /**
      * Gets person by id
@@ -46,8 +45,8 @@ public interface PersonDAO {
     /**
      * Update information about exist person
      *
-     * @param parameters person form data
+     * @param person person form data
      * @
      */
-    boolean updatePerson(Person person);
+    void updatePerson(Person person);
 }

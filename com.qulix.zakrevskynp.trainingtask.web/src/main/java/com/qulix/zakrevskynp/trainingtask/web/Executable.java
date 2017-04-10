@@ -1,6 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web;
 
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -8,5 +9,5 @@ import java.sql.SQLException;
  * @author Q-NZA
  */
 public interface Executable {
-    Object exec() throws SQLException;
+    Object exec(Connection connection) throws SQLException;
 }
