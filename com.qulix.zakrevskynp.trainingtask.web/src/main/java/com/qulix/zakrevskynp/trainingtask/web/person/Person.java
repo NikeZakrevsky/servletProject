@@ -6,19 +6,19 @@ package com.qulix.zakrevskynp.trainingtask.web.person;
  */
 public class Person {
     private Integer id;
-    private String fname;
-    private String sname;
-    private String lname;
+    private String firstName;
+    private String middleName;
+    private String lastName;
     private String position;
 
     public Person() {
     }
 
-    public Person(Integer id, String fname, String sname, String lname, String position) {
+    public Person(Integer id, String firstName, String middleName, String lastName, String position) {
         this.id = id;
-        this.fname = fname;
-        this.sname = sname;
-        this.lname = lname;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
         this.position = position;
     }
 
@@ -30,28 +30,28 @@ public class Person {
         this.id = id;
     }
 
-    public String getFname() {
-        return fname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFname(String fname) {
-        this.fname = fname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getSname() {
-        return sname;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setSname(String sname) {
-        this.sname = sname;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
-    public String getLname() {
-        return lname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLname(String lname) {
-        this.lname = lname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPosition() {

@@ -21,9 +21,9 @@ class CustomPersonServlet extends CustomServlet {
         else {
             person.setId(null);
         }
-        person.setFname((String) parameters.get(FIRST_NAME));
-        person.setSname((String) parameters.get(MIDDLE_NAME));
-        person.setLname((String) parameters.get(LAST_NAME));
+        person.setFirstName((String) parameters.get(FIRST_NAME));
+        person.setMiddleName((String) parameters.get(MIDDLE_NAME));
+        person.setLastName((String) parameters.get(LAST_NAME));
         person.setPosition((String) parameters.get(POSITION));
         return person;
     }

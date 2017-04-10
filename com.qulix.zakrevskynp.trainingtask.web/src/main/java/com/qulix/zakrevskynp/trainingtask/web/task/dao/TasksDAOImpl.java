@@ -114,7 +114,7 @@ public class TasksDAOImpl implements TasksDAO {
         task.setId(id + 1);
         if (task.getPersonId() != null) {
             Person person = new PersonDAOImpl().getPersonById(task.getPersonId());
-            task.setPerformer(person.getFname() + " " + person.getSname() + " " + person.getLname());
+            task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
         }
         tasks.add(task);
         return tasks;
@@ -173,7 +173,7 @@ public class TasksDAOImpl implements TasksDAO {
             if (task1.getId() == id) {
                 if (task.getPersonId() != null) {
                     Person person = new PersonDAOImpl().getPersonById(task.getPersonId());
-                    task.setPerformer(person.getFname() + " " + person.getSname() + " " + person.getLname());
+                    task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
                 }
                 tasks.set(i, task);
                 break;

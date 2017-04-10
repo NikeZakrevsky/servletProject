@@ -13,9 +13,9 @@ public class PersonSort {
         }
 
         Map<String, Comparator> comparators = new HashMap<>();
-        comparators.put("fname", Comparator.comparing(Person::getFname));
-        comparators.put("sname", Comparator.comparing(Person::getSname));
-        comparators.put("lname", Comparator.comparing(Person::getLname));
+        comparators.put("fname", Comparator.comparing(Person::getFirstName));
+        comparators.put("sname", Comparator.comparing(Person::getMiddleName));
+        comparators.put("lname", Comparator.comparing(Person::getLastName));
         comparators.put("position", Comparator.comparing(Person::getPosition));
 
         persons.sort(comparators.get(sortField));

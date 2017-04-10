@@ -41,9 +41,9 @@
                         <c:forEach items="${persons}" var="person">
                         <tr>
                             <td>${person.id}</td>
-                            <td>${person.fname}</td>
-                            <td>${person.sname}</td>
-                            <td>${person.lname}</td>
+                            <td>${person.firstName}</td>
+                            <td>${person.middleName}</td>
+                            <td>${person.lastName}</td>
                             <td>${person.position}</td>
                             <td>
                                 <a href="editPerson?id=${person.id}"><button type="button" class="btn btn-success custom-width">Изменить</button></a>  <a href="removePerson?id=${person.id}"><button type="button" class="btn btn-danger custom-width">Удалить</button></a>

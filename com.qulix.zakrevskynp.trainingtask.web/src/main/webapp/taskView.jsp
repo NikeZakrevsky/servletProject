@@ -81,7 +81,7 @@
                 <select name = "personId">
                     <option value> -- select an option -- </option>
                     <c:forEach items="${personsList}" var="person">
-                        <option value="${person.id}" ${(person.id == task.personId) ? 'selected="selected"' : ''}>${person.fname} ${person.sname} ${person.lname}</option>
+                        <option value="${person.id}" ${(person.id == task.personId) ? 'selected="selected"' : ''}>${person.firstName} ${person.middleName} ${person.lastName}</option>
                     </c:forEach>
                 </select>
                 </div>

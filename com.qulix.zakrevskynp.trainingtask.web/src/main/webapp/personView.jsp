@@ -44,7 +44,7 @@
             <div class="form-group col-md-12">
                 <label class="col-md-2 control-lable">Имя</label>
                 <div class="col-md-7">
-                    <input type = "text" name = "fname" size = "70" maxlength="20" value="${person.fname}"/>
+                    <input type = "text" name = "firstName" size = "70" maxlength="20" value="${person.firstName}"/>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
             <div class="form-group col-md-12">
                 <label class="col-md-2 control-lable">Фамилия</label>
                 <div class="col-md-7">
-                    <input type = "text" name = "sname" size = "70" maxlength="20" value="${person.sname}"/>
+                    <input type = "text" name = "middleName" size = "70" maxlength="20" value="${person.middleName}"/>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
             <div class="form-group col-md-12">
                 <label class="col-md-2 control-lable">Отчество</label>
                 <div class="col-md-7">
-                    <input type = "text" name = "lname" size = "70" maxlength="20" value="${person.lname}"/>
+                    <input type = "text" name = "lastName" size = "70" maxlength="20" value="${person.lastName}"/>
                 </div>
             </div>
         </div>

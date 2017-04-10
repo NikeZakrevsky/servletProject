@@ -105,20 +105,4 @@ public class Task {
     public void setPersonId(Integer personId) {
         this.personId = personId;
     }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", time=" + time +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", status='" + status + '\'' +
-                ", performer='" + performer + '\'' +
-                ", projectShortName='" + projectShortName + '\'' +
-                ", projectId=" + projectId +
-                ", personId=" + personId +
-                '}';
-    }
 }
