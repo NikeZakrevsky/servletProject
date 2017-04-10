@@ -2,9 +2,6 @@ package com.qulix.zakrevskynp.trainingtask.web.project.controller;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,9 +17,6 @@ import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
  */
 @WebServlet("/removeProject")
 public class RemoveProjectServlet extends CustomServlet {
-
-    private List<String> errors = new ArrayList<>();
-    private Logger logger = Logger.getLogger(RemoveProjectServlet.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

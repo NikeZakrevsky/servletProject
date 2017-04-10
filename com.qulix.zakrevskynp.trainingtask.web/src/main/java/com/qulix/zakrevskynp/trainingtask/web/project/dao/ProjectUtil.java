@@ -1,9 +1,9 @@
 package com.qulix.zakrevskynp.trainingtask.web.project.dao;
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.project.Project;
 
@@ -36,9 +36,9 @@ public class ProjectUtil {
      * @throws SQLException
      */
     public void setPreparedStatement(PreparedStatement preparedStatement, Project project)  throws SQLException {
-        preparedStatement.setString(1, (String) project.getName());
-        preparedStatement.setString(2, (String) project.getShortName());
-        preparedStatement.setString(3, (String) project.getDescription());
+        preparedStatement.setString(1, project.getName());
+        preparedStatement.setString(2, project.getShortName());
+        preparedStatement.setString(3, project.getDescription());
     }
 
 }

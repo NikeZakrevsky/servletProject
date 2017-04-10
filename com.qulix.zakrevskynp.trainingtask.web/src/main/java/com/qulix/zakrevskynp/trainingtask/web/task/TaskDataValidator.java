@@ -68,7 +68,7 @@ public class TaskDataValidator {
         if (!parameters.get("time").toString().matches(regex) || parameters.get("time").toString().length() > 8) {
             errors.add("Неверное время работы");
         }
-        System.out.println(parameters);
+
         if (parameters.get("projectId1") != null) {
             parameters.put("projectId", parameters.get("projectId1"));
         }

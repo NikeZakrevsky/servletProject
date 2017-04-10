@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.ExecuteDAO;
 import com.qulix.zakrevskynp.trainingtask.web.project.Project;
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;

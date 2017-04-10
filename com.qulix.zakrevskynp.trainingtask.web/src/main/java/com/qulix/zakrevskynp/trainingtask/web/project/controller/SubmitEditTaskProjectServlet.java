@@ -4,7 +4,6 @@ package com.qulix.zakrevskynp.trainingtask.web.project.controller;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,18 +22,17 @@ import com.qulix.zakrevskynp.trainingtask.web.task.Task;
 @WebServlet("/editTaskProject1")
 public class SubmitEditTaskProjectServlet extends CustomServlet {
 
-    private String returningPath;
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute("project", getParametersFromRequest(request));
         request.setAttribute("path", request.getSession().getAttribute("path").toString());
-        returningPath = request.getSession(false).getAttribute("path").toString();
         List<Task> tasks = (List<Task>) request.getSession().getAttribute("resultTasks");
         Iterator iterator = tasks.iterator();
         while (iterator.hasNext()) {
             Task task = (Task) iterator.next();
-            if ((Integer)task.getId() == Integer.parseInt(request.getParameter("taskId"))) {
+            if (task.getId() == Integer.parseInt(request.getParameter("taskId"))) {
                 request.setAttribute("task", task);
                 request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
                 request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());

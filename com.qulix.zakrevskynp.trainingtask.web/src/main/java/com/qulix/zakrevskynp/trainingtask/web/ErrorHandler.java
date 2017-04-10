@@ -32,7 +32,6 @@ public class ErrorHandler implements Filter {
         catch (Exception e) {
             Logger logger = Logger.getLogger(e.getStackTrace()[0].getClassName());
             logger.log(Level.SEVERE, e.toString());
-            e.printStackTrace();
             errors.clear();
             errors.add(e.getMessage());
             request.setAttribute("error", errors);

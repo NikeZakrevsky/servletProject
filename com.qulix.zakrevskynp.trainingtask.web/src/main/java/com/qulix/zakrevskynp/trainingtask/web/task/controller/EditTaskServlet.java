@@ -2,7 +2,6 @@ package com.qulix.zakrevskynp.trainingtask.web.task.controller;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;
@@ -26,7 +24,6 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 @WebServlet("/editTask")
 public class EditTaskServlet extends CustomTaskServlet {
 
-    private List<String> errors = new ArrayList<>();
     private String returningPath;
 
     @Override
@@ -35,15 +32,9 @@ public class EditTaskServlet extends CustomTaskServlet {
         TaskDataValidator validator = new TaskDataValidator();
         Map<String, Object> parameters = getParametersFromRequest(request);
 
-        errors = validator.validate(parameters);
+        List<String> errors = validator.validate(parameters);
         if (errors.size() == 0) {
             Task task = parametersToObject(parameters);
-            /*if (parameters.get("projectId1").equals("")) {
-                parameters.put("projectId", null);
-            }                                                               !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            else {
-                parameters.put("projectId", parameters.get("projectId1"));
-            }*/
             new TasksDAOImpl().updateTask(task);
             response.sendRedirect(returningPath);
         } else {

@@ -2,7 +2,6 @@ package com.qulix.zakrevskynp.trainingtask.web.task.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +53,7 @@ public class TaskUtil {
      * @throws SQLException
      */
     public List<Task> resultSetToList(ResultSet rs) throws SQLException {
-        ResultSetMetaData md = rs.getMetaData();
-        int columns = md.getColumnCount();
-        List<Task> tasks = new ArrayList<Task>();
+        List<Task> tasks = new ArrayList<>();
         while (rs.next()) {
             tasks.add(resultSetAsObject(rs));
         }

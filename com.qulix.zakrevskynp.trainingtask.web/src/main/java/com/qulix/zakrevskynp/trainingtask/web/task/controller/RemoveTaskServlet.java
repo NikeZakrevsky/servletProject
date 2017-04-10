@@ -1,8 +1,6 @@
 package com.qulix.zakrevskynp.trainingtask.web.task.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +17,6 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
  */
 @WebServlet("/removeTask")
 public class RemoveTaskServlet extends CustomServlet {
-    private List<String> errors = new ArrayList<>();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

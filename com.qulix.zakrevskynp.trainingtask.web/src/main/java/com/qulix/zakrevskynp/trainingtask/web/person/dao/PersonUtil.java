@@ -32,7 +32,7 @@ public class PersonUtil {
     /**
      * Set parameters to prepared statement
      * @param preparedStatement link of the prepared statement for setting parameters
-     * @param parameters Person object
+     * @param person Person object
      * @throws SQLException
      */
     public void setPreparedStatement(PreparedStatement preparedStatement, Person person) throws SQLException {

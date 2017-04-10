@@ -2,7 +2,6 @@ package com.qulix.zakrevskynp.trainingtask.web.task.controller;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,8 +23,6 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 @WebServlet("/editTaskProject")
 public class EditTaskProjectServlet extends CustomTaskServlet {
 
-    private List<String> errors = new ArrayList<>();
-    private String returningPath;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,8 +30,8 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
         TaskDataValidator validator = new TaskDataValidator();
         Map<String, Object> parameters = getParametersFromRequest(request);
 
-        returningPath = request.getSession().getAttribute("path").toString();
-        errors = validator.validate(parameters);
+        String returningPath = request.getSession().getAttribute("path").toString();
+        List<String> errors = validator.validate(parameters);
         if (errors.size() == 0) {
             Task task = parametersToObject(parameters);
             TasksDAOImpl tasksDAO = new TasksDAOImpl();

@@ -200,7 +200,6 @@ public class TasksDAOImpl implements TasksDAO {
      */
     public List<Task> getTasksByProjectId(int id)  {
         return (List<Task>) ExecuteDAO.execute(GET_TASKS_LIST_ERROR, (connection) -> {
-            List<Task> tasks = new ArrayList<>();
             try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where projectId = ?")) {
                 preparedStatement.setInt(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();

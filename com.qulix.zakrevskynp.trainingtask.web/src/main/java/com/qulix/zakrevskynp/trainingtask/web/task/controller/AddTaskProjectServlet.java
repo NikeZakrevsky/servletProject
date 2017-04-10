@@ -2,7 +2,6 @@ package com.qulix.zakrevskynp.trainingtask.web.task.controller;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.person.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;
@@ -25,15 +23,11 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 @WebServlet("/taskProject")
 public class AddTaskProjectServlet extends CustomTaskServlet {
 
-    private String returningPath;
-    private List<String> errors = new ArrayList<>();
-
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("isDisable", true);
         Map<String, Object> parameters = getParametersFromRequest(request);
-        errors = new TaskDataValidator().validate(parameters);
+        List<String> errors = new TaskDataValidator().validate(parameters);
         if (errors.size() == 0) {
             Task task = parametersToObject(parameters);
             List<Task> resultTasks = new TasksDAOImpl().addTask(task, request.getSession());

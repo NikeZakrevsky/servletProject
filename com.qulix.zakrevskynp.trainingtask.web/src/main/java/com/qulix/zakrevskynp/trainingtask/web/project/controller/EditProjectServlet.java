@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -28,29 +27,22 @@ import com.qulix.zakrevskynp.trainingtask.web.task.dao.TasksDAOImpl;
 @WebServlet("/editProject")
 public class EditProjectServlet extends CustomProjectServlet {
 
-    private List<String> errors = new ArrayList<>();
-    private Logger logger = Logger.getLogger(EditProjectServlet.class.getName());
     private ProjectDAO dao = new ProjectDAOImpl();
-    private List<Task> resultTasks;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+
         Map<String, Object> parameters = getParametersFromRequest(request);
         ProjectDataValidator validator = new ProjectDataValidator();
-        errors = validator.validate(parameters);
+        List<String> errors = validator.validate(parameters);
         if (errors.size() == 0) {
             Project project = parametersToObject(parameters);
             dao.updateProject(project);
             List<Task> resultTasks = (List<Task>)request.getSession().getAttribute("resultTasks");
             TasksDAOImpl tasksDAO = new TasksDAOImpl();
             List<Task> tasksList = tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
-            Set<Object> t1 = tasksList.stream().map(task -> task.getId()).collect(Collectors.toSet());
-            Set<Object> t2 = resultTasks.stream().map(task -> task.getId()).collect(Collectors.toSet());
-
-            List<Map<String, Object>> removeList = new ArrayList<>();
-            List<Map<String, Object>> updateList = new ArrayList<>();
-            List<Map<String, Object>> addList = new ArrayList<>();
+            Set<Object> t1 = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
+            Set<Object> t2 = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
 
             tasksList.forEach(x -> {
                 if (!t2.contains(x.getId())) {
@@ -83,6 +75,7 @@ public class EditProjectServlet extends CustomProjectServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Task> resultTasks;
         if (request.getSession().getAttribute("resultTasks") == null) {
             resultTasks = new ArrayList<>();
             TasksDAOImpl tasksDAO = new TasksDAOImpl();

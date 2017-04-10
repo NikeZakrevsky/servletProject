@@ -19,14 +19,11 @@ import com.qulix.zakrevskynp.trainingtask.web.project.dao.ProjectDAOImpl;
  */
 @WebServlet("/taskProject1")
 public class SubmitAddTaskProjectServlet extends CustomServlet {
-    private String returningPath;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("lolololololol");
         Map<String, Object> parameters = getParametersFromRequest(request);
         request.getSession().setAttribute("project", parameters);
-        returningPath = request.getSession().getAttribute("path").toString();
         request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
         request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
         if (!request.getParameter("id").equals("")) {

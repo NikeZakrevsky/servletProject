@@ -1,9 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web.project.dao;
 
 import java.util.List;
-import java.util.Map;
 
-import com.qulix.zakrevskynp.trainingtask.web.CustomException;
 import com.qulix.zakrevskynp.trainingtask.web.project.Project;
 import com.qulix.zakrevskynp.trainingtask.web.task.Task;
 
