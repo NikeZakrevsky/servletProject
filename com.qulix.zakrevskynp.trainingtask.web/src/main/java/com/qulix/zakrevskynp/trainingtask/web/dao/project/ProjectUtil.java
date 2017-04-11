@@ -4,6 +4,8 @@ package com.qulix.zakrevskynp.trainingtask.web.dao.project;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 
@@ -39,6 +41,20 @@ class ProjectUtil {
         preparedStatement.setString(1, project.getName());
         preparedStatement.setString(2, project.getShortName());
         preparedStatement.setString(3, project.getDescription());
+    }
+
+    /**
+     * Convert the ResultSet to a List of objects
+     * @param rs @{{@link ResultSet}} object converted to list
+     * @return tasks list
+     * @throws SQLException throws while getting data from result set
+     */
+    List<Project> resultSetToList(ResultSet rs) throws SQLException {
+        List<Project> projects = new ArrayList<>();
+        while (rs.next()) {
+            projects.add(resultSetAsObject(rs));
+        }
+        return projects;
     }
 
 }

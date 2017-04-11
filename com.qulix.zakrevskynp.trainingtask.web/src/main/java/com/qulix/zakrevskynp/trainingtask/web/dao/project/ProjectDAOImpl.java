@@ -2,15 +2,14 @@ package com.qulix.zakrevskynp.trainingtask.web.dao.project;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.ExecuteDAO;
+import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
-import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 
 
 /**
@@ -41,14 +40,10 @@ public class ProjectDAOImpl implements ProjectDAO {
     @SuppressWarnings("unchecked")
     public List<Project> getProjectsList() {
         return (List<Project>) ExecuteDAO.execute(GET_PROJECTS_LIST_ERROR, (connection) -> {
-                List<Project> projects = new ArrayList<>();
                 try (Statement statement = connection.createStatement()) {
                     ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
-                    while (resultSet.next()) {
-                        projects.add(projectUtil.resultSetAsObject(resultSet));
-                    }
+                    return projectUtil.resultSetToList(resultSet);
                 }
-                return projects;
             });
     }
 
@@ -66,20 +61,20 @@ public class ProjectDAOImpl implements ProjectDAO {
                     ResultSet resultSet = statement.executeQuery("CALL IDENTITY()");
                     resultSet.next();
                     connection.commit();
-                    TasksDAOImpl tasksDAO = new TasksDAOImpl();
-                    if (tasks != null) {
-                        Iterator<Task> iterator = tasks.iterator();
-                        if (tasks.size() != 0) {
-                            while (iterator.hasNext()) {
-                                Task task = iterator.next();
-                                task.setProjectId(resultSet.getInt(1));
-                                tasksDAO.addTask(task);
-                            }
-                        }
-                    }
+                    addProjectTasks(tasks, resultSet);
                 }
                 return true;
             });
+    }
+
+    private void addProjectTasks(List<Task> tasks, ResultSet resultSet) throws SQLException {
+        TasksDAOImpl tasksDAO = new TasksDAOImpl();
+        if (tasks != null && tasks.size() != 0) {
+            for (Task task : tasks) {
+                task.setProjectId(resultSet.getInt(1));
+                tasksDAO.addTask(task);
+            }
+        }
     }
 
     /**

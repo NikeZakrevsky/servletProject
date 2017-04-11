@@ -2,7 +2,6 @@ package com.qulix.zakrevskynp.trainingtask.web.dao.person;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.ConnectionFactory;
@@ -35,17 +34,11 @@ public class PersonDAOImpl implements PersonDAO {
      * @return list of all persons from database
      */
     @SuppressWarnings("unchecked")
-
-
     public List<Person> getPersonsList()  {
         return (List<Person>) ExecuteDAO.execute(GET_PERSONS_LIST_ERROR, (connection) -> {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY)) {
-                    List<Person> persons = new ArrayList<>();
                     ResultSet resultSet = preparedStatement.executeQuery();
-                    while (resultSet.next()) {
-                        persons.add(personUtil.resultSetAsObject(resultSet));
-                    }
-                    return persons;
+                    return personUtil.resultSetToList(resultSet);
                 }
             });
     }

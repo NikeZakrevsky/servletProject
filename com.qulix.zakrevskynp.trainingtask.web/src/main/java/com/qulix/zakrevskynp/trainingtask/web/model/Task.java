@@ -6,7 +6,6 @@ import java.sql.Date;
  * Task entity model
  * @author Q-NZA
  */
-
 public class Task {
     private Integer id;
     private String name;

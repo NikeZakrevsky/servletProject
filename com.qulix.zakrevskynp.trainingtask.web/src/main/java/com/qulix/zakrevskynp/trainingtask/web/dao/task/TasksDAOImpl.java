@@ -47,15 +47,10 @@ public class TasksDAOImpl implements TasksDAO {
     @SuppressWarnings("unchecked")
     public List<Task> getTasksList()  {
         return (List<Task>) ExecuteDAO.execute(GET_TASKS_LIST_ERROR, (connection) -> {
-                List<Task> tasks = new ArrayList<>();
                 try (Statement statement = connection.createStatement()) {
                     ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
-                    while (resultSet.next()) {
-                        Task task = taskUtil.resultSetAsObject(resultSet);
-                        tasks.add(task);
-                    }
+                    return taskUtil.resultSetToList(resultSet);
                 }
-                return tasks;
             });
     }
 
@@ -166,11 +161,9 @@ public class TasksDAOImpl implements TasksDAO {
         int i = 0;
         while (iterator.hasNext()) {
             Task task1 = (Task) iterator.next();
-            if (task1.getId() == id) {
-                if (task.getPersonId() != null) {
-                    Person person = new PersonDAOImpl().getPersonById(task.getPersonId());
-                    task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
-                }
+            if (task1.getId() == id && task.getPersonId() != null) {
+                Person person = new PersonDAOImpl().getPersonById(task.getPersonId());
+                task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
                 tasks.set(i, task);
                 break;
             }

@@ -45,7 +45,7 @@ class TaskUtil {
     }
 
     /**
-     * Convert the ResultSet to a List of Maps, where each Map represents a row with columnNames and columValues
+     * Convert the ResultSet to a List of objects
      * @param rs @{{@link ResultSet}} object converted to list
      * @return tasks list
      * @throws SQLException throws while getting data from result set

@@ -3,6 +3,8 @@ package com.qulix.zakrevskynp.trainingtask.web.dao.person;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
@@ -27,6 +29,20 @@ class PersonUtil {
     Person resultSetAsObject(ResultSet resultSet) throws SQLException {
         return new Person(resultSet.getInt(ID), resultSet.getString(FNAME), resultSet.getString(SNAME),
                 resultSet.getString(LNAME), resultSet.getString(POSITION));
+    }
+
+    /**
+     * Convert the ResultSet to a List of objects
+     * @param rs @{{@link ResultSet}} object converted to list
+     * @return tasks list
+     * @throws SQLException throws while getting data from result set
+     */
+    List<Person> resultSetToList(ResultSet rs) throws SQLException {
+    	List<Person> persons = new ArrayList<>();
+    	while (rs.next()) {
+	        persons.add(resultSetAsObject(rs));
+        }
+        return persons;
     }
 
     /**
