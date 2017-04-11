@@ -1,6 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.task;
 
 import java.sql.Date;
+import java.time.Duration;
 import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
@@ -37,7 +38,7 @@ public class CustomTaskServlet extends CustomServlet {
         }
         task.setId((Integer) parameters.get(ID));
         task.setName((String) parameters.get(NAME));
-        task.setTime((Integer) parameters.get(TIME));
+        task.setTime(Duration.ofHours((long) (int)parameters.get(TIME)));
         task.setStartDate((Date) parameters.get(STARTDATE));
         task.setEndDate((Date) parameters.get(ENDDATE));
         task.setStatus(parameters.get(STATUS).toString());

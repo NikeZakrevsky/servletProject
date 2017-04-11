@@ -3,6 +3,7 @@ package com.qulix.zakrevskynp.trainingtask.web.dao.task;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ class TaskUtil {
         Task task = new Task();
         task.setId(resultSet.getInt(ID));
         task.setName(resultSet.getString(NAME));
-        task.setTime(resultSet.getInt(TIME));
+        task.setTime(Duration.ofHours(resultSet.getInt(TIME)));
         task.setStartDate(resultSet.getDate(STARTDATE));
         task.setEndDate(resultSet.getDate(ENDDATE));
         task.setStatus(resultSet.getString(STATUS));
@@ -66,7 +67,7 @@ class TaskUtil {
      */
     void setPreparedStatement(PreparedStatement preparedStatement, Task task) throws SQLException {
         preparedStatement.setString(1, task.getName());
-        preparedStatement.setInt(2, task.getTime());
+        preparedStatement.setLong(2, task.getTime().toHours());
         preparedStatement.setDate(3, task.getStartDate());
         preparedStatement.setDate(4, task.getEndDate());
         preparedStatement.setString(5, task.getStatus().toString());

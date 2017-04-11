@@ -1,6 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web.model;
 
 import java.sql.Date;
+import java.time.Duration;
 
 /**
  * Task entity model
@@ -9,7 +10,7 @@ import java.sql.Date;
 public class Task {
     private Integer id;
     private String name;
-    private Integer workTime;
+    private Duration workTime;
     private Date startDate;
     private Date endDate;
     private Status status;
@@ -58,14 +59,14 @@ public class Task {
      * Get task work time
      * @return task  work time
      */
-    public int getTime() {
+    public Duration getTime() {
         return workTime;
     }
 
     /**
      * Get task work time
      */
-    public void setTime(int time) {
+    public void setTime(Duration time) {
         this.workTime = time;
     }
 
