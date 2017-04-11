@@ -1,6 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 /**
@@ -18,6 +19,15 @@ public abstract class Validator {
     protected void validateField(Object field, String errorMessage, List<String> errors) {
         if (isEmptyAndLength.test(field)) {
             errors.add(errorMessage);
+        }
+    }
+
+    protected void parseIntegerParams(String field, Map<String, Object> parameters) {
+        if (!parameters.get(field).toString().equals("")) {
+            parameters.put(field, Integer.parseInt(parameters.get(field).toString()));
+        }
+        else {
+            parameters.put(field, null);
         }
     }
 }

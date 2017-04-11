@@ -49,14 +49,14 @@ public class TaskDataValidator extends Validator{
             errors.add(WORK_TIME_ERROR);
         }
 
-        if (parameters.get("projectId1") != null) {
-            parameters.put("projectId", parameters.get("projectId1"));
+        if (this.parameters.get("projectId1") != null) {
+            this.parameters.put("projectId", this.parameters.get("projectId1"));
         }
 
-        parseIntegerParams("projectId");
-        parseIntegerParams("personId");
-        parseIntegerParams("id");
-        parseIntegerParams("time");
+        parseIntegerParams("projectId", this.parameters);
+        parseIntegerParams("personId", this.parameters);
+        parseIntegerParams("id", this.parameters);
+        parseIntegerParams("time", this.parameters);
 
         return errors;
     }
@@ -83,14 +83,5 @@ public class TaskDataValidator extends Validator{
             errors.add(error);
         }
         return date;
-    }
-
-    private void parseIntegerParams(String field) {
-        if (!parameters.get(field).toString().equals("")) {
-            parameters.put(field, Integer.parseInt(parameters.get(field).toString()));
-        }
-        else {
-            parameters.put(field, null);
-        }
     }
 }

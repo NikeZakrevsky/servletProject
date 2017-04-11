@@ -13,9 +13,9 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
 public class PersonDataValidator extends Validator{
 
     private static final String FIRST_NAME_ERROR = "Неверное поле имя";
-    private static final String MIDDLE_NAME_ERROR = "Неверное поле имя";
-    private static final String LAST_NAME_ERROR = "Неверное поле имя";
-    private static final String POSITION_ERROR = "Неверное поле имя";
+    private static final String MIDDLE_NAME_ERROR = "Неверное поле фамилия";
+    private static final String LAST_NAME_ERROR = "Неверное поле отчество";
+    private static final String POSITION_ERROR = "Неверное поле должность";
 
     /**
      * Validate person information
@@ -25,12 +25,7 @@ public class PersonDataValidator extends Validator{
     public List<String> validate(Map<String, Object> parameters) {
         List<String> errors = new ArrayList<>();
 
-        if (!parameters.get("id").equals("")) {
-            parameters.put("id", Integer.parseInt(parameters.get("id").toString()));
-        }
-        else {
-            parameters.put("id", null);
-        }
+        parseIntegerParams("id", parameters);
         validateField(parameters.get("firstName"), FIRST_NAME_ERROR, errors);
         validateField(parameters.get("middleName"), MIDDLE_NAME_ERROR, errors);
         validateField(parameters.get("lastName"), LAST_NAME_ERROR, errors);
