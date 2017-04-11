@@ -13,6 +13,12 @@ public class PersonDataValidator {
 
     private List<String> errors = new ArrayList<>();
     private Predicate<Object> isEmptyAndLength = e -> e == null || e.equals("") || e.toString().length() > 20;
+
+    private static final String FIRST_NAME_ERROR = "Неверное поле имя";
+    private static final String MIDDLE_NAME_ERROR = "Неверное поле имя";
+    private static final String LAST_NAME_ERROR = "Неверное поле имя";
+    private static final String POSITION_ERROR = "Неверное поле имя";
+
     /**
      * Validate person information
      * @param parameters person form data
@@ -26,10 +32,10 @@ public class PersonDataValidator {
         else {
             parameters.put("id", null);
         }
-        validateField(parameters.get("firstName"), "Неверное поле имя");
-        validateField(parameters.get("middleName"), "Неверное поле фамилия");
-        validateField(parameters.get("lastName"), "Неверное поле отчество");
-        validateField(parameters.get("position"), "Неверное поле должность");
+        validateField(parameters.get("firstName"), FIRST_NAME_ERROR);
+        validateField(parameters.get("middleName"), MIDDLE_NAME_ERROR);
+        validateField(parameters.get("lastName"), LAST_NAME_ERROR);
+        validateField(parameters.get("position"), POSITION_ERROR);
 
         return errors;
     }
