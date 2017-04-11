@@ -6,97 +6,91 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
 
 /**
  * Validate task form data
  * @author Q-NZA
  */
-public class TaskDataValidator {
+public class TaskDataValidator extends Validator{
     private static Logger logger = Logger.getLogger(TaskDataValidator.class.getName());
+    private Map<String, Object> parameters;
+    private List<String> errors = new ArrayList<>();
 
+    private static final String dateFormat = "yyyy-MM-dd";
+    private static final String regex = "\\d+";
+
+    private static final String START_DATE_ERROR = "Неверная дата начала";
+    private static final String END_DATE_ERROR = "Неверная дата окончания";
+    private static final String END_BEFORE_START_ERROR = "Дата окончания должна быть раньше даты начала";
+    private static final String NAME_ERROR = "Неверное поле название";
+    private static final String STATUS_ERROR = "Неверное поле статус";
+    private static final String WORK_TIME_ERROR = "Неверное время работы";
     /**
      * Validate task information
      * @param parameters form parameters for validation
      * @return list of errors
      */
     public List<String> validate(Map<String, Object> parameters) {
-        String dateFormat = "yyyy-MM-dd";
-        String regex = "\\d+";
-        List<String> errors = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+        this.parameters = parameters;
 
-        Predicate<Object> isEmptyAndLength = e -> e.equals("") || e.toString().length() > 20;
+        java.util.Date startDate = validateDate("startDate", START_DATE_ERROR);
+        java.util.Date endDate = validateDate("endDate", END_DATE_ERROR);
 
-        sdf.setLenient(false);
+        validateEndDateBeforeStartDate(startDate, endDate, END_BEFORE_START_ERROR);
 
-        java.util.Date startDate = null;
-        try {
-            startDate = sdf.parse(parameters.get("startDate").toString());
-            Date date = new Date(startDate.getTime());
-            parameters.put("startDate", date);
-        } catch (ParseException e) {
-            logger.log(Level.SEVERE, e.getMessage());
-            errors.add("Неверная дата начала");
-        }
+        validateField(this.parameters.get("name"), NAME_ERROR, errors);
+        validateField(this.parameters.get("status"), STATUS_ERROR, errors);
 
-        java.util.Date endDate = null;
-        try {
-            endDate = sdf.parse(parameters.get("endDate").toString());
-            Date date = new java.sql.Date(endDate.getTime());
-            parameters.put("endDate", date);
-        } catch (ParseException e) {
-            logger.log(Level.SEVERE, e.getMessage());
-            errors.add("Неверная дата окончания");
-        }
-
-        if (startDate != null && endDate != null) {
-            if (!startDate.before(endDate)) {
-                errors.add("Дата окончания должна быть раньше даты начала");
-            }
-        }
-
-        if (isEmptyAndLength.test(parameters.get("name"))) {
-            errors.add("Неверное поле название");
-        }
-        if (isEmptyAndLength.test(parameters.get("status"))) {
-            errors.add("Неверное поле статус");
-        }
-
-        if (!parameters.get("time").toString().matches(regex) || parameters.get("time").toString().length() > 8) {
-            errors.add("Неверное время работы");
+        if (!this.parameters.get("time").toString().matches(regex) || this.parameters.get("time").toString().length() > 8) {
+            errors.add(WORK_TIME_ERROR);
         }
 
         if (parameters.get("projectId1") != null) {
             parameters.put("projectId", parameters.get("projectId1"));
         }
 
-        if (!parameters.get("projectId").toString().equals("")) {
-            parameters.put("projectId", Integer.parseInt(parameters.get("projectId").toString()));
-        }
-        else {
-            parameters.put("projectId", null);
-        }
+        parseIntegerParams("projectId");
+        parseIntegerParams("personId");
+        parseIntegerParams("id");
+        parseIntegerParams("time");
 
-        if (!parameters.get("personId").toString().equals("")) {
-            parameters.put("personId", Integer.parseInt(parameters.get("personId").toString()));
-        }
-        else {
-            parameters.put("personId", null);
-        }
-
-        if (!parameters.get("id").equals("")) {
-            parameters.put("id", Integer.parseInt(parameters.get("id").toString()));
-        }
-        else {
-            parameters.put("id", null);
-        }
-        
-        if (!parameters.get("time").equals("")) {
-            parameters.put("time", Integer.parseInt(parameters.get("time").toString()));
-        }
         return errors;
+    }
+
+    private void validateEndDateBeforeStartDate(java.util.Date startDate, java.util.Date endDate, String error) {
+        if (startDate != null && endDate != null) {
+            if (!startDate.before(endDate)) {
+                errors.add(error);
+            }
+        }
+    }
+
+    private java.util.Date validateDate(String field, String error) {
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+        sdf.setLenient(false);
+
+        java.util.Date date = null;
+        try {
+            date = sdf.parse(parameters.get(field).toString());
+            Date date1 = new Date(date.getTime());
+            parameters.put(field, date1);
+        } catch (ParseException e) {
+            logger.log(Level.SEVERE, e.getMessage());
+            errors.add(error);
+        }
+        return date;
+    }
+
+    private void parseIntegerParams(String field) {
+        if (!parameters.get(field).toString().equals("")) {
+            parameters.put(field, Integer.parseInt(parameters.get(field).toString()));
+        }
+        else {
+            parameters.put(field, null);
+        }
     }
 }
