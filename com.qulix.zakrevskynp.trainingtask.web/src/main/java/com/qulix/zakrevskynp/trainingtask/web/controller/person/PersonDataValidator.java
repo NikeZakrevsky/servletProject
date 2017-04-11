@@ -11,15 +11,14 @@ import java.util.function.Predicate;
  */
 public class PersonDataValidator {
 
+    private List<String> errors = new ArrayList<>();
+    private Predicate<Object> isEmptyAndLength = e -> e == null || e.equals("") || e.toString().length() > 20;
     /**
      * Validate person information
      * @param parameters person form data
      * @return list of errors
      */
     public List<String> validate(Map<String, Object> parameters) {
-        List<String> errors = new ArrayList<>();
-        
-        Predicate<Object> isEmptyAndLength = e -> e.equals("") || e.toString().length() > 20;
 
         if (!parameters.get("id").equals("")) {
             parameters.put("id", Integer.parseInt(parameters.get("id").toString()));
@@ -27,19 +26,17 @@ public class PersonDataValidator {
         else {
             parameters.put("id", null);
         }
+        validateField(parameters.get("firstName"), "Неверное поле имя");
+        validateField(parameters.get("middleName"), "Неверное поле фамилия");
+        validateField(parameters.get("lastName"), "Неверное поле отчество");
+        validateField(parameters.get("position"), "Неверное поле должность");
 
-        if (isEmptyAndLength.test(parameters.get("firstName"))) {
-            errors.add("Неверное поле имя");
-        }
-        if (isEmptyAndLength.test(parameters.get("middleName"))) {
-            errors.add("Неверное поле фамилия");
-        }
-        if (isEmptyAndLength.test(parameters.get("lastName"))) {
-            errors.add("Неверное поле отчество");
-        }
-        if (isEmptyAndLength.test(parameters.get("position"))) {
-            errors.add("Неверное поле должность");
-        }
         return errors;
+    }
+
+    private void validateField(Object field, String errorMessage) {
+        if (isEmptyAndLength.test(field)) {
+            errors.add(errorMessage);
+        }
     }
 }
