@@ -12,7 +12,7 @@ public class Project {
     private String name;
     private String shortName;
     private String description;
-    private List<Task> tasks = new ArrayList<>();
+    private List<Task> tasksList = new ArrayList<>();
 
     /**
      * Create empty project object
@@ -99,13 +99,13 @@ public class Project {
      * @return project tasks
      */
     public List<Task> getTasks() {
-        return tasks;
+        return tasksList;
     }
 
     /**
      * Get project tasks
      */
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setTasks(List<Task> tasksList) {
+        this.tasksList = tasksList;
     }
 }
