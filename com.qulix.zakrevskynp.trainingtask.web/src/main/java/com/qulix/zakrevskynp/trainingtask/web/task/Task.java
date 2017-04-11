@@ -13,7 +13,7 @@ public class Task {
     private Integer workTime;
     private Date startDate;
     private Date endDate;
-    private String status;
+    private Status status;
     private String performer;
     private String projectShortName;
     private Integer projectId;
@@ -29,14 +29,14 @@ public class Task {
      * Get task id
      * @return task id
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * Get task id
      */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -104,7 +104,7 @@ public class Task {
      * Get task status
      * @return task status
      */
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
@@ -112,7 +112,7 @@ public class Task {
      * Get task status
      */
     public void setStatus(String status) {
-        this.status = status;
+        this.status = Status.valueOf(status);
     }
 
     /**

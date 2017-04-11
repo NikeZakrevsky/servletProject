@@ -69,7 +69,7 @@ class TaskUtil {
         preparedStatement.setInt(2, task.getTime());
         preparedStatement.setDate(3, task.getStartDate());
         preparedStatement.setDate(4, task.getEndDate());
-        preparedStatement.setString(5, task.getStatus());
+        preparedStatement.setString(5, task.getStatus().toString());
         preparedStatement.setObject(6, task.getProjectId());
         preparedStatement.setObject(7, task.getPersonId());
     }

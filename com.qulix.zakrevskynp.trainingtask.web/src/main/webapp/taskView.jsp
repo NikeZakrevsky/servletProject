@@ -92,10 +92,10 @@
             <label class="col-md-2 control-lable">Статус</label>
                 <div class="col-md-7">
 	                <select name = "status">
-                        <option value="Not started" ${"Not started".equals(task.status) ? 'selected="selected"' : ''}>Not started</option>
-                        <option value="In process" ${"In process".equals(task.status) ? 'selected="selected"' : ''}>In process</option>
-                        <option value="Completed" ${"Completed".equals(task.status) ? 'selected="selected"' : ''}>Completed</option>
-                        <option value="Delayed" ${"Delayed".equals(task.status) ? 'selected="selected"' : ''}>Delayed</option>
+                        <option value="NOT_STARTED" ${"NOT_STARTED".equals(task.status) ? 'selected="selected"' : ''}>Not started</option>
+                        <option value="IN_PROCESS" ${"IN_PROCESS".equals(task.status) ? 'selected="selected"' : ''}>In process</option>
+                        <option value="COMPLETED" ${"COMPLETED".equals(task.status) ? 'selected="selected"' : ''}>Completed</option>
+                        <option value="DELAYED" ${"DELAYED".equals(task.status) ? 'selected="selected"' : ''}>Delayed</option>
                     </select>
                 </div>
             </div>

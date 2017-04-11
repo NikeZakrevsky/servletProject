@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * Hide handling exception in dao classes
+ * Handling exception in dao classes
  * @author Q-NZA
  */
 public interface Executable {

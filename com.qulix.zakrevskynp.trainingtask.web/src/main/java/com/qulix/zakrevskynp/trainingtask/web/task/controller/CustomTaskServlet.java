@@ -29,12 +29,18 @@ public class CustomTaskServlet extends CustomServlet {
      */
     protected Task parametersToObject(Map<String, Object> parameters) {
         Task task = new Task();
+        if (parameters.get(ID) != null) {
+            task.setId((Integer) parameters.get(ID));
+        }
+        else {
+            task.setId(null);
+        }
         task.setId((Integer) parameters.get(ID));
         task.setName((String) parameters.get(NAME));
         task.setTime((Integer) parameters.get(TIME));
         task.setStartDate((Date) parameters.get(STARTDATE));
         task.setEndDate((Date) parameters.get(ENDDATE));
-        task.setStatus((String) parameters.get(STATUS));
+        task.setStatus(parameters.get(STATUS).toString());
         task.setProjectId((Integer) parameters.get(PROJECTID));
         task.setPersonId((Integer) parameters.get(PERSONID));
         task.setProjectShortName(SHORTNAME);

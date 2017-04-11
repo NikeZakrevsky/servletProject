@@ -47,6 +47,7 @@ public class ErrorHandler implements Filter {
             logger.log(Level.SEVERE, e.toString());
             errors.clear();
             errors.add(e.getMessage());
+            e.printStackTrace();
             request.setAttribute("error", errors);
             request.getRequestDispatcher("personsList.jsp").forward(request, response);
         }
