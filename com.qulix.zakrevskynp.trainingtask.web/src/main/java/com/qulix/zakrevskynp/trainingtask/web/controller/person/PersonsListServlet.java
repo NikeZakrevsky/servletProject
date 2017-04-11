@@ -25,7 +25,7 @@ public class PersonsListServlet extends CustomPersonServlet {
         List<Person> personsList = personDAO.getPersonsList();
         request.setAttribute("error", request.getSession().getAttribute("error"));
         request.setAttribute("persons", personsList);
-        request.getRequestDispatcher("personsList.jsp").forward(request, response);
+        request.getRequestDispatcher("view/personsList.jsp").forward(request, response);
 
     }
 

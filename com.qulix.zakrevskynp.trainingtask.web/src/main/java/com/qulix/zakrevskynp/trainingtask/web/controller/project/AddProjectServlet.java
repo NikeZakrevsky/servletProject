@@ -42,7 +42,7 @@ public class AddProjectServlet extends CustomProjectServlet {
             request.setAttribute("errors", errors);
             List<Map<String, Object>> tasks = (List<Map<String, Object>>)session.getAttribute("resultTasks");
             request.setAttribute("tasks", tasks);
-            request.getRequestDispatcher("projectView.jsp").forward(request, response);
+            request.getRequestDispatcher("view/projectView.jsp").forward(request, response);
         }
     }
 
@@ -56,6 +56,6 @@ public class AddProjectServlet extends CustomProjectServlet {
         List<Task> tasks = (List<Task>)session.getAttribute("resultTasks");
         session.setAttribute("resultTask", tasks);
         request.setAttribute("tasks", tasks);
-        request.getRequestDispatcher("projectView.jsp").forward(request, response);
+        request.getRequestDispatcher("view/projectView.jsp").forward(request, response);
     }
 }

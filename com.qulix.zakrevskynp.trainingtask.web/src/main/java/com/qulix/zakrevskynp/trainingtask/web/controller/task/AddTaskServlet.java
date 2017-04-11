@@ -39,7 +39,7 @@ public class AddTaskServlet extends CustomTaskServlet {
             request.setAttribute("action", "addTask");
             request.setAttribute("errors", errors);
             request.setAttribute("task", parameters);
-            request.getRequestDispatcher("taskView.jsp").forward(request, response);
+            request.getRequestDispatcher("view/taskView.jsp").forward(request, response);
         }
     }
 
@@ -49,6 +49,6 @@ public class AddTaskServlet extends CustomTaskServlet {
         request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
         request.setAttribute("action", "addTask");
         request.setAttribute("path", "tasksList");
-        request.getRequestDispatcher("taskView.jsp").forward(request, response);
+        request.getRequestDispatcher("view/taskView.jsp").forward(request, response);
     }
 }

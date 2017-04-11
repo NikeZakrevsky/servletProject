@@ -22,7 +22,7 @@ public class TasksListServlet extends CustomServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute("path", "tasksList");
         request.setAttribute("tasks", new TasksDAOImpl().getTasksList());
-        request.getRequestDispatcher("tasksList.jsp").forward(request, response);
+        request.getRequestDispatcher("view/tasksList.jsp").forward(request, response);
     }
 
     @Override

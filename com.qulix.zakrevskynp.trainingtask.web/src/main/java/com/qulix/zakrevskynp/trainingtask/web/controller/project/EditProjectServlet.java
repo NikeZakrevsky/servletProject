@@ -69,7 +69,7 @@ public class EditProjectServlet extends CustomProjectServlet {
             List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
             request.setAttribute("tasks", resultTasks);
             request.setAttribute("errors", errors);
-            request.getRequestDispatcher("projectView.jsp").forward(request, response);
+            request.getRequestDispatcher("view/projectView.jsp").forward(request, response);
         }
     }
 
@@ -99,6 +99,6 @@ public class EditProjectServlet extends CustomProjectServlet {
         request.setAttribute("tasks", resultTasks);
         request.getSession(true).setAttribute("path", "editProject?id=" + request.getParameter("id"));
         request.setAttribute("path", "editProject?id=" + request.getParameter("id"));
-        request.getRequestDispatcher("projectView.jsp").forward(request, response);
+        request.getRequestDispatcher("view/projectView.jsp").forward(request, response);
     }
 }

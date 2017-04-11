@@ -43,7 +43,7 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
             request.setAttribute("action", "editTaskProject");
             request.setAttribute("errors", errors);
             request.setAttribute("task", parameters);
-            request.getRequestDispatcher("taskView.jsp").forward(request, response);
+            request.getRequestDispatcher("view/taskView.jsp").forward(request, response);
         }
     }
 }

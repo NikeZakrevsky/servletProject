@@ -42,7 +42,7 @@ public class EditTaskServlet extends CustomTaskServlet {
             request.setAttribute("action", "editTask");
             request.setAttribute("errors", errors);
             request.setAttribute("task", parameters);
-            request.getRequestDispatcher("taskView.jsp").forward(request, response);
+            request.getRequestDispatcher("view/taskView.jsp").forward(request, response);
         }
     }
 
@@ -59,6 +59,6 @@ public class EditTaskServlet extends CustomTaskServlet {
         if (!returningPath.equals("tasksList")) {
             request.setAttribute("isDisable", true);
         }
-        request.getRequestDispatcher("taskView.jsp").forward(request, response);
+        request.getRequestDispatcher("view/taskView.jsp").forward(request, response);
     }
 }

@@ -22,7 +22,7 @@ public class ProjectsListServlet extends CustomServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().invalidate();
         request.setAttribute("projects", new ProjectDAOImpl().getProjectsList());
-        request.getRequestDispatcher("projectsList.jsp").forward(request, response);
+        request.getRequestDispatcher("view/projectsList.jsp").forward(request, response);
     }
 
     @Override

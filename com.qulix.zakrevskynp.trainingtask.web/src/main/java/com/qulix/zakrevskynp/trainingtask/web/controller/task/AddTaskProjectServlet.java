@@ -39,7 +39,7 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
             request.setAttribute("action", "taskProject");
             request.setAttribute("errors", errors);
             request.setAttribute("task", parameters);
-            request.getRequestDispatcher("taskView.jsp").forward(request, response);
+            request.getRequestDispatcher("view/taskView.jsp").forward(request, response);
         }
     }
 }

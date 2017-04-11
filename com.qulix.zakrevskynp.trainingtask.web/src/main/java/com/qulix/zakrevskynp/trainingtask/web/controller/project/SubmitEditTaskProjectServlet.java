@@ -39,7 +39,7 @@ public class SubmitEditTaskProjectServlet extends CustomServlet {
                 request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
                 request.setAttribute("isDisable", true);
                 request.setAttribute("action", "editTaskProject");
-                request.getRequestDispatcher("taskView.jsp").forward(request, response);
+                request.getRequestDispatcher("view/taskView.jsp").forward(request, response);
             }
         }
     }

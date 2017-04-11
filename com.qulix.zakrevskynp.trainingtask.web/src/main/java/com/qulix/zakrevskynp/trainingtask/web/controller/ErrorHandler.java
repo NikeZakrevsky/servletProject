@@ -49,7 +49,7 @@ public class ErrorHandler implements Filter {
             errors.add(e.getMessage());
             e.printStackTrace();
             request.setAttribute("error", errors);
-            request.getRequestDispatcher("personsList.jsp").forward(request, response);
+            request.getRequestDispatcher("view/personsList.jsp").forward(request, response);
         }
     }
 

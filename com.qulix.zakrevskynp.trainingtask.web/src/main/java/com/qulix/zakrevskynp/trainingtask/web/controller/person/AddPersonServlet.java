@@ -34,13 +34,13 @@ public class AddPersonServlet extends CustomPersonServlet {
             request.setAttribute("errors", errors);
             request.setAttribute("person", parameters);
             request.setAttribute("action", "addPerson");
-            request.getRequestDispatcher("personView.jsp").forward(request, response);
+            request.getRequestDispatcher("view/personView.jsp").forward(request, response);
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("action", "addPerson");
-        request.getRequestDispatcher("personView.jsp").forward(request, response);
+        request.getRequestDispatcher("view/personView.jsp").forward(request, response);
     }
 }

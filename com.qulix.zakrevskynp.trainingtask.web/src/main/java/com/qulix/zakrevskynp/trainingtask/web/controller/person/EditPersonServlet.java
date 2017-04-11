@@ -36,7 +36,7 @@ public class EditPersonServlet extends CustomPersonServlet {
             request.setAttribute("person", parameters);
             request.setAttribute("errors", errors);
             request.setAttribute("action", "editPerson");
-            request.getRequestDispatcher("personView.jsp").forward(request, response);
+            request.getRequestDispatcher("view/personView.jsp").forward(request, response);
         }
     }
 
@@ -45,6 +45,6 @@ public class EditPersonServlet extends CustomPersonServlet {
         Person person  = personDAO.getPersonById(Integer.parseInt(request.getParameter("id")));
         request.setAttribute("person", person);
         request.setAttribute("action", "editPerson");
-        request.getRequestDispatcher("personView.jsp").forward(request, response);
+        request.getRequestDispatcher("view/personView.jsp").forward(request, response);
     }
 }

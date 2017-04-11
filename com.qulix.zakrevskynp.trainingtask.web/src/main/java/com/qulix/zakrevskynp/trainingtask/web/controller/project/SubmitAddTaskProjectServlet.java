@@ -33,6 +33,6 @@ public class SubmitAddTaskProjectServlet extends CustomServlet {
         }
         request.setAttribute("isDisable", true);
         request.setAttribute("action", "taskProject");
-        request.getRequestDispatcher("taskView.jsp").forward(request, response);
+        request.getRequestDispatcher("view/taskView.jsp").forward(request, response);
     }
 }
