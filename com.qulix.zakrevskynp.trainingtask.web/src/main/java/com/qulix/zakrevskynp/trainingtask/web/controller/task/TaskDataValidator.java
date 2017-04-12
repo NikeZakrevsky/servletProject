@@ -3,6 +3,7 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.task;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +59,9 @@ public class TaskDataValidator extends Validator{
         parseIntegerParams("id", this.parameters);
         parseIntegerParams("time", this.parameters);
 
+        if(parameters.get("time") != null) {
+            parameters.put("time", Duration.ofHours((long) (int) parameters.get("time")));
+        }
         return errors;
     }
 

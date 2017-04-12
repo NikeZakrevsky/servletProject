@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
  * Show add task form and handling it data for adding task in database
@@ -27,8 +27,8 @@ public class AddTaskServlet extends CustomTaskServlet {
 
         Map<String, Object> parameters = getParametersFromRequest(request);
         List<String> errors = new TaskDataValidator().validate(parameters);
-        Task task = parametersToObject(parameters);
         if (errors.size() == 0) {
+            Task task = parametersToObject(parameters);
             new TasksDAOImpl().addTask(task);
             response.sendRedirect("tasksList");
         }
@@ -37,7 +37,7 @@ public class AddTaskServlet extends CustomTaskServlet {
             request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
             request.setAttribute("action", "addTask");
             request.setAttribute("errors", errors);
-            request.setAttribute("task", task);
+            request.setAttribute("task", parameters);
             request.getRequestDispatcher("view/taskView.jsp").forward(request, response);
         }
     }

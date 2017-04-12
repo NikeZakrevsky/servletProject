@@ -53,7 +53,7 @@
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Работа(часы)</label>
                 <div class="col-md-7">
-	                <input type = "number" name = "time" size = "70" value = "${task.time.toHours()}"/>
+	                <input type = "number" name = "time" size = "70" min="1" max="999" value = "${task.time.toHours()}"/>
                 </div>
             </div>
         </div>

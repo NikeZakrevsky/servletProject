@@ -27,8 +27,8 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
         request.setAttribute("isDisable", true);
         Map<String, Object> parameters = getParametersFromRequest(request);
         List<String> errors = new TaskDataValidator().validate(parameters);
-        Task task = parametersToObject(parameters);
         if (errors.size() == 0) {
+            Task task = parametersToObject(parameters);
             List<Task> resultTasks = new TasksDAOImpl().addTask(task, request.getSession());
             request.getSession().setAttribute("resultTasks", resultTasks);
             response.sendRedirect(request.getSession().getAttribute("path").toString());
@@ -38,7 +38,7 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
             request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
             request.setAttribute("action", "taskProject");
             request.setAttribute("errors", errors);
-            request.setAttribute("task", task);
+            request.setAttribute("task", parameters);
             request.getRequestDispatcher("view/taskView.jsp").forward(request, response);
         }
     }

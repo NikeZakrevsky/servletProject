@@ -38,7 +38,7 @@ public class CustomTaskServlet extends CustomServlet {
         }
         task.setId((Integer) parameters.get(ID));
         task.setName((String) parameters.get(NAME));
-        task.setTime(Duration.ofHours((long) (int)parameters.get(TIME)));
+        task.setTime((Duration) parameters.get(TIME));
         task.setStartDate((Date) parameters.get(STARTDATE));
         task.setEndDate((Date) parameters.get(ENDDATE));
         task.setStatus(parameters.get(STATUS).toString());
