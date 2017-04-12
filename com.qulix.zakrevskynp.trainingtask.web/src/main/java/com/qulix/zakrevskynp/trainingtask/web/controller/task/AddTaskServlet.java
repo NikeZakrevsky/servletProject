@@ -27,9 +27,8 @@ public class AddTaskServlet extends CustomTaskServlet {
 
         Map<String, Object> parameters = getParametersFromRequest(request);
         List<String> errors = new TaskDataValidator().validate(parameters);
-
+        Task task = parametersToObject(parameters);
         if (errors.size() == 0) {
-            Task task = parametersToObject(parameters);
             new TasksDAOImpl().addTask(task);
             response.sendRedirect("tasksList");
         }
@@ -38,7 +37,7 @@ public class AddTaskServlet extends CustomTaskServlet {
             request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
             request.setAttribute("action", "addTask");
             request.setAttribute("errors", errors);
-            request.setAttribute("task", parameters);
+            request.setAttribute("task", task);
             request.getRequestDispatcher("view/taskView.jsp").forward(request, response);
         }
     }
