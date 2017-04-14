@@ -10,8 +10,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.ExecuteDAO;
-import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
@@ -20,9 +20,9 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 public class TasksDAOImpl implements TasksDAO {
     
-    private static final String SELECT_QUERY = "SELECT id, name, time, startDate, endDate, " +
+    private static final String SELECT_QUERY = "select id, name, time, startDate, endDate, " +
             "status, shortname, projectId, personId, fname + ' ' + sname + ' ' + lname " +
-            "as person FROM tasks left join projects on tasks.projectId = projects.id left join " +
+            "as person from tasks left join projects on tasks.projectId = projects.id left join " +
             "persons on tasks.personId = persons.id";
     private static final String DELETE_QUERY = "delete from tasks where id=?";
     private static final String INSERT_QUERY = "insert into tasks(name, time, startDate, endDate, " +
@@ -46,12 +46,12 @@ public class TasksDAOImpl implements TasksDAO {
      */
     @SuppressWarnings("unchecked")
     public List<Task> getTasksList()  {
-        return (List<Task>) ExecuteDAO.execute(GET_TASKS_LIST_ERROR, (connection) -> {
-                try (Statement statement = connection.createStatement()) {
-                    ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
-                    return taskUtil.resultSetToList(resultSet);
-                }
-            });
+        return (List<Task>) ExecuteDAO.execute(GET_TASKS_LIST_ERROR, connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
+                return taskUtil.resultSetToList(resultSet);
+            }
+        });
     }
 
     /**
