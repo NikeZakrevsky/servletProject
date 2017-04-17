@@ -1,12 +1,10 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao.project;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.AbstractDAO;
+import com.qulix.zakrevskynp.trainingtask.web.dao.Executable;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ExecuteDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
@@ -79,7 +77,9 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
      *  @param tasks tasks list for adding to new project
      */
     public void addProject(Project project, List<Task> tasks) {
-        ExecuteDAO.execute(ADD_PROJECT_ERROR, (connection) -> {
+        ExecuteDAO.execute(ADD_PROJECT_ERROR, new Executable() {
+            @Override
+            public Object exec(Connection connection) throws SQLException {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
                     projectUtil.setPreparedStatement(preparedStatement, project);
                     preparedStatement.execute();
@@ -87,10 +87,11 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
                     ResultSet resultSet = statement.executeQuery("call identity()");
                     resultSet.next();
                     connection.commit();
-                    addProjectTasks(tasks, resultSet);
+                    ProjectDAOImpl.this.addProjectTasks(tasks, resultSet);
                 }
                 return true;
-            });
+            }
+        });
     }
 
     private void addProjectTasks(List<Task> tasks, ResultSet resultSet) throws SQLException {

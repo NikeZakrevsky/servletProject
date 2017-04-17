@@ -1,7 +1,9 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao.task;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.AbstractDAO;
+import com.qulix.zakrevskynp.trainingtask.web.dao.Executable;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ExecuteDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
@@ -160,13 +163,16 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * @return List of tasks with specified project id
      */
     public List<Task> getTasksByProjectId(int id)  {
-        return (List<Task>) ExecuteDAO.execute(GET_TASKS_LIST_ERROR, (connection) -> {
+        return (List<Task>) ExecuteDAO.execute(GET_TASKS_LIST_ERROR, new Executable() {
+            @Override
+            public Object exec(Connection connection) throws SQLException {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where projectId = ?")) {
                     preparedStatement.setInt(1, id);
                     ResultSet resultSet = preparedStatement.executeQuery();
                     return taskUtil.resultSetToList(resultSet);
                 }
-            });
+            }
+        });
 
     }
 }
