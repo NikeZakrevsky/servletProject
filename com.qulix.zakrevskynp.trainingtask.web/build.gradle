@@ -27,11 +27,8 @@ tasks.withType(JavaCompile) {
 }
 
 buildscript {
-    repositories {
-        jcenter()
-    }
     dependencies {
-        classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.5'
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.4'
     }
 }
 
