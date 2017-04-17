@@ -35,6 +35,10 @@ public class Task {
         this.personId = personId;
     }
 
+    public Task() {
+
+    }
+
     /**
      * Get task id
      * @return task id
