@@ -15,12 +15,6 @@ public class Project {
     private List<Task> tasksList = new ArrayList<>();
 
     /**
-     * Create empty project object
-     */
-    public Project() {
-    }
-
-    /**
      * Create project object
      * @param id project id
      * @param name project name
@@ -73,25 +67,11 @@ public class Project {
     }
 
     /**
-     * Get project short name
-     */
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
-    }
-
-    /**
      * Get project description
      * @return project description
      */
     public String getDescription() {
         return description;
-    }
-
-    /**
-     * Get project description
-     */
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     /**

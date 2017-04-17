@@ -12,12 +12,6 @@ public class Person {
     private String position;
 
     /**
-     * Create empty person object
-     */
-    public Person() {
-    }
-
-    /**
      * Create person object
      * @param id person id
      * @param firstName person first name
@@ -57,25 +51,11 @@ public class Person {
     }
 
     /**
-     * Get person first name
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
      * Get person middle name
      * @return person middle name
      */
     public String getMiddleName() {
         return middleName;
-    }
-
-    /**
-     * Get person middle name
-     */
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
     }
 
     /**
@@ -87,13 +67,6 @@ public class Person {
     }
 
     /**
-     * Get person last name
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    /**
      * Get person position
      * @return person position
      */
@@ -101,10 +74,4 @@ public class Person {
         return position;
     }
 
-    /**
-     * Get person position
-     */
-    public void setPosition(String position) {
-        this.position = position;
-    }
 }

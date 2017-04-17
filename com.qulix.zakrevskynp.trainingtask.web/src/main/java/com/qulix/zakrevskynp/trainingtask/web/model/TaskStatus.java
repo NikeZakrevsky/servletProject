@@ -1,8 +1,8 @@
 package com.qulix.zakrevskynp.trainingtask.web.model;
 
 /**
- * Status entity model
+ * TaskStatus entity model
  */
-public enum Status {
+public enum TaskStatus {
 	NOT_STARTED, IN_PROCESS, COMPLETED, DELAYED
 }

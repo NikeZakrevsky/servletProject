@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.DaoUtil;
+import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
@@ -38,7 +39,7 @@ public class TaskUtil implements DaoUtil<Task> {
         Duration time = Duration.ofHours(resultSet.getInt(TIME));
         Date startDate = resultSet.getDate(STARTDATE);
         Date endDate = resultSet.getDate(ENDDATE);
-        String status = resultSet.getString(STATUS);
+        TaskStatus status = TaskStatus.valueOf(resultSet.getString(STATUS));
         Integer projectId = resultSet.getInt(PROJECTID);
         Integer personId = resultSet.getInt(PERSONID);
         String projectShortName = resultSet.getString(SHORTNAME);
@@ -72,7 +73,7 @@ public class TaskUtil implements DaoUtil<Task> {
         preparedStatement.setLong(2, task.getTime().toHours());
         preparedStatement.setDate(3, task.getStartDate());
         preparedStatement.setDate(4, task.getEndDate());
-        preparedStatement.setString(5, task.getStatus().toString());
+        preparedStatement.setString(5, task.getTaskStatus().toString());
         preparedStatement.setObject(6, task.getProjectId());
         preparedStatement.setObject(7, task.getPersonId());
         return 8;

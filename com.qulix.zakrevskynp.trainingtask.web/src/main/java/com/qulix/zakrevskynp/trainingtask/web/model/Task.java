@@ -13,7 +13,7 @@ public class Task {
     private Duration workTime;
     private Date startDate;
     private Date endDate;
-    private Status status;
+    private TaskStatus taskStatus;
     private String performer;
     private String projectShortName;
     private Integer projectId;
@@ -22,13 +22,13 @@ public class Task {
     /**
      * Create task
      */
-    public Task(Integer id, String name, Duration workTime, Date startDate, Date endDate, String status, String performer, String projectShortName, Integer projectId, Integer personId) {
+    public Task(Integer id, String name, Duration workTime, Date startDate, Date endDate, TaskStatus status, String performer, String projectShortName, Integer projectId, Integer personId) {
         this.id = id;
         this.name = name;
         this.workTime = workTime;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.status = Status.valueOf(status);
+        this.taskStatus = status;
         this.performer = performer;
         this.projectShortName = projectShortName;
         this.projectId = projectId;
@@ -72,27 +72,13 @@ public class Task {
     public Duration getTime() {
         return workTime;
     }
-
-    /**
-     * Get task work time
-     */
-    public void setTime(Duration time) {
-        this.workTime = time;
-    }
-
+    
     /**
      * Get task start date
      * @return task start date
      */
     public Date getStartDate() {
         return startDate;
-    }
-
-    /**
-     * Get task start date
-     */
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
     }
 
     /**
@@ -104,25 +90,11 @@ public class Task {
     }
 
     /**
-     * Get task end date
-     */
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    /**
      * Get task status
      * @return task status
      */
-    public Status getStatus() {
-        return status;
-    }
-
-    /**
-     * Get task status
-     */
-    public void setStatus(String status) {
-        this.status = Status.valueOf(status);
+    public TaskStatus getTaskStatus() {
+        return taskStatus;
     }
 
     /**
@@ -149,13 +121,6 @@ public class Task {
     }
 
     /**
-     * Get project short name
-     */
-    public void setProjectShortName(String projectShortName) {
-        this.projectShortName = projectShortName;
-    }
-
-    /**
      * Get project id
      * @return project id
      */
@@ -177,13 +142,5 @@ public class Task {
     public Integer getPersonId() {
         return personId;
     }
-
-    /**
-     * Get task person id
-     */
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
-    }
-
 
 }
