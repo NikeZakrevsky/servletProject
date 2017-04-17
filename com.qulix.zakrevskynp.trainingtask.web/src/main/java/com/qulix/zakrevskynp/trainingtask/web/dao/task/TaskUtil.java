@@ -70,7 +70,7 @@ public class TaskUtil implements DaoUtil<Task> {
      */
     public int setPreparedStatement(PreparedStatement preparedStatement, Task task) throws SQLException {
         preparedStatement.setString(1, task.getName());
-        preparedStatement.setLong(2, task.getTime().toHours());
+        preparedStatement.setLong(2, task.getWorkTime().toHours());
         preparedStatement.setDate(3, task.getStartDate());
         preparedStatement.setDate(4, task.getEndDate());
         preparedStatement.setString(5, task.getTaskStatus().toString());

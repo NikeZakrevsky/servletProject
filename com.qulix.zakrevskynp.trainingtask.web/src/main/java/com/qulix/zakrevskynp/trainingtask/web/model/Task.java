@@ -69,7 +69,7 @@ public class Task {
      * Get task work time
      * @return task  work time
      */
-    public Duration getTime() {
+    public Duration getWorkTime() {
         return workTime;
     }
     
