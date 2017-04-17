@@ -5,7 +5,7 @@ allprojects {
     apply plugin: 'checkstyle'
 
     checkstyle {
-        configFile = rootProject.file("com.qulix.zakrevskynp.trainingtask.web/src/main/resources/checkstyle.xml")
+        configFile = rootProject.file("checkstyle.xml")
     }
     
     repositories {
