@@ -58,7 +58,6 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
      *
      * @return list of all projects from database
      */
-    @SuppressWarnings("unchecked")
     @Override
     public List<Project> getProjectsList() {
         return super.getList(projectUtil, SELECT_QUERY, GET_PROJECTS_LIST_ERROR);

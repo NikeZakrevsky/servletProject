@@ -28,7 +28,6 @@ public class EditProjectServlet extends CustomProjectServlet {
 
     private ProjectDAO dao = new ProjectDAOImpl();
 
-    @SuppressWarnings("unchecked")
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Map<String, Object> parameters = getParametersFromRequest(request);
@@ -71,8 +70,7 @@ public class EditProjectServlet extends CustomProjectServlet {
             request.getRequestDispatcher("view/projectView.jsp").forward(request, response);
         }
     }
-
-    @SuppressWarnings("unchecked")
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Task> resultTasks;
         if (request.getSession().getAttribute("resultTasks") == null) {

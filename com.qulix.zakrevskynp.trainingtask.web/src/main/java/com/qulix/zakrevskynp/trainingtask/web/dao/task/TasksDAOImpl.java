@@ -123,7 +123,6 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * @param id task's id
      */
     @Override
-    @SuppressWarnings("unchecked")
     public void updateTask(Task task, HttpSession session, int id)  {
         List<Task> tasks = (List<Task>) session.getAttribute("resultTasks");
         Iterator iterator = tasks.iterator();
@@ -146,7 +145,6 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * @param id task id
      * @param session @{{@link HttpSession}} object
      */
-    @SuppressWarnings("unchecked")
     public void removeTask(int id, HttpSession session) {
         if (id > this.id) {
             this.id = id;
@@ -161,7 +159,6 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * @param id project id
      * @return List of tasks with specified project id
      */
-    @SuppressWarnings("unchecked")
     public List<Task> getTasksByProjectId(int id)  {
         return (List<Task>) ExecuteDAO.execute(GET_TASKS_LIST_ERROR, (connection) -> {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where projectId = ?")) {

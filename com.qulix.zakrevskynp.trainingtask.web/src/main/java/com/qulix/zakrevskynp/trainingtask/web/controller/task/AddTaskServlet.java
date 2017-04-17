@@ -41,7 +41,6 @@ public class AddTaskServlet extends CustomTaskServlet {
         }
     }
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
         request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
