@@ -18,7 +18,6 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 @WebServlet("/removeTaskProject")
 public class RemoveTaskProjectServlet extends CustomServlet {
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute("project", getParametersFromRequest(request));
         HttpSession session = request.getSession();

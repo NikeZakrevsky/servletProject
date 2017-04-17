@@ -22,8 +22,6 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 @WebServlet("/editTaskProject")
 public class EditTaskProjectServlet extends CustomTaskServlet {
 
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         TaskDataValidator validator = new TaskDataValidator();

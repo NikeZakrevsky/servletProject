@@ -22,7 +22,6 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 @WebServlet("/taskProject")
 public class AddTaskProjectServlet extends CustomTaskServlet {
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("isDisable", true);
         Map<String, Object> parameters = getParametersFromRequest(request);

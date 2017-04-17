@@ -22,9 +22,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 @WebServlet("/editTaskProject1")
 public class SubmitEditTaskProjectServlet extends CustomServlet {
 
-
-
-    @Override
     @SuppressWarnings("unchecked")
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute("project", getParametersFromRequest(request));

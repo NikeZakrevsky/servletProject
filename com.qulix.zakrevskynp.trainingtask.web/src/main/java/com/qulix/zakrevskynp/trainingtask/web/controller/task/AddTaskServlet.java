@@ -22,7 +22,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 @WebServlet("/addTask")
 public class AddTaskServlet extends CustomTaskServlet {
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Map<String, Object> parameters = getParametersFromRequest(request);

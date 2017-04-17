@@ -20,7 +20,6 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 @WebServlet("/addPerson")
 public class AddPersonServlet extends CustomPersonServlet {
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Map<String, Object> parameters = getParametersFromRequest(request);
@@ -38,7 +37,6 @@ public class AddPersonServlet extends CustomPersonServlet {
         }
     }
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("action", "addPerson");
         request.getRequestDispatcher("view/personView.jsp").forward(request, response);

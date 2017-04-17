@@ -23,7 +23,6 @@ public class EditPersonServlet extends CustomPersonServlet {
 
     private PersonDAO personDAO = new PersonDAOImpl();
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
         List<String> errors = new PersonDataValidator().validate(parameters);
@@ -40,7 +39,6 @@ public class EditPersonServlet extends CustomPersonServlet {
         }
     }
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Person person  = personDAO.getPersonById(Integer.parseInt(request.getParameter("id")));
         request.setAttribute("person", person);

@@ -18,7 +18,6 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 @WebServlet("/removeTask")
 public class RemoveTaskServlet extends CustomServlet {
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String returningPath = request.getSession(false).getAttribute("path").toString();
         TasksDAO tasksDAO = new TasksDAOImpl();
@@ -26,7 +25,6 @@ public class RemoveTaskServlet extends CustomServlet {
         response.sendRedirect(returningPath);
     }
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }

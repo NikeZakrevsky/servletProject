@@ -17,14 +17,12 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 @WebServlet("/removePerson")
 public class RemovePersonServlet extends CustomPersonServlet {
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PersonDAO personDAO = new PersonDAOImpl();
         personDAO.removePerson(Integer.parseInt(request.getParameter("id")));
         response.sendRedirect("personsList");
     }
 
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
     }

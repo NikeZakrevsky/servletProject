@@ -28,7 +28,6 @@ public class EditProjectServlet extends CustomProjectServlet {
 
     private ProjectDAO dao = new ProjectDAOImpl();
 
-    @Override
     @SuppressWarnings("unchecked")
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -73,7 +72,6 @@ public class EditProjectServlet extends CustomProjectServlet {
         }
     }
 
-    @Override
     @SuppressWarnings("unchecked")
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Task> resultTasks;

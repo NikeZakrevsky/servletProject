@@ -25,7 +25,6 @@ public class EditTaskServlet extends CustomTaskServlet {
 
     private String returningPath;
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         TaskDataValidator validator = new TaskDataValidator();
@@ -46,7 +45,6 @@ public class EditTaskServlet extends CustomTaskServlet {
         }
     }
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("path", request.getSession().getAttribute("path").toString());
         returningPath = request.getSession(false).getAttribute("path").toString();

@@ -20,7 +20,6 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
 @WebServlet("/taskProject1")
 public class SubmitAddTaskProjectServlet extends CustomServlet {
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
         request.getSession().setAttribute("project", parameters);

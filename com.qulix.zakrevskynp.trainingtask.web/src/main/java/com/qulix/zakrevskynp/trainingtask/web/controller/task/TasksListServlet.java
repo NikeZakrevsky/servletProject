@@ -18,14 +18,12 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 @WebServlet("/tasksList")
 public class TasksListServlet extends CustomServlet {
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute("path", "tasksList");
         request.setAttribute("tasks", new TasksDAOImpl().getTasksList());
         request.getRequestDispatcher("view/tasksList.jsp").forward(request, response);
     }
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }

@@ -19,7 +19,6 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 @WebServlet("/personsList")
 public class PersonsListServlet extends CustomPersonServlet {
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PersonDAO personDAO = new PersonDAOImpl();
         List<Person> personsList = personDAO.getPersonsList();
@@ -29,7 +28,6 @@ public class PersonsListServlet extends CustomPersonServlet {
 
     }
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
