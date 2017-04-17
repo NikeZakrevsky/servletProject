@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
  * @author Q-NZA
  */
 public class CustomServlet extends HttpServlet {
-
     /**
      * Convert parameters from request to map
      * @param request @{{@link HttpServletRequest}} object

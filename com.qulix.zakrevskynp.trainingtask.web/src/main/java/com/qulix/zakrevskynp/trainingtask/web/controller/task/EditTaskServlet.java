@@ -10,11 +10,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
  * Show edit task form and handling it data for editing task in session
@@ -24,6 +25,8 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 public class EditTaskServlet extends CustomTaskServlet {
 
     private String returningPath;
+    private static final String ID = "id";
+    private static final String IS_DISABLE = "isDisable";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -36,27 +39,27 @@ public class EditTaskServlet extends CustomTaskServlet {
             new TasksDAOImpl().updateTask(task);
             response.sendRedirect(returningPath);
         } else {
-            request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
-            request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
-            request.setAttribute("action", "editTask");
-            request.setAttribute("errors", errors);
-            request.setAttribute("task", parameters);
-            request.getRequestDispatcher("view/taskView.jsp").forward(request, response);
+            request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getProjectsList());
+            request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDAOImpl().getPersonsList());
+            request.setAttribute(Attribute.ACTION, Attribute.EDIT_TASK);
+            request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
+            request.setAttribute(Attribute.TASK_OBJECT_NAME, parameters);
+            request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("path", request.getSession().getAttribute("path").toString());
-        returningPath = request.getSession(false).getAttribute("path").toString();
+        request.setAttribute(Attribute.PATH, request.getSession().getAttribute(Attribute.PATH).toString());
+        returningPath = request.getSession(false).getAttribute(Attribute.PATH).toString();
         TasksDAO taskDAO = new TasksDAOImpl();
-        Task task = taskDAO.getTaskById(Integer.parseInt(request.getParameter("id")));
-        request.setAttribute("task", task);
-        request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
-        request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
-        request.setAttribute("action", "editTask");
-        if (!returningPath.equals("tasksList")) {
-            request.setAttribute("isDisable", true);
+        Task task = taskDAO.getTaskById(Integer.parseInt(request.getParameter(ID)));
+        request.setAttribute(Attribute.TASK_OBJECT_NAME, task);
+        request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getProjectsList());
+        request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDAOImpl().getPersonsList());
+        request.setAttribute(Attribute.ACTION, Attribute.EDIT_TASK);
+        if (!returningPath.equals(Attribute.TASKS_LIST)) {
+            request.setAttribute(IS_DISABLE, true);
         }
-        request.getRequestDispatcher("view/taskView.jsp").forward(request, response);
+        request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
     }
 }

@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
+import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
 
 /**
@@ -16,11 +16,12 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
  * @author Q-NZA
  */
 @WebServlet("/removeProject")
-public class RemoveProjectServlet extends CustomServlet {
+public class RemoveProjectServlet extends CustomProjectServlet {
+    private static final String ID = "id";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        new ProjectDAOImpl().removeProject(Integer.parseInt(request.getParameter("id")));
-        response.sendRedirect("projectsList");
+        new ProjectDAOImpl().removeProject(Integer.parseInt(request.getParameter(ID)));
+        response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

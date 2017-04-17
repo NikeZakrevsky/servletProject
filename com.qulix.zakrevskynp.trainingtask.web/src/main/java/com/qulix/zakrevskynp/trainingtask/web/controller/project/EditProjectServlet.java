@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
@@ -27,7 +28,8 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 public class EditProjectServlet extends CustomProjectServlet {
 
     private ProjectDAO dao = new ProjectDAOImpl();
-
+    private static final String ID = "id";
+    private static final String EDIT_PROJECT = "editProject?id=";
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Map<String, Object> parameters = getParametersFromRequest(request);
@@ -36,7 +38,7 @@ public class EditProjectServlet extends CustomProjectServlet {
         if (errors.isEmpty()) {
             Project project = parametersToObject(parameters);
             dao.updateProject(project);
-            List<Task> resultTasks = (List<Task>)request.getSession().getAttribute("resultTasks");
+            List<Task> resultTasks = (List<Task>)request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
             TasksDAOImpl tasksDAO = new TasksDAOImpl();
             List<Task> tasksList = tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
             Set<Object> t1 = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
@@ -60,41 +62,41 @@ public class EditProjectServlet extends CustomProjectServlet {
                 }
             });
             
-            response.sendRedirect("projectsList");
+            response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
         }
         else {
-            request.setAttribute("project", parameters);
+            request.setAttribute(Attribute.PROJECT_OBJECT_NAME, parameters);
             List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
-            request.setAttribute("tasks", resultTasks);
-            request.setAttribute("errors", errors);
-            request.getRequestDispatcher("view/projectView.jsp").forward(request, response);
+            request.setAttribute(Attribute.TASKS_LIST_NAME, resultTasks);
+            request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
+            request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);
         }
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Task> resultTasks;
-        if (request.getSession().getAttribute("resultTasks") == null) {
+        if (request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME) == null) {
             resultTasks = new ArrayList<>();
             TasksDAOImpl tasksDAO = new TasksDAOImpl();
-            List<Task> tasks =  tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
+            List<Task> tasks =  tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter(ID)));
             if (tasks != null) {
                 resultTasks.addAll(tasks);
             }
-            request.getSession().setAttribute("resultTasks", resultTasks);
+            request.getSession().setAttribute(Attribute.RESULT_TASKS_LIST_NAME, resultTasks);
         }
         else {
-            resultTasks = (List<Task>) request.getSession().getAttribute("resultTasks");
+            resultTasks = (List<Task>) request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
         }
-        if (request.getSession().getAttribute("project") == null) {
-            Project project = dao.getProjectById(Integer.parseInt(request.getParameter("id")));
-            request.setAttribute("project", project);
+        if (request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME) == null) {
+            Project project = dao.getProjectById(Integer.parseInt(request.getParameter(ID)));
+            request.setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
         }
         else {
-            request.setAttribute("project", request.getSession().getAttribute("project"));
+            request.setAttribute(Attribute.PROJECT_OBJECT_NAME, request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME));
         }
-        request.setAttribute("tasks", resultTasks);
-        request.getSession(true).setAttribute("path", "editProject?id=" + request.getParameter("id"));
-        request.setAttribute("path", "editProject?id=" + request.getParameter("id"));
-        request.getRequestDispatcher("view/projectView.jsp").forward(request, response);
+        request.setAttribute(Attribute.TASKS_LIST_NAME, resultTasks);
+        request.getSession(true).setAttribute(Attribute.PATH, EDIT_PROJECT + request.getParameter(ID));
+        request.setAttribute(Attribute.PATH, EDIT_PROJECT + request.getParameter(ID));
+        request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);
     }
 }

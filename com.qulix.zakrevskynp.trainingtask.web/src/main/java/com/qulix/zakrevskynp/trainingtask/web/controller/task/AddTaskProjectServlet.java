@@ -10,10 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
  * Show add task form and handling it data for adding task in session
@@ -21,24 +22,25 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
  */
 @WebServlet("/taskProject")
 public class AddTaskProjectServlet extends CustomTaskServlet {
+    private static final String IS_DISABLE = "isDisable";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("isDisable", true);
+        request.setAttribute(IS_DISABLE, true);
         Map<String, Object> parameters = getParametersFromRequest(request);
         List<String> errors = new TaskDataValidator().validate(parameters);
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
             List<Task> resultTasks = new TasksDAOImpl().addTask(task, request.getSession());
-            request.getSession().setAttribute("resultTasks", resultTasks);
-            response.sendRedirect(request.getSession().getAttribute("path").toString());
+            request.getSession().setAttribute(Attribute.RESULT_TASKS_LIST_NAME, resultTasks);
+            response.sendRedirect(request.getSession().getAttribute(Attribute.PATH).toString());
         }
         else {
-            request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
-            request.setAttribute("personsList",  new PersonDAOImpl().getPersonsList());
-            request.setAttribute("action", "taskProject");
-            request.setAttribute("errors", errors);
-            request.setAttribute("task", parameters);
-            request.getRequestDispatcher("view/taskView.jsp").forward(request, response);
+            request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getProjectsList());
+            request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDAOImpl().getPersonsList());
+            request.setAttribute(Attribute.ACTION, Attribute.TASK_PROJECT);
+            request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
+            request.setAttribute(Attribute.TASK_OBJECT_NAME, parameters);
+            request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
         }
     }
 }

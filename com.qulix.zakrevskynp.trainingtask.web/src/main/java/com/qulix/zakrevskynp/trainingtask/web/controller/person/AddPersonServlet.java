@@ -10,8 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.model.Person;
+import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
  * Show view with form for adding new person and handling it data
@@ -27,18 +28,18 @@ public class AddPersonServlet extends CustomPersonServlet {
         if (errors.isEmpty()) {
             Person person = parametersToObject(parameters);
             new PersonDAOImpl().addPerson(person);
-            response.sendRedirect("personsList");
+            response.sendRedirect(Attribute.REDIRECT_PERSON_LIST);
         }
         else {
-            request.setAttribute("errors", errors);
-            request.setAttribute("person", parameters);
-            request.setAttribute("action", "addPerson");
-            request.getRequestDispatcher("view/personView.jsp").forward(request, response);
+            request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
+            request.setAttribute(Attribute.PERSON_OBJECT_NAME, parameters);
+            request.setAttribute(Attribute.ACTION, Attribute.ADD_PERSON);
+            request.getRequestDispatcher(Attribute.PERSON_VIEW).forward(request, response);
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("action", "addPerson");
-        request.getRequestDispatcher("view/personView.jsp").forward(request, response);
+        request.setAttribute(Attribute.ACTION, Attribute.ADD_PERSON);
+        request.getRequestDispatcher(Attribute.PERSON_VIEW).forward(request, response);
     }
 }

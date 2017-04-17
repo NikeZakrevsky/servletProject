@@ -10,9 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qulix.zakrevskynp.trainingtask.web.model.Person;
+import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
  * Show view with form for editing new person and handling it data
@@ -22,6 +23,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 public class EditPersonServlet extends CustomPersonServlet {
 
     private PersonDAO personDAO = new PersonDAOImpl();
+    private static final String ID = "id";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
@@ -29,20 +31,20 @@ public class EditPersonServlet extends CustomPersonServlet {
         if (errors.isEmpty()) {
             Person person = parametersToObject(parameters);
             personDAO.updatePerson(person);
-            response.sendRedirect("personsList");
+            response.sendRedirect(Attribute.REDIRECT_PERSON_LIST);
         }
         else {
-            request.setAttribute("person", parameters);
-            request.setAttribute("errors", errors);
-            request.setAttribute("action", "editPerson");
-            request.getRequestDispatcher("view/personView.jsp").forward(request, response);
+            request.setAttribute(Attribute.PERSON_OBJECT_NAME, parameters);
+            request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
+            request.setAttribute(Attribute.ACTION, Attribute.EDIT_PERSON);
+            request.getRequestDispatcher(Attribute.PERSON_VIEW).forward(request, response);
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Person person  = personDAO.getPersonById(Integer.parseInt(request.getParameter("id")));
-        request.setAttribute("person", person);
-        request.setAttribute("action", "editPerson");
-        request.getRequestDispatcher("view/personView.jsp").forward(request, response);
+        Person person  = personDAO.getPersonById(Integer.parseInt(request.getParameter(ID)));
+        request.setAttribute(Attribute.PERSON_OBJECT_NAME, person);
+        request.setAttribute(Attribute.ACTION, Attribute.EDIT_PERSON);
+        request.getRequestDispatcher(Attribute.PERSON_VIEW).forward(request, response);
     }
 }

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 
@@ -19,9 +20,9 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 public class TasksListServlet extends CustomServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().setAttribute("path", "tasksList");
-        request.setAttribute("tasks", new TasksDAOImpl().getTasksList());
-        request.getRequestDispatcher("view/tasksList.jsp").forward(request, response);
+        request.getSession().setAttribute(Attribute.PATH, Attribute.TASKS_LIST);
+        request.setAttribute(Attribute.TASKS_LIST_NAME, new TasksDAOImpl().getTasksList());
+        request.getRequestDispatcher(Attribute.TASKS_LIST_VIEW).forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

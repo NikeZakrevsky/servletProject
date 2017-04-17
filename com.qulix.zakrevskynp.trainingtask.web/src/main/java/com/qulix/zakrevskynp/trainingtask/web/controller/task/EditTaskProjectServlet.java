@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
@@ -21,27 +22,28 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
  */
 @WebServlet("/editTaskProject")
 public class EditTaskProjectServlet extends CustomTaskServlet {
+    private static final String ID = "id";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         TaskDataValidator validator = new TaskDataValidator();
         Map<String, Object> parameters = getParametersFromRequest(request);
 
-        String returningPath = request.getSession().getAttribute("path").toString();
+        String returningPath = request.getSession().getAttribute(Attribute.PATH).toString();
         List<String> errors = validator.validate(parameters);
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
             TasksDAOImpl tasksDAO = new TasksDAOImpl();
-            tasksDAO.updateTask(task, request.getSession(), Integer.parseInt(request.getParameter("id")));
+            tasksDAO.updateTask(task, request.getSession(), Integer.parseInt(request.getParameter(ID)));
             response.sendRedirect(returningPath);
         }
         else {
-            request.setAttribute("projectsList", new ProjectDAOImpl().getProjectsList());
-            request.setAttribute("personsList", new PersonDAOImpl().getPersonsList());
-            request.setAttribute("action", "editTaskProject");
-            request.setAttribute("errors", errors);
-            request.setAttribute("task", parameters);
-            request.getRequestDispatcher("view/taskView.jsp").forward(request, response);
+            request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getProjectsList());
+            request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDAOImpl().getPersonsList());
+            request.setAttribute(Attribute.ACTION, Attribute.EDIT_TASK_PROJECT);
+            request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
+            request.setAttribute(Attribute.TASK_OBJECT_NAME, parameters);
+            request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
         }
     }
 }
