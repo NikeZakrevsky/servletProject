@@ -29,23 +29,21 @@ public class CustomTaskServlet extends CustomServlet {
      * @return @{{@link Task}} object
      */
     protected Task parametersToObject(Map<String, Object> parameters) {
-        Task task = new Task();
+        Integer id = null;
         if (parameters.get(ID) != null) {
-            task.setId((Integer) parameters.get(ID));
+            id = (Integer) parameters.get(ID);
         }
-        else {
-            task.setId(null);
-        }
-        task.setId((Integer) parameters.get(ID));
-        task.setName((String) parameters.get(NAME));
-        task.setTime((Duration) parameters.get(TIME));
-        task.setStartDate((Date) parameters.get(STARTDATE));
-        task.setEndDate((Date) parameters.get(ENDDATE));
-        task.setStatus(parameters.get(STATUS).toString());
-        task.setProjectId((Integer) parameters.get(PROJECTID));
-        task.setPersonId((Integer) parameters.get(PERSONID));
-        task.setProjectShortName(SHORTNAME);
-        task.setPerformer((String) parameters.get(PERSON));
-        return task;
+
+        String name = (String) parameters.get(NAME);
+        Duration workTime = (Duration) parameters.get(TIME);
+        Date startDate = (Date) parameters.get(STARTDATE);
+        Date endDate = (Date) parameters.get(ENDDATE);
+        String status = parameters.get(STATUS).toString();
+        Integer projectId = (Integer) parameters.get(PROJECTID);
+        Integer personId = (Integer) parameters.get(PERSONID);
+        String projectShortName = (String) parameters.get(SHORTNAME);
+        String performer = (String) parameters.get(PERSON);
+
+        return new Task(id, name, workTime, startDate, endDate, status, performer,  projectShortName, projectId, personId);
     }
 }

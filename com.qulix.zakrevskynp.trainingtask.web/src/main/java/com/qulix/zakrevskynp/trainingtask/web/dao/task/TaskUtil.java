@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.DaoUtil;
@@ -32,18 +33,18 @@ public class TaskUtil implements DaoUtil<Task> {
      * @return created task object
      */
     public Task resultSetAsObject(ResultSet resultSet) throws SQLException {
-        Task task = new Task();
-        task.setId(resultSet.getInt(ID));
-        task.setName(resultSet.getString(NAME));
-        task.setTime(Duration.ofHours(resultSet.getInt(TIME)));
-        task.setStartDate(resultSet.getDate(STARTDATE));
-        task.setEndDate(resultSet.getDate(ENDDATE));
-        task.setStatus(resultSet.getString(STATUS));
-        task.setProjectId(resultSet.getInt(PROJECTID));
-        task.setPersonId(resultSet.getInt(PERSONID));
-        task.setProjectShortName(resultSet.getString(SHORTNAME));
-        task.setPerformer(resultSet.getString(PERSON));
-        return task;
+        Integer id = resultSet.getInt(ID);
+        String name = resultSet.getString(NAME);
+        Duration time = Duration.ofHours(resultSet.getInt(TIME));
+        Date startDate = resultSet.getDate(STARTDATE);
+        Date endDate = resultSet.getDate(ENDDATE);
+        String status = resultSet.getString(STATUS);
+        Integer projectId = resultSet.getInt(PROJECTID);
+        Integer personId = resultSet.getInt(PERSONID);
+        String projectShortName = resultSet.getString(SHORTNAME);
+        String performer = resultSet.getString(PERSON);
+
+        return new Task(id, name, time, startDate, endDate, status, performer, projectShortName, projectId, personId);
     }
 
     /**

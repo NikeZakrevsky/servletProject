@@ -23,17 +23,15 @@ class CustomPersonServlet extends CustomServlet {
      * @return @{{@link Person}} object
      */
     protected Person parametersToObject(Map<String, Object> parameters) {
-        Person person = new Person();
+        Integer id = null;
         if (parameters.get(ID) != null) {
-            person.setId((Integer) parameters.get(ID));
+            id = (Integer) parameters.get(ID);
         }
-        else {
-            person.setId(null);
-        }
-        person.setFirstName((String) parameters.get(FIRST_NAME));
-        person.setMiddleName((String) parameters.get(MIDDLE_NAME));
-        person.setLastName((String) parameters.get(LAST_NAME));
-        person.setPosition((String) parameters.get(POSITION));
-        return person;
+        String firstName = (String) parameters.get(FIRST_NAME);
+        String middleName = (String) parameters.get(MIDDLE_NAME);
+        String lastName = (String) parameters.get(LAST_NAME);
+        String position = (String) parameters.get(POSITION);
+
+        return new Person(id, firstName, middleName, lastName, position);
     }
 }

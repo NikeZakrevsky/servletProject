@@ -28,8 +28,12 @@ class ProjectUtil implements DaoUtil<Project> {
      * @throws SQLException throws while getting data from @{{@link ResultSet}}
      */
     public Project resultSetAsObject(ResultSet resultSet) throws SQLException {
-        return new Project(resultSet.getInt(ID), resultSet.getString(NAME),
-                resultSet.getString(SHORTNAME), resultSet.getString(DESCRIPTION));
+        Integer id = resultSet.getInt(ID);
+        String name = resultSet.getString(NAME);
+        String shortName = resultSet.getString(SHORTNAME);
+        String description = resultSet.getString(DESCRIPTION);
+
+        return new Project(id, name, shortName, description);
     }
 
     /**

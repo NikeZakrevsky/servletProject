@@ -15,9 +15,9 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
  */
 public class PersonUtil  implements DaoUtil<Person>  {
     private static final String ID = "id";
-    private static final String FNAME = "fname";
-    private static final String SNAME = "sname";
-    private static final String LNAME = "lname";
+    private static final String FIRST_NAME = "fname";
+    private static final String MIDDLE_NAME = "sname";
+    private static final String LAST_NAME = "lname";
     private static final String POSITION = "position";
 
     /**
@@ -28,8 +28,13 @@ public class PersonUtil  implements DaoUtil<Person>  {
      * @throws SQLException
      */
     public Person resultSetAsObject(ResultSet resultSet) throws SQLException {
-        return new Person(resultSet.getInt(ID), resultSet.getString(FNAME), resultSet.getString(SNAME),
-                resultSet.getString(LNAME), resultSet.getString(POSITION));
+        Integer id = resultSet.getInt(ID);
+        String firstName = resultSet.getString(FIRST_NAME);
+        String middleName = resultSet.getString(MIDDLE_NAME);
+        String lastName = resultSet.getString(LAST_NAME);
+        String position = resultSet.getString(POSITION);
+
+        return new Person(id, firstName, middleName, lastName, position);
     }
 
     /**

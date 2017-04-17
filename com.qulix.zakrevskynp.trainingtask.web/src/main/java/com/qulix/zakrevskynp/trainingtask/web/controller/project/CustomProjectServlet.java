@@ -22,17 +22,14 @@ public class CustomProjectServlet extends CustomServlet {
      * @return @{{@link Project}} object
      */
     protected Project parametersToObject(Map<String, Object> parameters) {
-        Project project = new Project();
+        Integer id = null;
         if (parameters.get(ID) != null) {
-            project.setId((Integer) parameters.get(ID));
+            id = (Integer) parameters.get(ID);
         }
-        else {
-            project.setId(null);
-        }
-        project.setId((Integer) parameters.get(ID));
-        project.setName((String) parameters.get(NAME));
-        project.setShortName((String) parameters.get(SHORTNAME));
-        project.setDescription((String) parameters.get(DESCRIPTION));
-        return project;
+        String name = (String) parameters.get(NAME);
+        String shortName = (String) parameters.get(SHORTNAME);
+        String description = (String) parameters.get(DESCRIPTION);
+
+        return new Project(id, name, shortName, description);
     }
 }

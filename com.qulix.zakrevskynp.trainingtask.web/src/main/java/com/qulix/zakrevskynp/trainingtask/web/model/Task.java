@@ -20,9 +20,19 @@ public class Task {
     private Integer personId;
 
     /**
-     * Create task project
+     * Create task
      */
-    public Task() {
+    public Task(Integer id, String name, Duration workTime, Date startDate, Date endDate, String status, String performer, String projectShortName, Integer projectId, Integer personId) {
+        this.id = id;
+        this.name = name;
+        this.workTime = workTime;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = Status.valueOf(status);
+        this.performer = performer;
+        this.projectShortName = projectShortName;
+        this.projectId = projectId;
+        this.personId = personId;
     }
 
     /**
