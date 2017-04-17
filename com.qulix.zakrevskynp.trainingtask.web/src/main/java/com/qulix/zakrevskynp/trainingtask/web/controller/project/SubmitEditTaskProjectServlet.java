@@ -2,7 +2,6 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -29,9 +28,7 @@ public class SubmitEditTaskProjectServlet extends CustomProjectServlet {
         request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, getParametersFromRequest(request));
         request.setAttribute(Attribute.PATH, request.getSession().getAttribute(Attribute.PATH).toString());
         List<Task> tasks = (List<Task>) request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
-        Iterator iterator = tasks.iterator();
-        while (iterator.hasNext()) {
-            Task task = (Task) iterator.next();
+        for (Task task : tasks) {
             if (task.getId() == Integer.parseInt(request.getParameter(TASK_ID))) {
                 request.setAttribute(Attribute.TASK_OBJECT_NAME, task);
                 request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getProjectsList());

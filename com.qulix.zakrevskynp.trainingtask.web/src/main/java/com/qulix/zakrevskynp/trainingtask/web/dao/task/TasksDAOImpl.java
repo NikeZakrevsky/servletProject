@@ -5,11 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.AbstractDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.Executable;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ExecuteDAO;
@@ -101,7 +101,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      */
 
     public List<Task> addTask(Task task, HttpSession session)  {
-        List<Task> tasks = (List<Task>) session.getAttribute("resultTasks");
+        List<Task> tasks = (List<Task>) session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
         if (tasks == null) {
             tasks = new ArrayList<>();
         }
@@ -127,19 +127,17 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      */
     @Override
     public void updateTask(Task task, HttpSession session, int id)  {
-        List<Task> tasks = (List<Task>) session.getAttribute("resultTasks");
-        Iterator iterator = tasks.iterator();
+        List<Task> tasks = (List<Task>) session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
         int i = 0;
-        while (iterator.hasNext()) {
-            Task task1 = (Task) iterator.next();
+        for (Task task1 : tasks) {
             if (task1.getId() == id && task.getPersonId() != null) {
                 Person person = new PersonDAOImpl().getPersonById(task.getPersonId());
                 task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
-                tasks.set(i, task);
                 break;
             }
             i++;
         }
+        tasks.set(--i, task);
         session.setAttribute("resultTasks", tasks);
     }
 
@@ -152,9 +150,9 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
         if (id > this.id) {
             this.id = id;
         }
-        List<Task> tasks = (List<Task>) session.getAttribute("resultTasks");
+        List<Task> tasks = (List<Task>) session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
         tasks.removeIf(task -> task.getId() == id);
-        session.setAttribute("resultTasks", tasks);
+        session.setAttribute(Attribute.RESULT_TASKS_LIST_NAME, tasks);
     }
 
     /**
