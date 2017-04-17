@@ -96,7 +96,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
 
     private void addProjectTasks(List<Task> tasks, ResultSet resultSet) throws SQLException {
         TasksDAOImpl tasksDAO = new TasksDAOImpl();
-        if (tasks != null && tasks.size() != 0) {
+        if (tasks != null && !tasks.isEmpty()) {
             for (Task task : tasks) {
                 task.setProjectId(resultSet.getInt(1));
                 tasksDAO.addTask(task);

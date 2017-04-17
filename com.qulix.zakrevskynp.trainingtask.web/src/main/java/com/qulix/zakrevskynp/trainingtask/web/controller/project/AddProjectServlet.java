@@ -28,7 +28,7 @@ public class AddProjectServlet extends CustomProjectServlet {
         Map<String, Object> parameters = getParametersFromRequest(request);
 
         List<String> errors = new ProjectDataValidator().validate(parameters);
-        if (errors.size() == 0) {
+        if (errors.isEmpty()) {
             Project project = parametersToObject(parameters);
             List<Task> tasks = (List<Task>) request.getSession().getAttribute("resultTasks");
             new ProjectDAOImpl().addProject(project, tasks);

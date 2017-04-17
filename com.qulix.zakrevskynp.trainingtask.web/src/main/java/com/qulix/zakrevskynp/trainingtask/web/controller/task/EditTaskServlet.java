@@ -31,7 +31,7 @@ public class EditTaskServlet extends CustomTaskServlet {
         Map<String, Object> parameters = getParametersFromRequest(request);
 
         List<String> errors = validator.validate(parameters);
-        if (errors.size() == 0) {
+        if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
             new TasksDAOImpl().updateTask(task);
             response.sendRedirect(returningPath);

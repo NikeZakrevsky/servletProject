@@ -26,7 +26,7 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
         request.setAttribute("isDisable", true);
         Map<String, Object> parameters = getParametersFromRequest(request);
         List<String> errors = new TaskDataValidator().validate(parameters);
-        if (errors.size() == 0) {
+        if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
             List<Task> resultTasks = new TasksDAOImpl().addTask(task, request.getSession());
             request.getSession().setAttribute("resultTasks", resultTasks);

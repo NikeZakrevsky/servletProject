@@ -26,7 +26,7 @@ public class AddTaskServlet extends CustomTaskServlet {
 
         Map<String, Object> parameters = getParametersFromRequest(request);
         List<String> errors = new TaskDataValidator().validate(parameters);
-        if (errors.size() == 0) {
+        if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
             new TasksDAOImpl().addTask(task);
             response.sendRedirect("tasksList");

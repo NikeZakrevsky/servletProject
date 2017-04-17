@@ -29,7 +29,7 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
 
         String returningPath = request.getSession().getAttribute("path").toString();
         List<String> errors = validator.validate(parameters);
-        if (errors.size() == 0) {
+        if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
             TasksDAOImpl tasksDAO = new TasksDAOImpl();
             tasksDAO.updateTask(task, request.getSession(), Integer.parseInt(request.getParameter("id")));

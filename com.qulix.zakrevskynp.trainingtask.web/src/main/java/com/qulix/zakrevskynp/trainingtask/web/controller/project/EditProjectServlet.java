@@ -34,7 +34,7 @@ public class EditProjectServlet extends CustomProjectServlet {
         Map<String, Object> parameters = getParametersFromRequest(request);
         ProjectDataValidator validator = new ProjectDataValidator();
         List<String> errors = validator.validate(parameters);
-        if (errors.size() == 0) {
+        if (errors.isEmpty()) {
             Project project = parametersToObject(parameters);
             dao.updateProject(project);
             List<Task> resultTasks = (List<Task>)request.getSession().getAttribute("resultTasks");
