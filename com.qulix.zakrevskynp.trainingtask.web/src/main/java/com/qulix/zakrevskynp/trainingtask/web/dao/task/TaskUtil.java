@@ -7,13 +7,14 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.qulix.zakrevskynp.trainingtask.web.dao.DaoUtil;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
  * Utilites for tasks dao layer
  * @author Q-NZA
  */
-class TaskUtil {
+public class TaskUtil implements DaoUtil<Task> {
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String TIME = "time";
@@ -30,7 +31,7 @@ class TaskUtil {
      * @param resultSet resultSet for converting to object
      * @return created task object
      */
-    Task resultSetAsObject(ResultSet resultSet) throws SQLException {
+    public Task resultSetAsObject(ResultSet resultSet) throws SQLException {
         Task task = new Task();
         task.setId(resultSet.getInt(ID));
         task.setName(resultSet.getString(NAME));
@@ -51,7 +52,7 @@ class TaskUtil {
      * @return tasks list
      * @throws SQLException throws while getting data from result set
      */
-    List<Task> resultSetToList(ResultSet rs) throws SQLException {
+    public List<Task> resultSetToList(ResultSet rs) throws SQLException {
         List<Task> tasks = new ArrayList<>();
         while (rs.next()) {
             tasks.add(resultSetAsObject(rs));
@@ -65,7 +66,7 @@ class TaskUtil {
      * @param task task form data
      * @throws SQLException throws while setting parameters to prepared statement
      */
-    void setPreparedStatement(PreparedStatement preparedStatement, Task task) throws SQLException {
+    public int setPreparedStatement(PreparedStatement preparedStatement, Task task) throws SQLException {
         preparedStatement.setString(1, task.getName());
         preparedStatement.setLong(2, task.getTime().toHours());
         preparedStatement.setDate(3, task.getStartDate());
@@ -73,5 +74,6 @@ class TaskUtil {
         preparedStatement.setString(5, task.getStatus().toString());
         preparedStatement.setObject(6, task.getProjectId());
         preparedStatement.setObject(7, task.getPersonId());
+        return 8;
     }
 }

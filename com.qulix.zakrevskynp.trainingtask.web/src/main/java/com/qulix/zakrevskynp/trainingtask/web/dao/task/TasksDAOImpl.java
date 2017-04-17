@@ -2,13 +2,13 @@ package com.qulix.zakrevskynp.trainingtask.web.dao.task;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.qulix.zakrevskynp.trainingtask.web.dao.AbstractDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ExecuteDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
@@ -18,12 +18,16 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  * Implementation of {@link TasksDAO} interface
  * @author Q-NZA
  */
-public class TasksDAOImpl implements TasksDAO {
+public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
     
     private static final String SELECT_QUERY = "select id, name, time, startDate, endDate, " +
             "status, shortname, projectId, personId, fname + ' ' + sname + ' ' + lname " +
             "as person from tasks left join projects on tasks.projectId = projects.id left join " +
             "persons on tasks.personId = persons.id";
+    private static final String SELECT_BY_ID_QUERY = "select id, name, time, startDate, endDate, " +
+                "status, shortname, projectId, personId, fname + ' ' + sname + ' ' + lname " +
+                "as person from tasks left join projects on tasks.projectId = projects.id left join " +
+                "persons on tasks.personId = persons.id where id = ?";
     private static final String DELETE_QUERY = "delete from tasks where id=?";
     private static final String INSERT_QUERY = "insert into tasks(name, time, startDate, endDate, " +
             "status, projectId, personId) values (?, ?, ?, ?, ?, ?, ?)";
@@ -44,44 +48,45 @@ public class TasksDAOImpl implements TasksDAO {
      * Get all task from database
      * @return list of all tasks in database
      */
-    @SuppressWarnings("unchecked")
+    @Override
     public List<Task> getTasksList()  {
-        return (List<Task>) ExecuteDAO.execute(GET_TASKS_LIST_ERROR, connection -> {
-            try (Statement statement = connection.createStatement()) {
-                ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
-                return taskUtil.resultSetToList(resultSet);
-            }
-        });
+        return super.getList(taskUtil, SELECT_QUERY, GET_TASKS_LIST_ERROR);
     }
 
     /**
      * Remove project from database by id
      * @param id project's id
      */
+    @Override
     public void removeTask(int id)  {
-        ExecuteDAO.execute(REMOVE_TASKS_ERROR, (connection) -> {
-                try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)) {
-                    preparedStatement.setInt(1, id);
-                    preparedStatement.execute();
-                    connection.commit();
-                }
-                return true;
-            });
+        super.remove(id, DELETE_QUERY, REMOVE_TASKS_ERROR);
     }
 
     /**
      * Insert task in database
      * @param task task form data
      */
+    @Override
     public void addTask(Task task)  {
-        ExecuteDAO.execute(ADD_TASK_ERROR, (connection) -> {
-                try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
-                    taskUtil.setPreparedStatement(preparedStatement, task);
-                    preparedStatement.execute();
-                    connection.commit();
-                }
-                return true;
-            });
+        super.add(taskUtil, task, INSERT_QUERY, ADD_TASK_ERROR);
+    }
+
+    /**
+     * Get task by id
+     * @param id task's id
+     * @return Task object
+     */
+    public Task getTaskById(int id)  {
+        return super.getById(taskUtil, id, SELECT_BY_ID_QUERY, GET_TASKS_BY_ID_ERROR);
+    }
+
+    /**
+     * Update task in database
+     * @param task task form data
+     */
+    @Override
+    public void updateTask(Task task)  {
+        super.update(taskUtil, task, task.getId(), UPDATE_QUERY, UPDATE_TASKS_ERROR);
     }
 
     /**
@@ -91,8 +96,7 @@ public class TasksDAOImpl implements TasksDAO {
      * @param session {@link HttpSession} object
      * @return list of tasks with added new task
      */
-    @Override
-    @SuppressWarnings("unchecked")
+
     public List<Task> addTask(Task task, HttpSession session)  {
         List<Task> tasks = (List<Task>) session.getAttribute("resultTasks");
         if (tasks == null) {
@@ -110,41 +114,6 @@ public class TasksDAOImpl implements TasksDAO {
         }
         tasks.add(task);
         return tasks;
-    }
-
-    /**
-     * Get task by id
-     * @param id task's id
-     * @return Task object
-     */
-    public Task getTaskById(int id)  {
-        return (Task) ExecuteDAO.execute(GET_TASKS_BY_ID_ERROR, (connection) -> {
-                Task task;
-                try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where id = ?")) {
-                    preparedStatement.setInt(1, id);
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    resultSet.next();
-                    task = taskUtil.resultSetAsObject(resultSet);
-                    connection.commit();
-                }
-                return task;
-            });
-    }
-
-    /**
-     * Update task in database
-     * @param task task form data
-     */
-    public void updateTask(Task task)  {
-        ExecuteDAO.execute(UPDATE_TASKS_ERROR, (connection) -> {
-                try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
-                    taskUtil.setPreparedStatement(preparedStatement, task);
-                    preparedStatement.setInt(8, task.getId());
-                    preparedStatement.execute();
-                    connection.commit();
-                }
-                return true;
-            });
     }
 
     /**

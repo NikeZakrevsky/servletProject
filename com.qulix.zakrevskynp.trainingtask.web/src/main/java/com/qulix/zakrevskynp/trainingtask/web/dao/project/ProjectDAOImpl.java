@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import com.qulix.zakrevskynp.trainingtask.web.dao.AbstractDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ExecuteDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
@@ -16,7 +17,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  * Implementation of {@link ProjectDAO} interface
  * @author Q-NZA
  */
-public class ProjectDAOImpl implements ProjectDAO {
+public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
 
     private static final String SELECT_QUERY = "select id, name, shortname, description from projects";
     private static final String INSERT_QUERY = "insert into projects(name, shortname, description) values (?, ?, ?)";
@@ -33,18 +34,44 @@ public class ProjectDAOImpl implements ProjectDAO {
     private ProjectUtil projectUtil = new ProjectUtil();
 
     /**
+     * Update information about project in database
+     * @param project form data
+     */
+    @Override
+    public void updateProject(Project project) {
+        super.update(projectUtil, project, project.getId(), UPDATE_QUERY, UPDATE_PROJECT_ERROR);
+    }
+
+    /**
+     * Get project id
+     *
+     * @param id project's id
+     * @return Project object
+     */
+    @Override
+    public Project getProjectById(int id) {
+        return super.getById(projectUtil, id, SELECT_BY_ID_QUERY, GET_PROJECT_BY_ID_ERROR);
+    }
+
+    /**
      * Get all projects from database
      *
      * @return list of all projects from database
      */
     @SuppressWarnings("unchecked")
+    @Override
     public List<Project> getProjectsList() {
-        return (List<Project>) ExecuteDAO.execute(GET_PROJECTS_LIST_ERROR, (connection) -> {
-                try (Statement statement = connection.createStatement()) {
-                    ResultSet resultSet = statement.executeQuery(SELECT_QUERY);
-                    return projectUtil.resultSetToList(resultSet);
-                }
-            });
+        return super.getList(projectUtil, SELECT_QUERY, GET_PROJECTS_LIST_ERROR);
+    }
+
+
+    /**
+     * Remove project from database by id
+     * @param id project id
+     */
+    @Override
+    public void removeProject(int id) {
+        super.remove(id, DELETE_QUERY, REMOVE_PROJECT_ERROR);
     }
 
     /**
@@ -76,53 +103,4 @@ public class ProjectDAOImpl implements ProjectDAO {
             }
         }
     }
-
-    /**
-     * Remove project from database by id
-     * @param id project id
-     */
-    public void removeProject(int id) {
-        ExecuteDAO.execute(REMOVE_PROJECT_ERROR, (connection) -> {
-                try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)) {
-                    preparedStatement.setInt(1, id);
-                    preparedStatement.execute();
-                    connection.commit();
-                }
-                return true;
-            });
-    }
-
-    /**
-     * Update information about project in database
-     * @param project form data
-     */
-    public void updateProject(Project project) {
-        ExecuteDAO.execute(UPDATE_PROJECT_ERROR, (connection) -> {
-                try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
-                    projectUtil.setPreparedStatement(preparedStatement, project);
-                    preparedStatement.setInt(4, project.getId());
-                    preparedStatement.execute();
-                    connection.commit();
-                }
-                return true;
-            });
-    }
-
-    /**
-     * Get project id
-     *
-     * @param id project's id
-     * @return Project object
-     */
-    public Project getProjectById(int id) {
-        return (Project) ExecuteDAO.execute(GET_PROJECT_BY_ID_ERROR, (connection) -> {
-                try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY)) {
-                    preparedStatement.setInt(1, id);
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    resultSet.next();
-                    return projectUtil.resultSetAsObject(resultSet);
-                }
-            });
-    }
-
 }

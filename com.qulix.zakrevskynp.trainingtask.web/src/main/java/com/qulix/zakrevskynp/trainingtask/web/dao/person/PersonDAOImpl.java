@@ -1,18 +1,15 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao.person;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.ConnectionFactory;
-import com.qulix.zakrevskynp.trainingtask.web.dao.ExecuteDAO;
+import com.qulix.zakrevskynp.trainingtask.web.dao.AbstractDAO;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
  * Implementation of {@link PersonDAO} interface
  * @author Q-NZA
  */
-public class PersonDAOImpl implements PersonDAO {
+public class PersonDAOImpl  extends AbstractDAO<Person> implements PersonDAO {
     
     private static final String SELECT_QUERY = "select id, fname, sname, lname, position from persons";
     private static final String INSERT_QUERY = "insert into persons(fname, sname, lname, position) values (?, ?, ?, ?)";
@@ -33,44 +30,27 @@ public class PersonDAOImpl implements PersonDAO {
      *
      * @return list of all persons from database
      */
-    @SuppressWarnings("unchecked")
+    @Override
     public List<Person> getPersonsList()  {
-        return (List<Person>) ExecuteDAO.execute(GET_PERSONS_LIST_ERROR, (connection) -> {
-                try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY)) {
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    return personUtil.resultSetToList(resultSet);
-                }
-            });
+        return super.getList(personUtil, SELECT_QUERY, GET_PERSONS_LIST_ERROR);
     }
 
     /**
      * Inserts new person in database
      * @param person data from add person form
      */
+    @Override
     public void addPerson(Person person)  {
-        ExecuteDAO.execute(ADD_PERSON_ERROR, (connection) -> {
-                try (PreparedStatement preparedStatement = ConnectionFactory.getConnection().prepareStatement(INSERT_QUERY)) {
-                    personUtil.setPreparedStatement(preparedStatement, person);
-                    preparedStatement.execute();
-                    connection.commit();
-                    return true;
-                }
-            });
+        super.add(personUtil, person, INSERT_QUERY, ADD_PERSON_ERROR);
     }
 
     /**
      * Remove person from database by id
      * @param id person's id
      */
+    @Override
     public void removePerson(int id)  {
-        ExecuteDAO.execute(REMOVE_PERSON_ERROR, (connection) -> {
-                try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)) {
-                    preparedStatement.setInt(1, id);
-                    preparedStatement.execute();
-                    connection.commit();
-                    return true;
-                }
-            });
+        super.remove(id, DELETE_QUERY, REMOVE_PERSON_ERROR);
     }
 
     /**
@@ -79,15 +59,9 @@ public class PersonDAOImpl implements PersonDAO {
      * @param id person's id
      * @return person by id
      */
+    @Override
     public Person getPersonById(int id)  {
-        return (Person) ExecuteDAO.execute(GET_PERSON_BY_ID_ERROR, (connection) -> {
-                try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY)) {
-                    preparedStatement.setInt(1, id);
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    resultSet.next();
-                    return personUtil.resultSetAsObject(resultSet);
-                }
-            });
+        return super.getById(personUtil, id, SELECT_BY_ID_QUERY, GET_PERSON_BY_ID_ERROR);
     }
 
     /**
@@ -95,15 +69,8 @@ public class PersonDAOImpl implements PersonDAO {
      *
      * @param person Person object
      */
+    @Override
     public void updatePerson(Person person) {
-        ExecuteDAO.execute(UPDATE_PERSON_ERROR, (connection) -> {
-                try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
-                    personUtil.setPreparedStatement(preparedStatement, person);
-                    preparedStatement.setInt(5, person.getId());
-                    preparedStatement.execute();
-                    connection.commit();
-                    return true;
-                }
-            });
+        super.update(personUtil, person, person.getId(), UPDATE_QUERY, UPDATE_PERSON_ERROR);
     }
 }
