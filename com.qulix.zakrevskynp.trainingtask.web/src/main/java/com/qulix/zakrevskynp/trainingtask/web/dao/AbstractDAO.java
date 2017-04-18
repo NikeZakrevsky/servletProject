@@ -1,9 +1,6 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class AbstractDAO<T> {
@@ -12,12 +9,28 @@ public class AbstractDAO<T> {
         return (List<T>) ExecuteDAO.execute(error, new Executable() {
             @Override
             public Object exec(Connection connection) throws SQLException {
+                ResultSet resultSet = null;
                 try (PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
-                    ResultSet resultSet = preparedStatement.executeQuery();
+                    resultSet = preparedStatement.executeQuery();
                     return daoUtil.resultSetToList(resultSet);
+                }
+                finally {
+                    closeResultSet(resultSet);
                 }
             }
         });
+    }
+
+    protected void closeResultSet(ResultSet resultSet) throws SQLException {
+        if (resultSet != null) {
+            resultSet.close();
+        }
+    }
+
+    protected void closeStatement(Statement statement) throws SQLException {
+        if (statement != null) {
+            statement.close();
+        }
     }
 
     protected void remove(int id, String removeQuery, String error)  {
@@ -52,11 +65,15 @@ public class AbstractDAO<T> {
             return (T) ExecuteDAO.execute(error, new Executable() {
                 @Override
                 public Object exec(Connection connection) throws SQLException {
+                    ResultSet resultSet = null;
                     try (PreparedStatement preparedStatement = connection.prepareStatement(getByIdQuery)) {
                         preparedStatement.setInt(1, id);
-                        ResultSet resultSet = preparedStatement.executeQuery();
+                        resultSet = preparedStatement.executeQuery();
                         resultSet.next();
                         return daoUtil.resultSetAsObject(resultSet);
+                    }
+                    finally {
+                        closeResultSet(resultSet);
                     }
                 }
             });

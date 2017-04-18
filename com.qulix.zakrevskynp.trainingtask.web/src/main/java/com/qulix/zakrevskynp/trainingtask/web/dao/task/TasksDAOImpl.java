@@ -7,9 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
-import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.AbstractDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.Executable;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ExecuteDAO;
@@ -140,15 +137,13 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
     /**
      * Remove task from session
      * @param id task id
-     * @param session @{{@link HttpSession}} object
      */
-    public void removeTask(int id, HttpSession session) {
+    public List<Task> removeTask(int id, List<Task> tasks) {
         if (id > this.id) {
             this.id = id;
         }
-        List<Task> tasks = (List<Task>) session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
         tasks.removeIf(task -> task.getId() == id);
-        session.setAttribute(Attribute.RESULT_TASKS_LIST_NAME, tasks);
+        return tasks;
     }
 
     /**
@@ -160,10 +155,14 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
         return (List<Task>) ExecuteDAO.execute(GET_TASKS_LIST_ERROR, new Executable() {
             @Override
             public Object exec(Connection connection) throws SQLException {
+                ResultSet resultSet = null;
                 try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where projectId = ?")) {
                     preparedStatement.setInt(1, id);
-                    ResultSet resultSet = preparedStatement.executeQuery();
+                    resultSet = preparedStatement.executeQuery();
                     return taskUtil.resultSetToList(resultSet);
+                }
+                finally {
+                    closeResultSet(resultSet);
                 }
             }
         });

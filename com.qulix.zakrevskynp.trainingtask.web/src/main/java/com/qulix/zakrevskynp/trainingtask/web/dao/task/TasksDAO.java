@@ -26,6 +26,13 @@ public interface TasksDAO {
     void removeTask(int id);
 
     /**
+     * Remove project from database by id
+     *
+     * @param id project's id
+     */
+    List<Task> removeTask(int id, List<Task> tasks);
+
+    /**
      * Create new task in database
      * @param task data from add task form
      * @return list of tasks with added new task

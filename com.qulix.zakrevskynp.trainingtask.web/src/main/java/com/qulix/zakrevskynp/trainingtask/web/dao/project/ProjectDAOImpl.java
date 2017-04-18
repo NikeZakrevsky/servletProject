@@ -81,14 +81,20 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
         ExecuteDAO.execute(ADD_PROJECT_ERROR, new Executable() {
             @Override
             public Object exec(Connection connection) throws SQLException {
+                ResultSet resultSet = null;
+                Statement statement = null;
                 try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
                     projectUtil.setPreparedStatement(preparedStatement, project);
                     preparedStatement.execute();
-                    Statement statement = connection.createStatement();
-                    ResultSet resultSet = statement.executeQuery(IDENTITY_QUERY);
+                    statement = connection.createStatement();
+                    resultSet = statement.executeQuery(IDENTITY_QUERY);
                     resultSet.next();
                     connection.commit();
                     ProjectDAOImpl.this.addProjectTasks(tasks, resultSet);
+                }
+                finally {
+                    closeResultSet(resultSet);
+                    closeStatement(statement);
                 }
                 return true;
             }
