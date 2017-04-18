@@ -124,7 +124,6 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      */
     @Override
     public List<Task> updateTask(Task task, List<Task> tasks, int id)  {
-
         int index = 0;
         for (Task task1 : tasks) {
             if (task1.getId() == id && task.getPersonId() != null) {

@@ -28,6 +28,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
     private static final String UPDATE_PROJECT_ERROR = "Error while updating project";
     private static final String GET_PROJECTS_LIST_ERROR = "Error while getting projects list";
     private static final String GET_PROJECT_BY_ID_ERROR = "Error while getting project";
+    private static final String IDENTITY_QUERY = "call identity()";
 
     private ProjectUtil projectUtil = new ProjectUtil();
 
@@ -84,7 +85,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
                     projectUtil.setPreparedStatement(preparedStatement, project);
                     preparedStatement.execute();
                     Statement statement = connection.createStatement();
-                    ResultSet resultSet = statement.executeQuery("call identity()");
+                    ResultSet resultSet = statement.executeQuery(IDENTITY_QUERY);
                     resultSet.next();
                     connection.commit();
                     ProjectDAOImpl.this.addProjectTasks(tasks, resultSet);
