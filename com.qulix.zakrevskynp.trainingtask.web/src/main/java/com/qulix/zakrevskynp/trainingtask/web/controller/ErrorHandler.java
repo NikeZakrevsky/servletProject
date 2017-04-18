@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 
+import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
+
 /**
  * Handle and process errors
  * @author Q-NZA
@@ -43,7 +45,7 @@ public class ErrorHandler implements Filter {
             ch.doFilter(request, response);
         }
         catch (Exception e) {
-            Logger logger = Logger.getLogger(e.getStackTrace()[0].getClassName());
+            Logger logger = LoggingFactory.getLogger();
             logger.log(Level.SEVERE, e.toString());
             errors.clear();
             errors.add(e.getMessage());

@@ -10,7 +10,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
 
 /**
  * Get Connection object
@@ -25,7 +25,7 @@ public class ConnectionFactory {
     private static final String URL = "url";
     private static final String JDBC_PROPERTIES_PATH = "com.qulix.zakrevskynp.trainingtask.web/src/main/resources/jdbc.properties";
     private static final String DATABASE_CONNECTION_ERROR = "Can not connect";
-    private static Logger logger = Logger.getLogger(TasksDAOImpl.class.getName());
+    private static Logger logger = LoggingFactory.getLogger();
     private static final String READ_PROPERTIES_ERROR = "Can not read database properties";
     
     private ConnectionFactory() {
