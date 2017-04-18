@@ -31,7 +31,6 @@ public class TaskDataValidator extends Validator{
     private static final String NAME = "Название";
     private static final String STATUS = "Статус";
     private static final String JOB = "Работа(часы)";
-    private static final String WORK_TIME_ERROR = "Работа(часы) : должно содержать только цифры";
 
     private static final String START_DATE_FIELD = "startDate";
     private static final String NAME_FIELD = "name";
@@ -74,10 +73,10 @@ public class TaskDataValidator extends Validator{
         parseIntegerParams(PROJECT_ID_FIELD, this.parameters);
         parseIntegerParams(PERSON_ID_FIELD, this.parameters);
         parseIntegerParams(ID, this.parameters);
-        parseIntegerParams(WORK_TIME_FIELD, this.parameters);
+        parseFloatParams(WORK_TIME_FIELD, this.parameters);
 
         if(parameters.get(WORK_TIME_FIELD) != null) {
-            parameters.put(WORK_TIME_FIELD, Duration.ofHours((long) (int) parameters.get(WORK_TIME_FIELD)));
+            parameters.put(WORK_TIME_FIELD, Duration.ofMinutes((long) (int) (Float.parseFloat(parameters.get(WORK_TIME_FIELD).toString()) * 60)));
         }
         return errors;
     }

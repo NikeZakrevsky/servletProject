@@ -15,7 +15,7 @@ public abstract class Validator {
     private static final String NUMBER_ERROR = "неверный формат поля";
 
     private static final String regex = "^[a-zA-ZА-Яа-яёЁ\\s]*$";
-    private static final String regex1 = "[\\d{1,8}(.\\d)]?";
+    private static final String regex1 = "\\d{1,8}(.\\d)?";
     private Predicate<Object> testEmpty = e -> e == null || e.equals("");
     /**
      * Validate single field
@@ -37,6 +37,15 @@ public abstract class Validator {
     protected void parseIntegerParams(String field, Map<String, Object> parameters) {
         if (!parameters.get(field).toString().equals("")) {
             parameters.put(field, Integer.parseInt(parameters.get(field).toString()));
+        }
+        else {
+            parameters.put(field, null);
+        }
+    }
+
+    protected void parseFloatParams(String field, Map<String, Object> parameters) {
+        if (!parameters.get(field).toString().equals("")) {
+            parameters.put(field, Float.parseFloat(parameters.get(field).toString()));
         }
         else {
             parameters.put(field, null);

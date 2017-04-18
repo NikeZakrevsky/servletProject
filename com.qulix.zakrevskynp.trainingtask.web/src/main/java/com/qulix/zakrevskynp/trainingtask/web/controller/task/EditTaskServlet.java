@@ -32,7 +32,6 @@ public class EditTaskServlet extends CustomTaskServlet {
 
         TaskDataValidator validator = new TaskDataValidator();
         Map<String, Object> parameters = getParametersFromRequest(request);
-
         List<String> errors = validator.validate(parameters);
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
@@ -53,6 +52,7 @@ public class EditTaskServlet extends CustomTaskServlet {
         returningPath = request.getSession(false).getAttribute(Attribute.PATH).toString();
         TasksDAO taskDAO = new TasksDAOImpl();
         Task task = taskDAO.getTaskById(Integer.parseInt(request.getParameter(ID)));
+        System.out.println("min : " + task.getWorkTime().toMinutes());
         request.setAttribute(Attribute.TASK_OBJECT_NAME, task);
         request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getProjectsList());
         request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDAOImpl().getPersonsList());

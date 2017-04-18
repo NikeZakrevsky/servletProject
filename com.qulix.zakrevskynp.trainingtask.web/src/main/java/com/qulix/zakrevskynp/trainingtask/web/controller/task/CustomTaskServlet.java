@@ -31,12 +31,14 @@ public class CustomTaskServlet extends CustomServlet {
      */
     protected Task parametersToObject(Map<String, Object> parameters) {
         Integer id = null;
+        System.out.println(parameters);
         if (parameters.get(ID) != null) {
             id = (Integer) parameters.get(ID);
         }
 
         String name = (String) parameters.get(NAME);
         Duration workTime = (Duration) parameters.get(TIME);
+        System.out.println(workTime.toMinutes());
         Date startDate = (Date) parameters.get(STARTDATE);
         Date endDate = (Date) parameters.get(ENDDATE);
         TaskStatus status = TaskStatus.valueOf(parameters.get(STATUS).toString());
