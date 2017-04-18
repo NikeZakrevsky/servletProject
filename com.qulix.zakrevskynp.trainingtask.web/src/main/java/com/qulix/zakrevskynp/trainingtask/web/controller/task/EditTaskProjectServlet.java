@@ -34,7 +34,11 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
             TasksDAOImpl tasksDAO = new TasksDAOImpl();
-            tasksDAO.updateTask(task, request.getSession(), Integer.parseInt(request.getParameter(ID)));
+
+            List<Task> tasks = (List<Task>) request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
+            List<Task> resultTasks = tasksDAO.updateTask(task, tasks, Integer.parseInt(request.getParameter(ID)));
+            request.getSession().setAttribute(Attribute.RESULT_TASKS_LIST_NAME, resultTasks);
+
             response.sendRedirect(returningPath);
         }
         else {

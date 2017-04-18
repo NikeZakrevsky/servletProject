@@ -2,8 +2,6 @@ package com.qulix.zakrevskynp.trainingtask.web.dao.task;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 
@@ -30,10 +28,9 @@ public interface TasksDAO {
     /**
      * Create new task in database
      * @param task data from add task form
-     * @param session {@link HttpSession} object
      * @return list of tasks with added new task
      */
-    List<Task> addTask(Task task, HttpSession session);
+    List<Task> addTask(Task task, List<Task> tasks);
 
     /**
      * Create new task in session
@@ -58,10 +55,9 @@ public interface TasksDAO {
     /**
      * Update task in session
      * @param task data from update task
-     * @param session {@link HttpSession} object
      * @param id task's id
      */
-    void updateTask(Task task, HttpSession session, int id);
+    List<Task> updateTask(Task task, List<Task> tasks, int id);
 
     /**
      * @param id project id

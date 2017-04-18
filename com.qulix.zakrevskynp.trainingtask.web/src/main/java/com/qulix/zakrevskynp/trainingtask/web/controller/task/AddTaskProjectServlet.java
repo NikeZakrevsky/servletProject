@@ -30,7 +30,11 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
         List<String> errors = new TaskDataValidator().validate(parameters);
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
-            List<Task> resultTasks = new TasksDAOImpl().addTask(task, request.getSession());
+
+            List<Task> tasks = (List<Task>) request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
+            List<Task> resultTasks = new TasksDAOImpl().addTask(task, tasks);
+
+
             request.getSession().setAttribute(Attribute.RESULT_TASKS_LIST_NAME, resultTasks);
             response.sendRedirect(request.getSession().getAttribute(Attribute.PATH).toString());
         }

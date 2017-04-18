@@ -96,12 +96,10 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * Insert task in database
      *
      * @param task data from add task form
-     * @param session {@link HttpSession} object
      * @return list of tasks with added new task
      */
 
-    public List<Task> addTask(Task task, HttpSession session)  {
-        List<Task> tasks = (List<Task>) session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
+    public List<Task> addTask(Task task, List<Task> tasks)  {
         if (tasks == null) {
             tasks = new ArrayList<>();
         }
@@ -122,12 +120,11 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
     /**
      * Update task in session
      * @param task data from update task form for getting tasks list
-     * @param session {@link HttpSession} object
      * @param id task's id
      */
     @Override
-    public void updateTask(Task task, HttpSession session, int id)  {
-        List<Task> tasks = (List<Task>) session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
+    public List<Task> updateTask(Task task, List<Task> tasks, int id)  {
+
         int index = 0;
         for (Task task1 : tasks) {
             if (task1.getId() == id && task.getPersonId() != null) {
@@ -138,7 +135,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
             }
         }
         tasks.set(index, task);
-        session.setAttribute("resultTasks", tasks);
+        return tasks;
     }
 
     /**
