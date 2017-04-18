@@ -12,8 +12,12 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
  */
 public class ProjectDataValidator extends Validator{
 
-    private static final String NAME_ERROR = "Неверное поле название";
-    private static final String SHORT_NAME_ERROR = "Неверное поле сокращённое название";
+    private static final String NAME = "Название";
+    private static final String SHORT_NAME = "Сокращённое название";
+
+    private static final String ID = "id";
+    private static final String NAME_FIELD = "name";
+    private static final String SHORT_NAME_FIELD = "shortName";
 
     /**
      * Validate project information
@@ -23,9 +27,12 @@ public class ProjectDataValidator extends Validator{
     public List<String> validate(Map<String, Object> parameters) {
         List<String> errors = new ArrayList<>();
 
-        parseIntegerParams("id", parameters);
-        validateField(parameters.get("name"), NAME_ERROR, errors);
-        validateField(parameters.get("shortName"), SHORT_NAME_ERROR, errors);
+        parseIntegerParams(ID, parameters);
+        validateFieldEmpty(parameters.get(NAME_FIELD), NAME, errors);
+        validateFieldLength(parameters.get(NAME_FIELD), NAME, errors, 20);
+
+        validateFieldEmpty(parameters.get(SHORT_NAME_FIELD), SHORT_NAME, errors);
+        validateFieldLength(parameters.get(SHORT_NAME_FIELD), SHORT_NAME, errors, 20);
         
         return errors;
     }

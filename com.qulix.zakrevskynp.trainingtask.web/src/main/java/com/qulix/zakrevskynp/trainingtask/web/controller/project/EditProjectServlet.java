@@ -40,7 +40,7 @@ public class EditProjectServlet extends CustomProjectServlet {
             dao.updateProject(project);
             List<Task> resultTasks = (List<Task>)request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
             TasksDAOImpl tasksDAO = new TasksDAOImpl();
-            List<Task> tasksList = tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter("id")));
+            List<Task> tasksList = tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter(ID)));
             Set<Object> t1 = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
             Set<Object> t2 = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
 
@@ -66,7 +66,7 @@ public class EditProjectServlet extends CustomProjectServlet {
         }
         else {
             request.setAttribute(Attribute.PROJECT_OBJECT_NAME, parameters);
-            List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute("resultTasks");
+            List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
             request.setAttribute(Attribute.TASKS_LIST_NAME, resultTasks);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
             request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);

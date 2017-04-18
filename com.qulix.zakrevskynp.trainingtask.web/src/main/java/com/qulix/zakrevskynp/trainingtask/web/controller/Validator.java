@@ -9,16 +9,28 @@ import java.util.function.Predicate;
  */
 public abstract class Validator {
 
-    private Predicate<Object> isEmptyAndLength = e -> e == null || e.equals("") || e.toString().length() > 20;
+    private static final String EMPTY_ERROR = "пустое поле";
+    private static final String LENGTH_ERROR = "длина поля превышает 20 символов";
+    private static final String SYMBOLS_ERROR = "поле может только латинские и русские буквы";
+    private static final String NUMBER_ERROR = "неверный формат поля";
 
+    private static final String regex = "^[a-zA-ZА-Яа-яёЁ\\s]*$";
+    private static final String regex1 = "[\\d{1,8}(.\\d)]?";
+    private Predicate<Object> testEmpty = e -> e == null || e.equals("");
     /**
      * Validate single field
      * @param field Object for validate
-     * @param errorMessage error message, when field isn't valid
+     * @param fieldName error message, when field isn't valid
      */
-    protected void validateField(Object field, String errorMessage, List<String> errors) {
-        if (isEmptyAndLength.test(field)) {
-            errors.add(errorMessage);
+    protected void validateFieldLength(Object field, String fieldName, List<String> errors, int fieldLength) {
+        if (field.toString().length() > fieldLength) {
+            errors.add(fieldName + " : " + LENGTH_ERROR);
+        }
+    }
+
+    protected void validateFieldEmpty(Object field, String fieldName, List<String> errors) {
+        if (testEmpty.test(field)) {
+            errors.add(fieldName + " : " + EMPTY_ERROR);
         }
     }
 
@@ -28,6 +40,18 @@ public abstract class Validator {
         }
         else {
             parameters.put(field, null);
+        }
+    }
+
+    protected void validateFieldSymbols(Object field, String fieldName, List<String> errors) {
+        if (!field.toString().matches(regex)) {
+            errors.add(fieldName + " : " + SYMBOLS_ERROR);
+        }
+    }
+
+    protected void validateFieldNumbers(Object field, String fieldName, List<String> errors) {
+        if (!field.toString().matches(regex1)) {
+            errors.add(fieldName + " : " + NUMBER_ERROR);
         }
     }
 }

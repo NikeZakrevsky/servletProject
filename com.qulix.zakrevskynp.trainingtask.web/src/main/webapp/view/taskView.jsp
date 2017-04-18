@@ -53,7 +53,7 @@
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Работа(часы)</label>
                 <div class="col-md-7">
-	                <input type = "number" name = "time" size = "70" min="1" max="999" value = "${task.workTime.toHours()}"/>
+	                <input type = "number" name = "workTime" size = "70" min="1" max="999" value = "${task.workTime.toHours()}"/>
                 </div>
             </div>
         </div>
@@ -80,7 +80,7 @@
                 <div class="col-md-7">
                 <select name = "personId">
                     <option value> -- select an option -- </option>
-                    <c:forEach items="${personsList}" var="person">
+                    <c:forEach items="${persons}" var="person">
                         <option value="${person.id}" ${(person.id == task.personId) ? 'selected="selected"' : ''}>${person.firstName} ${person.middleName} ${person.lastName}</option>
                     </c:forEach>
                 </select>
@@ -107,7 +107,7 @@
                 <div class="col-md-7">
                     <select id = "lol" name="projectId1" ${isDisable ? 'disabled="true"' : ''}>
                         <option value="" selected="selected"> -- select an option -- </option>
-                        <c:forEach items="${projectsList}" var="project">
+                        <c:forEach items="${projects}" var="project">
                             <option value="${project.id}" ${(project.id == task.projectId) ? 'selected="selected"' : ''}>${project.shortName}</option>
                         </c:forEach>
                     </select>

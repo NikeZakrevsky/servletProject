@@ -15,7 +15,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 public class CustomTaskServlet extends CustomServlet {
     private static final String ID = "id";
     private static final String NAME = "name";
-    private static final String TIME = "time";
+    private static final String TIME = "workTime";
     private static final String STARTDATE = "startDate";
     private static final String ENDDATE = "endDate";
     private static final String STATUS = "status";

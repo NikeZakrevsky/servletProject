@@ -17,6 +17,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
  * @author Q-NZA
  */
 public class TaskDataValidator extends Validator{
+
     private static Logger logger = Logger.getLogger(TaskDataValidator.class.getName());
     private Map<String, Object> parameters;
     private List<String> errors = new ArrayList<>();
@@ -24,12 +25,24 @@ public class TaskDataValidator extends Validator{
     private static final String dateFormat = "yyyy-MM-dd";
     private static final String regex = "\\d+";
 
-    private static final String START_DATE_ERROR = "Неверная дата начала";
-    private static final String END_DATE_ERROR = "Неверная дата окончания";
+    private static final String START_DATE_ERROR = "Дата начала : неверный формат";
+    private static final String END_DATE_ERROR = "Дата окончания : неверный формат";
     private static final String END_BEFORE_START_ERROR = "Дата окончания должна быть раньше даты начала";
-    private static final String NAME_ERROR = "Неверное поле название";
-    private static final String STATUS_ERROR = "Неверное поле статус";
-    private static final String WORK_TIME_ERROR = "Неверное время работы";
+    private static final String NAME = "Название";
+    private static final String STATUS = "Статус";
+    private static final String JOB = "Работа(часы)";
+    private static final String WORK_TIME_ERROR = "Работа(часы) : должно содержать только цифры";
+
+    private static final String START_DATE_FIELD = "startDate";
+    private static final String NAME_FIELD = "name";
+    private static final String END_DATE_FIELD = "endDate";
+    private static final String WORK_TIME_FIELD = "workTime";
+    private static final String ID = "id";
+    private static final String PROJECT_ID_FIELD = "projectId";
+    private static final String PROJECT_ID1_FIELD = "projectId1";
+    private static final String STATUS_FIELD = "status";
+    private static final String PERSON_ID_FIELD = "personId";
+
     /**
      * Validate task information
      * @param parameters form parameters for validation
@@ -38,29 +51,33 @@ public class TaskDataValidator extends Validator{
     public List<String> validate(Map<String, Object> parameters) {
         this.parameters = parameters;
 
-        java.util.Date startDate = validateDate("startDate", START_DATE_ERROR);
-        java.util.Date endDate = validateDate("endDate", END_DATE_ERROR);
+        java.util.Date startDate = validateDate(START_DATE_FIELD, START_DATE_ERROR);
+        java.util.Date endDate = validateDate(END_DATE_FIELD, END_DATE_ERROR);
 
         validateEndDateBeforeStartDate(startDate, endDate, END_BEFORE_START_ERROR);
 
-        validateField(this.parameters.get("name"), NAME_ERROR, errors);
-        validateField(this.parameters.get("status"), STATUS_ERROR, errors);
+        validateFieldEmpty(this.parameters.get(NAME_FIELD), NAME, errors);
+        validateFieldLength(this.parameters.get(NAME_FIELD), NAME, errors, 20);
 
-        if (!this.parameters.get("time").toString().matches(regex) || this.parameters.get("time").toString().length() > 8) {
-            errors.add(WORK_TIME_ERROR);
+        validateFieldEmpty(this.parameters.get(STATUS_FIELD), STATUS, errors);
+        validateFieldLength(this.parameters.get(STATUS_FIELD), STATUS, errors, 20);
+
+        validateFieldEmpty(this.parameters.get(WORK_TIME_FIELD), JOB, errors);
+        validateFieldLength(this.parameters.get(WORK_TIME_FIELD), JOB, errors, 8);
+
+        validateFieldNumbers(parameters.get(WORK_TIME_FIELD), JOB, errors);
+
+        if (this.parameters.get(PROJECT_ID1_FIELD) != null) {
+            this.parameters.put(PROJECT_ID_FIELD, this.parameters.get(PROJECT_ID1_FIELD));
         }
 
-        if (this.parameters.get("projectId1") != null) {
-            this.parameters.put("projectId", this.parameters.get("projectId1"));
-        }
+        parseIntegerParams(PROJECT_ID_FIELD, this.parameters);
+        parseIntegerParams(PERSON_ID_FIELD, this.parameters);
+        parseIntegerParams(ID, this.parameters);
+        parseIntegerParams(WORK_TIME_FIELD, this.parameters);
 
-        parseIntegerParams("projectId", this.parameters);
-        parseIntegerParams("personId", this.parameters);
-        parseIntegerParams("id", this.parameters);
-        parseIntegerParams("time", this.parameters);
-
-        if(parameters.get("time") != null) {
-            parameters.put("time", Duration.ofHours((long) (int) parameters.get("time")));
+        if(parameters.get(WORK_TIME_FIELD) != null) {
+            parameters.put(WORK_TIME_FIELD, Duration.ofHours((long) (int) parameters.get(WORK_TIME_FIELD)));
         }
         return errors;
     }

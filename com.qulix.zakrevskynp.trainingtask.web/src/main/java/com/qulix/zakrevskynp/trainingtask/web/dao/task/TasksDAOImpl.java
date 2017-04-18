@@ -128,16 +128,16 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
     @Override
     public void updateTask(Task task, HttpSession session, int id)  {
         List<Task> tasks = (List<Task>) session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
-        int i = 0;
+        int index = 0;
         for (Task task1 : tasks) {
             if (task1.getId() == id && task.getPersonId() != null) {
                 Person person = new PersonDAOImpl().getPersonById(task.getPersonId());
                 task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
+                index = tasks.indexOf(task1);
                 break;
             }
-            i++;
         }
-        tasks.set(--i, task);
+        tasks.set(index, task);
         session.setAttribute("resultTasks", tasks);
     }
 
