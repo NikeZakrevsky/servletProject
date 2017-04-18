@@ -51,6 +51,10 @@ task startDatabaseServer(type: JavaExec) {
 URLClassLoader loader = GroovyObject.class.classLoader as URLClassLoader
 configurations.driverJDBC.each {File file ->  loader.addURL(file.toURI().toURL()) }
 
+tomcat {
+    httpPort = 8080
+}
+
 static def executeSqlScrips(String fileName) {
     def props = [user: 'sa', password: '', allowMultiQueries: 'true'] as Properties
     def driver = 'org.hsqldb.jdbcDriver'
