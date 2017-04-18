@@ -17,7 +17,7 @@ public interface PersonDAO {
      * @return list of all persons from database
      * @
      */
-    List<Person> getPersonsList();
+    List getPersonsList();
 
     /**
      * Inserts new person in database

@@ -1,6 +1,8 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller;
 
-
+/**
+ * @author Q-NZA
+ */
 public class Attribute {
     public static final String ADD_PERSON = "addPerson";
     public static final String EDIT_PERSON = "editPerson";
@@ -8,7 +10,6 @@ public class Attribute {
     public static final String REDIRECT_PROJECT_LIST = "projectsList";
 
     public static final String ADD_PROJECT = "addProject";
-    public static final String EDIT_PROJECT ="editProject";
 
     public static final String TASK_PROJECT = "taskProject";
     public static final String ADD_TASK = "addTask";

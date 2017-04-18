@@ -23,7 +23,8 @@ public class ConnectionFactory {
     private static final String PASSWORD = "password";
     private static final String DRIVER_CLASS = "driverClass";
     private static final String URL = "url";
-    private static final String JDBC_PROPERTIES_PATH = "com.qulix.zakrevskynp.trainingtask.web/src/main/resources/jdbc.properties";
+    private static final String JDBC_PROPERTIES_PATH =
+            "com.qulix.zakrevskynp.trainingtask.web/src/main/resources/jdbc.properties";
     private static final String DATABASE_CONNECTION_ERROR = "Can not connect";
     private static Logger logger = LoggingFactory.getLogger();
     private static final String READ_PROPERTIES_ERROR = "Can not read database properties";

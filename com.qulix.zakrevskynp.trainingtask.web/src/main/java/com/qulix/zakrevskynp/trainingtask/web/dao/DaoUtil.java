@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Created by ZakrevskyNP on 14.04.2017.
+ * @author Q-NZA
  */
 public interface DaoUtil<T> {
     T resultSetAsObject(ResultSet resultSet) throws SQLException;

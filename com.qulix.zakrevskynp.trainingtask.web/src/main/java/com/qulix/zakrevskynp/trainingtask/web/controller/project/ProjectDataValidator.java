@@ -10,7 +10,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
  * Validate project form data
  * @author Q-NZA
  */
-public class ProjectDataValidator extends Validator{
+public class ProjectDataValidator extends Validator {
 
     private static final String NAME = "Название";
     private static final String SHORT_NAME = "Сокращённое название";

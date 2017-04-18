@@ -16,14 +16,13 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
  * Validate task form data
  * @author Q-NZA
  */
-public class TaskDataValidator extends Validator{
+public class TaskDataValidator extends Validator {
 
     private static Logger logger = Logger.getLogger(TaskDataValidator.class.getName());
     private Map<String, Object> parameters;
     private List<String> errors = new ArrayList<>();
 
-    private static final String dateFormat = "yyyy-MM-dd";
-    private static final String regex = "\\d+";
+    private static final String DATE_FORMAT = "yyyy-MM-dd";;
 
     private static final String START_DATE_ERROR = "Дата начала : неверный формат";
     private static final String END_DATE_ERROR = "Дата окончания : неверный формат";
@@ -75,8 +74,9 @@ public class TaskDataValidator extends Validator{
         parseIntegerParams(ID, this.parameters);
         parseFloatParams(WORK_TIME_FIELD, this.parameters);
 
-        if(parameters.get(WORK_TIME_FIELD) != null) {
-            parameters.put(WORK_TIME_FIELD, Duration.ofMinutes((long) (int) (Float.parseFloat(parameters.get(WORK_TIME_FIELD).toString()) * 60)));
+        if (parameters.get(WORK_TIME_FIELD) != null) {
+            parameters.put(WORK_TIME_FIELD, Duration.ofMinutes((long) (int)
+                    (Float.parseFloat(parameters.get(WORK_TIME_FIELD).toString()) * 60)));
         }
         return errors;
     }
@@ -90,7 +90,7 @@ public class TaskDataValidator extends Validator{
     }
 
     private java.util.Date validateDate(String field, String error) {
-        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         sdf.setLenient(false);
 
         java.util.Date date = null;

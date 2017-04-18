@@ -27,7 +27,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 @WebServlet("/editProject")
 public class EditProjectServlet extends CustomProjectServlet {
 
-    private ProjectDAO dao = new ProjectDAOImpl();
+    private ProjectDAO dao = new ProjectDAOImpl(Project.class);
     private static final String ID = "id";
     private static final String EDIT_PROJECT = "editProject?id=";
 
@@ -44,7 +44,8 @@ public class EditProjectServlet extends CustomProjectServlet {
         }
         else {
             request.setAttribute(Attribute.PROJECT_OBJECT_NAME, parameters);
-            List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
+            List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)
+                    request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
             request.setAttribute(Attribute.TASKS_LIST_NAME, resultTasks);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
             request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);
@@ -55,7 +56,7 @@ public class EditProjectServlet extends CustomProjectServlet {
         List<Task> resultTasks;
         if (request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME) == null) {
             resultTasks = new ArrayList<>();
-            TasksDAOImpl tasksDAO = new TasksDAOImpl();
+            TasksDAOImpl tasksDAO = new TasksDAOImpl(Task.class);
             List<Task> tasks =  tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter(ID)));
             if (tasks != null) {
                 resultTasks.addAll(tasks);
@@ -80,28 +81,28 @@ public class EditProjectServlet extends CustomProjectServlet {
 
     private void updateChangedTasks(HttpServletRequest request) {
         List<Task> resultTasks = (List<Task>)request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
-        TasksDAOImpl tasksDAO = new TasksDAOImpl();
+        TasksDAOImpl tasksDAO = new TasksDAOImpl(Task.class);
         List<Task> tasksList = tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter(ID)));
         Set<Object> t1 = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
         Set<Object> t2 = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
 
         tasksList.forEach(x -> {
-            if (!t2.contains(x.getId())) {
-                tasksDAO.removeTask(x.getId());
-            }
-        });
+                if (!t2.contains(x.getId())) {
+                    tasksDAO.removeTask(x.getId());
+                }
+            });
 
         resultTasks.forEach(x -> {
-            if (t1.contains(x.getId())) {
-                tasksDAO.updateTask(x);
-            }
-        });
+                if (t1.contains(x.getId())) {
+                    tasksDAO.updateTask(x);
+                }
+            });
 
         resultTasks.forEach(x -> {
-            if (!t1.contains(x.getId())) {
-                tasksDAO.addTask(x);
-            }
-        });
+                if (!t1.contains(x.getId())) {
+                    tasksDAO.addTask(x);
+                }
+            });
 
     }
 

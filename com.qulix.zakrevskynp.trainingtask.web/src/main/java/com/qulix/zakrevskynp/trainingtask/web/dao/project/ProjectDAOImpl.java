@@ -4,8 +4,8 @@ import java.sql.*;
 import java.util.List;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.AbstractDAO;
-import com.qulix.zakrevskynp.trainingtask.web.dao.Executable;
-import com.qulix.zakrevskynp.trainingtask.web.dao.ExecuteDAO;
+import com.qulix.zakrevskynp.trainingtask.web.dao.ConnectionFactory;
+import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
@@ -31,6 +31,10 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
     private static final String IDENTITY_QUERY = "call identity()";
 
     private ProjectUtil projectUtil = new ProjectUtil();
+
+    public ProjectDAOImpl(Class<Project> typeParameterClass) {
+        super(typeParameterClass);
+    }
 
     /**
      * Update information about project in database
@@ -58,7 +62,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
      * @return list of all projects from database
      */
     @Override
-    public List<Project> getProjectsList() {
+    public List getProjectsList() {
         return super.getList(projectUtil, SELECT_QUERY, GET_PROJECTS_LIST_ERROR);
     }
 
@@ -78,31 +82,33 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
      *  @param tasks tasks list for adding to new project
      */
     public void addProject(Project project, List<Task> tasks) {
-        ExecuteDAO.execute(ADD_PROJECT_ERROR, new Executable() {
-            @Override
-            public Object exec(Connection connection) throws SQLException {
-                ResultSet resultSet = null;
-                Statement statement = null;
-                try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
-                    projectUtil.setPreparedStatement(preparedStatement, project);
-                    preparedStatement.execute();
-                    statement = connection.createStatement();
-                    resultSet = statement.executeQuery(IDENTITY_QUERY);
-                    resultSet.next();
-                    connection.commit();
-                    ProjectDAOImpl.this.addProjectTasks(tasks, resultSet);
-                }
-                finally {
-                    closeResultSet(resultSet);
-                    closeStatement(statement);
-                }
-                return true;
-            }
-        });
+        ResultSet resultSet = null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Statement statement = null;
+        try {
+            connection = ConnectionFactory.getConnection();
+            preparedStatement = connection.prepareStatement(INSERT_QUERY);
+            projectUtil.setPreparedStatement(preparedStatement, project);
+            preparedStatement.execute();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(IDENTITY_QUERY);
+            resultSet.next();
+            connection.commit();
+            ProjectDAOImpl.this.addProjectTasks(tasks, resultSet);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        finally {
+            closeResultSet(resultSet);
+            closeConnection(connection);
+            closeStatement(preparedStatement);
+            closeStatement(statement);
+        }
     }
 
     private void addProjectTasks(List<Task> tasks, ResultSet resultSet) throws SQLException {
-        TasksDAOImpl tasksDAO = new TasksDAOImpl();
+        TasksDAOImpl tasksDAO = new TasksDAOImpl(Task.class);
         if (tasks != null && !tasks.isEmpty()) {
             for (Task task : tasks) {
                 task.setProjectId(resultSet.getInt(1));

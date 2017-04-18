@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.AbstractDAO;
-import com.qulix.zakrevskynp.trainingtask.web.dao.Executable;
-import com.qulix.zakrevskynp.trainingtask.web.dao.ExecuteDAO;
+import com.qulix.zakrevskynp.trainingtask.web.dao.ConnectionFactory;
+import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
@@ -44,6 +44,10 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
 
     private TaskUtil taskUtil = new TaskUtil();
 
+    public TasksDAOImpl(Class<Task> typeParameterClass) {
+        super(typeParameterClass);
+    }
+
     /**
      * Get all task from database
      * @return list of all tasks in database
@@ -76,7 +80,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * @param id task's id
      * @return Task object
      */
-    public Task getTaskById(int id)  {
+    public Task getTaskById(int id) {
         return super.getById(taskUtil, id, SELECT_BY_ID_QUERY, GET_TASKS_BY_ID_ERROR);
     }
 
@@ -96,7 +100,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * @return list of tasks with added new task
      */
 
-    public List<Task> addTask(Task task, List<Task> tasks)  {
+    public List<Task> addTask(Task task, List<Task> tasks) {
         if (tasks == null) {
             tasks = new ArrayList<>();
         }
@@ -107,7 +111,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
         }
         task.setId(id + 1);
         if (task.getPersonId() != null) {
-            Person person = new PersonDAOImpl().getPersonById(task.getPersonId());
+            Person person = new PersonDAOImpl(Person.class).getPersonById(task.getPersonId());
             task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
         }
         tasks.add(task);
@@ -120,11 +124,11 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * @param id task's id
      */
     @Override
-    public List<Task> updateTask(Task task, List<Task> tasks, int id)  {
+    public List<Task> updateTask(Task task, List<Task> tasks, int id) {
         int index = 0;
         for (Task task1 : tasks) {
             if (task1.getId() == id && task.getPersonId() != null) {
-                Person person = new PersonDAOImpl().getPersonById(task.getPersonId());
+                Person person = new PersonDAOImpl(Person.class).getPersonById(task.getPersonId());
                 task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
                 index = tasks.indexOf(task1);
                 break;
@@ -152,20 +156,23 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * @return List of tasks with specified project id
      */
     public List<Task> getTasksByProjectId(int id)  {
-        return (List<Task>) ExecuteDAO.execute(GET_TASKS_LIST_ERROR, new Executable() {
-            @Override
-            public Object exec(Connection connection) throws SQLException {
-                ResultSet resultSet = null;
-                try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + " where projectId = ?")) {
-                    preparedStatement.setInt(1, id);
-                    resultSet = preparedStatement.executeQuery();
-                    return taskUtil.resultSetToList(resultSet);
-                }
-                finally {
-                    closeResultSet(resultSet);
-                }
-            }
-        });
-
+        ResultSet resultSet = null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionFactory.getConnection();
+            preparedStatement = connection.prepareStatement(SELECT_QUERY + " where projectId = ?");
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            return taskUtil.resultSetToList(resultSet);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        finally {
+            closeResultSet(resultSet);
+            closeConnection(connection);
+            closeStatement(preparedStatement);
+        }
     }
+
 }

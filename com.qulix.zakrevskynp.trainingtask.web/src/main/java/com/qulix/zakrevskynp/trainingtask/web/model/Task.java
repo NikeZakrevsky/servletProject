@@ -22,21 +22,18 @@ public class Task {
     /**
      * Create task
      */
-    public Task(Integer id, String name, Duration workTime, Date startDate, Date endDate, TaskStatus status, String performer, String projectShortName, Integer projectId, Integer personId) {
+    public Task(Integer id, String name, Duration workTime, Date startDate, Date endDate,
+                TaskStatus taskStatus, String performer) {
         this.id = id;
         this.name = name;
         this.workTime = workTime;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.taskStatus = status;
+        this.taskStatus = taskStatus;
         this.performer = performer;
-        this.projectShortName = projectShortName;
-        this.projectId = projectId;
-        this.personId = personId;
     }
 
     public Task() {
-
     }
 
     /**
@@ -113,8 +110,8 @@ public class Task {
      * @return task performer
      */
     public String getPerformer() {
-            return performer;
-        }
+        return performer;
+    }
 
     /**
      * Get project short name
@@ -147,4 +144,11 @@ public class Task {
         return personId;
     }
 
+    public void setProjectShortName(String projectShortName) {
+        this.projectShortName = projectShortName;
+    }
+
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
+    }
 }

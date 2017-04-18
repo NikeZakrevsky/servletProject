@@ -21,7 +21,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 public class PersonsListServlet extends CustomPersonServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PersonDAO personDAO = new PersonDAOImpl();
+        PersonDAO personDAO = new PersonDAOImpl(Person.class);
         List<Person> personsList = personDAO.getPersonsList();
         request.setAttribute(Attribute.ERROR_LIST_NAME, request.getSession().getAttribute(Attribute.ERROR_LIST_NAME));
         request.setAttribute(Attribute.PERSONS_LIST_NAME, personsList);

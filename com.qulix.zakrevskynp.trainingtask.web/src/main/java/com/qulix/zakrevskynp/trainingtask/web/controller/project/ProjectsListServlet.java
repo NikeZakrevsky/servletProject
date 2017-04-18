@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 
 /**
  * Show view with list of projects
@@ -20,7 +21,7 @@ public class ProjectsListServlet extends CustomProjectServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().invalidate();
-        request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getProjectsList());
+        request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl(Project.class).getProjectsList());
         request.getRequestDispatcher(Attribute.PROJECTS_LIST_VIEW).forward(request, response);
     }
 

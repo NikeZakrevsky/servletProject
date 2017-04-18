@@ -7,9 +7,12 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+/**
+ * @author Q-NZA
+ */
 public class LoggingFactory {
     private static Properties preferences = new Properties();
-    private static final Logger logger = Logger.getLogger(LoggingFactory.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(LoggingFactory.class.getName());
 
     static {
         try {
@@ -17,11 +20,11 @@ public class LoggingFactory {
             preferences.load(configFile);
             LogManager.getLogManager().readConfiguration(configFile);
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error while loading logger configuration");
+            LOGGER.log(Level.SEVERE, "Error while loading logger configuration");
         }
     }
 
     public static Logger getLogger() {
-        return logger;
+        return LOGGER;
     }
 }

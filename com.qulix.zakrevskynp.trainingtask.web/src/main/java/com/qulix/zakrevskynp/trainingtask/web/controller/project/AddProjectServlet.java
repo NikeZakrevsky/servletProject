@@ -31,7 +31,7 @@ public class AddProjectServlet extends CustomProjectServlet {
         if (errors.isEmpty()) {
             Project project = parametersToObject(parameters);
             List<Task> tasks = (List<Task>) request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
-            new ProjectDAOImpl().addProject(project, tasks);
+            new ProjectDAOImpl(Project.class).addProject(project, tasks);
             request.getSession().invalidate();
             response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
         }

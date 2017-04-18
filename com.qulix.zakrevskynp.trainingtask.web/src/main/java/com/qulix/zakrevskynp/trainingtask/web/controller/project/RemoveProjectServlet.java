@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 
 /**
  * Handling remove project action
@@ -20,7 +21,7 @@ public class RemoveProjectServlet extends CustomProjectServlet {
     private static final String ID = "id";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        new ProjectDAOImpl().removeProject(Integer.parseInt(request.getParameter(ID)));
+        new ProjectDAOImpl(Project.class).removeProject(Integer.parseInt(request.getParameter(ID)));
         response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
     }
 

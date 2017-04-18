@@ -9,7 +9,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
  * Implementation of {@link PersonDAO} interface
  * @author Q-NZA
  */
-public class PersonDAOImpl  extends AbstractDAO<Person> implements PersonDAO {
+public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
     
     private static final String SELECT_QUERY = "select id, fname, sname, lname, position from persons";
     private static final String INSERT_QUERY = "insert into persons(fname, sname, lname, position) values (?, ?, ?, ?)";
@@ -25,13 +25,17 @@ public class PersonDAOImpl  extends AbstractDAO<Person> implements PersonDAO {
 
     private PersonUtil personUtil = new PersonUtil();
 
+    public PersonDAOImpl(Class<Person> typeParameterClass) {
+        super(typeParameterClass);
+    }
+
     /**
      * Gets list of persons
      *
      * @return list of all persons from database
      */
     @Override
-    public List<Person> getPersonsList()  {
+    public List getPersonsList()  {
         return super.getList(personUtil, SELECT_QUERY, GET_PERSONS_LIST_ERROR);
     }
 
@@ -60,7 +64,7 @@ public class PersonDAOImpl  extends AbstractDAO<Person> implements PersonDAO {
      * @return person by id
      */
     @Override
-    public Person getPersonById(int id)  {
+    public Person getPersonById(int id) {
         return super.getById(personUtil, id, SELECT_BY_ID_QUERY, GET_PERSON_BY_ID_ERROR);
     }
 

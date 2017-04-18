@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 /**
  * Validate class
+ * @author Q-NZA
  */
 public abstract class Validator {
 
@@ -14,8 +15,8 @@ public abstract class Validator {
     private static final String SYMBOLS_ERROR = "поле может только латинские и русские буквы";
     private static final String NUMBER_ERROR = "неверный формат поля";
 
-    private static final String regex = "^[a-zA-ZА-Яа-яёЁ\\s]*$";
-    private static final String regex1 = "\\d{1,8}(.\\d)?";
+    private static final String REGEX = "^[a-zA-ZА-Яа-яёЁ\\s]*$";
+    private static final String REGEX1 = "\\d{1,8}(.\\d)?";
     private Predicate<Object> testEmpty = e -> e == null || e.equals("");
     /**
      * Validate single field
@@ -53,13 +54,13 @@ public abstract class Validator {
     }
 
     protected void validateFieldSymbols(Object field, String fieldName, List<String> errors) {
-        if (!field.toString().matches(regex)) {
+        if (!field.toString().matches(REGEX)) {
             errors.add(fieldName + " : " + SYMBOLS_ERROR);
         }
     }
 
     protected void validateFieldNumbers(Object field, String fieldName, List<String> errors) {
-        if (!field.toString().matches(regex1)) {
+        if (!field.toString().matches(REGEX1)) {
             errors.add(fieldName + " : " + NUMBER_ERROR);
         }
     }

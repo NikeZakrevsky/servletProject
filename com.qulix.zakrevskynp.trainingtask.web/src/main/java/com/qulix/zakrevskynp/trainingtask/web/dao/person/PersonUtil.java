@@ -44,9 +44,9 @@ public class PersonUtil  implements DaoUtil<Person>  {
      * @throws SQLException throws while getting data from result set
      */
     public List<Person> resultSetToList(ResultSet rs) throws SQLException {
-    	List<Person> persons = new ArrayList<>();
-    	while (rs.next()) {
-	        persons.add(resultSetAsObject(rs));
+        List<Person> persons = new ArrayList<>();
+        while (rs.next()) {
+            persons.add(resultSetAsObject(rs));
         }
         return persons;
     }

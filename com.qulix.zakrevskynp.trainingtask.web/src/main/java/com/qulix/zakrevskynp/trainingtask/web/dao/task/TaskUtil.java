@@ -44,8 +44,11 @@ public class TaskUtil implements DaoUtil<Task> {
         Integer personId = resultSet.getInt(PERSONID);
         String projectShortName = resultSet.getString(SHORTNAME);
         String performer = resultSet.getString(PERSON);
-
-        return new Task(id, name, time, startDate, endDate, status, performer, projectShortName, projectId, personId);
+        Task task = new Task(id, name, time, startDate, endDate, status, performer);
+        task.setProjectId(projectId);
+        task.setPersonId(personId);
+        task.setProjectShortName(projectShortName);
+        return new Task(id, name, time, startDate, endDate, status, performer);
     }
 
     /**

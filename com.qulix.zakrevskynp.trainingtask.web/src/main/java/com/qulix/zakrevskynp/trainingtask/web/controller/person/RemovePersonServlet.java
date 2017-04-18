@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
  * Handling remove person action
@@ -20,7 +21,7 @@ public class RemovePersonServlet extends CustomPersonServlet {
     private static final String ID = "id";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PersonDAO personDAO = new PersonDAOImpl();
+        PersonDAO personDAO = new PersonDAOImpl(Person.class);
         personDAO.removePerson(Integer.parseInt(request.getParameter(ID)));
         response.sendRedirect(Attribute.REDIRECT_PERSON_LIST);
     }

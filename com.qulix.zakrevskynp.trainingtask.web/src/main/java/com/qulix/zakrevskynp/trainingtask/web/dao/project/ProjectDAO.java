@@ -15,7 +15,7 @@ public interface ProjectDAO {
      * Get all projects from database
      * @return list of all projects from database
      */
-    List<Project> getProjectsList();
+    List getProjectsList();
 
     /**
      * Insert project to database

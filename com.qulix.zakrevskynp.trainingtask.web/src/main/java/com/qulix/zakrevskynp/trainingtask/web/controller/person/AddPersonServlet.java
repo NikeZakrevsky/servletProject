@@ -27,7 +27,7 @@ public class AddPersonServlet extends CustomPersonServlet {
         List<String> errors = new PersonDataValidator().validate(parameters);
         if (errors.isEmpty()) {
             Person person = parametersToObject(parameters);
-            new PersonDAOImpl().addPerson(person);
+            new PersonDAOImpl(Person.class).addPerson(person);
             response.sendRedirect(Attribute.REDIRECT_PERSON_LIST);
         }
         else {
