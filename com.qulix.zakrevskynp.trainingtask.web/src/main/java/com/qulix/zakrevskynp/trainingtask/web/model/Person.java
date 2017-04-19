@@ -1,5 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web.model;
 
+import java.util.List;
+
 /**
  * Person entity model
  * @author Q-NZA
@@ -10,6 +12,7 @@ public class Person {
     private String middleName;
     private String lastName;
     private String position;
+    private List<Task> task;
 
     /**
      * Create person object
@@ -74,4 +77,11 @@ public class Person {
         return position;
     }
 
+    public List<Task> getTask() {
+        return task;
+    }
+
+    public void setTask(List<Task> task) {
+        this.task = task;
+    }
 }

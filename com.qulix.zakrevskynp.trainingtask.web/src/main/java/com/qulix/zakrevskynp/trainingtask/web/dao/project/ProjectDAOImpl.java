@@ -97,7 +97,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
             connection.commit();
             ProjectDAOImpl.this.addProjectTasks(tasks, resultSet);
         } catch (SQLException e) {
-            throw new DAOException(e);
+            throw new DAOException(ADD_PROJECT_ERROR, e);
         }
         finally {
             closeResultSet(resultSet);

@@ -18,6 +18,7 @@ public class Task {
     private String projectShortName;
     private Integer projectId;
     private Integer personId;
+    private Person person;
 
     /**
      * Create task
@@ -150,5 +151,13 @@ public class Task {
 
     public void setPersonId(Integer personId) {
         this.personId = personId;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }

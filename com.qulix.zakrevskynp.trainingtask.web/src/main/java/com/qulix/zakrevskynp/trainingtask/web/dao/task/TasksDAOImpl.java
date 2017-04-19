@@ -49,6 +49,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
     private static final String PERSONID = "personId";
     private static final String SHORTNAME = "shortname";
     private static final String PERSON = "person";
+    private static final String WHERE_ID = " where projectId = ?";
 
     private int id = 0;
 
@@ -165,12 +166,12 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.getConnection();
-            preparedStatement = connection.prepareStatement(SELECT_QUERY + " where projectId = ?");
+            preparedStatement = connection.prepareStatement(SELECT_QUERY + WHERE_ID);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             return resultSetToList(resultSet);
         } catch (SQLException e) {
-            throw new DAOException(e);
+            throw new DAOException(GET_TASKS_LIST_ERROR, e);
         }
         finally {
             closeResultSet(resultSet);

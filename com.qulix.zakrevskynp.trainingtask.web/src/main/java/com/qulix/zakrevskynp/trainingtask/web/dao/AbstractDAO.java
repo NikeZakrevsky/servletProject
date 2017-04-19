@@ -19,7 +19,7 @@ public abstract class AbstractDAO<T> {
             resultSet = preparedStatement.executeQuery();
             return resultSetToList(resultSet);
         } catch (SQLException e) {
-            throw new DAOException(e);
+            throw new DAOException(error, e);
         }
         finally {
             closeResultSet(resultSet);
@@ -71,7 +71,7 @@ public abstract class AbstractDAO<T> {
             connection.commit();
         }
         catch (SQLException e) {
-            throw new DAOException(e);
+            throw new DAOException(error, e);
         }
         finally {
             closeStatement(preparedStatement);
@@ -90,7 +90,7 @@ public abstract class AbstractDAO<T> {
             connection.commit();
         }
         catch (SQLException e) {
-            throw new DAOException(e);
+            throw new DAOException(error, e);
         }
         finally {
             closeStatement(preparedStatement);
@@ -111,7 +111,7 @@ public abstract class AbstractDAO<T> {
             return resultSetAsObject(resultSet);
         }
         catch (SQLException e) {
-            throw new DAOException(e);
+            throw new DAOException(error, e);
         }
         finally {
             closeResultSet(resultSet);
@@ -133,7 +133,7 @@ public abstract class AbstractDAO<T> {
             preparedStatement.execute();
             connection.commit();
         } catch (SQLException e) {
-            throw new DAOException(e);
+            throw new DAOException(error, e);
         }
         finally {
             closeStatement(preparedStatement);
