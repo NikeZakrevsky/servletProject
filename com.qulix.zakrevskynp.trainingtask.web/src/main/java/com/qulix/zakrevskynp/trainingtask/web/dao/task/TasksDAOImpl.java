@@ -132,9 +132,11 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
     public List<Task> updateTask(Task task, List<Task> tasks, int id) {
         int index = 0;
         for (Task task1 : tasks) {
-            if (task1.getId() == id && task.getPersonId() != null) {
-                Person person = new PersonDAOImpl().getPersonById(task.getPersonId());
-                task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
+            if (task1.getId() == id) {
+                if (task.getPersonId() != null) {
+                    Person person = new PersonDAOImpl().getPersonById(task.getPersonId());
+                    task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
+                }
                 index = tasks.indexOf(task1);
                 break;
             }
@@ -193,14 +195,14 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
         Date endDate = resultSet.getDate(ENDDATE);
         TaskStatus status = TaskStatus.valueOf(resultSet.getString(STATUS));
         Integer projectId = resultSet.getInt(PROJECTID);
-        Integer personId = resultSet.getInt(PERSONID);
+        Integer personId = (Integer) resultSet.getObject(PERSONID);
         String projectShortName = resultSet.getString(SHORTNAME);
         String performer = resultSet.getString(PERSON);
         Task task = new Task(id, name, time, startDate, endDate, status, performer);
         task.setProjectId(projectId);
         task.setPersonId(personId);
         task.setProjectShortName(projectShortName);
-        return new Task(id, name, time, startDate, endDate, status, performer);
+        return task;
     }
 
     /**

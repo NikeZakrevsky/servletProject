@@ -28,7 +28,6 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
 
         TaskDataValidator validator = new TaskDataValidator();
         Map<String, Object> parameters = getParametersFromRequest(request);
-
         String returningPath = request.getSession().getAttribute(Attribute.PATH).toString();
         List<String> errors = validator.validate(parameters);
         if (errors.isEmpty()) {

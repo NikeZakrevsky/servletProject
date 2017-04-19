@@ -160,4 +160,21 @@ public class Task {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", workTime=" + workTime +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", taskStatus=" + taskStatus +
+                ", performer='" + performer + '\'' +
+                ", projectShortName='" + projectShortName + '\'' +
+                ", projectId=" + projectId +
+                ", personId=" + personId +
+                ", person=" + person +
+                '}';
+    }
 }

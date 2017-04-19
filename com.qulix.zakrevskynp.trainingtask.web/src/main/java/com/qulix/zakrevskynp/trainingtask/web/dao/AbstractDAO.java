@@ -141,8 +141,6 @@ public abstract class AbstractDAO<T> {
         }
     }
 
-
-
     /**
      * Create Task object from ResultSet
      * @param resultSet resultSet for converting to object
