@@ -22,7 +22,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 @WebServlet("/editPerson")
 public class EditPersonServlet extends CustomPersonServlet {
 
-    private PersonDAO personDAO = new PersonDAOImpl(Person.class);
+    private PersonDAO personDAO = new PersonDAOImpl();
     private static final String ID = "id";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

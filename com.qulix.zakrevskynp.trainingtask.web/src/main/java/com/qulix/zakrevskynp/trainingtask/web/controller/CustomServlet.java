@@ -27,12 +27,12 @@ public class CustomServlet extends HttpServlet {
     }
 
 
-    protected List<Task> getItems(Object var){
+    protected List<Task> getItems(Object var) {
         List<Task> result = new ArrayList<>();
-        if (var instanceof List){
-            for(int i = 0; i < ((List<?>)var).size(); i++){
+        if (var instanceof List) {
+            for (int i = 0; i < ((List<?>)var).size(); i++) {
                 Object item = ((List<?>) var).get(i);
-                if(item instanceof Task){
+                if (item instanceof Task) {
                     result.add((Task) item);
                 }
             }

@@ -85,7 +85,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * @return Task object
      */
     public Task getTaskById(int id) {
-        return super.getById( id, SELECT_BY_ID_QUERY, GET_TASKS_BY_ID_ERROR);
+        return super.getById(id, SELECT_BY_ID_QUERY, GET_TASKS_BY_ID_ERROR);
     }
 
     /**
@@ -179,7 +179,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
         }
     }
 
-	/**
+    /**
      * Create Task object from ResultSet
      * @param resultSet resultSet for converting to object
      * @return created task object

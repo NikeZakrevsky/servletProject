@@ -79,7 +79,7 @@ public abstract class AbstractDAO<T> {
         }
     }
 
-    protected void add( T entity, String insertQuery, String error)  {
+    protected void add(T entity, String insertQuery, String error) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
