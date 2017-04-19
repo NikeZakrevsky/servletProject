@@ -26,8 +26,8 @@ public class RemoveTaskProjectServlet extends CustomServlet {
         request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, getParametersFromRequest(request));
         HttpSession session = request.getSession();
         String returningPath = request.getSession(false).getAttribute(Attribute.PATH).toString();
-        List<Task> tasks = (List<Task>) session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
-        List<Task> resultTasks = new TasksDAOImpl(Task.class).removeTask(Integer.parseInt(request.getParameter(TASK_ID)), tasks);
+        List<Task> tasks = getItems(session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
+        List<Task> resultTasks = new TasksDAOImpl().removeTask(Integer.parseInt(request.getParameter(TASK_ID)), tasks);
         session.setAttribute(Attribute.RESULT_TASKS_LIST_NAME, resultTasks);
         session.setAttribute(Attribute.RESULT_TASKS_LIST_NAME, session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
         response.sendRedirect(returningPath);

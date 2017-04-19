@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAO;
@@ -27,7 +28,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 @WebServlet("/editProject")
 public class EditProjectServlet extends CustomProjectServlet {
 
-    private ProjectDAO dao = new ProjectDAOImpl(Project.class);
+    private ProjectDAO dao = new ProjectDAOImpl();
     private static final String ID = "id";
     private static final String EDIT_PROJECT = "editProject?id=";
 
@@ -44,8 +45,8 @@ public class EditProjectServlet extends CustomProjectServlet {
         }
         else {
             request.setAttribute(Attribute.PROJECT_OBJECT_NAME, parameters);
-            List<Map<String, Object>> resultTasks = (List<Map<String, Object>>)
-                    request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
+            HttpSession session = request.getSession();
+            List<Task> resultTasks = getItems(session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
             request.setAttribute(Attribute.TASKS_LIST_NAME, resultTasks);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
             request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);
@@ -56,7 +57,7 @@ public class EditProjectServlet extends CustomProjectServlet {
         List<Task> resultTasks;
         if (request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME) == null) {
             resultTasks = new ArrayList<>();
-            TasksDAOImpl tasksDAO = new TasksDAOImpl(Task.class);
+            TasksDAOImpl tasksDAO = new TasksDAOImpl();
             List<Task> tasks =  tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter(ID)));
             if (tasks != null) {
                 resultTasks.addAll(tasks);
@@ -64,7 +65,7 @@ public class EditProjectServlet extends CustomProjectServlet {
             request.getSession().setAttribute(Attribute.RESULT_TASKS_LIST_NAME, resultTasks);
         }
         else {
-            resultTasks = (List<Task>) request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
+            resultTasks = getItems(request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
         }
         if (request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME) == null) {
             Project project = dao.getProjectById(Integer.parseInt(request.getParameter(ID)));
@@ -80,8 +81,8 @@ public class EditProjectServlet extends CustomProjectServlet {
     }
 
     private void updateChangedTasks(HttpServletRequest request) {
-        List<Task> resultTasks = (List<Task>)request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
-        TasksDAOImpl tasksDAO = new TasksDAOImpl(Task.class);
+        List<Task> resultTasks = getItems(request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
+        TasksDAOImpl tasksDAO = new TasksDAOImpl();
         List<Task> tasksList = tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter(ID)));
         Set<Object> t1 = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
         Set<Object> t2 = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());

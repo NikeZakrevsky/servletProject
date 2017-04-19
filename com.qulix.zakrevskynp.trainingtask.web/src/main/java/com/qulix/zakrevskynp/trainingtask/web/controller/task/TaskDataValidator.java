@@ -22,7 +22,7 @@ public class TaskDataValidator extends Validator {
     private Map<String, Object> parameters;
     private List<String> errors = new ArrayList<>();
 
-    private static final String DATE_FORMAT = "yyyy-MM-dd";;
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     private static final String START_DATE_ERROR = "Дата начала : неверный формат";
     private static final String END_DATE_ERROR = "Дата окончания : неверный формат";

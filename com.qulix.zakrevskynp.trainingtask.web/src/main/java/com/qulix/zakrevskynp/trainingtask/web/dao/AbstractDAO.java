@@ -7,14 +7,9 @@ import java.util.List;
  * @author Q-NZA
  * @param <T>
  */
-public class AbstractDAO<T> {
-    private final Class<T> typeParameterClass;
-    
-    public AbstractDAO(Class<T> typeParameterClass) {
-        this.typeParameterClass = typeParameterClass;
-    }
+public abstract class AbstractDAO<T> {
 
-    protected List getList(DaoUtil daoUtil, String selectQuery, String error) {
+    protected List<T> getList(String selectQuery, String error) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -22,7 +17,7 @@ public class AbstractDAO<T> {
             connection = ConnectionFactory.getConnection();
             preparedStatement = connection.prepareStatement(selectQuery);
             resultSet = preparedStatement.executeQuery();
-            return daoUtil.resultSetToList(resultSet);
+            return resultSetToList(resultSet);
         } catch (SQLException e) {
             throw new DAOException(e);
         }
@@ -84,13 +79,13 @@ public class AbstractDAO<T> {
         }
     }
 
-    protected void add(DaoUtil daoUtil, T entity, String insertQuery, String error)  {
+    protected void add( T entity, String insertQuery, String error)  {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.getConnection();
             preparedStatement = connection.prepareStatement(insertQuery);
-            daoUtil.setPreparedStatement(preparedStatement, entity);
+            setPreparedStatement(preparedStatement, entity);
             preparedStatement.execute();
             connection.commit();
         }
@@ -103,7 +98,7 @@ public class AbstractDAO<T> {
         }
     }
 
-    protected T getById(DaoUtil daoUtil, int id, String getByIdQuery, String error)  {
+    protected T getById(int id, String getByIdQuery, String error)  {
         ResultSet resultSet = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -113,7 +108,7 @@ public class AbstractDAO<T> {
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            return typeParameterClass.cast(daoUtil.resultSetAsObject(resultSet));
+            return resultSetAsObject(resultSet);
         }
         catch (SQLException e) {
             throw new DAOException(e);
@@ -126,14 +121,14 @@ public class AbstractDAO<T> {
     }
 
 
-    protected void update(DaoUtil daoUtil, T entity, int id, String updateQuery, String error) {
+    protected void update(T entity, int id, String updateQuery, String error) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
 
             connection = ConnectionFactory.getConnection();
             preparedStatement = connection.prepareStatement(updateQuery);
-            int lastIndex = daoUtil.setPreparedStatement(preparedStatement, entity);
+            int lastIndex = setPreparedStatement(preparedStatement, entity);
             preparedStatement.setInt(lastIndex, id);
             preparedStatement.execute();
             connection.commit();
@@ -145,5 +140,29 @@ public class AbstractDAO<T> {
             closeConnection(connection);
         }
     }
+
+
+
+    /**
+     * Create Task object from ResultSet
+     * @param resultSet resultSet for converting to object
+     * @return created task object
+     */
+    protected abstract T resultSetAsObject(ResultSet resultSet) throws SQLException;
+
+    /**
+     * Convert the ResultSet to a List of objects
+     * @param rs @{{@link ResultSet}} object converted to list
+     * @return tasks list
+     * @throws SQLException throws while getting data from result set
+     */
+    protected abstract List<T> resultSetToList(ResultSet rs) throws SQLException;
+
+    /**
+     * Set parameters to prepared statement
+     * @param preparedStatement link of the prepared statement for setting parameters
+     * @throws SQLException throws while setting parameters to prepared statement
+     */
+    protected abstract int setPreparedStatement(PreparedStatement preparedStatement, T entity) throws SQLException;
 
 }

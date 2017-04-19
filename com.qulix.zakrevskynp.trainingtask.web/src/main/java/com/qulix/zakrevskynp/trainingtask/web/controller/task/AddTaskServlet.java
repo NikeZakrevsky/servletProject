@@ -14,8 +14,6 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.model.Person;
-import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
@@ -31,12 +29,12 @@ public class AddTaskServlet extends CustomTaskServlet {
         List<String> errors = new TaskDataValidator().validate(parameters);
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
-            new TasksDAOImpl(Task.class).addTask(task);
+            new TasksDAOImpl().addTask(task);
             response.sendRedirect(Attribute.TASKS_LIST);
         }
         else {
-            request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl(Project.class).getProjectsList());
-            request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDAOImpl(Person.class).getPersonsList());
+            request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getProjectsList());
+            request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDAOImpl().getPersonsList());
             request.setAttribute(Attribute.ACTION, Attribute.ADD_TASK);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
             request.setAttribute(Attribute.TASK_OBJECT_NAME, parameters);
@@ -45,8 +43,8 @@ public class AddTaskServlet extends CustomTaskServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl(Project.class).getProjectsList());
-        request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDAOImpl(Person.class).getPersonsList());
+        request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getProjectsList());
+        request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDAOImpl().getPersonsList());
         request.setAttribute(Attribute.ACTION, Attribute.ADD_TASK);
         request.setAttribute(Attribute.PATH, Attribute.TASKS_LIST);
         request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);

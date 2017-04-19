@@ -11,7 +11,6 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
  * Show remove task form and handling it data for removing task in database
@@ -23,7 +22,7 @@ public class RemoveTaskServlet extends CustomServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String returningPath = request.getSession(false).getAttribute(Attribute.PATH).toString();
-        TasksDAO tasksDAO = new TasksDAOImpl(Task.class);
+        TasksDAO tasksDAO = new TasksDAOImpl();
         tasksDAO.removeTask(Integer.parseInt(request.getParameter(ID)));
         response.sendRedirect(returningPath);
     }

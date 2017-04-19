@@ -30,8 +30,8 @@ public class AddProjectServlet extends CustomProjectServlet {
         List<String> errors = new ProjectDataValidator().validate(parameters);
         if (errors.isEmpty()) {
             Project project = parametersToObject(parameters);
-            List<Task> tasks = (List<Task>) request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
-            new ProjectDAOImpl(Project.class).addProject(project, tasks);
+            List<Task> tasks = getItems(request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
+            new ProjectDAOImpl().addProject(project, tasks);
             request.getSession().invalidate();
             response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
         }
@@ -39,7 +39,7 @@ public class AddProjectServlet extends CustomProjectServlet {
             HttpSession session = request.getSession();
             request.setAttribute(Attribute.PROJECT_OBJECT_NAME, parameters);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
-            List<Task> tasks = (List<Task>)session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
+            List<Task> tasks = getItems(session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
             request.setAttribute(Attribute.TASKS_LIST_NAME, tasks);
             request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);
         }
@@ -50,7 +50,7 @@ public class AddProjectServlet extends CustomProjectServlet {
         request.getSession(true).setAttribute(Attribute.PATH,  Attribute.ADD_PROJECT);
         request.setAttribute(Attribute.PATH, Attribute.ADD_PROJECT);
         HttpSession session = request.getSession();
-        List<Task> tasks = (List<Task>)session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME);
+        List<Task> tasks = getItems(session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
         session.setAttribute(Attribute.RESULT_TASKS_LIST_NAME, tasks);
         request.setAttribute(Attribute.TASKS_LIST_NAME, tasks);
         request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);

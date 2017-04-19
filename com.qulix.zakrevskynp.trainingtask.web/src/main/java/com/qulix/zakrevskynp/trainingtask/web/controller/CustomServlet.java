@@ -1,5 +1,6 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,8 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+
+import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
  * Extend HttpServlet
@@ -21,6 +24,20 @@ public class CustomServlet extends HttpServlet {
     protected Map<String, Object> getParametersFromRequest(HttpServletRequest request) {
         List<String> parametersNames = Collections.list(request.getParameterNames());
         return parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
+    }
+
+
+    protected List<Task> getItems(Object var){
+        List<Task> result = new ArrayList<>();
+        if (var instanceof List){
+            for(int i = 0; i < ((List<?>)var).size(); i++){
+                Object item = ((List<?>) var).get(i);
+                if(item instanceof Task){
+                    result.add((Task) item);
+                }
+            }
+        }
+        return result;
     }
 
 }
