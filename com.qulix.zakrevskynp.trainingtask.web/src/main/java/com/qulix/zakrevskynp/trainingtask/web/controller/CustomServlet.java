@@ -16,6 +16,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  * @author Q-NZA
  */
 public class CustomServlet extends HttpServlet {
+
     /**
      * Convert parameters from request to map
      * @param request @{{@link HttpServletRequest}} object
@@ -26,7 +27,11 @@ public class CustomServlet extends HttpServlet {
         return parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
     }
 
-
+    /**
+     * Cast Object to List<Task> for avoiding unchecked cast warning
+     * @param var object for casting
+     * @return list of tasks
+     */
     protected List<Task> getItems(Object var) {
         List<Task> result = new ArrayList<>();
         if (var instanceof List) {

@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 /**
- * Validate class
+ * Validating data from forms
  * @author Q-NZA
  */
 public abstract class Validator {
@@ -18,10 +18,13 @@ public abstract class Validator {
     private static final String REGEX = "^[a-zA-ZА-Яа-яёЁ\\s]*$";
     private static final String REGEX1 = "\\d{1,8}(.\\d)?";
     private Predicate<Object> testEmpty = e -> e == null || e.equals("");
+
     /**
-     * Validate single field
-     * @param field Object for validate
-     * @param fieldName error message, when field isn't valid
+     * Validating field length
+     * @param field
+     * @param fieldName
+     * @param errors
+     * @param fieldLength
      */
     protected void validateFieldLength(Object field, String fieldName, List<String> errors, int fieldLength) {
         if (field.toString().length() > fieldLength) {
@@ -29,12 +32,23 @@ public abstract class Validator {
         }
     }
 
+    /**
+     * Validating field empties
+     * @param field
+     * @param fieldName
+     * @param errors
+     */
     protected void validateFieldEmpty(Object field, String fieldName, List<String> errors) {
         if (testEmpty.test(field)) {
             errors.add(fieldName + " : " + EMPTY_ERROR);
         }
     }
 
+    /**
+     * Parsing string field to integer
+     * @param field
+     * @param parameters
+     */
     protected void parseIntegerParams(String field, Map<String, Object> parameters) {
         if (!parameters.get(field).toString().equals("")) {
             parameters.put(field, Integer.parseInt(parameters.get(field).toString()));
@@ -44,6 +58,11 @@ public abstract class Validator {
         }
     }
 
+    /**
+     * Parsing string field to float
+     * @param field
+     * @param parameters
+     */
     protected void parseFloatParams(String field, Map<String, Object> parameters) {
         if (!parameters.get(field).toString().equals("")) {
             parameters.put(field, Float.parseFloat(parameters.get(field).toString()));
@@ -53,6 +72,12 @@ public abstract class Validator {
         }
     }
 
+    /**
+     * Checking field symbols
+     * @param field
+     * @param fieldName
+     * @param errors
+     */
     protected void validateFieldSymbols(Object field, String fieldName, List<String> errors) {
         if (!field.toString().matches(REGEX)) {
             errors.add(fieldName + " : " + SYMBOLS_ERROR);

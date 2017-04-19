@@ -14,7 +14,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
 
 /**
- * Implementation of {@link TasksDAO} interface
+ * Using DAO pattern for operations with @{{@link Task}} objects
  * @author Q-NZA
  */
 public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
@@ -54,7 +54,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
     private int id = 0;
 
     /**
-     * Get all task from database
+     * Getting all tasks from the database
      * @return list of all tasks in database
      */
     @Override
@@ -63,7 +63,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
     }
 
     /**
-     * Remove project from database by id
+     * Removing project from the database by id
      * @param id project's id
      */
     @Override
@@ -72,7 +72,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
     }
 
     /**
-     * Insert task in database
+     * Inserting task in the database
      * @param task task form data
      */
     @Override
@@ -90,8 +90,8 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
     }
 
     /**
-     * Update task in database
-     * @param task task form data
+     * Update task in the database
+     * @param task task data from the form
      */
     @Override
     public void updateTask(Task task)  {

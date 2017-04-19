@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
 
 /**
- * Validate task form data
+ * Validate data from forms for working with tasks
  * @author Q-NZA
  */
 public class TaskDataValidator extends Validator {

@@ -13,7 +13,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 
 /**
- * Implementation of {@link ProjectDAO} interface
+ * Using DAO pattern for operations with @{{@link Project}} objects
  * @author Q-NZA
  */
 public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
@@ -38,7 +38,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
 
     /**
      * Update information about project in database
-     * @param project form data
+     * @param project project data from form
      */
     @Override
     public void updateProject(Project project) {

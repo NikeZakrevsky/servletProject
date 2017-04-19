@@ -9,7 +9,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Custom extension of @{{@link CustomServlet}} for task dao layer
+ * Custom servlet for *Task servlets for construct @{{@link Task}} object from Map
  * @author Q-NZA
  */
 public class CustomTaskServlet extends CustomServlet {

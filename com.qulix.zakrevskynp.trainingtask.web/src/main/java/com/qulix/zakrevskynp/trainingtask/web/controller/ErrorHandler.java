@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
 
 /**
- * Handle and process errors
+ * Filter for handling and process exceptions
  * @author Q-NZA
  */
 @WebFilter(filterName = "errorHandlerServlet", urlPatterns = {"/*"})

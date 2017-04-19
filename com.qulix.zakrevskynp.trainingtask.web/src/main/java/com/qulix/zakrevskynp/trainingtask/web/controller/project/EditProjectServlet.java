@@ -22,7 +22,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Show view with form for editing new project and handling it data
+ * Shows the form for updating project and processes its data
  * @author Q-NZA
  */
 @WebServlet("/editProject")

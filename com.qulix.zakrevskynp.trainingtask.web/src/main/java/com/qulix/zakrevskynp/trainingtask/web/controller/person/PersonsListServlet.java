@@ -13,7 +13,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
 import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 
 /**
- * Show view with list of person
+ * Shows the page with all persons from the database
  * @author Q-NZA
  */
 @WebServlet("/personsList")

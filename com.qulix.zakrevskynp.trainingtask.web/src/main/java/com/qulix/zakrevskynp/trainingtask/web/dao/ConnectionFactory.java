@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
 
 /**
- * Get Connection object
+ * Factory fot getting Connection object
  * @author Q-NZA
  */
 public class ConnectionFactory {
@@ -53,8 +53,7 @@ public class ConnectionFactory {
     }
 
     /**
-     * Get exist connection
-     *
+     * Getting an exist connection
      * @return Connection object
      * @throws SQLException throws while getting connection to database
      */

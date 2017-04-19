@@ -6,7 +6,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 
 /**
- * Custom extension of @{{@link CustomServlet}} for project dao layer
+ * Custom servlet for *Project servlets for construct @{{@link Project}} object from Map
  * @author Q-NZA
  */
 public class CustomProjectServlet extends CustomServlet {

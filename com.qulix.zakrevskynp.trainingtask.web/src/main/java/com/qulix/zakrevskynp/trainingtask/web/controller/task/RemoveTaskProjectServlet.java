@@ -15,7 +15,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Show remove task form and handling it data for removing task in session
+ * Remove task from session
  * @author Q-NZA
  */
 @WebServlet("/removeTaskProject")

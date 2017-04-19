@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.qulix.zakrevskynp.trainingtask.web.dao.AbstractDAO;
+import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
- * Implementation of {@link PersonDAO} interface
+ * Using DAO pattern for operations with @{{@link Person}} objects
  * @author Q-NZA
  */
 public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
@@ -34,9 +35,8 @@ public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
     private static final String POSITION = "position";
 
     /**
-     * Gets list of persons
-     *
-     * @return list of all persons from database
+     * Getting a list of persons
+     * @return list of all persons from the database
      */
     @Override
     public List getPersonsList()  {
@@ -44,8 +44,8 @@ public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
     }
 
     /**
-     * Inserts new person in database
-     * @param person data from add person form
+     * Inserting a new person in the database
+     * @param person person data from the form
      */
     @Override
     public void addPerson(Person person)  {
@@ -53,7 +53,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
     }
 
     /**
-     * Remove person from database by id
+     * Removing a person from the database by id
      * @param id person's id
      */
     @Override
@@ -62,10 +62,9 @@ public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
     }
 
     /**
-     * Gets person by id
-     *
+     * Getting a person by id
      * @param id person's id
-     * @return person by id
+     * @return @{{@link Person}}
      */
     @Override
     public Person getPersonById(int id) {
@@ -73,7 +72,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
     }
 
     /**
-     * Update information about exist person
+     * Updating information about a person
      *
      * @param person Person object
      */
@@ -83,47 +82,56 @@ public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
     }
 
     /**
-     * Create object from ResultSet
+     * Creating object from the ResultSet
      *
      * @param resultSet resultSet for converting to object
      * @return created person object
-     * @throws SQLException
      */
-    public Person resultSetAsObject(ResultSet resultSet) throws SQLException {
-        Integer id = resultSet.getInt(ID);
-        String firstName = resultSet.getString(FIRST_NAME);
-        String middleName = resultSet.getString(MIDDLE_NAME);
-        String lastName = resultSet.getString(LAST_NAME);
-        String position = resultSet.getString(POSITION);
-
-        return new Person(id, firstName, middleName, lastName, position);
+    public Person resultSetAsObject(ResultSet resultSet) {
+        try {
+            Integer id = resultSet.getInt(ID);
+            String firstName = resultSet.getString(FIRST_NAME);
+            String middleName = resultSet.getString(MIDDLE_NAME);
+            String lastName = resultSet.getString(LAST_NAME);
+            String position = resultSet.getString(POSITION);
+            return new Person(id, firstName, middleName, lastName, position);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
     }
 
     /**
-     * Convert the ResultSet to a List of objects
+     * Converting the ResultSet to a list of objects
      * @param rs @{{@link ResultSet}} object converted to list
      * @return tasks list
-     * @throws SQLException throws while getting data from result set
      */
-    public List<Person> resultSetToList(ResultSet rs) throws SQLException {
-        List<Person> persons = new ArrayList<>();
-        while (rs.next()) {
-            persons.add(resultSetAsObject(rs));
+    public List<Person> resultSetToList(ResultSet rs) {
+        try {
+            List<Person> persons = new ArrayList<>();
+            while (rs.next()) {
+                persons.add(resultSetAsObject(rs));
+            }
+            return persons;
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
-        return persons;
     }
 
     /**
-     * Set parameters to prepared statement
+     * Setting parameters to prepared statement
      * @param preparedStatement link of the prepared statement for setting parameters
      * @param person Person object
-     * @throws SQLException
      */
-    public int setPreparedStatement(PreparedStatement preparedStatement, Person person) throws SQLException {
-        preparedStatement.setString(1, person.getFirstName());
-        preparedStatement.setString(2, person.getMiddleName());
-        preparedStatement.setString(3, person.getLastName());
-        preparedStatement.setString(4, person.getPosition());
-        return 5;
+    public int setPreparedStatement(PreparedStatement preparedStatement, Person person) {
+        try {
+            int i = 0;
+            preparedStatement.setString(++i, person.getFirstName());
+            preparedStatement.setString(++i, person.getMiddleName());
+            preparedStatement.setString(++i, person.getLastName());
+            preparedStatement.setString(++i, person.getPosition());
+            return ++i;
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
     }
 }

@@ -12,7 +12,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
 
 /**
- * Show view with list of projects
+ * Shows the page with all projects from the database
  * @author Q-NZA
  */
 @WebServlet("/projectsList")

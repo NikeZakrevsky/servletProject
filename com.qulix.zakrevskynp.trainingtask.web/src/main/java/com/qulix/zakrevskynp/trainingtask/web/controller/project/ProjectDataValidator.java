@@ -7,7 +7,7 @@ import java.util.Map;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
 
 /**
- * Validate project form data
+ * Validate data from forms for working with projects
  * @author Q-NZA
  */
 public class ProjectDataValidator extends Validator {
