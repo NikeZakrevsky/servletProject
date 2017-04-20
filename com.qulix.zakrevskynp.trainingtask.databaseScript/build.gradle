@@ -1,0 +1,50 @@
+group 'com.qulix.zakrevskynp.trainingtask.web'
+
+import groovy.sql.*
+
+configurations {
+    hsqldb
+}
+
+dependencies {
+    hsqldb group: 'org.hsqldb', name: 'hsqldb', version: '2.3.4'
+}
+
+task startDatabaseServer(type: JavaExec) {
+	classpath configurations.hsqldb
+    main = 'org.hsqldb.server.Server'
+    args = ['-database.0', 'file:build/database/training', '-dbname.0', 'testdb']
+}
+
+URLClassLoader loader = GroovyObject.class.classLoader as URLClassLoader
+configurations.hsqldb.each {File file ->  loader.addURL(file.toURI().toURL()) }
+
+static def executeSqlScrips(String fileName) {
+    def props = [user: 'sa', password: '', allowMultiQueries: 'true'] as Properties
+    def driver = 'org.hsqldb.jdbcDriver'
+    def url = 'jdbc:hsqldb:hsql://localhost:9001/testdb'
+    def sql = Sql.newInstance(url, props, driver)
+    String sqlFilePath = fileName
+    String sqlString = new File(sqlFilePath).text
+    sql.execute(sqlString)
+    sql.close()
+}
+
+task createDatabase {
+    doLast {
+        executeSqlScrips('com.qulix.zakrevskynp.trainingtask.databaseScript/create.sql')
+    }
+}
+
+task dropDatabase {
+    doLast {
+        executeSqlScrips('com.qulix.zakrevskynp.trainingtask.databaseScript/drop.sql')
+    }
+}
+
+task insertTestData {
+    doLast {
+        executeSqlScrips('com.qulix.zakrevskynp.trainingtask.databaseScript/insertTestData.sql')
+    }
+}
+

@@ -1,20 +1,13 @@
 group 'com.qulix.zakrevskynp.trainingtask.web'
 
-import groovy.sql.*
-
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'com.bmuschko.tomcat'
-
-configurations {
-    hsqldb
-}
 
 dependencies {
     compile group: 'org.hsqldb', name: 'hsqldb', version: '2.3.4'
     compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
     compile group: 'javax.servlet', name: 'jstl', version: '1.2'
-    hsqldb group: 'org.hsqldb', name: 'hsqldb', version: '2.3.4'
     def tomcatVersion = '8.0.39'
     tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
             "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
@@ -40,46 +33,3 @@ tasks.withType(War) {
     archiveName = "${project.name}.war"
 }
 task startServer(dependsOn: 'tomcatRun'){}
-
-task startDatabaseServer(type: JavaExec) {
-	classpath configurations.hsqldb
-    main = 'org.hsqldb.server.Server'
-    args = ['-database.0', 'file:build/database/training', '-dbname.0', 'testdb']
-}
-
-URLClassLoader loader = GroovyObject.class.classLoader as URLClassLoader
-configurations.hsqldb.each {File file ->  loader.addURL(file.toURI().toURL()) }
-
-tomcat {
-    httpPort = 8080
-}
-
-static def executeSqlScrips(String fileName) {
-    def props = [user: 'sa', password: '', allowMultiQueries: 'true'] as Properties
-    def driver = 'org.hsqldb.jdbcDriver'
-    def url = 'jdbc:hsqldb:hsql://localhost:9001/testdb'
-    def sql = Sql.newInstance(url, props, driver)
-    String sqlFilePath = fileName
-    String sqlString = new File(sqlFilePath).text
-    sql.execute(sqlString)
-    sql.close()
-}
-
-task createDatabase {
-    doLast {
-        executeSqlScrips('databaseScripts/create.sql')
-    }
-}
-
-task dropDatabase {
-    doLast {
-        executeSqlScrips('databaseScripts/drop.sql')
-    }
-}
-
-task insertTestData {
-    doLast {
-        executeSqlScrips('databaseScripts/insertTestData.sql')
-    }
-}
-

@@ -1,3 +1,4 @@
 rootProject.name = 'trainingtask'
 include 'com.qulix.zakrevskynp.trainingtask.web'
+include 'com.qulix.zakrevskynp.trainingtask.databaseScript'
 
