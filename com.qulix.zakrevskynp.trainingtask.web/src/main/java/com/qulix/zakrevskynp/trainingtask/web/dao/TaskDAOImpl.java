@@ -29,11 +29,11 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
     private static final String UPDATE_QUERY = "update tasks set name = ?, time = ?, startDate = ?, " +
             "endDate = ?, status = ?, projectId = ?, personId = ? where id = ?";
 
-    private static final String GET_TASKS_LIST_ERROR = "Error while getting tasks list";
-    private static final String REMOVE_TASKS_ERROR = "Error while removing task";
-    private static final String ADD_TASK_ERROR = "Error while adding task";
-    private static final String UPDATE_TASKS_ERROR = "Error while updating task";
-    private static final String GET_TASKS_BY_ID_ERROR = "Error while getting task";
+    private static final String GET_TASKS_LIST_ERROR = "Ошибка при получении списка задач";
+    private static final String REMOVE_TASKS_ERROR = "Ошибка при удалении задачи";
+    private static final String ADD_TASK_ERROR = "Ошибка при добавлении задачи";
+    private static final String UPDATE_TASKS_ERROR = "Ошибка при обновлении задачи";
+    private static final String GET_TASKS_BY_ID_ERROR = "Ошибка при получении задачи";
 
     private static final String ID = "id";
     private static final String NAME = "name";

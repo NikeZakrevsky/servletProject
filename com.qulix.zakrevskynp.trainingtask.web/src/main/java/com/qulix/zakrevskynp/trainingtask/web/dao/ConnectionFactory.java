@@ -25,9 +25,9 @@ class ConnectionFactory {
     private static final String URL = "url";
     private static final String JDBC_PROPERTIES_PATH =
             "com.qulix.zakrevskynp.trainingtask.web/src/main/resources/jdbc.properties";
-    private static final String DATABASE_CONNECTION_ERROR = "Can not connect";
+    private static final String DATABASE_CONNECTION_ERROR = "Ошибка подключения к базе данных";
     private static Logger logger = LoggingFactory.getLogger();
-    private static final String READ_PROPERTIES_ERROR = "Can not read database properties";
+    private static final String READ_PROPERTIES_ERROR = "Файл настроек базы данных не найден";
     
     private ConnectionFactory() {
     }

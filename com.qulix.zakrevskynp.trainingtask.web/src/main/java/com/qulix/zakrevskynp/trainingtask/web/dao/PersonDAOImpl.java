@@ -20,11 +20,11 @@ public class PersonDAOImpl extends AbstractDAO<Person> {
     private static final String SELECT_BY_ID_QUERY = "select id, fname, sname, lname, position from persons where id=?";
     private static final String UPDATE_QUERY = "update persons set fname = ?, sname = ?, lname = ?, position = ? where id = ?";
 
-    private static final String ADD_PERSON_ERROR = "Error while adding person";
-    private static final String REMOVE_PERSON_ERROR = "Error while deleting person";
-    private static final String GET_PERSONS_LIST_ERROR = "Error while getting persons list";
-    private static final String GET_PERSON_BY_ID_ERROR = "Error while getting person";
-    private static final String UPDATE_PERSON_ERROR = "Error while updating person";
+    private static final String ADD_PERSON_ERROR = "Ошибка при добавлении исполнителя";
+    private static final String REMOVE_PERSON_ERROR = "Ошибка при удалении исполнителя";
+    private static final String GET_PERSONS_LIST_ERROR = "Ошибка при получении списка исполнителей";
+    private static final String GET_PERSON_BY_ID_ERROR = "Ошибка при получении исполнителя";
+    private static final String UPDATE_PERSON_ERROR = "Ошибка при обновлении исполнителя";
 
     private static final String ID = "id";
     private static final String FIRST_NAME = "fname";

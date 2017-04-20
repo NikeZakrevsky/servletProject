@@ -20,11 +20,11 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
     private static final String SELECT_BY_ID_QUERY = "select id, name, shortname, description from projects where id =?";
     private static final String UPDATE_QUERY = "update projects set name = ?, shortname = ?, description = ? where id = ?";
 
-    private static final String ADD_PROJECT_ERROR = "Error while adding project";
-    private static final String REMOVE_PROJECT_ERROR = "Error while deleting project";
-    private static final String UPDATE_PROJECT_ERROR = "Error while updating project";
-    private static final String GET_PROJECTS_LIST_ERROR = "Error while getting projects list";
-    private static final String GET_PROJECT_BY_ID_ERROR = "Error while getting project";
+    private static final String ADD_PROJECT_ERROR = "Ошибка при добавлении проекта";
+    private static final String REMOVE_PROJECT_ERROR = "Ошибка при удалении проекта";
+    private static final String UPDATE_PROJECT_ERROR = "Ошибка при обновлении проекта";
+    private static final String GET_PROJECTS_LIST_ERROR = "Ошибка при получении списка проектов";
+    private static final String GET_PROJECT_BY_ID_ERROR = "Ошибка при получении проекта";
     private static final String IDENTITY_QUERY = "call identity()";
 
     private static final String ID = "id";
