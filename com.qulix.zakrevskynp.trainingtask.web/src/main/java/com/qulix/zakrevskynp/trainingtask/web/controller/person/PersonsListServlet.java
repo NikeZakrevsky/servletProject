@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAO;
-import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDAOImpl;
 
 /**
  * Shows the page with all persons from the database
@@ -20,8 +19,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 public class PersonsListServlet extends CustomPersonServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PersonDAO personDAO = new PersonDAOImpl();
-        List personsList = personDAO.getPersonsList();
+        List personsList = new PersonDAOImpl().getAll();
         request.setAttribute(Attribute.ERROR_LIST_NAME, request.getSession().getAttribute(Attribute.ERROR_LIST_NAME));
         request.setAttribute(Attribute.PERSONS_LIST_NAME, personsList);
         request.getRequestDispatcher(Attribute.PERSONS_LIST_VIEW).forward(request, response);

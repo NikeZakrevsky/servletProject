@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
@@ -25,8 +25,8 @@ public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
         request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, parameters);
-        request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getProjectsList());
-        request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDAOImpl().getPersonsList());
+        request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getAll());
+        request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDAOImpl().getAll());
         if (!request.getParameter(ID).equals("")) {
             Task task = new Task();
             task.setProjectId(Integer.parseInt(request.getParameter(ID)));

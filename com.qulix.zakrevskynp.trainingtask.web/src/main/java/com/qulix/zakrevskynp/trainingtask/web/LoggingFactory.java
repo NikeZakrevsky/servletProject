@@ -7,7 +7,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /**
- * Logging settings
+ * Logging setting
  * @author Q-NZA
  */
 public class LoggingFactory {

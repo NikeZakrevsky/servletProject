@@ -16,7 +16,7 @@ import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
  * Factory fot getting Connection object
  * @author Q-NZA
  */
-public class ConnectionFactory {
+class ConnectionFactory {
     private static Properties dbProperties;
     private static String url;
     private static final String USER = "user";
@@ -57,7 +57,7 @@ public class ConnectionFactory {
      * @return Connection object
      * @throws SQLException throws while getting connection to database
      */
-    public static Connection getConnection() throws SQLException {
+    static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, dbProperties.getProperty(USER), dbProperties.getProperty(PASSWORD));
     }
 }

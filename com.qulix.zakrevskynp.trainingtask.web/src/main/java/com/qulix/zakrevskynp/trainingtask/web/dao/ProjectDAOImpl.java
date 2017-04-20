@@ -1,13 +1,9 @@
-package com.qulix.zakrevskynp.trainingtask.web.dao.project;
+package com.qulix.zakrevskynp.trainingtask.web.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.AbstractDAO;
-import com.qulix.zakrevskynp.trainingtask.web.dao.ConnectionFactory;
-import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
@@ -16,7 +12,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  * Using DAO pattern for operations with @{{@link Project}} objects
  * @author Q-NZA
  */
-public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
+public class ProjectDAOImpl extends AbstractDAO<Project> {
 
     private static final String SELECT_QUERY = "select id, name, shortname, description from projects";
     private static final String INSERT_QUERY = "insert into projects(name, shortname, description) values (?, ?, ?)";
@@ -40,8 +36,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
      * Update information about project in database
      * @param project project data from form
      */
-    @Override
-    public void updateProject(Project project) {
+    public void update(Project project) {
         super.update(project, project.getId(), UPDATE_QUERY, UPDATE_PROJECT_ERROR);
     }
 
@@ -51,8 +46,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
      * @param id project's id
      * @return Project object
      */
-    @Override
-    public Project getProjectById(int id) {
+    public Project getById(int id) {
         return super.getById(id, SELECT_BY_ID_QUERY, GET_PROJECT_BY_ID_ERROR);
     }
 
@@ -61,9 +55,8 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
      *
      * @return list of all projects from database
      */
-    @Override
-    public List getProjectsList() {
-        return super.getList(SELECT_QUERY, GET_PROJECTS_LIST_ERROR);
+    public List<Project> getAll() {
+        return super.getAll(SELECT_QUERY, GET_PROJECTS_LIST_ERROR);
     }
 
 
@@ -71,17 +64,16 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
      * Remove project from database by id
      * @param id project id
      */
-    @Override
-    public void removeProject(int id) {
+    public void remove(int id) {
         super.remove(id, DELETE_QUERY, REMOVE_PROJECT_ERROR);
     }
 
     /**
      *  Create new project with tasks
      *  @param project new project
-     *  @param tasks tasks list for adding to new project
      */
-    public void addProject(Project project, List<Task> tasks) {
+    public void add(Project project) {
+        List<Task> tasks = project.getTasks();
         ResultSet resultSet = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -108,11 +100,11 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
     }
 
     private void addProjectTasks(List<Task> tasks, ResultSet resultSet) throws SQLException {
-        TasksDAOImpl tasksDAO = new TasksDAOImpl();
+        TaskDAOImpl tasksDAO = new TaskDAOImpl();
         if (tasks != null && !tasks.isEmpty()) {
             for (Task task : tasks) {
                 task.setProjectId(resultSet.getInt(1));
-                tasksDAO.addTask(task);
+                tasksDAO.add(task);
             }
         }
     }
@@ -124,6 +116,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
      * @return created project object
      * @throws SQLException throws while getting data from @{{@link ResultSet}}
      */
+    @Override
     public Project resultSetAsObject(ResultSet resultSet) throws SQLException {
         Integer id = resultSet.getInt(ID);
         String name = resultSet.getString(NAME);
@@ -138,6 +131,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
      * @param project Project object
      * @throws SQLException throws while setting parameters in @{{@link PreparedStatement}}
      */
+    @Override
     public int setPreparedStatement(PreparedStatement preparedStatement, Project project) throws SQLException {
         preparedStatement.setString(1, project.getName());
         preparedStatement.setString(2, project.getShortName());
@@ -151,6 +145,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> implements ProjectDAO {
      * @return tasks list
      * @throws SQLException throws while getting data from result set
      */
+    @Override
     public List<Project> resultSetToList(ResultSet rs) throws SQLException {
         List<Project> projects = new ArrayList<>();
         while (rs.next()) {

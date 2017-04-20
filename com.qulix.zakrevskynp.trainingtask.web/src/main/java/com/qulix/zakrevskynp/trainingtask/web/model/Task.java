@@ -7,7 +7,7 @@ import java.time.Duration;
  * Task entity model
  * @author Q-NZA
  */
-public class Task {
+public class Task extends BaseDAOEntity {
     private Integer id;
     private String name;
     private Duration workTime;

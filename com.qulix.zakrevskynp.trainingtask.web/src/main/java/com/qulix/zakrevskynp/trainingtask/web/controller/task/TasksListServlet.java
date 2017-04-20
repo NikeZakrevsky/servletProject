@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
-import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDAOImpl;
 
 /**
  * Shows the page with all tasks from the database
@@ -21,7 +21,7 @@ public class TasksListServlet extends CustomServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute(Attribute.PATH, Attribute.TASKS_LIST);
-        request.setAttribute(Attribute.TASKS_LIST_NAME, new TasksDAOImpl().getTasksList());
+        request.setAttribute(Attribute.TASKS_LIST_NAME, new TaskDAOImpl().getAll());
         request.getRequestDispatcher(Attribute.TASKS_LIST_VIEW).forward(request, response);
     }
 

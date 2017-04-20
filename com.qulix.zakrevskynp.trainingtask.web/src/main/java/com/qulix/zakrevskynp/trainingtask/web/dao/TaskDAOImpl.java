@@ -1,14 +1,10 @@
-package com.qulix.zakrevskynp.trainingtask.web.dao.task;
+package com.qulix.zakrevskynp.trainingtask.web.dao;
 
 import java.sql.*;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.AbstractDAO;
-import com.qulix.zakrevskynp.trainingtask.web.dao.ConnectionFactory;
-import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
-import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
@@ -17,7 +13,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
  * Using DAO pattern for operations with @{{@link Task}} objects
  * @author Q-NZA
  */
-public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
+public class TaskDAOImpl extends AbstractDAO<Task> {
     
     private static final String SELECT_QUERY = "select id, name, time, startDate, endDate, " +
             "status, shortname, projectId, personId, fname + ' ' + sname + ' ' + lname " +
@@ -57,17 +53,15 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * Getting all tasks from the database
      * @return list of all tasks in database
      */
-    @Override
-    public List<Task> getTasksList()  {
-        return super.getList(SELECT_QUERY, GET_TASKS_LIST_ERROR);
+    public List<Task> getAll()  {
+        return super.getAll(SELECT_QUERY, GET_TASKS_LIST_ERROR);
     }
 
     /**
      * Removing project from the database by id
      * @param id project's id
      */
-    @Override
-    public void removeTask(int id)  {
+    public void remove(int id)  {
         super.remove(id, DELETE_QUERY, REMOVE_TASKS_ERROR);
     }
 
@@ -75,8 +69,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * Inserting task in the database
      * @param task task form data
      */
-    @Override
-    public void addTask(Task task)  {
+    public void add(Task task)  {
         super.add(task, INSERT_QUERY, ADD_TASK_ERROR);
     }
 
@@ -85,7 +78,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * @param id task's id
      * @return Task object
      */
-    public Task getTaskById(int id) {
+    public Task getById(int id) {
         return super.getById(id, SELECT_BY_ID_QUERY, GET_TASKS_BY_ID_ERROR);
     }
 
@@ -93,18 +86,15 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * Update task in the database
      * @param task task data from the form
      */
-    @Override
-    public void updateTask(Task task)  {
+    public void update(Task task)  {
         super.update(task, task.getId(), UPDATE_QUERY, UPDATE_TASKS_ERROR);
     }
 
     /**
      * Insert task in database
-     *
      * @param task data from add task form
      * @return list of tasks with added new task
      */
-
     public List<Task> addTask(Task task, List<Task> tasks) {
         if (tasks == null) {
             tasks = new ArrayList<>();
@@ -116,7 +106,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
         }
         task.setId(id + 1);
         if (task.getPersonId() != null) {
-            Person person = new PersonDAOImpl().getPersonById(task.getPersonId());
+            Person person = new PersonDAOImpl().getById(task.getPersonId());
             task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
         }
         tasks.add(task);
@@ -128,13 +118,12 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * @param task data from update task form for getting tasks list
      * @param id task's id
      */
-    @Override
     public List<Task> updateTask(Task task, List<Task> tasks, int id) {
         int index = 0;
         for (Task task1 : tasks) {
             if (task1.getId() == id) {
                 if (task.getPersonId() != null) {
-                    Person person = new PersonDAOImpl().getPersonById(task.getPersonId());
+                    Person person = new PersonDAOImpl().getById(task.getPersonId());
                     task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
                 }
                 index = tasks.indexOf(task1);
@@ -187,6 +176,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * @param resultSet resultSet for converting to object
      * @return created task object
      */
+    @Override
     public Task resultSetAsObject(ResultSet resultSet) throws SQLException {
         Integer id = resultSet.getInt(ID);
         String name = resultSet.getString(NAME);
@@ -211,6 +201,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * @return tasks list
      * @throws SQLException throws while getting data from result set
      */
+    @Override
     public List<Task> resultSetToList(ResultSet rs) throws SQLException {
         List<Task> tasks = new ArrayList<>();
         while (rs.next()) {
@@ -224,6 +215,7 @@ public class TasksDAOImpl extends AbstractDAO<Task> implements TasksDAO {
      * @param task task form data
      * @throws SQLException throws while setting parameters to prepared statement
      */
+    @Override
     public int setPreparedStatement(PreparedStatement preparedStatement, Task task) throws SQLException {
         preparedStatement.setString(1, task.getName());
         preparedStatement.setLong(2, task.getWorkTime().toMinutes());

@@ -6,7 +6,7 @@ import java.util.List;
  * Person entity model
  * @author Q-NZA
  */
-public class Person {
+public class Person extends BaseDAOEntity {
     private Integer id;
     private String firstName;
     private String middleName;

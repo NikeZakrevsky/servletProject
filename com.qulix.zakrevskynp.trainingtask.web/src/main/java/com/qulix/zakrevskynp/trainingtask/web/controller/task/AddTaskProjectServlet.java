@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.dao.person.PersonDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.project.ProjectDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.task.TasksDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
@@ -31,13 +31,13 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
             List<Task> tasks = getItems(request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
-            List<Task> resultTasks = new TasksDAOImpl().addTask(task, tasks);
+            List<Task> resultTasks = new TaskDAOImpl().addTask(task, tasks);
             request.getSession().setAttribute(Attribute.RESULT_TASKS_LIST_NAME, resultTasks);
             response.sendRedirect(request.getSession().getAttribute(Attribute.PATH).toString());
         }
         else {
-            request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getProjectsList());
-            request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDAOImpl().getPersonsList());
+            request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getAll());
+            request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDAOImpl().getAll());
             request.setAttribute(Attribute.ACTION, Attribute.TASK_PROJECT);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
             request.setAttribute(Attribute.TASK_OBJECT_NAME, parameters);

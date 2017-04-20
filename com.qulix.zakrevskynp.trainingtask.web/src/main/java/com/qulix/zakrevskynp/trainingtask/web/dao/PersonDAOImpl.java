@@ -1,4 +1,4 @@
-package com.qulix.zakrevskynp.trainingtask.web.dao.person;
+package com.qulix.zakrevskynp.trainingtask.web.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,15 +6,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.qulix.zakrevskynp.trainingtask.web.dao.AbstractDAO;
-import com.qulix.zakrevskynp.trainingtask.web.dao.DAOException;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
  * Using DAO pattern for operations with @{{@link Person}} objects
  * @author Q-NZA
  */
-public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
+public class PersonDAOImpl extends AbstractDAO<Person> {
     
     private static final String SELECT_QUERY = "select id, fname, sname, lname, position from persons";
     private static final String INSERT_QUERY = "insert into persons(fname, sname, lname, position) values (?, ?, ?, ?)";
@@ -38,17 +36,15 @@ public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
      * Getting a list of persons
      * @return list of all persons from the database
      */
-    @Override
-    public List getPersonsList()  {
-        return super.getList(SELECT_QUERY, GET_PERSONS_LIST_ERROR);
+    public List<Person> getAll()  {
+        return super.getAll(SELECT_QUERY, GET_PERSONS_LIST_ERROR);
     }
 
     /**
      * Inserting a new person in the database
      * @param person person data from the form
      */
-    @Override
-    public void addPerson(Person person)  {
+    public void add(Person person)  {
         super.add(person, INSERT_QUERY, ADD_PERSON_ERROR);
     }
 
@@ -56,8 +52,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
      * Removing a person from the database by id
      * @param id person's id
      */
-    @Override
-    public void removePerson(int id)  {
+    public void remove(int id)  {
         super.remove(id, DELETE_QUERY, REMOVE_PERSON_ERROR);
     }
 
@@ -66,8 +61,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
      * @param id person's id
      * @return @{{@link Person}}
      */
-    @Override
-    public Person getPersonById(int id) {
+    public Person getById(int id) {
         return super.getById(id, SELECT_BY_ID_QUERY, GET_PERSON_BY_ID_ERROR);
     }
 
@@ -76,8 +70,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
      *
      * @param person Person object
      */
-    @Override
-    public void updatePerson(Person person) {
+    public void update(Person person) {
         super.update(person, person.getId(), UPDATE_QUERY, UPDATE_PERSON_ERROR);
     }
 
@@ -87,6 +80,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
      * @param resultSet resultSet for converting to object
      * @return created person object
      */
+    @Override
     public Person resultSetAsObject(ResultSet resultSet) {
         try {
             Integer id = resultSet.getInt(ID);
@@ -105,6 +99,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
      * @param rs @{{@link ResultSet}} object converted to list
      * @return tasks list
      */
+    @Override
     public List<Person> resultSetToList(ResultSet rs) {
         try {
             List<Person> persons = new ArrayList<>();
@@ -122,6 +117,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> implements PersonDAO {
      * @param preparedStatement link of the prepared statement for setting parameters
      * @param person Person object
      */
+    @Override
     public int setPreparedStatement(PreparedStatement preparedStatement, Person person) {
         try {
             int i = 0;

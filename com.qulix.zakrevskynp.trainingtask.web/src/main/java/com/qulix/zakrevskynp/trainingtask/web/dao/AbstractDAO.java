@@ -3,13 +3,15 @@ package com.qulix.zakrevskynp.trainingtask.web.dao;
 import java.sql.*;
 import java.util.List;
 
+import com.qulix.zakrevskynp.trainingtask.web.model.BaseDAOEntity;
+
 /**
  * @author Q-NZA
  * @param <T>
  */
-public abstract class AbstractDAO<T> {
+public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
 
-    protected List<T> getList(String selectQuery, String error) {
+    public List<T> getAll(String selectQuery, String error) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -29,38 +31,7 @@ public abstract class AbstractDAO<T> {
 
     }
 
-    protected void closeResultSet(ResultSet resultSet) {
-        if (resultSet != null) {
-            try {
-                resultSet.close();
-            } catch (SQLException e) {
-                //
-            }
-        }
-    }
-
-    protected void closeStatement(Statement statement) {
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                //
-            }
-        }
-    }
-
-
-    protected void closeConnection(Connection connection) {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                //
-            }
-        }
-    }
-
-    protected void remove(int id, String removeQuery, String error)  {
+    public void remove(int id, String removeQuery, String error)  {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -79,7 +50,7 @@ public abstract class AbstractDAO<T> {
         }
     }
 
-    protected void add(T entity, String insertQuery, String error) {
+    public void add(T entity, String insertQuery, String error) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -98,7 +69,7 @@ public abstract class AbstractDAO<T> {
         }
     }
 
-    protected T getById(int id, String getByIdQuery, String error)  {
+    public T getById(int id, String getByIdQuery, String error)  {
         ResultSet resultSet = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -121,7 +92,7 @@ public abstract class AbstractDAO<T> {
     }
 
 
-    protected void update(T entity, int id, String updateQuery, String error) {
+    public void update(T entity, int id, String updateQuery, String error) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -162,5 +133,37 @@ public abstract class AbstractDAO<T> {
      * @throws SQLException throws while setting parameters to prepared statement
      */
     protected abstract int setPreparedStatement(PreparedStatement preparedStatement, T entity) throws SQLException;
+
+
+    void closeResultSet(ResultSet resultSet) {
+        if (resultSet != null) {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                //
+            }
+        }
+    }
+
+    void closeStatement(Statement statement) {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                //
+            }
+        }
+    }
+
+
+    void closeConnection(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                //
+            }
+        }
+    }
 
 }
