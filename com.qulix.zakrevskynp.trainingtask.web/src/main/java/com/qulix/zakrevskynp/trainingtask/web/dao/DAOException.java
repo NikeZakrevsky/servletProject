@@ -8,8 +8,4 @@ class DAOException extends RuntimeException {
     DAOException(String message, Throwable cause) {
         super(message, cause);
     }
-
-    DAOException(Throwable cause) {
-        super(cause);
-    }
 }

@@ -88,7 +88,8 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
             resultSet.next();
             connection.commit();
             ProjectDAOImpl.this.addProjectTasks(tasks, resultSet);
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             throw new DAOException(ADD_PROJECT_ERROR, e);
         }
         finally {
@@ -118,11 +119,16 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
      */
     @Override
     public Project resultSetAsObject(ResultSet resultSet) throws SQLException {
-        Integer id = resultSet.getInt(ID);
-        String name = resultSet.getString(NAME);
-        String shortName = resultSet.getString(SHORTNAME);
-        String description = resultSet.getString(DESCRIPTION);
-        return new Project(id, name, shortName, description);
+        try {
+            Integer id = resultSet.getInt(ID);
+            String name = resultSet.getString(NAME);
+            String shortName = resultSet.getString(SHORTNAME);
+            String description = resultSet.getString(DESCRIPTION);
+            return new Project(id, name, shortName, description);
+        }
+        catch (SQLException e) {
+            throw new DAOException(RESULT_SET_ERROR, e);
+        }
     }
 
     /**
@@ -133,10 +139,15 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
      */
     @Override
     public int setPreparedStatement(PreparedStatement preparedStatement, Project project) throws SQLException {
-        preparedStatement.setString(1, project.getName());
-        preparedStatement.setString(2, project.getShortName());
-        preparedStatement.setString(3, project.getDescription());
-        return 4;
+        try {
+            preparedStatement.setString(1, project.getName());
+            preparedStatement.setString(2, project.getShortName());
+            preparedStatement.setString(3, project.getDescription());
+            return 4;
+        }
+        catch (SQLException e) {
+            throw new DAOException(PREPARED_STATEMENT_ERROR, e);
+        }
     }
 
     /**
@@ -146,11 +157,16 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
      * @throws SQLException throws while getting data from result set
      */
     @Override
-    public List<Project> resultSetToList(ResultSet rs) throws SQLException {
-        List<Project> projects = new ArrayList<>();
-        while (rs.next()) {
-            projects.add(resultSetAsObject(rs));
+    public List<Project> resultSetToList(ResultSet rs) {
+        try {
+            List<Project> projects = new ArrayList<>();
+            while (rs.next()) {
+                projects.add(resultSetAsObject(rs));
+            }
+            return projects;
         }
-        return projects;
+        catch (SQLException e) {
+            throw new DAOException(RESULT_SET_ERROR, e);
+        }
     }
 }

@@ -89,8 +89,9 @@ public class PersonDAOImpl extends AbstractDAO<Person> {
             String lastName = resultSet.getString(LAST_NAME);
             String position = resultSet.getString(POSITION);
             return new Person(id, firstName, middleName, lastName, position);
-        } catch (SQLException e) {
-            throw new DAOException(e);
+        }
+        catch (SQLException e) {
+            throw new DAOException(RESULT_SET_ERROR, e);
         }
     }
 
@@ -107,8 +108,9 @@ public class PersonDAOImpl extends AbstractDAO<Person> {
                 persons.add(resultSetAsObject(rs));
             }
             return persons;
-        } catch (SQLException e) {
-            throw new DAOException(e);
+        }
+        catch (SQLException e) {
+            throw new DAOException(RESULT_SET_ERROR, e);
         }
     }
 
@@ -126,8 +128,9 @@ public class PersonDAOImpl extends AbstractDAO<Person> {
             preparedStatement.setString(++i, person.getLastName());
             preparedStatement.setString(++i, person.getPosition());
             return ++i;
-        } catch (SQLException e) {
-            throw new DAOException(e);
+        }
+        catch (SQLException e) {
+            throw new DAOException(PREPARED_STATEMENT_ERROR, e);
         }
     }
 }

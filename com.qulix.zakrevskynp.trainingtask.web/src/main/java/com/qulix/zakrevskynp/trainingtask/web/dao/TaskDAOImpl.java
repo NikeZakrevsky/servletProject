@@ -178,52 +178,67 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
      */
     @Override
     public Task resultSetAsObject(ResultSet resultSet) throws SQLException {
-        Integer id = resultSet.getInt(ID);
-        String name = resultSet.getString(NAME);
-        Duration time = Duration.ofMinutes(resultSet.getInt(TIME));
-        Date startDate = resultSet.getDate(STARTDATE);
-        Date endDate = resultSet.getDate(ENDDATE);
-        TaskStatus status = TaskStatus.valueOf(resultSet.getString(STATUS));
-        Integer projectId = resultSet.getInt(PROJECTID);
-        Integer personId = (Integer) resultSet.getObject(PERSONID);
-        String projectShortName = resultSet.getString(SHORTNAME);
-        String performer = resultSet.getString(PERSON);
-        Task task = new Task(id, name, time, startDate, endDate, status, performer);
-        task.setProjectId(projectId);
-        task.setPersonId(personId);
-        task.setProjectShortName(projectShortName);
-        return task;
+        try {
+            Integer id = resultSet.getInt(ID);
+            String name = resultSet.getString(NAME);
+            Duration time = Duration.ofMinutes(resultSet.getInt(TIME));
+            Date startDate = resultSet.getDate(STARTDATE);
+            Date endDate = resultSet.getDate(ENDDATE);
+            TaskStatus status = TaskStatus.valueOf(resultSet.getString(STATUS));
+            Integer projectId = resultSet.getInt(PROJECTID);
+            Integer personId = (Integer) resultSet.getObject(PERSONID);
+            String projectShortName = resultSet.getString(SHORTNAME);
+            String performer = resultSet.getString(PERSON);
+            Task task = new Task(id, name, time, startDate, endDate, status, performer);
+            task.setProjectId(projectId);
+            task.setPersonId(personId);
+            task.setProjectShortName(projectShortName);
+            return task;
+        }
+        catch (SQLException e) {
+            throw new DAOException(RESULT_SET_ERROR, e);
+        }
+
     }
 
     /**
      * Convert the ResultSet to a List of objects
      * @param rs @{{@link ResultSet}} object converted to list
      * @return tasks list
-     * @throws SQLException throws while getting data from result set
      */
     @Override
-    public List<Task> resultSetToList(ResultSet rs) throws SQLException {
-        List<Task> tasks = new ArrayList<>();
-        while (rs.next()) {
-            tasks.add(resultSetAsObject(rs));
+    public List<Task> resultSetToList(ResultSet rs) {
+        try {
+            List<Task> tasks = new ArrayList<>();
+            while (rs.next()) {
+                tasks.add(resultSetAsObject(rs));
+            }
+            return tasks;
         }
-        return tasks;
+        catch (SQLException e) {
+            throw new DAOException(RESULT_SET_ERROR, e);
+        }
+
     }
     /**
      * Set parameters to prepared statement
      * @param preparedStatement link of the prepared statement for setting parameters
      * @param task task form data
-     * @throws SQLException throws while setting parameters to prepared statement
      */
     @Override
     public int setPreparedStatement(PreparedStatement preparedStatement, Task task) throws SQLException {
-        preparedStatement.setString(1, task.getName());
-        preparedStatement.setLong(2, task.getWorkTime().toMinutes());
-        preparedStatement.setDate(3, task.getStartDate());
-        preparedStatement.setDate(4, task.getEndDate());
-        preparedStatement.setString(5, task.getTaskStatus().toString());
-        preparedStatement.setObject(6, task.getProjectId());
-        preparedStatement.setObject(7, task.getPersonId());
-        return 8;
+        try {
+            preparedStatement.setString(1, task.getName());
+            preparedStatement.setLong(2, task.getWorkTime().toMinutes());
+            preparedStatement.setDate(3, task.getStartDate());
+            preparedStatement.setDate(4, task.getEndDate());
+            preparedStatement.setString(5, task.getTaskStatus().toString());
+            preparedStatement.setObject(6, task.getProjectId());
+            preparedStatement.setObject(7, task.getPersonId());
+            return 8;
+        }
+        catch (SQLException e) {
+            throw new DAOException(RESULT_SET_ERROR, e);
+        }
     }
 }
