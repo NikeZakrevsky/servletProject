@@ -20,11 +20,6 @@ public class ErrorHandler implements Filter {
     
     private List<String> errors = new ArrayList<>();
 
-    /**
-     * Initialize filter
-     * @param filterConfig @{{@link FilterConfig}} object
-     * @throws ServletException servlet exception
-     */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
