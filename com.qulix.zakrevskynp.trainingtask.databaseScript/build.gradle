@@ -13,7 +13,7 @@ dependencies {
 task startDatabaseServer(type: JavaExec) {
 	classpath configurations.hsqldb
     main = 'org.hsqldb.server.Server'
-    args = ['-database.0', 'file:build/database/training', '-dbname.0', 'testdb']
+    args = ['-database.0', 'file:database/training', '-dbname.0', 'testdb']
 }
 
 URLClassLoader loader = GroovyObject.class.classLoader as URLClassLoader

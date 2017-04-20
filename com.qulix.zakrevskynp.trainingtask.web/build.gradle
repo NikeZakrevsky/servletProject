@@ -29,7 +29,7 @@ tomcatRun {
     webDefaultXml = file("src/main/webapp/WEB-INF/web.xml")
 }
 tasks.withType(War) {
-    destinationDir = file("build/")
+    destinationDir = file("tomcat/")
     archiveName = "${project.name}.war"
 }
 task startServer(dependsOn: 'tomcatRun'){}
