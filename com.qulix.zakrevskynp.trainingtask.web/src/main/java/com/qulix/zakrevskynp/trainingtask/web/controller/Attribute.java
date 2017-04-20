@@ -18,14 +18,14 @@ public class Attribute {
     public static final String EDIT_TASK = "editTask";
     public static final String EDIT_TASK_PROJECT = "editTaskProject";
 
-    public static final String PERSON_VIEW = "view/personView.jsp";
-    public static final String PERSONS_LIST_VIEW = "view/personsList.jsp";
+    public static final String PERSON_VIEW = "view/person/personView.jsp";
+    public static final String PERSONS_LIST_VIEW = "view/person/personsList.jsp";
 
-    public static final String PROJECT_VIEW = "view/projectView.jsp";
-    public static final String PROJECTS_LIST_VIEW = "view/projectsList.jsp";
+    public static final String PROJECT_VIEW = "view/project/projectView.jsp";
+    public static final String PROJECTS_LIST_VIEW = "view/project/projectsList.jsp";
 
-    public static final String TASK_VIEW = "view/taskView.jsp";
-    public static final String TASKS_LIST_VIEW = "view/tasksList.jsp";
+    public static final String TASK_VIEW = "view/task/taskView.jsp";
+    public static final String TASKS_LIST_VIEW = "view/task/tasksList.jsp";
 
     public static final String RESULT_TASKS_LIST_NAME = "resultTask";
     public static final String TASKS_LIST_NAME = "tasks";

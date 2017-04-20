@@ -6,17 +6,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Plugin tester</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
 
 </head>
 
 <body>
-    <%@ include file="navigationBar.jsp" %>
+    <%@ include file="../share/navigationBar.jsp" %>
     <div class="generic-container">
     <div class="panel panel-default">
     <div class="panel-heading"><span class="lead">Управление задачами</span></div>
 	<form action = "${action}" method = "POST">
-        <%@ include file="errors.jsp" %>
+        <%@ include file="../share/errors.jsp" %>
         <div class="row">
             <div class="form-group col-md-12">
                 <label class="col-md-2 control-lable">Идентификатор</label>

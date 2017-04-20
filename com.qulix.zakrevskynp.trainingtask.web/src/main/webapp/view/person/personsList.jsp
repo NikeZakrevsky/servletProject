@@ -6,7 +6,7 @@
     <title>Simple jsp page</title>
 </head>
 <body>
-<%@ include file="navigationBar.jsp" %>
+<%@ include file="../share/navigationBar.jsp" %>
 <span style="color: red; ">${error}</span></br>
 <div class="generic-container">
     <div class="panel panel-default">
