@@ -37,7 +37,7 @@ class ConnectionFactory {
         try {
             dbProperties.load(new FileInputStream(JDBC_PROPERTIES_PATH));
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, READ_PROPERTIES_ERROR);
+            LOGGER.log(Level.SEVERE, "Exception: " + READ_PROPERTIES_ERROR + e);
         }
     }
 
@@ -47,8 +47,8 @@ class ConnectionFactory {
             Class.forName(dbProperties.getProperty(DRIVER_CLASS));
             url = dbProperties.getProperty(URL);
         }
-        catch (Exception e) {
-            LOGGER.log(Level.SEVERE, DATABASE_CONNECTION_ERROR);
+        catch (ClassNotFoundException e) {
+            LOGGER.log(Level.SEVERE, "Exception: " + DATABASE_CONNECTION_ERROR + e);
         }
     }
 

@@ -40,7 +40,7 @@ public class ErrorHandlerFilter implements Filter {
         }
         catch (Exception e) {
             Logger logger = LoggingFactory.getLogger();
-            logger.log(Level.SEVERE, e.toString());
+            logger.log(Level.SEVERE, "Exception: " + e);
             errors.clear();
             errors.add(e.getMessage());
             request.setAttribute("error", errors);

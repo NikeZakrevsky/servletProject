@@ -12,13 +12,14 @@ import java.util.logging.Logger;
  */
 public class LoggingFactory {
     private static final Logger LOGGER = Logger.getLogger(LoggingFactory.class.getName());
+    private static final String LOAD_CONFIGURATION_ERROR = "Error while loading logger configuration";
 
     static {
         try {
             FileInputStream configFile = new FileInputStream("com.qulix.zakrevskynp.trainingtask.web/src/main/resources/logger.properties");
             LogManager.getLogManager().readConfiguration(configFile);
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Error while loading logger configuration");
+            LOGGER.log(Level.SEVERE, "Exception: " + LOAD_CONFIGURATION_ERROR + e);
         }
     }
 
