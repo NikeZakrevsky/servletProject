@@ -15,19 +15,19 @@ import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
  */
 public class TaskDAOImpl extends AbstractDAO<Task> {
     
-    private static final String SELECT_QUERY = "select id, name, time, startDate, endDate, " +
-            "status, shortname, projectId, personId, fname + ' ' + sname + ' ' + lname " +
-            "as person from tasks left join projects on tasks.projectId = projects.id left join " +
-            "persons on tasks.personId = persons.id";
-    private static final String SELECT_BY_ID_QUERY = "select id, name, time, startDate, endDate, " +
-                "status, shortname, projectId, personId, fname + ' ' + sname + ' ' + lname " +
-                "as person from tasks left join projects on tasks.projectId = projects.id left join " +
-                "persons on tasks.personId = persons.id where id = ?";
+    private static final String SELECT_QUERY = "select id, name, time, start_date, end_date, " +
+            "status, short_name, project_id, person_id, first_name + ' ' + middle_name + ' ' + last_name " +
+            "as person from tasks left join projects on tasks.project_id = projects.id left join " +
+            "persons on tasks.person_id = persons.id";
+    private static final String SELECT_BY_ID_QUERY = "select id, name, time, start_date, end_date, " +
+                "status, short_name, project_id, person_id, first_name + ' ' + middle_name + ' ' + last_name " +
+                "as person from tasks left join projects on tasks.project_id = projects.id left join " +
+                "persons on tasks.person_id = persons.id where id = ?";
     private static final String DELETE_QUERY = "delete from tasks where id=?";
     private static final String INSERT_QUERY = "insert into tasks(name, time, startDate, endDate, " +
-            "status, projectId, personId) values (?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_QUERY = "update tasks set name = ?, time = ?, startDate = ?, " +
-            "endDate = ?, status = ?, projectId = ?, personId = ? where id = ?";
+            "status, project_id, person_id) values (?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_QUERY = "update tasks set name = ?, time = ?, start_date = ?, " +
+            "end_date = ?, status = ?, project_id = ?, person_id = ? where id = ?";
 
     private static final String GET_TASKS_LIST_ERROR = "Ошибка при получении списка задач";
     private static final String REMOVE_TASKS_ERROR = "Ошибка при удалении задачи";
@@ -38,14 +38,14 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String TIME = "time";
-    private static final String STARTDATE = "startDate";
-    private static final String ENDDATE = "endDate";
+    private static final String STARTDATE = "start_date";
+    private static final String ENDDATE = "end_date";
     private static final String STATUS = "status";
-    private static final String PROJECTID = "projectId";
-    private static final String PERSONID = "personId";
-    private static final String SHORTNAME = "shortname";
+    private static final String PROJECTID = "project_id";
+    private static final String PERSONID = "person_id";
+    private static final String SHORTNAME = "short_name";
     private static final String PERSON = "person";
-    private static final String WHERE_ID = " where projectId = ?";
+    private static final String WHERE_ID = " where project_id = ?";
 
     private int id = 0;
 

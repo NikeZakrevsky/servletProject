@@ -14,11 +14,11 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 public class ProjectDAOImpl extends AbstractDAO<Project> {
 
-    private static final String SELECT_QUERY = "select id, name, shortname, description from projects";
-    private static final String INSERT_QUERY = "insert into projects(name, shortname, description) values (?, ?, ?)";
+    private static final String SELECT_QUERY = "select id, name, short_name, description from projects";
+    private static final String INSERT_QUERY = "insert into projects(name, short_name, description) values (?, ?, ?)";
     private static final String DELETE_QUERY = "delete from projects where id=?";
-    private static final String SELECT_BY_ID_QUERY = "select id, name, shortname, description from projects where id =?";
-    private static final String UPDATE_QUERY = "update projects set name = ?, shortname = ?, description = ? where id = ?";
+    private static final String SELECT_BY_ID_QUERY = "select id, name, short_name, description from projects where id =?";
+    private static final String UPDATE_QUERY = "update projects set name = ?, short_name = ?, description = ? where id = ?";
 
     private static final String ADD_PROJECT_ERROR = "Ошибка при добавлении проекта";
     private static final String REMOVE_PROJECT_ERROR = "Ошибка при удалении проекта";
@@ -29,7 +29,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
 
     private static final String ID = "id";
     private static final String NAME = "name";
-    private static final String SHORTNAME = "shortName";
+    private static final String SHORTNAME = "short_name";
     private static final String DESCRIPTION = "description";
 
     /**

@@ -14,11 +14,11 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
  */
 public class PersonDAOImpl extends AbstractDAO<Person> {
     
-    private static final String SELECT_QUERY = "select id, fname, sname, lname, position from persons";
-    private static final String INSERT_QUERY = "insert into persons(fname, sname, lname, position) values (?, ?, ?, ?)";
+    private static final String SELECT_QUERY = "select id, first_name, middle_name, last_name, position from persons";
+    private static final String INSERT_QUERY = "insert into persons(first_name, middle_name, last_name, position) values (?, ?, ?, ?)";
     private static final String DELETE_QUERY = "delete from persons where id=?";
-    private static final String SELECT_BY_ID_QUERY = "select id, fname, sname, lname, position from persons where id=?";
-    private static final String UPDATE_QUERY = "update persons set fname = ?, sname = ?, lname = ?, position = ? where id = ?";
+    private static final String SELECT_BY_ID_QUERY = "select id, first_name, middle_name, last_name, position from persons where id=?";
+    private static final String UPDATE_QUERY = "update persons set first_name = ?, middle_name = ?, last_name = ?, position = ? where id = ?";
 
     private static final String ADD_PERSON_ERROR = "Ошибка при добавлении исполнителя";
     private static final String REMOVE_PERSON_ERROR = "Ошибка при удалении исполнителя";
@@ -27,9 +27,9 @@ public class PersonDAOImpl extends AbstractDAO<Person> {
     private static final String UPDATE_PERSON_ERROR = "Ошибка при обновлении исполнителя";
 
     private static final String ID = "id";
-    private static final String FIRST_NAME = "fname";
-    private static final String MIDDLE_NAME = "sname";
-    private static final String LAST_NAME = "lname";
+    private static final String FIRST_NAME = "first_name";
+    private static final String MIDDLE_NAME = "middle_name";
+    private static final String LAST_NAME = "last_name";
     private static final String POSITION = "position";
 
     /**
