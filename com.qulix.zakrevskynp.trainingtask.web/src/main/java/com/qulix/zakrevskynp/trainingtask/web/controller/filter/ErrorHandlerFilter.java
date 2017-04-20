@@ -1,4 +1,4 @@
-package com.qulix.zakrevskynp.trainingtask.web.controller;
+package com.qulix.zakrevskynp.trainingtask.web.controller.filter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
  * @author Q-NZA
  */
 @WebFilter(filterName = "errorHandlerServlet", urlPatterns = {"/*"})
-public class ErrorHandler implements Filter {
+public class ErrorHandlerFilter implements Filter {
     
     private List<String> errors = new ArrayList<>();
 
@@ -36,7 +36,6 @@ public class ErrorHandler implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain ch) throws IOException, ServletException {
         try {
-            request.setCharacterEncoding("UTF-8");
             ch.doFilter(request, response);
         }
         catch (Exception e) {
