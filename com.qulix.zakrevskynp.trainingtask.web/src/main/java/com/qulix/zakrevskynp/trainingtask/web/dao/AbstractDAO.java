@@ -12,7 +12,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.BaseDAOEntity;
 public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
 
     static final String RESULT_SET_ERROR = "Ошибка при чтении ResultSet-a";
-    public static final String PREPARED_STATEMENT_ERROR = "Ошибка при создании PreparedStatement-а";
+    static final String PREPARED_STATEMENT_ERROR = "Ошибка при создании PreparedStatement-а";
 
     public List<T> getAll(String selectQuery, String error) {
         Connection connection = null;

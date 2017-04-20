@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
 
 /**
@@ -18,7 +19,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
  */
 public class TaskDataValidator extends Validator {
 
-    private static Logger logger = Logger.getLogger(TaskDataValidator.class.getName());
+    private static Logger logger = LoggingFactory.getLogger();
     private Map<String, Object> parameters;
     private List<String> errors = new ArrayList<>();
 

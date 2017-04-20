@@ -26,7 +26,7 @@ class ConnectionFactory {
     private static final String JDBC_PROPERTIES_PATH =
             "com.qulix.zakrevskynp.trainingtask.web/src/main/resources/jdbc.properties";
     private static final String DATABASE_CONNECTION_ERROR = "Ошибка подключения к базе данных";
-    private static Logger logger = LoggingFactory.getLogger();
+    private static final Logger LOGGER = LoggingFactory.getLogger();
     private static final String READ_PROPERTIES_ERROR = "Файл настроек базы данных не найден";
     
     private ConnectionFactory() {
@@ -37,7 +37,7 @@ class ConnectionFactory {
         try {
             dbProperties.load(new FileInputStream(JDBC_PROPERTIES_PATH));
         } catch (IOException e) {
-            logger.log(Level.SEVERE, READ_PROPERTIES_ERROR);
+            LOGGER.log(Level.SEVERE, READ_PROPERTIES_ERROR);
         }
     }
 
@@ -48,7 +48,7 @@ class ConnectionFactory {
             url = dbProperties.getProperty(URL);
         }
         catch (Exception e) {
-            logger.log(Level.SEVERE, DATABASE_CONNECTION_ERROR);
+            LOGGER.log(Level.SEVERE, DATABASE_CONNECTION_ERROR);
         }
     }
 
