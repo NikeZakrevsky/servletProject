@@ -15,18 +15,18 @@ import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
  */
 public class TaskDAOImpl extends AbstractDAO<Task> {
     
-    private static final String SELECT_QUERY = "select id, name, time, start_date, end_date, " +
+    private static final String SELECT_QUERY = "select id, name, work_time, start_date, end_date, " +
             "status, short_name, project_id, person_id, first_name + ' ' + middle_name + ' ' + last_name " +
             "as person from tasks left join projects on tasks.project_id = projects.id left join " +
             "persons on tasks.person_id = persons.id";
-    private static final String SELECT_BY_ID_QUERY = "select id, name, time, start_date, end_date, " +
+    private static final String SELECT_BY_ID_QUERY = "select id, name, work_time, start_date, end_date, " +
                 "status, short_name, project_id, person_id, first_name + ' ' + middle_name + ' ' + last_name " +
                 "as person from tasks left join projects on tasks.project_id = projects.id left join " +
                 "persons on tasks.person_id = persons.id where id = ?";
     private static final String DELETE_QUERY = "delete from tasks where id=?";
-    private static final String INSERT_QUERY = "insert into tasks(name, time, startDate, endDate, " +
+    private static final String INSERT_QUERY = "insert into tasks(name, work_time, start_date, end_date, " +
             "status, project_id, person_id) values (?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_QUERY = "update tasks set name = ?, time = ?, start_date = ?, " +
+    private static final String UPDATE_QUERY = "update tasks set name = ?, work_time = ?, start_date = ?, " +
             "end_date = ?, status = ?, project_id = ?, person_id = ? where id = ?";
 
     private static final String GET_TASKS_LIST_ERROR = "Ошибка при получении списка задач";
@@ -37,7 +37,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
 
     private static final String ID = "id";
     private static final String NAME = "name";
-    private static final String TIME = "time";
+    private static final String TIME = "work_time";
     private static final String STARTDATE = "start_date";
     private static final String ENDDATE = "end_date";
     private static final String STATUS = "status";

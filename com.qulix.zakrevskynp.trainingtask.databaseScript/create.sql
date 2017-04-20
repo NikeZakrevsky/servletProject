@@ -16,7 +16,7 @@ create table persons (
 create table tasks (
   id integer identity primary key,
   name varchar(50) not null,
-  time integer not null,
+  work_time integer not null,
   start_date date not null,
   end_date date not null,
   status varchar(50) not null,
