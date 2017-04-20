@@ -10,6 +10,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 
 import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
+import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 
 /**
  * Filter for handling and process exceptions
@@ -44,7 +45,7 @@ public class ErrorHandlerFilter implements Filter {
             errors.clear();
             errors.add(e.getMessage());
             request.setAttribute("error", errors);
-            request.getRequestDispatcher("view/person/personsList.jsp").forward(request, response);
+            request.getRequestDispatcher(Attribute.PERSONS_LIST_VIEW).forward(request, response);
         }
     }
 
