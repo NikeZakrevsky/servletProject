@@ -18,7 +18,6 @@ public class Task extends BaseDAOEntity {
     private String projectShortName;
     private Integer projectId;
     private Integer personId;
-    private Person person;
 
     /**
      * Create task
@@ -153,14 +152,6 @@ public class Task extends BaseDAOEntity {
         this.personId = personId;
     }
 
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
     @Override
     public String toString() {
         return "Task{" +
@@ -174,7 +165,6 @@ public class Task extends BaseDAOEntity {
                 ", projectShortName='" + projectShortName + '\'' +
                 ", projectId=" + projectId +
                 ", personId=" + personId +
-                ", person=" + person +
                 '}';
     }
 }
