@@ -39,7 +39,7 @@ public class TaskDataValidator extends Validator {
     private static final String ID = "id";
     private static final String PROJECT_ID_FIELD = "projectId";
     private static final String PROJECT_ID1_FIELD = "projectId1";
-    private static final String STATUS_FIELD = "status";
+    private static final String STATUS_FIELD = "taskStatus";
     private static final String PERSON_ID_FIELD = "personId";
 
     /**

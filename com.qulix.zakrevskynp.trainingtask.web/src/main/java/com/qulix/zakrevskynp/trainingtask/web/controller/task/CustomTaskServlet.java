@@ -18,7 +18,7 @@ public class CustomTaskServlet extends CustomServlet {
     private static final String TIME = "workTime";
     private static final String STARTDATE = "startDate";
     private static final String ENDDATE = "endDate";
-    private static final String STATUS = "status";
+    private static final String STATUS = "taskStatus";
     private static final String PROJECTID = "projectId";
     private static final String PERSONID = "personId";
     private static final String SHORTNAME = "shortname";

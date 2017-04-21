@@ -71,15 +71,16 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Статус</label>
                 <div class="col-md-7">
-	                <select name = "status">
-                        <option value="NOT_STARTED" ${"NOT_STARTED".equals(task.taskStatus) ? 'selected="selected"' : ''}>Not started</option>
-                        <option value="IN_PROCESS" ${"IN_PROCESS".equals(task.taskStatus) ? 'selected="selected"' : ''}>In process</option>
-                        <option value="COMPLETED" ${"COMPLETED".equals(task.taskStatus) ? 'selected="selected"' : ''}>Completed</option>
-                        <option value="DELAYED" ${"DELAYED".equals(task.taskStatus) ? 'selected="selected"' : ''}>Delayed</option>
+	                <select name = "taskStatus">
+                        <option value="NOT_STARTED" ${"NOT_STARTED".equals(task.taskStatus.toString()) ? 'selected="selected"' : ''}>Not started</option>
+                        <option value="IN_PROCESS" ${"IN_PROCESS".equals(task.taskStatus.toString()) ? 'selected="selected"' : ''}>In process</option>
+                        <option value="COMPLETED" ${"COMPLETED".equals(task.taskStatus.toString()) ? 'selected="selected"' : ''}>Completed</option>
+                        <option value="DELAYED" ${"DELAYED".equals(task.taskStatus.toString()) ? 'selected="selected"' : ''}>Delayed</option>
                     </select>
                 </div>
             </div>
