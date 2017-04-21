@@ -22,6 +22,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 @WebServlet("/taskProject")
 public class AddTaskProjectServlet extends CustomTaskServlet {
+
     private static final String IS_DISABLE = "isDisable";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

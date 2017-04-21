@@ -14,7 +14,6 @@ public abstract class Validator {
     private static final String LENGTH_ERROR = "длина поля превышает 20 символов";
     private static final String SYMBOLS_ERROR = "поле может содержать только латинские и русские буквы";
     private static final String NUMBER_ERROR = "неверный формат поля";
-
     private static final String REGEX = "^[a-zA-ZА-Яа-яёЁ\\s]*$";
     private static final String REGEX1 = "\\d{1,8}(.\\d)?";
     private Predicate<Object> testEmpty = e -> e == null || e.equals("");

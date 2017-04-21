@@ -83,13 +83,11 @@ public class EditProjectServlet extends CustomProjectServlet {
         List<Task> tasksList = tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter(ID)));
         Set<Object> t1 = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
         Set<Object> t2 = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
-
         for (Task task : tasksList) {
             if (!t2.contains(task.getId())) {
                 tasksDAO.remove(task.getId());
             }    
         }
-
         for (Task resultTask : resultTasks) {
             if (t1.contains(resultTask.getId())) {
                 tasksDAO.update(resultTask);

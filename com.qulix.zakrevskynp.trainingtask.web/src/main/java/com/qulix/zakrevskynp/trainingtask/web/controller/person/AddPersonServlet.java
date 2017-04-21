@@ -22,7 +22,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 public class AddPersonServlet extends CustomPersonServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         Map<String, Object> parameters = getParametersFromRequest(request);
         List<String> errors = new PersonDataValidator().validate(parameters);
         if (errors.isEmpty()) {

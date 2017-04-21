@@ -24,7 +24,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 public class AddTaskServlet extends CustomTaskServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         Map<String, Object> parameters = getParametersFromRequest(request);
         List<String> errors = new TaskDataValidator().validate(parameters);
         if (errors.isEmpty()) {

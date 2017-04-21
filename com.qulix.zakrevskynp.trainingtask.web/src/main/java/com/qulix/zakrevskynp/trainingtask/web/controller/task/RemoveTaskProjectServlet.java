@@ -20,6 +20,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 @WebServlet("/removeTaskProject")
 public class RemoveTaskProjectServlet extends CustomServlet {
+
     private static final String TASK_ID = "taskId";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

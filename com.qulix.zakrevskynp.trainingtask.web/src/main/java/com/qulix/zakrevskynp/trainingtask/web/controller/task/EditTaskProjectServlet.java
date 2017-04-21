@@ -22,10 +22,10 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 @WebServlet("/editTaskProject")
 public class EditTaskProjectServlet extends CustomTaskServlet {
+
     private static final String ID = "id";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         TaskDataValidator validator = new TaskDataValidator();
         Map<String, Object> parameters = getParametersFromRequest(request);
         String returningPath = request.getSession().getAttribute(Attribute.PATH).toString();

@@ -22,16 +22,13 @@ public class TaskDataValidator extends Validator {
     private static Logger logger = LoggingFactory.getLogger();
     private Map<String, Object> parameters;
     private List<String> errors = new ArrayList<>();
-
     private static final String DATE_FORMAT = "yyyy-MM-dd";
-
     private static final String START_DATE_ERROR = "Дата начала : неверный формат";
     private static final String END_DATE_ERROR = "Дата окончания : неверный формат";
     private static final String END_BEFORE_START_ERROR = "Дата окончания должна быть раньше даты начала";
     private static final String NAME = "Название";
     private static final String STATUS = "Статус";
     private static final String JOB = "Работа(часы)";
-
     private static final String START_DATE_FIELD = "startDate";
     private static final String NAME_FIELD = "name";
     private static final String END_DATE_FIELD = "endDate";
@@ -49,32 +46,23 @@ public class TaskDataValidator extends Validator {
      */
     public List<String> validate(Map<String, Object> parameters) {
         this.parameters = parameters;
-
         java.util.Date startDate = validateDate(START_DATE_FIELD, START_DATE_ERROR);
         java.util.Date endDate = validateDate(END_DATE_FIELD, END_DATE_ERROR);
-
         validateEndDateBeforeStartDate(startDate, endDate, END_BEFORE_START_ERROR);
-
         validateFieldEmpty(this.parameters.get(NAME_FIELD), NAME, errors);
         validateFieldLength(this.parameters.get(NAME_FIELD), NAME, errors, 20);
-
         validateFieldEmpty(this.parameters.get(STATUS_FIELD), STATUS, errors);
         validateFieldLength(this.parameters.get(STATUS_FIELD), STATUS, errors, 20);
-
         validateFieldEmpty(this.parameters.get(WORK_TIME_FIELD), JOB, errors);
         validateFieldLength(this.parameters.get(WORK_TIME_FIELD), JOB, errors, 8);
-
         validateFieldNumbers(parameters.get(WORK_TIME_FIELD), JOB, errors);
-
         if (this.parameters.get(PROJECT_ID1_FIELD) != null) {
             this.parameters.put(PROJECT_ID_FIELD, this.parameters.get(PROJECT_ID1_FIELD));
         }
-
         parseIntegerParams(PROJECT_ID_FIELD, this.parameters);
         parseIntegerParams(PERSON_ID_FIELD, this.parameters);
         parseIntegerParams(ID, this.parameters);
         parseFloatParams(WORK_TIME_FIELD, this.parameters);
-
         if (parameters.get(WORK_TIME_FIELD) != null) {
             parameters.put(WORK_TIME_FIELD, Duration.ofMinutes((long) (int)
                     (Float.parseFloat(parameters.get(WORK_TIME_FIELD).toString()) * 60)));
@@ -93,7 +81,6 @@ public class TaskDataValidator extends Validator {
     private java.util.Date validateDate(String field, String error) {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         sdf.setLenient(false);
-
         java.util.Date date = null;
         try {
             date = sdf.parse(parameters.get(field).toString());

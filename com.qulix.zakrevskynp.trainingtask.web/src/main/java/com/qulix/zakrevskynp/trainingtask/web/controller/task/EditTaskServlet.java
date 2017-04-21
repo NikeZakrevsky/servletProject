@@ -28,7 +28,6 @@ public class EditTaskServlet extends CustomTaskServlet {
     private static final String IS_DISABLE = "isDisable";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         TaskDataValidator validator = new TaskDataValidator();
         Map<String, Object> parameters = getParametersFromRequest(request);
         List<String> errors = validator.validate(parameters);
@@ -36,7 +35,8 @@ public class EditTaskServlet extends CustomTaskServlet {
             Task task = parametersToObject(parameters);
             new TaskDAOImpl().update(task);
             response.sendRedirect(returningPath);
-        } else {
+        }
+        else {
             request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getAll());
             request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDAOImpl().getAll());
             request.setAttribute(Attribute.ACTION, Attribute.EDIT_TASK);

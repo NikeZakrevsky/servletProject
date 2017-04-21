@@ -17,6 +17,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDAOImpl;
  */
 @WebServlet("/removeProject")
 public class RemoveProjectServlet extends CustomProjectServlet {
+
     private static final String ID = "id";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

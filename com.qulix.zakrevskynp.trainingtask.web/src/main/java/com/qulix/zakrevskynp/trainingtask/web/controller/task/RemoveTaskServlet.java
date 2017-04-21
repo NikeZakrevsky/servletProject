@@ -17,6 +17,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDAOImpl;
  */
 @WebServlet("/removeTask")
 public class RemoveTaskServlet extends CustomServlet {
+
     private static final String ID = "id";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

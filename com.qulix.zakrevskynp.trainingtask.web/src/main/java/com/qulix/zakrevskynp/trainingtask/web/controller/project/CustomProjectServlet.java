@@ -29,7 +29,6 @@ public class CustomProjectServlet extends CustomServlet {
         String name = (String) parameters.get(NAME);
         String shortName = (String) parameters.get(SHORTNAME);
         String description = (String) parameters.get(DESCRIPTION);
-
         return new Project(id, name, shortName, description);
     }
 }

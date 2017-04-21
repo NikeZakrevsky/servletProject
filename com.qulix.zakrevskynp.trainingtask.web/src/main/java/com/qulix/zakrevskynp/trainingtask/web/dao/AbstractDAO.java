@@ -23,7 +23,8 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
             preparedStatement = connection.prepareStatement(selectQuery);
             resultSet = preparedStatement.executeQuery();
             return resultSetToList(resultSet);
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             throw new DAOException(error, e);
         }
         finally {
@@ -94,7 +95,6 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
         }
     }
 
-
     public void update(T entity, int id, String updateQuery, String error) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -106,7 +106,8 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
             preparedStatement.setInt(lastIndex, id);
             preparedStatement.execute();
             connection.commit();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             throw new DAOException(error, e);
         }
         finally {
@@ -137,12 +138,12 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
      */
     protected abstract int setPreparedStatement(PreparedStatement preparedStatement, T entity) throws SQLException;
 
-
     void closeResultSet(ResultSet resultSet) {
         if (resultSet != null) {
             try {
                 resultSet.close();
-            } catch (SQLException e) {
+            }
+            catch (SQLException e) {
                 //
             }
         }
@@ -152,21 +153,21 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
         if (statement != null) {
             try {
                 statement.close();
-            } catch (SQLException e) {
+            }
+            catch (SQLException e) {
                 //
             }
         }
     }
-
 
     void closeConnection(Connection connection) {
         if (connection != null) {
             try {
                 connection.close();
-            } catch (SQLException e) {
+            }
+            catch (SQLException e) {
                 //
             }
         }
     }
-
 }

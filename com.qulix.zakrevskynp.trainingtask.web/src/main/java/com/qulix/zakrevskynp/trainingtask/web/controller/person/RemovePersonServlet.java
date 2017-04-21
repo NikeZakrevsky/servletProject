@@ -16,6 +16,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDAOImpl;
  */
 @WebServlet("/removePerson")
 public class RemovePersonServlet extends CustomPersonServlet {
+
     private static final String ID = "id";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

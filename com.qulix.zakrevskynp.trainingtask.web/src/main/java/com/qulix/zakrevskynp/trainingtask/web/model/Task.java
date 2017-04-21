@@ -23,8 +23,8 @@ public class Task extends BaseDAOEntity {
     /**
      * Create task
      */
-    public Task(Integer id, String name, Duration workTime, Date startDate, Date endDate,
-                TaskStatus taskStatus, String performer) {
+    public Task(Integer id, String name, Duration workTime, Date startDate, Date endDate, TaskStatus taskStatus,
+        String performer) {
         this.id = id;
         this.name = name;
         this.workTime = workTime;

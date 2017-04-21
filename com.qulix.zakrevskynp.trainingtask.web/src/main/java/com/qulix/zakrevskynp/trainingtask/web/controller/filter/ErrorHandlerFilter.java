@@ -19,7 +19,6 @@ public class ErrorHandlerFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     /**
@@ -46,6 +45,5 @@ public class ErrorHandlerFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 }

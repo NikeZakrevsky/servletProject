@@ -24,9 +24,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 public class AddProjectServlet extends CustomProjectServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         Map<String, Object> parameters = getParametersFromRequest(request);
-
         List<String> errors = new ProjectDataValidator().validate(parameters);
         if (errors.isEmpty()) {
             Project project = parametersToObject(parameters);
