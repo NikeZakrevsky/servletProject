@@ -1,8 +1,6 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.filter;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,8 +16,6 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
  */
 @WebFilter(filterName = "errorHandlerServlet", urlPatterns = {"/*"})
 public class ErrorHandlerFilter implements Filter {
-    
-    private List<String> errors = new ArrayList<>();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -42,9 +38,8 @@ public class ErrorHandlerFilter implements Filter {
         catch (Exception e) {
             Logger logger = LoggingFactory.getLogger();
             logger.log(Level.SEVERE, "Exception: " + e);
-            errors.clear();
-            errors.add(e.getMessage());
-            request.setAttribute("error", errors);
+            String error = e.getMessage();
+            request.setAttribute("error", error);
             request.getRequestDispatcher(Attribute.PERSONS_LIST_VIEW).forward(request, response);
         }
     }
