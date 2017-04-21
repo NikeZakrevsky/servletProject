@@ -18,7 +18,7 @@
         <%@ include file="../share/errors.jsp" %>
         <div class="row">
             <div class="form-group col-md-12">
-                <label class="col-md-2 control-lable">Имя</label>
+                <label class="col-md-2 control-lable">Идентификатор</label>
                 <div class="col-md-7">
                     <input type = "text" name = "id" size = "70" value = "${person.id}" readonly/>
                 </div>
