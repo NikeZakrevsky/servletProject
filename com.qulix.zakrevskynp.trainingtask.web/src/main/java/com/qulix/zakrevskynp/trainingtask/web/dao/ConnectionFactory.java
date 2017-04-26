@@ -18,7 +18,6 @@ import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
  */
 class ConnectionFactory {
     private static Properties dbProperties;
-    private static String url;
     private static final String USER = "user";
     private static final String PASSWORD = "password";
     private static final String DRIVER_CLASS = "driverClass";
@@ -31,21 +30,20 @@ class ConnectionFactory {
     private ConnectionFactory() {
     }
 
-    private static void readDatabaseProperty() {
+    static void readDatabaseProperty() {
         dbProperties = new Properties();
         try {
             dbProperties.load(new FileInputStream(JDBC_PROPERTIES));
+            System.out.println(dbProperties);
         }
         catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Exception: " + READ_PROPERTIES_ERROR + e);
         }
     }
 
-    static {
-        readDatabaseProperty();
+    {
         try {
             Class.forName(dbProperties.getProperty(DRIVER_CLASS));
-            url = dbProperties.getProperty(URL);
         }
         catch (ClassNotFoundException e) {
             LOGGER.log(Level.SEVERE, "Exception: " + DATABASE_CONNECTION_ERROR + e);
@@ -58,6 +56,6 @@ class ConnectionFactory {
      * @throws SQLException throws while getting connection to database
      */
     static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, dbProperties.getProperty(USER), dbProperties.getProperty(PASSWORD));
+        return DriverManager.getConnection(dbProperties.getProperty(URL), dbProperties.getProperty(USER), dbProperties.getProperty(PASSWORD));
     }
 }

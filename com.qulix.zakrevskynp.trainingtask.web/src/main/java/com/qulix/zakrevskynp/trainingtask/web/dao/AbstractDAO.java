@@ -14,6 +14,10 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
     static final String RESULT_SET_ERROR = "Ошибка при чтении ResultSet-a";
     static final String PREPARED_STATEMENT_ERROR = "Ошибка при создании PreparedStatement-а";
 
+    static {
+        ConnectionFactory.readDatabaseProperty();
+    }
+
     public List<T> getAll(String selectQuery, String error) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;

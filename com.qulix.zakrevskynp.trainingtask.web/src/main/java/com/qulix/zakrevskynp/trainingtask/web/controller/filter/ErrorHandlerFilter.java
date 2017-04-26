@@ -40,6 +40,7 @@ public class ErrorHandlerFilter implements Filter {
             String error = e.getMessage();
             request.setAttribute("error", error);
             request.getRequestDispatcher(Attribute.PERSONS_LIST_VIEW).forward(request, response);
+            throw e;
         }
     }
 
