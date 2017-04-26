@@ -24,8 +24,4 @@ public class RemoveProjectServlet extends CustomProjectServlet {
         new ProjectDAOImpl().remove(Integer.parseInt(request.getParameter(ID)));
         response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
     }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
-    }
 }

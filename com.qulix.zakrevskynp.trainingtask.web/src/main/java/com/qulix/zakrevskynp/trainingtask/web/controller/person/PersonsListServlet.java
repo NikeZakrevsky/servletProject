@@ -23,6 +23,5 @@ public class PersonsListServlet extends CustomPersonServlet {
         request.setAttribute(Attribute.ERROR_LIST_NAME, request.getSession().getAttribute(Attribute.ERROR_LIST_NAME));
         request.setAttribute(Attribute.PERSONS_LIST_NAME, personsList);
         request.getRequestDispatcher(Attribute.PERSONS_LIST_VIEW).forward(request, response);
-
     }
 }

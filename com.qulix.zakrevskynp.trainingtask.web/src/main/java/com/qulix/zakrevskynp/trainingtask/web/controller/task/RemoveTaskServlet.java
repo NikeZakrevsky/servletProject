@@ -25,8 +25,4 @@ public class RemoveTaskServlet extends CustomServlet {
         new TaskDAOImpl().remove(Integer.parseInt(request.getParameter(ID)));
         response.sendRedirect(returningPath);
     }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
-    }
 }

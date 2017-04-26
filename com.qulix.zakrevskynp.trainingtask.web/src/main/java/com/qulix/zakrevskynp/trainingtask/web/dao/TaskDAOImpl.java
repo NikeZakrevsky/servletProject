@@ -117,16 +117,20 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
         int index = 0;
         for (Task task1 : tasks) {
             if (task1.getId() == id) {
-                if (task.getPersonId() != null) {
-                    Person person = new PersonDAOImpl().getById(task.getPersonId());
-                    task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
-                }
+                setPerformer(task);
                 index = tasks.indexOf(task1);
                 break;
             }
         }
         tasks.set(index, task);
         return tasks;
+    }
+
+    private void setPerformer(Task task) {
+        if (task.getPersonId() != null) {
+            Person person = new PersonDAOImpl().getById(task.getPersonId());
+            task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
+        }
     }
 
     /**

@@ -23,8 +23,4 @@ public class RemovePersonServlet extends CustomPersonServlet {
         new PersonDAOImpl().remove(Integer.parseInt(request.getParameter(ID)));
         response.sendRedirect(Attribute.REDIRECT_PERSON_LIST);
     }
-
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
-    }
 }

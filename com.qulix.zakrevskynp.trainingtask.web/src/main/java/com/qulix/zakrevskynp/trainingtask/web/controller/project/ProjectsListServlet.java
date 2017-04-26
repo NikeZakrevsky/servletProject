@@ -23,8 +23,4 @@ public class ProjectsListServlet extends CustomProjectServlet {
         request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getAll());
         request.getRequestDispatcher(Attribute.PROJECTS_LIST_VIEW).forward(request, response);
     }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
-    }
 }

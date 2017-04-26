@@ -64,8 +64,8 @@ public class TaskDataValidator extends Validator {
         parseIntegerParams(ID, this.parameters);
         parseFloatParams(WORK_TIME_FIELD, this.parameters);
         if (parameters.get(WORK_TIME_FIELD) != null) {
-            parameters.put(WORK_TIME_FIELD, Duration.ofMinutes((long) (int)
-                    (Float.parseFloat(parameters.get(WORK_TIME_FIELD).toString()) * 60)));
+            parameters.put(WORK_TIME_FIELD, Duration.ofMinutes((long) (int) (Float.parseFloat(parameters.get(WORK_TIME_FIELD)
+                    .toString()) * 60)));
         }
         return errors;
     }

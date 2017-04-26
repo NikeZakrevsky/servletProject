@@ -103,7 +103,6 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-
             connection = ConnectionFactory.getConnection();
             preparedStatement = connection.prepareStatement(updateQuery);
             int lastIndex = setPreparedStatement(preparedStatement, entity);
