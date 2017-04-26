@@ -6,7 +6,8 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 
 /**
- * Custom servlet for *Project servlets for construct @{{@link Project}} object from Map
+ * Custom servlet for constructing a @{{@link Project}} object from Map
+ *
  * @author Q-NZA
  */
 public class CustomProjectServlet extends CustomServlet {
@@ -17,7 +18,8 @@ public class CustomProjectServlet extends CustomServlet {
     private static final String DESCRIPTION = "description";
 
     /**
-     * Convert map with request parameters to @{{@link Project}} object
+     * Converts map with request parameters to @{{@link Project}} object
+     *
      * @param parameters map with request parameters
      * @return @{{@link Project}} object
      */

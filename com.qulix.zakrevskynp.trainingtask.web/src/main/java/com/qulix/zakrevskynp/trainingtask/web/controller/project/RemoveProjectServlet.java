@@ -12,7 +12,8 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDAOImpl;
 
 /**
- * Handling remove project action and redirect to @{{@link ProjectsListServlet}}
+ * Handling the action of removing a project and redirects to the @{{@link ProjectsListServlet}}
+ *
  * @author Q-NZA
  */
 @WebServlet("/removeProject")

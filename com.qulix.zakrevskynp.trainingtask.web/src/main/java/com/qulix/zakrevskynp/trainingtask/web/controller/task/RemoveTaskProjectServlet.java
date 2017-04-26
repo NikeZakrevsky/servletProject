@@ -15,7 +15,8 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Remove task from session
+ * Removes the task from the session
+ *
  * @author Q-NZA
  */
 @WebServlet("/removeTaskProject")

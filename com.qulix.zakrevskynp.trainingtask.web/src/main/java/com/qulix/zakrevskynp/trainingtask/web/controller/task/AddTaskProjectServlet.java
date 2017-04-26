@@ -17,7 +17,8 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Show the form for adding new task in session
+ * Shows the form of adding a new task in session
+ *
  * @author Q-NZA
  */
 @WebServlet("/taskProject")

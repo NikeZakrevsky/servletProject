@@ -12,7 +12,8 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDAOImpl;
 
 /**
- * Handling remove task action and redirect to @{{@link TasksListServlet}}
+ * Handling the action of removing a task and redirects to the @{{@link TasksListServlet}}
+ *
  * @author Q-NZA
  */
 @WebServlet("/removeTask")

@@ -7,7 +7,8 @@ import java.util.Map;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
 
 /**
- * Validate data from forms to working with the persons
+ * Validate data from the forms of working with the persons
+ *
  * @author Q-NZA
  */
 public class PersonDataValidator extends Validator {
@@ -23,7 +24,8 @@ public class PersonDataValidator extends Validator {
     private static final String POSITION_FIELD = "position";
 
     /**
-     * Validate person information
+     * Validates person data
+     *
      * @param parameters person form data
      * @return list of errors
      */

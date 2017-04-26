@@ -10,6 +10,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
  * Using DAO pattern for operations with @{{@link Person}} objects
+ *
  * @author Q-NZA
  */
 public class PersonDAOImpl extends AbstractDAO<Person> {
@@ -34,6 +35,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> {
 
     /**
      * Getting a list of persons
+     *
      * @return list of all persons from the database
      */
     public List<Person> getAll()  {
@@ -42,6 +44,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> {
 
     /**
      * Inserting a new person in the database
+     *
      * @param person person data from the form
      */
     public void add(Person person)  {
@@ -50,6 +53,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> {
 
     /**
      * Removing a person from the database by id
+     *
      * @param id person's id
      */
     public void remove(int id)  {
@@ -58,6 +62,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> {
 
     /**
      * Getting a person by id
+     *
      * @param id person's id
      * @return @{{@link Person}}
      */
@@ -97,6 +102,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> {
 
     /**
      * Converting the ResultSet to a list of objects
+     *
      * @param rs @{{@link ResultSet}} object converted to list
      * @return tasks list
      */
@@ -116,6 +122,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> {
 
     /**
      * Setting parameters to prepared statement
+     *
      * @param preparedStatement link of the prepared statement for setting parameters
      * @param person Person object
      */

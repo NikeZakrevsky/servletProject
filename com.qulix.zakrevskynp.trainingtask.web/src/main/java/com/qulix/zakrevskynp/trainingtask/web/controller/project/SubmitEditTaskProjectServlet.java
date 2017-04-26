@@ -15,7 +15,8 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Save data from the project updating form
+ * Saves data from the project updating form
+ *
  * @author Q-NZA
  */
 @WebServlet("/editTaskProject1")

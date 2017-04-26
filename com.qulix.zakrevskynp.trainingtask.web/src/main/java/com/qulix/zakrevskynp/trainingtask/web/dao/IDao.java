@@ -4,7 +4,11 @@ import java.util.List;
 
 import com.qulix.zakrevskynp.trainingtask.web.model.BaseDAOEntity;
 
-
+/**
+ * Interface with dao methods
+ *
+ * @param <T> class of the entity
+ */
 public interface IDao<T extends BaseDAOEntity> {
     List<T> getAll(String selectQuery, String error);
     void remove(int id, String removeQuery, String error);

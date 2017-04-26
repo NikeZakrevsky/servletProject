@@ -9,7 +9,8 @@ import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Custom servlet for *Task servlets for construct @{{@link Task}} object from Map
+ * Custom servlet for constructing a @{{@link Task}} object from Map
+ *
  * @author Q-NZA
  */
 public class CustomTaskServlet extends CustomServlet {
@@ -25,7 +26,8 @@ public class CustomTaskServlet extends CustomServlet {
     private static final String PERSON = "person";
 
     /**
-     * Convert map with request parameters to @{{@link Task}} object
+     * Converts map with request parameters to @{{@link Task}} object
+     *
      * @param parameters map with request parameters
      * @return @{{@link Task}} object
      */

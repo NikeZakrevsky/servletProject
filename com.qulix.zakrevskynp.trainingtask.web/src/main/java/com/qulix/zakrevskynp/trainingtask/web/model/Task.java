@@ -5,6 +5,7 @@ import java.time.Duration;
 
 /**
  * Task entity model
+ *
  * @author Q-NZA
  */
 public class Task extends BaseDAOEntity {
@@ -20,7 +21,15 @@ public class Task extends BaseDAOEntity {
     private Integer personId;
 
     /**
-     * Create task
+     * Constructing of the Task object
+     *
+     * @param id id of task
+     * @param name name
+     * @param workTime working time
+     * @param startDate starting date
+     * @param endDate ending date
+     * @param taskStatus status of the task
+     * @param performer performer
      */
     public Task(Integer id, String name, Duration workTime, Date startDate, Date endDate, TaskStatus taskStatus,
         String performer) {
@@ -33,11 +42,15 @@ public class Task extends BaseDAOEntity {
         this.performer = performer;
     }
 
+    /**
+     * Constructing of the Task object
+     */
     public Task() {
     }
 
     /**
-     * Get task id
+     * Gets id of task
+     *
      * @return task id
      */
     public Integer getId() {
@@ -45,14 +58,17 @@ public class Task extends BaseDAOEntity {
     }
 
     /**
-     * Get task id
+     * Sets id of task
+     *
+     * @param id id of task
      */
     public void setId(Integer id) {
         this.id = id;
     }
 
     /**
-     * Get task name
+     * Gets name of task
+     *
      * @return task name
      */
     public String getName() {
@@ -60,7 +76,8 @@ public class Task extends BaseDAOEntity {
     }
 
     /**
-     * Get task work time
+     * Gets work time of task
+     *
      * @return task  work time
      */
     public Duration getWorkTime() {
@@ -68,7 +85,8 @@ public class Task extends BaseDAOEntity {
     }
     
     /**
-     * Get task start date
+     * Gets start date of task
+     *
      * @return task start date
      */
     public Date getStartDate() {
@@ -76,7 +94,8 @@ public class Task extends BaseDAOEntity {
     }
 
     /**
-     * Get task end date
+     * Gets end date of task
+     *
      * @return task end date
      */
     public Date getEndDate() {
@@ -84,7 +103,8 @@ public class Task extends BaseDAOEntity {
     }
 
     /**
-     * Get task status
+     * Gets status of task
+     *
      * @return task status
      */
     public TaskStatus getTaskStatus() {
@@ -92,14 +112,17 @@ public class Task extends BaseDAOEntity {
     }
 
     /**
-     * Get task performer
+     * Sets performer of task
+     *
+     * @param performer
      */
     public void setPerformer(String performer) {
         this.performer = performer;
     }
 
     /**
-     * Get task performer
+     * Gets performer of task
+     *
      * @return task performer
      */
     public String getPerformer() {
@@ -107,7 +130,8 @@ public class Task extends BaseDAOEntity {
     }
 
     /**
-     * Get project short name
+     * Gets short name of project
+     *
      * @return project short name
      */
     public String getProjectShortName() {
@@ -115,7 +139,8 @@ public class Task extends BaseDAOEntity {
     }
 
     /**
-     * Get project id
+     * Gets id of project
+     *
      * @return project id
      */
     public Integer getProjectId() {
@@ -123,24 +148,37 @@ public class Task extends BaseDAOEntity {
     }
 
     /**
-     * Get project id
+     * Sets id of project
+     *
+     * @param projectId id of project
      */
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 
     /**
-     * Get person id
+     * Gets id of person
+     *
      * @return person id
      */
     public Integer getPersonId() {
         return personId;
     }
 
+    /**
+     * Sets short name of the project
+     *
+     * @param projectShortName short name of the project
+     */
     public void setProjectShortName(String projectShortName) {
         this.projectShortName = projectShortName;
     }
 
+    /**
+     * Sets id of the person
+     *
+     * @param personId id of the person
+     */
     public void setPersonId(Integer personId) {
         this.personId = personId;
     }

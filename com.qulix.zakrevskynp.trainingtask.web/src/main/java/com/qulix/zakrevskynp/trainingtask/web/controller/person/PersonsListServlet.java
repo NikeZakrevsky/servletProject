@@ -12,7 +12,8 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDAOImpl;
 
 /**
- * Shows the page with all persons from the database
+ * Shows a page with all persons from the database
+ *
  * @author Q-NZA
  */
 @WebServlet("/personsList")

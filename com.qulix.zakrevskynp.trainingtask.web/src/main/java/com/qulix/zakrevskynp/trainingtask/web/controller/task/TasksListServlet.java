@@ -13,7 +13,8 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
 import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDAOImpl;
 
 /**
- * Shows the page with all tasks from the database
+ * Shows a page with all tasks from the database
+ *
  * @author Q-NZA
  */
 @WebServlet("/tasksList")

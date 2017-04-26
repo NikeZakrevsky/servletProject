@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Project entity model
+ *
  * @author Q-NZA
  */
 public class Project extends BaseDAOEntity {
@@ -16,10 +17,11 @@ public class Project extends BaseDAOEntity {
 
     /**
      * Create project object
-     * @param id project id
-     * @param name project name
-     * @param shortName project short name
-     * @param description project description
+     *
+     * @param id id of project
+     * @param name name
+     * @param shortName short name
+     * @param description description
      */
     public Project(Integer id, String name, String shortName, String description) {
         this.id = id;
@@ -29,7 +31,8 @@ public class Project extends BaseDAOEntity {
     }
 
     /**
-     * Get project id
+     * Gets project id
+     *
      * @return project id
      */
     public int getId() {
@@ -37,7 +40,8 @@ public class Project extends BaseDAOEntity {
     }
 
     /**
-     * Get project name
+     * Gets project name
+     *
      * @return project name
      */
     public String getName() {
@@ -45,7 +49,8 @@ public class Project extends BaseDAOEntity {
     }
 
     /**
-     * Get project short name
+     * Gets project short name
+     *
      * @return project short name
      */
     public String getShortName() {
@@ -53,7 +58,8 @@ public class Project extends BaseDAOEntity {
     }
 
     /**
-     * Get project description
+     * Gets project description
+     *
      * @return project description
      */
     public String getDescription() {
@@ -61,7 +67,8 @@ public class Project extends BaseDAOEntity {
     }
 
     /**
-     * Get project tasks
+     * Gets project tasks
+     *
      * @return project tasks
      */
     public List<Task> getTasks() {
@@ -69,7 +76,7 @@ public class Project extends BaseDAOEntity {
     }
 
     /**
-     * Get project tasks
+     * Gets project tasks
      */
     public void setTasks(List<Task> tasksList) {
         this.tasksList = tasksList;

@@ -17,7 +17,8 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Shows the form for adding new task and processes its data
+ * Shows the form of adding a new task and processing its data
+ *
  * @author Q-NZA
  */
 @WebServlet("/addTask")

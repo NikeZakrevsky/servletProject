@@ -11,6 +11,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
 
 /**
  * Using DAO pattern for operations with @{{@link Task}} objects
+ *
  * @author Q-NZA
  */
 public class TaskDAOImpl extends AbstractDAO<Task> {
@@ -46,6 +47,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
 
     /**
      * Getting all tasks from the database
+     *
      * @return list of all tasks in database
      */
     public List<Task> getAll()  {
@@ -54,6 +56,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
 
     /**
      * Removing project from the database by id
+     *
      * @param id project's id
      */
     public void remove(int id)  {
@@ -62,6 +65,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
 
     /**
      * Inserting task in the database
+     *
      * @param task task form data
      */
     public void add(Task task)  {
@@ -70,6 +74,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
 
     /**
      * Get task by id
+     *
      * @param id task's id
      * @return Task object
      */
@@ -79,6 +84,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
 
     /**
      * Update task in the database
+     *
      * @param task task data from the form
      */
     public void update(Task task)  {
@@ -87,6 +93,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
 
     /**
      * Insert task in database
+     *
      * @param task data from add task form
      * @return list of tasks with added new task
      */
@@ -110,6 +117,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
 
     /**
      * Update task in session
+     *
      * @param task data from update task form for getting tasks list
      * @param id task's id
      */
@@ -135,6 +143,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
 
     /**
      * Remove task from session
+     *
      * @param id task id
      */
     public List<Task> removeTask(int id, List<Task> tasks) {
@@ -147,6 +156,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
 
     /**
      * Get tasks list for project
+     *
      * @param id project id
      * @return List of tasks with specified project id
      */
@@ -173,6 +183,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
 
     /**
      * Create Task object from ResultSet
+     *
      * @param resultSet resultSet for converting to object
      * @return created task object
      */
@@ -203,6 +214,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
 
     /**
      * Convert the ResultSet to a List of objects
+     *
      * @param rs @{{@link ResultSet}} object converted to list
      * @return tasks list
      */
@@ -222,6 +234,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
     }
     /**
      * Set parameters to prepared statement
+     *
      * @param preparedStatement link of the prepared statement for setting parameters
      * @param task task form data
      */

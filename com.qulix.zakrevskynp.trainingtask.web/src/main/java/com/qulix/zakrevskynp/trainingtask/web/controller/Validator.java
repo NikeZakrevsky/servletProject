@@ -5,7 +5,8 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 /**
- * Validating data from forms
+ * Validate data from the forms
+ *
  * @author Q-NZA
  */
 public abstract class Validator {
@@ -19,11 +20,12 @@ public abstract class Validator {
     private Predicate<Object> testEmpty = e -> e == null || e.equals("");
 
     /**
-     * Validating field length
-     * @param field
-     * @param fieldName
-     * @param errors
-     * @param fieldLength
+     * Field length validation
+     *
+     * @param field field for validation
+     * @param fieldName field name for validation
+     * @param errors list of the errors
+     * @param fieldLength allowable field length
      */
     protected void validateFieldLength(Object field, String fieldName, List<String> errors, int fieldLength) {
         if (field.toString().length() > fieldLength) {
@@ -32,10 +34,11 @@ public abstract class Validator {
     }
 
     /**
-     * Validating field empties
-     * @param field
-     * @param fieldName
-     * @param errors
+     * Field empties validation
+     *
+     * @param field field for validation
+     * @param fieldName field name for validation
+     * @param errors list of the errors
      */
     protected void validateFieldEmpty(Object field, String fieldName, List<String> errors) {
         if (testEmpty.test(field)) {
@@ -44,9 +47,10 @@ public abstract class Validator {
     }
 
     /**
-     * Parsing string field to integer
-     * @param field
-     * @param parameters
+     * Parsing a string field to integer
+     *
+     * @param field field for validation
+     * @param parameters parameters from the request
      */
     protected void parseIntegerParams(String field, Map<String, Object> parameters) {
         if (!parameters.get(field).toString().equals("")) {
@@ -58,9 +62,10 @@ public abstract class Validator {
     }
 
     /**
-     * Parsing string field to float
-     * @param field
-     * @param parameters
+     * Parsing a string field to float
+     *
+     * @param field field name for validation
+     * @param parameters parameters from the request
      */
     protected void parseFloatParams(String field, Map<String, Object> parameters) {
         if (!parameters.get(field).toString().equals("")) {
@@ -72,10 +77,11 @@ public abstract class Validator {
     }
 
     /**
-     * Checking field symbols
-     * @param field
-     * @param fieldName
-     * @param errors
+     * Character field validation
+     *
+     * @param field field for validation
+     * @param fieldName field name for validation
+     * @param errors list of the errors
      */
     protected void validateFieldSymbols(Object field, String fieldName, List<String> errors) {
         if (!field.toString().matches(REGEX)) {
@@ -83,6 +89,13 @@ public abstract class Validator {
         }
     }
 
+    /**
+     * Number field validation
+     *
+     * @param field field for validation
+     * @param fieldName field name for validation
+     * @param errors list of the errors
+     */
     protected void validateFieldNumbers(Object field, String fieldName, List<String> errors) {
         if (!field.toString().matches(REGEX1)) {
             errors.add(fieldName + " : " + NUMBER_ERROR);

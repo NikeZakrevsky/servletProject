@@ -17,7 +17,8 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Shows the form for adding new project and processes its data
+ * Shows the form of adding a new project and processing its data
+ *
  * @author Q-NZA
  */
 @WebServlet("/addProject")

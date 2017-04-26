@@ -11,7 +11,8 @@ import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 
 /**
- * Filter for handling and process exceptions
+ * Filter for handling and processing exceptions
+ *
  * @author Q-NZA
  */
 @WebFilter(filterName = "errorHandlerServlet", urlPatterns = {"/*"})
@@ -22,7 +23,8 @@ public class ErrorHandlerFilter implements Filter {
     }
 
     /**
-     * Process exceptions and log it
+     * Processing and logging exceptions
+     *
      * @param request @{({@link ServletRequest}} object
      * @param response @{({@link ServletResponse}} object
      * @param ch @{{@link FilterChain}} object

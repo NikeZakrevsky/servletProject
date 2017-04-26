@@ -2,6 +2,7 @@ package com.qulix.zakrevskynp.trainingtask.web.controller;
 
 /**
  * Class with string constants
+ *
  * @author Q-NZA
  */
 public class Attribute {

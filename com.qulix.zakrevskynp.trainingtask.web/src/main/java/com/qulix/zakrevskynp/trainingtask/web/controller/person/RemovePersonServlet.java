@@ -11,7 +11,8 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDAOImpl;
 
 /**
- * Handling remove person action and redirect to @{{@link PersonsListServlet}}
+ * Handling the action of removing a person and redirects to the @{{@link PersonsListServlet}}
+ * 
  * @author Q-NZA
  */
 @WebServlet("/removePerson")

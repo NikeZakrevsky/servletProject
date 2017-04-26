@@ -10,6 +10,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
  * Using DAO pattern for operations with @{{@link Project}} objects
+ *
  * @author Q-NZA
  */
 public class ProjectDAOImpl extends AbstractDAO<Project> {
@@ -31,6 +32,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
 
     /**
      * Update information about project in database
+     *
      * @param project project data from form
      */
     public void update(Project project) {
@@ -59,6 +61,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
 
     /**
      * Remove project from database by id
+     *
      * @param id project id
      */
     public void remove(int id) {
@@ -71,6 +74,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
 
     /**
      *  Create new project with tasks
+     *
      *  @param project new project
      */
     @Override
@@ -132,6 +136,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
 
     /**
      * Set parameters to prepared statement
+     *
      * @param preparedStatement link of the prepared statement for setting parameters
      * @param project Project object
      * @throws SQLException throws while setting parameters in @{{@link PreparedStatement}}
@@ -151,6 +156,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
 
     /**
      * Convert the ResultSet to a List of objects
+     *
      * @param rs @{{@link ResultSet}} object converted to list
      * @return tasks list
      * @throws SQLException throws while getting data from result set

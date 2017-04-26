@@ -14,7 +14,8 @@ import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
 
 /**
- * Validate data from forms for working with tasks
+ * Validate data from the forms of working with tasks
+ *
  * @author Q-NZA
  */
 public class TaskDataValidator extends Validator {
@@ -41,6 +42,7 @@ public class TaskDataValidator extends Validator {
 
     /**
      * Validate task information
+     *
      * @param parameters form parameters for validation
      * @return list of errors
      */

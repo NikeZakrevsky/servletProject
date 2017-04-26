@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Person entity model
+ *
  * @author Q-NZA
  */
 public class Person extends BaseDAOEntity {
@@ -16,11 +17,12 @@ public class Person extends BaseDAOEntity {
 
     /**
      * Create person object
-     * @param id person id
-     * @param firstName person first name
-     * @param middleName person middle name
-     * @param lastName person last name
-     * @param position person position
+     *
+     * @param id id of person
+     * @param firstName first name
+     * @param middleName middle name
+     * @param lastName last name
+     * @param position position
      */
     public Person(Integer id, String firstName, String middleName, String lastName, String position) {
         this.id = id;
@@ -31,7 +33,8 @@ public class Person extends BaseDAOEntity {
     }
 
     /**
-     * Get person id
+     * Gets id
+     *
      * @return person id
      */
     public int getId() {
@@ -39,7 +42,8 @@ public class Person extends BaseDAOEntity {
     }
 
     /**
-     * Get person first name
+     * Gets person first name
+     *
      * @return person first name
      */
     public String getFirstName() {
@@ -47,7 +51,8 @@ public class Person extends BaseDAOEntity {
     }
 
     /**
-     * Get person middle name
+     * Gets person middle name
+     *
      * @return person middle name
      */
     public String getMiddleName() {
@@ -55,7 +60,8 @@ public class Person extends BaseDAOEntity {
     }
 
     /**
-     * Get person last name
+     * Gets person last name
+     *
      * @return person last name
      */
     public String getLastName() {
@@ -64,16 +70,27 @@ public class Person extends BaseDAOEntity {
 
     /**
      * Get person position
+     *
      * @return person position
      */
     public String getPosition() {
         return position;
     }
 
+    /**
+     * Gets list of tasks
+     *
+     * @return list of tasks
+     */
     public List<Task> getTask() {
         return task;
     }
 
+    /**
+     * Sets list of tasks
+     *
+     * @param task list of tasks
+     */
     public void setTask(List<Task> task) {
         this.task = task;
     }

@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 /**
  * Logging setting
+ * 
  * @author Q-NZA
  */
 public class LoggingFactory {
@@ -24,6 +25,10 @@ public class LoggingFactory {
         }
     }
 
+    /**
+     * Gets the logger
+     * @return logger
+     */
     public static Logger getLogger() {
         return LOGGER;
     }

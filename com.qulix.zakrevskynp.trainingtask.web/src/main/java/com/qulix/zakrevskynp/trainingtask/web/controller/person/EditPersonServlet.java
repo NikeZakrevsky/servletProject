@@ -15,7 +15,8 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDAOImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
- * Shows the form for updating person and processes its data
+ * Shows the form of updating a person and processing its data
+ *
  * @author Q-NZA
  */
 @WebServlet("/editPerson")

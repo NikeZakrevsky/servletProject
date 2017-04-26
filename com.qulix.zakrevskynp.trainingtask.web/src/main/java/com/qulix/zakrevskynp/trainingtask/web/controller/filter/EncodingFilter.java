@@ -6,7 +6,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 
 /**
- * Encoding filter
+ * Filter to set the encoding of the request
+ *
  * @author Q-NZA
  */
 @WebFilter(filterName = "encodingServlet", urlPatterns = {"/*"})
@@ -17,7 +18,8 @@ public class EncodingFilter implements Filter {
     }
 
     /**
-     * Setting character encoding
+     * Sets character encoding
+     *
      * @param request @{({@link ServletRequest}} object
      * @param response @{({@link ServletResponse}} object
      * @param ch @{{@link FilterChain}} object

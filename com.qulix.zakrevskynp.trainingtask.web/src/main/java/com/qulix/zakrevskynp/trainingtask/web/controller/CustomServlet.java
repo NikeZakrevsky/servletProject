@@ -12,13 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Extend HttpServlet
+ * Extends HttpServlet
+ *
  * @author Q-NZA
  */
 public class CustomServlet extends HttpServlet {
 
     /**
      * Convert parameters from request to map
+     *
      * @param request @{{@link HttpServletRequest}} object
      * @return map with request parameters
      */
@@ -29,6 +31,7 @@ public class CustomServlet extends HttpServlet {
 
     /**
      * Cast Object to List<Task> for avoiding unchecked cast warning
+     *
      * @param var object for casting
      * @return list of tasks
      */

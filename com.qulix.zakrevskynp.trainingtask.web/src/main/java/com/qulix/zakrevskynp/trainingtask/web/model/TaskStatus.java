@@ -2,6 +2,7 @@ package com.qulix.zakrevskynp.trainingtask.web.model;
 
 /**
  * TaskStatus entity model
+ *
  * @author Q-NZA
  */
 public enum TaskStatus {

@@ -14,6 +14,7 @@ import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
 
 /**
  * Factory fot getting Connection object
+ *
  * @author Q-NZA
  */
 class ConnectionFactory {
@@ -30,6 +31,9 @@ class ConnectionFactory {
     private ConnectionFactory() {
     }
 
+    /**
+     * Reading properties of the database connection
+     */
     static void readDatabaseProperty() {
         dbProperties = new Properties();
         try {
@@ -51,6 +55,7 @@ class ConnectionFactory {
 
     /**
      * Getting an exist connection
+     *
      * @return Connection object
      * @throws SQLException throws while getting connection to database
      */
