@@ -26,7 +26,7 @@ class ConnectionFactory {
     private static final String DATABASE_CONNECTION_ERROR = "Ошибка подключения к базе данных";
     private static final Logger LOGGER = LoggingFactory.getLogger();
     private static final String READ_PROPERTIES_ERROR = "Файл настроек базы данных не найден";
-    
+
     private ConnectionFactory() {
     }
 
@@ -34,7 +34,6 @@ class ConnectionFactory {
         dbProperties = new Properties();
         try {
             dbProperties.load(new FileInputStream(JDBC_PROPERTIES));
-            System.out.println(dbProperties);
         }
         catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Exception: " + READ_PROPERTIES_ERROR + e);

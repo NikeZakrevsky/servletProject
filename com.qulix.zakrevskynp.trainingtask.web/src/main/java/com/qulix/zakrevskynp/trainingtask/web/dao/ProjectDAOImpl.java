@@ -24,7 +24,6 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
     private static final String UPDATE_PROJECT_ERROR = "Ошибка при обновлении проекта";
     private static final String GET_PROJECTS_LIST_ERROR = "Ошибка при получении списка проектов";
     private static final String GET_PROJECT_BY_ID_ERROR = "Ошибка при получении проекта";
-    private static final String IDENTITY_QUERY = "call identity()";
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String SHORTNAME = "short_name";
@@ -77,29 +76,26 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
     @Override
     public void add(Project project, String insertQuery, String error) {
         List<Task> tasks = project.getTasks();
-        ResultSet resultSet = null;
+        ResultSet generatedKeys = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        Statement statement = null;
         try {
             connection = ConnectionFactory.getConnection();
-            preparedStatement = connection.prepareStatement(INSERT_QUERY);
+            preparedStatement = connection.prepareStatement(INSERT_QUERY, Statement.RETURN_GENERATED_KEYS);
             setPreparedStatement(preparedStatement, project);
             preparedStatement.execute();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(IDENTITY_QUERY);
-            resultSet.next();
+            generatedKeys = preparedStatement.getGeneratedKeys();
+            generatedKeys.next();
             connection.commit();
-            ProjectDAOImpl.this.addProjectTasks(tasks, resultSet);
+            ProjectDAOImpl.this.addProjectTasks(tasks, generatedKeys);
         }
         catch (SQLException e) {
             throw new DAOException(ADD_PROJECT_ERROR, e);
         }
         finally {
-            closeResultSet(resultSet);
+            closeResultSet(generatedKeys);
             closeConnection(connection);
             closeStatement(preparedStatement);
-            closeStatement(statement);
         }
     }
 
