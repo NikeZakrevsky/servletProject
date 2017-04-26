@@ -66,11 +66,16 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
         super.remove(id, DELETE_QUERY, REMOVE_PROJECT_ERROR);
     }
 
+    public void add(Project project) {
+        add(project, INSERT_QUERY, ADD_PROJECT_ERROR);
+    }
+
     /**
      *  Create new project with tasks
      *  @param project new project
      */
-    public void add(Project project) {
+    @Override
+    public void add(Project project, String insertQuery, String error) {
         List<Task> tasks = project.getTasks();
         ResultSet resultSet = null;
         Connection connection = null;
