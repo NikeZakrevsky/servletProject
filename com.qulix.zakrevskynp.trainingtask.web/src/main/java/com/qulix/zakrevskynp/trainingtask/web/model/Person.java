@@ -39,13 +39,6 @@ public class Person extends BaseDAOEntity {
     }
 
     /**
-     * Get person id
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    /**
      * Get person first name
      * @return person first name
      */

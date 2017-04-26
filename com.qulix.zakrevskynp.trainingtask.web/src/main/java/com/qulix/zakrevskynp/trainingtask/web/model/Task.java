@@ -60,13 +60,6 @@ public class Task extends BaseDAOEntity {
     }
 
     /**
-     * Get task name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * Get task work time
      * @return task  work time
      */
@@ -150,21 +143,5 @@ public class Task extends BaseDAOEntity {
 
     public void setPersonId(Integer personId) {
         this.personId = personId;
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", workTime=" + workTime +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", taskStatus=" + taskStatus +
-                ", performer='" + performer + '\'' +
-                ", projectShortName='" + projectShortName + '\'' +
-                ", projectId=" + projectId +
-                ", personId=" + personId +
-                '}';
     }
 }

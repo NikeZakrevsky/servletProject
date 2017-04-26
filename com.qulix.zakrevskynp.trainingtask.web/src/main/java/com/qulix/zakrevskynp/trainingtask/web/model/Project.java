@@ -37,25 +37,11 @@ public class Project extends BaseDAOEntity {
     }
 
     /**
-     * Get project id
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    /**
      * Get project name
      * @return project name
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Get project name
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**
