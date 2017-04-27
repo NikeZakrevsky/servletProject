@@ -60,6 +60,7 @@ class ConnectionFactory {
      * @throws SQLException throws while getting connection to database
      */
     static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(dbProperties.getProperty(URL), dbProperties.getProperty(USER), dbProperties.getProperty(PASSWORD));
+        return DriverManager.getConnection(dbProperties.getProperty(URL), dbProperties.getProperty(USER), dbProperties.
+                getProperty(PASSWORD));
     }
 }

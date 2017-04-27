@@ -8,6 +8,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.BaseDAOEntity;
  * Interface with dao methods
  *
  * @param <T> class of the entity
+ * @author Q-NZA
  */
 public interface IDao<T extends BaseDAOEntity> {
     List<T> getAll(String selectQuery, String error);
