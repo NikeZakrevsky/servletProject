@@ -5,8 +5,8 @@ package com.qulix.zakrevskynp.trainingtask.web.dao;
  *
  * @author Q-NZA
  */
-class DAOException extends RuntimeException {
-    DAOException(String message, Throwable cause) {
+class DaoException extends RuntimeException {
+    DaoException(String message, Throwable cause) {
         super(message, cause);
     }
 }

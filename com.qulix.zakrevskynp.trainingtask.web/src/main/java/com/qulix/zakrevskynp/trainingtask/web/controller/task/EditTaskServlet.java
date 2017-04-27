@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDAOImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDaoImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDaoImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDaoImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
@@ -34,12 +34,12 @@ public class EditTaskServlet extends CustomTaskServlet {
         List<String> errors = validator.validate(parameters);
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
-            new TaskDAOImpl().update(task);
+            new TaskDaoImpl().update(task);
             response.sendRedirect(returningPath);
         }
         else {
-            request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getAll());
-            request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDAOImpl().getAll());
+            request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDaoImpl().getAll());
+            request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDaoImpl().getAll());
             request.setAttribute(Attribute.ACTION, Attribute.EDIT_TASK);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
             request.setAttribute(Attribute.TASK_OBJECT_NAME, parameters);
@@ -50,10 +50,10 @@ public class EditTaskServlet extends CustomTaskServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute(Attribute.PATH, request.getSession().getAttribute(Attribute.PATH).toString());
         returningPath = request.getSession(false).getAttribute(Attribute.PATH).toString();
-        Task task = new TaskDAOImpl().getById(Integer.parseInt(request.getParameter(ID)));
+        Task task = new TaskDaoImpl().getById(Integer.parseInt(request.getParameter(ID)));
         request.setAttribute(Attribute.TASK_OBJECT_NAME, task);
-        request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDAOImpl().getAll());
-        request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDAOImpl().getAll());
+        request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDaoImpl().getAll());
+        request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDaoImpl().getAll());
         request.setAttribute(Attribute.ACTION, Attribute.EDIT_TASK);
         if (!returningPath.equals(Attribute.TASKS_LIST)) {
             request.setAttribute(IS_DISABLE, true);

@@ -14,7 +14,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
  *
  * @author Q-NZA
  */
-public class TaskDAOImpl extends AbstractDAO<Task> {
+public class TaskDaoImpl extends AbstractDao<Task> {
     
     private static final String SELECT_QUERY = "select id, name, work_time, start_date, end_date, status, short_name, " +
         "project_id, person_id, first_name + ' ' + middle_name + ' ' + last_name as person from tasks left join projects on" +
@@ -108,7 +108,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
         }
         task.setId(id + 1);
         if (task.getPersonId() != null) {
-            Person person = new PersonDAOImpl().getById(task.getPersonId());
+            Person person = new PersonDaoImpl().getById(task.getPersonId());
             task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
         }
         tasks.add(task);
@@ -136,7 +136,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
 
     private void setPerformer(Task task) {
         if (task.getPersonId() != null) {
-            Person person = new PersonDAOImpl().getById(task.getPersonId());
+            Person person = new PersonDaoImpl().getById(task.getPersonId());
             task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
         }
     }
@@ -172,7 +172,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
             return resultSetToList(resultSet);
         }
         catch (SQLException e) {
-            throw new DAOException(GET_TASKS_LIST_ERROR, e);
+            throw new DaoException(GET_TASKS_LIST_ERROR, e);
         }
         finally {
             closeResultSet(resultSet);
@@ -207,7 +207,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
             return task;
         }
         catch (SQLException e) {
-            throw new DAOException(RESULT_SET_ERROR, e);
+            throw new DaoException(RESULT_SET_ERROR, e);
         }
 
     }
@@ -228,7 +228,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
             return tasks;
         }
         catch (SQLException e) {
-            throw new DAOException(RESULT_SET_ERROR, e);
+            throw new DaoException(RESULT_SET_ERROR, e);
         }
 
     }
@@ -251,7 +251,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
             return 8;
         }
         catch (SQLException e) {
-            throw new DAOException(RESULT_SET_ERROR, e);
+            throw new DaoException(RESULT_SET_ERROR, e);
         }
     }
 }

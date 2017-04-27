@@ -9,7 +9,7 @@ import java.util.List;
  * @param <T>
  * @author Q-NZA
  */
-abstract class AbstractDAO<T> implements IDao<T> {
+abstract class AbstractDao<T> implements IDao<T> {
 
     /**
      * Reading of the result error message
@@ -40,7 +40,7 @@ abstract class AbstractDAO<T> implements IDao<T> {
             return resultSetToList(resultSet);
         }
         catch (SQLException e) {
-            throw new DAOException(error, e);
+            throw new DaoException(error, e);
         }
         finally {
             closeResultSet(resultSet);
@@ -68,7 +68,7 @@ abstract class AbstractDAO<T> implements IDao<T> {
             connection.commit();
         }
         catch (SQLException e) {
-            throw new DAOException(error, e);
+            throw new DaoException(error, e);
         }
         finally {
             closeStatement(preparedStatement);
@@ -94,7 +94,7 @@ abstract class AbstractDAO<T> implements IDao<T> {
             connection.commit();
         }
         catch (SQLException e) {
-            throw new DAOException(error, e);
+            throw new DaoException(error, e);
         }
         finally {
             closeStatement(preparedStatement);
@@ -123,7 +123,7 @@ abstract class AbstractDAO<T> implements IDao<T> {
             return resultSetAsObject(resultSet);
         }
         catch (SQLException e) {
-            throw new DAOException(error, e);
+            throw new DaoException(error, e);
         }
         finally {
             closeResultSet(resultSet);
@@ -152,7 +152,7 @@ abstract class AbstractDAO<T> implements IDao<T> {
             connection.commit();
         }
         catch (SQLException e) {
-            throw new DAOException(error, e);
+            throw new DaoException(error, e);
         }
         finally {
             closeStatement(preparedStatement);

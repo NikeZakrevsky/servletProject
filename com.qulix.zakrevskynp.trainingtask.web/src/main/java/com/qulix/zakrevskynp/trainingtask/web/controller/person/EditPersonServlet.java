@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDaoImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
@@ -29,7 +29,7 @@ public class EditPersonServlet extends CustomPersonServlet {
         List<String> errors = new PersonDataValidator().validate(parameters);
         if (errors.isEmpty()) {
             Person person = parametersToObject(parameters);
-            new PersonDAOImpl().update(person);
+            new PersonDaoImpl().update(person);
             response.sendRedirect(Attribute.REDIRECT_PERSON_LIST);
         }
         else {
@@ -41,7 +41,7 @@ public class EditPersonServlet extends CustomPersonServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Person person = new PersonDAOImpl().getById(Integer.parseInt(request.getParameter(ID)));
+        Person person = new PersonDaoImpl().getById(Integer.parseInt(request.getParameter(ID)));
         request.setAttribute(Attribute.PERSON_OBJECT_NAME, person);
         request.setAttribute(Attribute.ACTION, Attribute.EDIT_PERSON);
         request.getRequestDispatcher(Attribute.PERSON_VIEW).forward(request, response);

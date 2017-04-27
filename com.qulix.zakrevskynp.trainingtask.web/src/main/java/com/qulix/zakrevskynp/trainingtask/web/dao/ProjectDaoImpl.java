@@ -13,7 +13,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  *
  * @author Q-NZA
  */
-public class ProjectDAOImpl extends AbstractDAO<Project> {
+public class ProjectDaoImpl extends AbstractDao<Project> {
 
     private static final String SELECT_QUERY = "select id, name, short_name, description from projects";
     private static final String INSERT_QUERY = "insert into projects(name, short_name, description) values (?, ?, ?)";
@@ -92,10 +92,10 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
             generatedKeys = preparedStatement.getGeneratedKeys();
             generatedKeys.next();
             connection.commit();
-            ProjectDAOImpl.this.addProjectTasks(tasks, generatedKeys);
+            ProjectDaoImpl.this.addProjectTasks(tasks, generatedKeys);
         }
         catch (SQLException e) {
-            throw new DAOException(ADD_PROJECT_ERROR, e);
+            throw new DaoException(ADD_PROJECT_ERROR, e);
         }
         finally {
             closeResultSet(generatedKeys);
@@ -105,7 +105,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
     }
 
     private void addProjectTasks(List<Task> tasks, ResultSet resultSet) throws SQLException {
-        TaskDAOImpl tasksDAO = new TaskDAOImpl();
+        TaskDaoImpl tasksDAO = new TaskDaoImpl();
         if (tasks != null && !tasks.isEmpty()) {
             for (Task task : tasks) {
                 task.setProjectId(resultSet.getInt(1));
@@ -131,7 +131,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
             return new Project(id, name, shortName, description);
         }
         catch (SQLException e) {
-            throw new DAOException(RESULT_SET_ERROR, e);
+            throw new DaoException(RESULT_SET_ERROR, e);
         }
     }
 
@@ -151,7 +151,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
             return 4;
         }
         catch (SQLException e) {
-            throw new DAOException(PREPARED_STATEMENT_ERROR, e);
+            throw new DaoException(PREPARED_STATEMENT_ERROR, e);
         }
     }
 
@@ -172,7 +172,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
             return projects;
         }
         catch (SQLException e) {
-            throw new DAOException(RESULT_SET_ERROR, e);
+            throw new DaoException(RESULT_SET_ERROR, e);
         }
     }
 }

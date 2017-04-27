@@ -13,7 +13,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
  *
  * @author Q-NZA
  */
-public class PersonDAOImpl extends AbstractDAO<Person> {
+public class PersonDaoImpl extends AbstractDao<Person> {
     
     private static final String SELECT_QUERY = "select id, first_name, middle_name, last_name, position from persons";
     private static final String INSERT_QUERY = "insert into persons(first_name, middle_name, last_name,position) values(?,?,?,?)";
@@ -96,7 +96,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> {
             return new Person(id, firstName, middleName, lastName, position);
         }
         catch (SQLException e) {
-            throw new DAOException(RESULT_SET_ERROR, e);
+            throw new DaoException(RESULT_SET_ERROR, e);
         }
     }
 
@@ -116,7 +116,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> {
             return persons;
         }
         catch (SQLException e) {
-            throw new DAOException(RESULT_SET_ERROR, e);
+            throw new DaoException(RESULT_SET_ERROR, e);
         }
     }
 
@@ -136,7 +136,7 @@ public class PersonDAOImpl extends AbstractDAO<Person> {
             return 5;
         }
         catch (SQLException e) {
-            throw new DAOException(PREPARED_STATEMENT_ERROR, e);
+            throw new DaoException(PREPARED_STATEMENT_ERROR, e);
         }
     }
 }

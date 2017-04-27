@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
-import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDaoImpl;
 
 /**
  * Handling the action of removing a task and redirects to the @{{@link TasksListServlet}}
@@ -23,7 +23,7 @@ public class RemoveTaskServlet extends CustomServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String returningPath = request.getSession(false).getAttribute(Attribute.PATH).toString();
-        new TaskDAOImpl().remove(Integer.parseInt(request.getParameter(ID)));
+        new TaskDaoImpl().remove(Integer.parseInt(request.getParameter(ID)));
         response.sendRedirect(returningPath);
     }
 }

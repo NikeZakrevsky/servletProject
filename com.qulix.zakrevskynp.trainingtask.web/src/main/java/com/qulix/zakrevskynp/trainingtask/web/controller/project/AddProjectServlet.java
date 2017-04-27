@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDAOImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDaoImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
@@ -31,7 +31,7 @@ public class AddProjectServlet extends CustomProjectServlet {
             Project project = parametersToObject(parameters);
             List<Task> tasks = getItems(request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
             project.setTasks(tasks);
-            new ProjectDAOImpl().add(project);
+            new ProjectDaoImpl().add(project);
             request.getSession().invalidate();
             response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
         }
