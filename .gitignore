@@ -5,3 +5,5 @@ com.qulix.zakrevskynp.trainingtask.web/build/
 com.qulix.zakrevskynp.trainingtask.web/lib/
 docs/
 lib/
+/com.qulix.zakrevskynp.trainingtask.web/tomcat/
+/com.qulix.zakrevskynp.trainingtask.databaseScript/database/
