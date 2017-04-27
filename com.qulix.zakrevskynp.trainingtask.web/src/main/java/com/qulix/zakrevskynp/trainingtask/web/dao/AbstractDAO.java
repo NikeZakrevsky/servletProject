@@ -11,7 +11,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.BaseDAOEntity;
  * @param <T>
  * @author Q-NZA
  */
-public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
+abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
 
     /**
      * Reading of the result error message
@@ -31,7 +31,7 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
      * @param error error message
      * @return list of entities
      */
-    public List<T> getAll(String selectQuery, String error) {
+    List<T> getAll(String selectQuery, String error) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -59,7 +59,7 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
      * @param removeQuery sql query for removing entity
      * @param error error message
      */
-    public void remove(int id, String removeQuery, String error)  {
+    void remove(int id, String removeQuery, String error)  {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -85,7 +85,7 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
      * @param insertQuery sql query for inserting entity
      * @param error error message
      */
-    public void add(T entity, String insertQuery, String error) {
+    void add(T entity, String insertQuery, String error) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -112,7 +112,7 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
      * @param error error message
      * @return entity
      */
-    public T getById(int id, String getByIdQuery, String error)  {
+    T getById(int id, String getByIdQuery, String error)  {
         ResultSet resultSet = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -142,7 +142,7 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
      * @param updateQuery sql query for updating entity
      * @param error error message
      */
-    public void update(T entity, int id, String updateQuery, String error) {
+    void update(T entity, int id, String updateQuery, String error) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -168,7 +168,7 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
      * @param resultSet resultSet for converting to object
      * @return created task object
      */
-    protected abstract T resultSetAsObject(ResultSet resultSet) throws SQLException;
+    abstract T resultSetAsObject(ResultSet resultSet) throws SQLException;
 
     /**
      * Convert the ResultSet to a List of objects
@@ -177,7 +177,7 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
      * @return tasks list
      * @throws SQLException throws while getting data from result set
      */
-    protected abstract List<T> resultSetToList(ResultSet rs) throws SQLException;
+    abstract List<T> resultSetToList(ResultSet rs) throws SQLException;
 
     /**
      * Set parameters to prepared statement
@@ -185,7 +185,7 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
      * @param preparedStatement link of the prepared statement for setting parameters
      * @throws SQLException throws while setting parameters to prepared statement
      */
-    protected abstract int setPreparedStatement(PreparedStatement preparedStatement, T entity) throws SQLException;
+    abstract int setPreparedStatement(PreparedStatement preparedStatement, T entity) throws SQLException;
 
     /**
      * Close result set

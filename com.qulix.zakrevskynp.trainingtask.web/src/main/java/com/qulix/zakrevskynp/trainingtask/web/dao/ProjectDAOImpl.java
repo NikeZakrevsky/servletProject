@@ -49,6 +49,7 @@ public class ProjectDAOImpl extends AbstractDAO<Project> {
         return super.getById(id, SELECT_BY_ID_QUERY, GET_PROJECT_BY_ID_ERROR);
     }
 
+
     /**
      * Get all projects from database
      *
