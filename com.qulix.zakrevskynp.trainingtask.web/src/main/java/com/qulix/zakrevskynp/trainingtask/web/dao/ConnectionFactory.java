@@ -44,7 +44,10 @@ class ConnectionFactory {
         }
     }
 
-    {
+    /**
+     * Loading the database driver
+     */
+    static void loadDriver() {
         try {
             Class.forName(dbProperties.getProperty(DRIVER_CLASS));
         }

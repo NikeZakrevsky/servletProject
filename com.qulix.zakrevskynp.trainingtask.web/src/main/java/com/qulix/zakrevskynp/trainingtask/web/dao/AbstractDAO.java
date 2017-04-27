@@ -25,6 +25,7 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
 
     static {
         ConnectionFactory.readDatabaseProperty();
+        ConnectionFactory.loadDriver();
     }
 
     /**
@@ -208,7 +209,7 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
 
     /**
      * Close statement
-     * 
+     *
      * @param statement statement closing
      */
     void closeStatement(Statement statement) {
