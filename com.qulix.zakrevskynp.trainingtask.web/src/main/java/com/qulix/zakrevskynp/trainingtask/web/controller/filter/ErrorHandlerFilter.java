@@ -38,11 +38,10 @@ public class ErrorHandlerFilter implements Filter {
         }
         catch (Exception e) {
             Logger logger = LoggingFactory.getLogger();
-            logger.log(Level.SEVERE, "Exception: " + e);
+            logger.log(Level.SEVERE, "Exception: ", e);
             String error = e.getMessage();
             request.setAttribute("error", error);
             request.getRequestDispatcher(Attribute.PERSONS_LIST_VIEW).forward(request, response);
-            throw e;
         }
     }
 
