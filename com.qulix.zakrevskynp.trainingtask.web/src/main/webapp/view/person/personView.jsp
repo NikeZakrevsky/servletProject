@@ -10,7 +10,6 @@
 
 <body>
     <%@ include file="../share/navigationBar.jsp" %>
-	<div class="generic-container">
     <div class="panel panel-default">
     <div class="panel-heading"><span class="lead">Управление сотрудниками</span></div>
     <div class="formcontainer">
@@ -59,7 +58,6 @@
         <button type="submit" class="btn btn-success custom-width">Сохранить</button>
         <a href="personsList"><button type="button" class="btn btn-danger custom-width">Отмена</button></a>
 	</form>
-</div>
 </div>
 </div>
 </body>

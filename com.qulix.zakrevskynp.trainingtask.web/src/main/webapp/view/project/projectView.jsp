@@ -11,12 +11,10 @@
 
 <body>
 <%@ include file="../share/navigationBar.jsp" %>
-	<div class="generic-container">
-    <div class="panel panel-default">
+<div class="panel panel-default">
     <div class="panel-heading"><span class="lead">Управление проектами</span></div>
-    <br/>
     <div class="formcontainer">
-	    <form action = "${action}" method = "POST">
+        <form action = "${action}" method = "POST">
             <%@ include file="../share/errors.jsp" %>
             <div class="row">
                 <div class="form-group col-md-12">
@@ -52,54 +50,52 @@
             </div>
             <button type="submit" class="btn btn-success custom-width">Сохранить</button>
             <a href="projectsList"><button type="button" class="btn btn-danger custom-width">Отмена</button></a>
-
             <div class="generic-container">
                 <div class="panel panel-default">
                     <div class="panel-heading"><span class="lead">Список задач</span></div>
                         <div class="tablecontainer">
                             <table class="table table-hover">
                                 <thead>
-                                      <tr>
-                                          <th>Идентификатор</th>
-                                          <th>Название</th>
-                                          <th>Дата начала</th>
-                                          <th>Дата окончания</th>
-                                          <th>Исполнитель</th>
-                                          <th>Статус</th>
-                                          <th width="20%"></th>
-                                      </tr>
+                                <tr>
+                                    <th>Идентификатор</th>
+                                    <th>Название</th>
+                                    <th>Дата начала</th>
+                                    <th>Дата окончания</th>
+                                    <th>Исполнитель</th>
+                                    <th>Статус</th>
+                                    <th width="20%"></th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${tasks}" var="task">
-                                    <tr>
-                                        <td>${task.id}</td>
-                                        <td>${task.name}</td>
-                                        <td>${task.startDate}</td>
-                                        <td>${task.endDate}</td>
-                                        <td>${task.performer}</td>
-                                        <td>${task.status}</td>
-                                        <td>
-                                            <button onclick="this.form.action = 'removeTaskProject?taskId=${task.id}&id=${project.id}'" type="submit" class="btn btn-danger custom-width">Удалить</button>
-                                            <button onclick = "this.form.action = 'editTaskProject1?taskId=${task.id}'" type="submit" class="btn btn-success custom-width">Изменить</button>
-                                        </td>
-                                    </tr>
-                                <tbody>
+                                <c:forEach items="${tasks}" var="task">
+                                <tr>
+                                    <td>${task.id}</td>
+                                    <td>${task.name}</td>
+                                    <td>${task.startDate}</td>
+                                    <td>${task.endDate}</td>
+                                    <td>${task.performer}</td>
+                                    <td>${task.status}</td>
+                                    <td>
+                                        <button onclick="this.form.action = 'removeTaskProject?taskId=${task.id}&id=${project.id}'" type="submit" class="btn btn-danger custom-width">Удалить</button>
+                                        <button onclick = "this.form.action = 'editTaskProject1?taskId=${task.id}'" type="submit" class="btn btn-success custom-width">Изменить</button>
+                                    </td>
+                                </tr>
                                 </c:forEach>
+                                <tbody>
                             </table>
                         </div>
-                    </div>
-                    <c:choose>
-                        <c:when test="${action.equals('editProject')}">
-                            <button onclick = "this.form.action = 'taskProject1?projectId=${project.id}'" type="submit" class="btn btn-success custom-width">Добавить</button>
-                        </c:when>
-                        <c:otherwise>
-                            <button onclick = "this.form.action = 'taskProject1'" type="submit" class="btn btn-success custom-width">Добавить</button>
-                        </c:otherwise>
-                    </c:choose>
+                </div>
+                <c:choose>
+                    <c:when test="${action.equals('editProject')}">
+                        <button onclick = "this.form.action = 'taskProject1?projectId=${project.id}'" type="submit" class="btn btn-success custom-width">Добавить</button>
+                    </c:when>
+                    <c:otherwise>
+                        <button onclick = "this.form.action = 'taskProject1'" type="submit" class="btn btn-success custom-width">Добавить</button>
+                    </c:otherwise>
+                </c:choose>
             </div>
-	    </form>
+        </form>
     </div>
-</div>
 </div>
 </body>
 </html>
