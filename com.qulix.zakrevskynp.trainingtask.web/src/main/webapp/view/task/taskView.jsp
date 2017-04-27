@@ -77,10 +77,10 @@
             <label class="col-md-2 control-lable">Статус</label>
                 <div class="col-md-7">
 	                <select name = "taskStatus">
-                        <option value="NOT_STARTED" ${"NOT_STARTED".equals(task.taskStatus.toString()) ? 'selected="selected"' : ''}>Not started</option>
-                        <option value="IN_PROCESS" ${"IN_PROCESS".equals(task.taskStatus.toString()) ? 'selected="selected"' : ''}>In process</option>
-                        <option value="COMPLETED" ${"COMPLETED".equals(task.taskStatus.toString()) ? 'selected="selected"' : ''}>Completed</option>
-                        <option value="DELAYED" ${"DELAYED".equals(task.taskStatus.toString()) ? 'selected="selected"' : ''}>Delayed</option>
+                        <option value="NOT_STARTED" ${"NOT_STARTED".equals(task.status.toString()) ? 'selected="selected"' : ''}>Not started</option>
+                        <option value="IN_PROCESS" ${"IN_PROCESS".equals(task.status.toString()) ? 'selected="selected"' : ''}>In process</option>
+                        <option value="COMPLETED" ${"COMPLETED".equals(task.status.toString()) ? 'selected="selected"' : ''}>Completed</option>
+                        <option value="DELAYED" ${"DELAYED".equals(task.status.toString()) ? 'selected="selected"' : ''}>Delayed</option>
                     </select>
                 </div>
             </div>
