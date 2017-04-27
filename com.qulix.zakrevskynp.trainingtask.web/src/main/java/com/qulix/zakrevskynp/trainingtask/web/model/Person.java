@@ -69,7 +69,7 @@ public class Person extends BaseDAOEntity {
     }
 
     /**
-     * Get person position
+     * Gets person position
      *
      * @return person position
      */

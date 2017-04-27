@@ -6,8 +6,10 @@ import java.util.List;
 import com.qulix.zakrevskynp.trainingtask.web.model.BaseDAOEntity;
 
 /**
- * @author Q-NZA
+ * Abstract class with shared methods for DAOs
+ *
  * @param <T>
+ * @author Q-NZA
  */
 public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
 
