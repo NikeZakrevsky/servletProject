@@ -29,7 +29,7 @@ abstract class AbstractDAO<T> implements IDao<T> {
      * @param error error message
      * @return list of entities
      */
-    List<T> getAll(String selectQuery, String error) {
+    protected List<T> getAll(String selectQuery, String error) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -57,7 +57,7 @@ abstract class AbstractDAO<T> implements IDao<T> {
      * @param removeQuery sql query for removing entity
      * @param error error message
      */
-    void remove(int id, String removeQuery, String error)  {
+    protected void remove(int id, String removeQuery, String error)  {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -83,7 +83,7 @@ abstract class AbstractDAO<T> implements IDao<T> {
      * @param insertQuery sql query for inserting entity
      * @param error error message
      */
-    void add(T entity, String insertQuery, String error) {
+    protected void add(T entity, String insertQuery, String error) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -110,7 +110,7 @@ abstract class AbstractDAO<T> implements IDao<T> {
      * @param error error message
      * @return entity
      */
-    T getById(int id, String getByIdQuery, String error)  {
+    protected T getById(int id, String getByIdQuery, String error)  {
         ResultSet resultSet = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -140,7 +140,7 @@ abstract class AbstractDAO<T> implements IDao<T> {
      * @param updateQuery sql query for updating entity
      * @param error error message
      */
-    void update(T entity, int id, String updateQuery, String error) {
+    protected void update(T entity, int id, String updateQuery, String error) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -166,7 +166,7 @@ abstract class AbstractDAO<T> implements IDao<T> {
      * @param resultSet resultSet for converting to object
      * @return created task object
      */
-    abstract T resultSetAsObject(ResultSet resultSet) throws SQLException;
+    protected abstract T resultSetAsObject(ResultSet resultSet) throws SQLException;
 
     /**
      * Convert the ResultSet to a List of objects
@@ -175,7 +175,7 @@ abstract class AbstractDAO<T> implements IDao<T> {
      * @return tasks list
      * @throws SQLException throws while getting data from result set
      */
-    abstract List<T> resultSetToList(ResultSet rs) throws SQLException;
+    protected abstract List<T> resultSetToList(ResultSet rs) throws SQLException;
 
     /**
      * Set parameters to prepared statement
@@ -183,14 +183,14 @@ abstract class AbstractDAO<T> implements IDao<T> {
      * @param preparedStatement link of the prepared statement for setting parameters
      * @throws SQLException throws while setting parameters to prepared statement
      */
-    abstract int setPreparedStatement(PreparedStatement preparedStatement, T entity) throws SQLException;
+    protected abstract int setPreparedStatement(PreparedStatement preparedStatement, T entity) throws SQLException;
 
     /**
      * Close result set
      *
      * @param resultSet result set for closing
      */
-    void closeResultSet(ResultSet resultSet) {
+    protected void closeResultSet(ResultSet resultSet) {
         if (resultSet != null) {
             try {
                 resultSet.close();
@@ -206,7 +206,7 @@ abstract class AbstractDAO<T> implements IDao<T> {
      *
      * @param statement statement closing
      */
-    void closeStatement(Statement statement) {
+    protected void closeStatement(Statement statement) {
         if (statement != null) {
             try {
                 statement.close();
@@ -222,7 +222,7 @@ abstract class AbstractDAO<T> implements IDao<T> {
      *
      * @param connection connection for closing
      */
-    void closeConnection(Connection connection) {
+    protected void closeConnection(Connection connection) {
         if (connection != null) {
             try {
                 connection.close();
