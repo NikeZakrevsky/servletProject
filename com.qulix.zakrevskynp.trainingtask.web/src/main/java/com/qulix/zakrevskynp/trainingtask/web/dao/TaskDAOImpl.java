@@ -97,7 +97,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
      * @param task data from add task form
      * @return list of tasks with added new task
      */
-    public List<Task> addTask(Task task, List<Task> tasks) {
+    public List<Task> addTaskToList(Task task, List<Task> tasks) {
         if (tasks == null) {
             tasks = new ArrayList<>();
         }
@@ -121,7 +121,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
      * @param task data from update task form for getting tasks list
      * @param id task's id
      */
-    public List<Task> updateTask(Task task, List<Task> tasks, int id) {
+    public List<Task> updateTaskInList(Task task, List<Task> tasks, int id) {
         int index = 0;
         for (Task task1 : tasks) {
             if (task1.getId() == id) {
