@@ -23,10 +23,6 @@ public abstract class AbstractDAO<T extends BaseDAOEntity> implements IDao<T> {
      */
     static final String PREPARED_STATEMENT_ERROR = "Ошибка при создании PreparedStatement-а";
 
-    static {
-        ConnectionFactory.readDatabaseProperty();
-        ConnectionFactory.loadDriver();
-    }
 
     /**
      * Gets all entities

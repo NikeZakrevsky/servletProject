@@ -34,7 +34,7 @@ class ConnectionFactory {
     /**
      * Reading properties of the database connection
      */
-    static void readDatabaseProperty() {
+    static  {
         dbProperties = new Properties();
         try {
             dbProperties.load(new FileInputStream(JDBC_PROPERTIES));
@@ -47,7 +47,7 @@ class ConnectionFactory {
     /**
      * Loading the database driver
      */
-    static void loadDriver() {
+    static  {
         try {
             Class.forName(dbProperties.getProperty(DRIVER_CLASS));
         }
