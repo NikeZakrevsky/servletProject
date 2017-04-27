@@ -13,7 +13,7 @@ public class Person {
     private String middleName;
     private String lastName;
     private String position;
-    private List<Task> task;
+    private List<Task> tasks;
 
     /**
      * Create person object
@@ -83,15 +83,15 @@ public class Person {
      * @return list of tasks
      */
     public List<Task> getTask() {
-        return task;
+        return tasks;
     }
 
     /**
      * Sets list of tasks
      *
-     * @param task list of tasks
+     * @param tasks list of tasks
      */
-    public void setTask(List<Task> task) {
-        this.task = task;
+    public void setTask(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }
