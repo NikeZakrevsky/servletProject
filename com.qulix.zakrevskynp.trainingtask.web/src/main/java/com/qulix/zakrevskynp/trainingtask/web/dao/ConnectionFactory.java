@@ -27,6 +27,10 @@ class ConnectionFactory {
     private static final String DATABASE_CONNECTION_ERROR = "Ошибка подключения к базе данных";
     private static final Logger LOGGER = LoggingFactory.getLogger();
     private static final String READ_PROPERTIES_ERROR = "Файл настроек базы данных не найден";
+    private static String urlProperty;
+    private static String userProperty;
+    private static String passwordProperty;
+    private static String driverProperty;
 
     private ConnectionFactory() {
     }
@@ -38,6 +42,10 @@ class ConnectionFactory {
         dbProperties = new Properties();
         try {
             dbProperties.load(new FileInputStream(JDBC_PROPERTIES));
+            urlProperty = dbProperties.getProperty(URL);
+            userProperty = dbProperties.getProperty(USER);
+            passwordProperty = dbProperties.getProperty(PASSWORD);
+            driverProperty = dbProperties.getProperty(DRIVER_CLASS);
         }
         catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Exception: " + READ_PROPERTIES_ERROR + e);
@@ -49,7 +57,7 @@ class ConnectionFactory {
      */
     static  {
         try {
-            Class.forName(dbProperties.getProperty(DRIVER_CLASS));
+            Class.forName(driverProperty);
         }
         catch (ClassNotFoundException e) {
             LOGGER.log(Level.SEVERE, "Exception: " + DATABASE_CONNECTION_ERROR + e);
@@ -63,7 +71,6 @@ class ConnectionFactory {
      * @throws SQLException throws while getting connection to database
      */
     static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(dbProperties.getProperty(URL), dbProperties.getProperty(USER), dbProperties.
-                getProperty(PASSWORD));
+        return DriverManager.getConnection(urlProperty, userProperty, passwordProperty);
     }
 }
