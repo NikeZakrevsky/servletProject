@@ -24,6 +24,10 @@ buildscript {
     }
 }
 
+tomcat {
+    httpPort = 8080
+}
+
 tomcatRun {
     contextPath = "/"
     webDefaultXml = file("src/main/webapp/WEB-INF/web.xml")
