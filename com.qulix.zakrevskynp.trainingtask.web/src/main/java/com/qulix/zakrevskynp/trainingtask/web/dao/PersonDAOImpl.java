@@ -129,12 +129,11 @@ public class PersonDAOImpl extends AbstractDAO<Person> {
     @Override
     public int setPreparedStatement(PreparedStatement preparedStatement, Person person) {
         try {
-            int i = 0;
-            preparedStatement.setString(++i, person.getFirstName());
-            preparedStatement.setString(++i, person.getMiddleName());
-            preparedStatement.setString(++i, person.getLastName());
-            preparedStatement.setString(++i, person.getPosition());
-            return ++i;
+            preparedStatement.setString(1, person.getFirstName());
+            preparedStatement.setString(2, person.getMiddleName());
+            preparedStatement.setString(3, person.getLastName());
+            preparedStatement.setString(4, person.getPosition());
+            return 5;
         }
         catch (SQLException e) {
             throw new DAOException(PREPARED_STATEMENT_ERROR, e);
