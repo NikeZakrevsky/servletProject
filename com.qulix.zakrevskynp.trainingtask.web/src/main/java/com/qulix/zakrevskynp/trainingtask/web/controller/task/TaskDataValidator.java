@@ -81,11 +81,11 @@ public class TaskDataValidator extends Validator {
     }
 
     private java.util.Date validateDate(String field, String error) {
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-        sdf.setLenient(false);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        dateFormat.setLenient(false);
         java.util.Date date = null;
         try {
-            date = sdf.parse(parameters.get(field).toString());
+            date = dateFormat.parse(parameters.get(field).toString());
             Date date1 = new Date(date.getTime());
             parameters.put(field, date1);
         } catch (ParseException e) {

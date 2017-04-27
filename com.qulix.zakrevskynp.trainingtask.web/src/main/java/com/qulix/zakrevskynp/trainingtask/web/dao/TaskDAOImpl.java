@@ -245,7 +245,7 @@ public class TaskDAOImpl extends AbstractDAO<Task> {
             preparedStatement.setLong(2, task.getWorkTime().toMinutes());
             preparedStatement.setDate(3, task.getStartDate());
             preparedStatement.setDate(4, task.getEndDate());
-            preparedStatement.setString(5, task.getTaskStatus().toString());
+            preparedStatement.setString(5, task.getStatus().toString());
             preparedStatement.setObject(6, task.getProjectId());
             preparedStatement.setObject(7, task.getPersonId());
             return 8;

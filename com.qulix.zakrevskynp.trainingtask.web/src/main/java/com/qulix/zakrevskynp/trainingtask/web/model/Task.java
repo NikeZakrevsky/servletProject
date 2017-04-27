@@ -14,7 +14,7 @@ public class Task {
     private Duration workTime;
     private Date startDate;
     private Date endDate;
-    private TaskStatus taskStatus;
+    private TaskStatus status;
     private String performer;
     private String projectShortName;
     private Integer projectId;
@@ -28,17 +28,17 @@ public class Task {
      * @param workTime working time
      * @param startDate starting date
      * @param endDate ending date
-     * @param taskStatus status of the task
+     * @param status status of the task
      * @param performer performer
      */
-    public Task(Integer id, String name, Duration workTime, Date startDate, Date endDate, TaskStatus taskStatus,
+    public Task(Integer id, String name, Duration workTime, Date startDate, Date endDate, TaskStatus status,
         String performer) {
         this.id = id;
         this.name = name;
         this.workTime = workTime;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.taskStatus = taskStatus;
+        this.status = status;
         this.performer = performer;
     }
 
@@ -107,8 +107,8 @@ public class Task {
      *
      * @return task status
      */
-    public TaskStatus getTaskStatus() {
-        return taskStatus;
+    public TaskStatus getStatus() {
+        return status;
     }
 
     /**
