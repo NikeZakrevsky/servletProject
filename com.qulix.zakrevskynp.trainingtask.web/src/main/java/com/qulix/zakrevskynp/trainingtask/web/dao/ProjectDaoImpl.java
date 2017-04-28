@@ -45,8 +45,8 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
      * @param id project's id
      * @return Project object
      */
-    public Project getById(int id) {
-        return super.getById(id, SELECT_BY_ID_QUERY, GET_PROJECT_BY_ID_ERROR);
+    public Project get(int id) {
+        return super.get(id, SELECT_BY_ID_QUERY, GET_PROJECT_BY_ID_ERROR);
     }
 
 

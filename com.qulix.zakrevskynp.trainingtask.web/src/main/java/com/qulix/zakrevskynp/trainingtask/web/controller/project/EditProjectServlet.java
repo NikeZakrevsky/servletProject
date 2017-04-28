@@ -66,7 +66,7 @@ public class EditProjectServlet extends CustomProjectServlet {
             resultTasks = getItems(request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
         }
         if (request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME) == null) {
-            Project project = new ProjectDaoImpl().getById(Integer.parseInt(request.getParameter(ID)));
+            Project project = new ProjectDaoImpl().get(Integer.parseInt(request.getParameter(ID)));
             request.setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
         }
         else {

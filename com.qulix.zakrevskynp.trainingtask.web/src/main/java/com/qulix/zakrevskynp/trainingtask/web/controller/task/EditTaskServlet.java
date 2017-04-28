@@ -50,7 +50,7 @@ public class EditTaskServlet extends CustomTaskServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute(Attribute.PATH, request.getSession().getAttribute(Attribute.PATH).toString());
         returningPath = request.getSession(false).getAttribute(Attribute.PATH).toString();
-        Task task = new TaskDaoImpl().getById(Integer.parseInt(request.getParameter(ID)));
+        Task task = new TaskDaoImpl().get(Integer.parseInt(request.getParameter(ID)));
         request.setAttribute(Attribute.TASK_OBJECT_NAME, task);
         request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDaoImpl().getAll());
         request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDaoImpl().getAll());

@@ -78,8 +78,8 @@ public class TaskDaoImpl extends AbstractDao<Task> {
      * @param id task's id
      * @return Task object
      */
-    public Task getById(int id) {
-        return super.getById(id, SELECT_BY_ID_QUERY, GET_TASKS_BY_ID_ERROR);
+    public Task get(int id) {
+        return super.get(id, SELECT_BY_ID_QUERY, GET_TASKS_BY_ID_ERROR);
     }
 
     /**
@@ -108,7 +108,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
         }
         task.setId(id + 1);
         if (task.getPersonId() != null) {
-            Person person = new PersonDaoImpl().getById(task.getPersonId());
+            Person person = new PersonDaoImpl().get(task.getPersonId());
             task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
         }
         tasks.add(task);
@@ -136,7 +136,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
 
     private void setPerformer(Task task) {
         if (task.getPersonId() != null) {
-            Person person = new PersonDaoImpl().getById(task.getPersonId());
+            Person person = new PersonDaoImpl().get(task.getPersonId());
             task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
         }
     }

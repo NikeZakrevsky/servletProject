@@ -12,6 +12,6 @@ public interface IDao<T> {
     List<T> getAll();
     void remove(int id);
     void add(T entity);
-    T getById(int id);
+    T get(int id);
     void update(T entity);
 }

@@ -65,8 +65,8 @@ public class PersonDaoImpl extends AbstractDao<Person> {
      * @param id person's id
      * @return @{{@link Person}}
      */
-    public Person getById(int id) {
-        return super.getById(id, SELECT_BY_ID_QUERY, GET_PERSON_BY_ID_ERROR);
+    public Person get(int id) {
+        return super.get(id, SELECT_BY_ID_QUERY, GET_PERSON_BY_ID_ERROR);
     }
 
     /**

@@ -41,7 +41,7 @@ public class EditPersonServlet extends CustomPersonServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Person person = new PersonDaoImpl().getById(Integer.parseInt(request.getParameter(ID)));
+        Person person = new PersonDaoImpl().get(Integer.parseInt(request.getParameter(ID)));
         request.setAttribute(Attribute.PERSON_OBJECT_NAME, person);
         request.setAttribute(Attribute.ACTION, Attribute.EDIT_PERSON);
         request.getRequestDispatcher(Attribute.PERSON_VIEW).forward(request, response);

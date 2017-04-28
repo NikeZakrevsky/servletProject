@@ -101,7 +101,7 @@ abstract class AbstractDao<T extends BaseDAOEntity> implements IDao<T> {
      * @param error error message
      * @return entity
      */
-    protected T getById(int id, String getByIdQuery, String error)  {
+    protected T get(int id, String getByIdQuery, String error)  {
         ResultSet resultSet = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
