@@ -14,13 +14,13 @@
 <div class="panel panel-default">
     <div class="panel-heading"><span class="lead">Управление проектами</span></div>
     <div class="formcontainer">
-        <form action = "${action}" method = "POST">
+        <form action = "${requestScope.action}" method = "POST">
             <%@ include file="../share/errors.jsp" %>
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-2 control-lable">Идентификатор</label>
                     <div class="col-md-7">
-                        <input type = "text" name = "id" size = "65" value = "${project.id}" readonly/>
+                        <input type = "text" name = "id" size = "65" value = "${requestScope.project.id}" readonly/>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                 <div class="form-group col-md-12">
                     <label class="col-md-2 control-lable">Название</label>
                     <div class="col-md-7">
-                        <input type = "text" name = "name" size = "65" maxlength="20" value = "${project.name}"/>
+                        <input type = "text" name = "name" size = "65" maxlength="20" value = "${requestScope.project.name}"/>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                 <div class="form-group col-md-12">
                     <label class="col-md-2 control-lable">Сокращенное название</label>
                     <div class="col-md-7">
-                        <input type = "text" name = "shortName" size = "65" maxlength="20" value = "${project.shortName}"/>
+                        <input type = "text" name = "shortName" size = "65" maxlength="20" value = "${requestScope.project.shortName}"/>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 <div class="form-group col-md-12">
                     <label class="col-md-2 control-lable">Описание</label>
                     <div class="col-md-7">
-	                    <input type = "text" name = "description" size = "65" maxlength="20" value = "${project.description}"/>
+	                    <input type = "text" name = "description" size = "65" maxlength="20" value = "${requestScope.project.description}"/>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${tasks}" var="task">
+                                <c:forEach items="${requestScope.tasks}" var="task">
                                 <tr>
                                     <td>${task.id}</td>
                                     <td>${task.name}</td>
@@ -76,7 +76,7 @@
                                     <td>${task.performer}</td>
                                     <td>${task.status}</td>
                                     <td>
-                                        <button onclick="this.form.action = 'removeTaskProject?taskId=${task.id}&id=${project.id}'" type="submit" class="btn btn-danger custom-width">Удалить</button>
+                                        <button onclick="this.form.action = 'removeTaskProject?taskId=${task.id}&id=${requestScope.project.id}'" type="submit" class="btn btn-danger custom-width">Удалить</button>
                                         <button onclick = "this.form.action = 'editTaskProject1?taskId=${task.id}'" type="submit" class="btn btn-success custom-width">Изменить</button>
                                     </td>
                                 </tr>
@@ -86,8 +86,8 @@
                         </div>
                 </div>
                 <c:choose>
-                    <c:when test="${action.equals('editProject')}">
-                        <button onclick = "this.form.action = 'taskProject1?projectId=${project.id}'" type="submit" class="btn btn-success custom-width">Добавить</button>
+                    <c:when test="${requestScope.action.equals('editProject')}">
+                        <button onclick = "this.form.action = 'taskProject1?projectId=${requestScope.project.id}'" type="submit" class="btn btn-success custom-width">Добавить</button>
                     </c:when>
                     <c:otherwise>
                         <button onclick = "this.form.action = 'taskProject1'" type="submit" class="btn btn-success custom-width">Добавить</button>

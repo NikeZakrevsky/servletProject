@@ -36,6 +36,9 @@ public class CustomServlet extends HttpServlet {
      * @return list of tasks
      */
     protected List<Task> getItems(Object var) {
+        if (var == null) {
+            return null;
+        }
         List<Task> result = new ArrayList<>();
         for (int i = 0; i < ((List<?>)var).size(); i++) {
             Object item = ((List<?>) var).get(i);

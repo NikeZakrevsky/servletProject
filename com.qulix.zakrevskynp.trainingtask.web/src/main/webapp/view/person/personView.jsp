@@ -13,13 +13,13 @@
     <div class="panel panel-default">
     <div class="panel-heading"><span class="lead">Управление сотрудниками</span></div>
     <div class="formcontainer">
-	<form action = "${action}" method = "POST">
+	<form action = "${requestScope.action}" method = "POST">
         <%@ include file="../share/errors.jsp" %>
         <div class="row">
             <div class="form-group col-md-12">
                 <label class="col-md-2 control-lable">Идентификатор</label>
                 <div class="col-md-7">
-                    <input type = "text" name = "id" size = "70" value = "${person.id}" readonly/>
+                    <input type = "text" name = "id" size = "70" value = "${requestScope.person.id}" readonly/>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
             <div class="form-group col-md-12">
                 <label class="col-md-2 control-lable">Имя</label>
                 <div class="col-md-7">
-                    <input type = "text" name = "firstName" size = "70" maxlength="20" value="${person.firstName}"/>
+                    <input type = "text" name = "firstName" size = "70" maxlength="20" value="${requestScope.person.firstName}"/>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
             <div class="form-group col-md-12">
                 <label class="col-md-2 control-lable">Фамилия</label>
                 <div class="col-md-7">
-                    <input type = "text" name = "middleName" size = "70" maxlength="20" value="${person.middleName}"/>
+                    <input type = "text" name = "middleName" size = "70" maxlength="20" value="${requestScope.person.middleName}"/>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
             <div class="form-group col-md-12">
                 <label class="col-md-2 control-lable">Отчество</label>
                 <div class="col-md-7">
-                    <input type = "text" name = "lastName" size = "70" maxlength="20" value="${person.lastName}"/>
+                    <input type = "text" name = "lastName" size = "70" maxlength="20" value="${requestScope.person.lastName}"/>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Должность</label>
                 <div class="col-md-7">
-	                <input type = "text" name = "position" size = "70" maxlength="20" value="${person.position}"/>
+	                <input type = "text" name = "position" size = "70" maxlength="20" value="${requestScope.person.position}"/>
                 </div>
             </div>
         </div>

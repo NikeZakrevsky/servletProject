@@ -8,7 +8,7 @@
 </head>
 <body>
 <%@ include file="../share/navigationBar.jsp" %>
-<span style="color: red; ">${error}</span></br>
+<span style="color: red; ">${requestScope.error}</span>
 <div class="panel panel-default">
     <div class="panel-heading"><span class="lead">Список задач</span></div>
     <div class="tablecontainer">
@@ -26,7 +26,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${tasks}" var="task">
+            <c:forEach items="${requestScope.tasks}" var="task">
             <tr>
                 <td>${task.id}</td>
                 <td>${task.projectShortName}</td>

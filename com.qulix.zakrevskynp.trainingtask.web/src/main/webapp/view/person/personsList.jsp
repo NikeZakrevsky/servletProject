@@ -7,7 +7,7 @@
 </head>
 <body>
 <%@ include file="../share/navigationBar.jsp" %>
-<span style="color: red; ">${error}</span></br>
+<span style="color: red; ">${requestScope.error}</span>
 <div class="panel panel-default">
     <div class="panel-heading"><span class="lead">Список сотрудников</span></div>
     <div class="tablecontainer">
@@ -23,7 +23,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${persons}" var="person">
+            <c:forEach items="${requestScope.persons}" var="person">
             <tr>
                 <td>${person.id}</td>
                 <td>${person.firstName}</td>

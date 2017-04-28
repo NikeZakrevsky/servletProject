@@ -14,13 +14,13 @@
     <%@ include file="../share/navigationBar.jsp" %>
     <div class="panel panel-default">
     <div class="panel-heading"><span class="lead">Управление задачами</span></div>
-	<form action = "${action}" method = "POST">
+	<form action = "${requestScope.action}" method = "POST">
         <%@ include file="../share/errors.jsp" %>
         <div class="row">
             <div class="form-group col-md-12">
                 <label class="col-md-2 control-lable">Идентификатор</label>
                 <div class="col-md-7">
-                    <input name = "id" size = "70" maxlength="20" value = "${task.id}" readonly/>
+                    <input name = "id" size = "70" maxlength="20" value = "${requestScope.task.id}" readonly/>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Название</label>
                 <div class="col-md-7">
-                    <input type = "text" name = "name" size = "70" maxlength="20" value = "${task.name}"/>
+                    <input type = "text" name = "name" size = "70" maxlength="20" value = "${requestScope.task.name}"/>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Работа(часы)</label>
                 <div class="col-md-7">
-	                <input type = "number" name = "workTime" size = "70" min="1" max="999" step="0.1" value = "${task.workTime.toMinutes() / 60}"/>
+	                <input type = "number" name = "workTime" size = "70" min="1" max="999" step="0.1" value = "${requestScope.task.workTime.toMinutes() / 60}"/>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Дата начала</label>
                 <div class="col-md-7">
-	                <input type = "date" name = "startDate" size = "70"  value = "${task.startDate}"/>
+	                <input type = "date" name = "startDate" size = "70"  value = "${requestScope.task.startDate}"/>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Дата окончания</label>
                 <div class="col-md-7">
-	                <input type = "date" name = "endDate" size = "70" value = "${task.endDate}"/>
+	                <input type = "date" name = "endDate" size = "70" value = "${requestScope.task.endDate}"/>
                 </div>
             </div>
         </div>
@@ -63,8 +63,8 @@
                 <div class="col-md-7">
                 <select name = "personId">
                     <option value> -- select an option -- </option>
-                    <c:forEach items="${persons}" var="person">
-                        <option value="${person.id}" ${(person.id == task.personId) ? 'selected="selected"' : ''}>${person.firstName} ${person.middleName} ${person.lastName}</option>
+                    <c:forEach items="${requestScope.persons}" var="person">
+                        <option value="${person.id}" ${(person.id == requestScope.task.personId) ? 'selected="selected"' : ''}>${person.firstName} ${person.middleName} ${person.lastName}</option>
                     </c:forEach>
                 </select>
                 </div>
@@ -76,23 +76,23 @@
             <label class="col-md-2 control-lable">Статус</label>
                 <div class="col-md-7">
 	                <select name = "taskStatus">
-                        <option value="NOT_STARTED" ${"NOT_STARTED".equals(task.status.toString()) ? 'selected="selected"' : ''}>Not started</option>
-                        <option value="IN_PROCESS" ${"IN_PROCESS".equals(task.status.toString()) ? 'selected="selected"' : ''}>In process</option>
-                        <option value="COMPLETED" ${"COMPLETED".equals(task.status.toString()) ? 'selected="selected"' : ''}>Completed</option>
-                        <option value="DELAYED" ${"DELAYED".equals(task.status.toString()) ? 'selected="selected"' : ''}>Delayed</option>
+                        <option value="NOT_STARTED" ${"NOT_STARTED".equals(requestScope.task.status.toString()) ? 'selected="selected"' : ''}>Not started</option>
+                        <option value="IN_PROCESS" ${"IN_PROCESS".equals(requestScope.task.status.toString()) ? 'selected="selected"' : ''}>In process</option>
+                        <option value="COMPLETED" ${"COMPLETED".equals(requestScope.task.status.toString()) ? 'selected="selected"' : ''}>Completed</option>
+                        <option value="DELAYED" ${"DELAYED".equals(requestScope.task.status.toString()) ? 'selected="selected"' : ''}>Delayed</option>
                     </select>
                 </div>
             </div>
         </div>
-        <input type="hidden" name = "projectId" value = "${task.projectId}">
+        <input type="hidden" name = "projectId" value = "${requestScope.task.projectId}">
         <div class="row">
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Проект</label>
                 <div class="col-md-7">
-                    <select id = "lol" name="projectId1" ${isDisable ? 'disabled="true"' : ''}>
+                    <select id = "lol" name="projectId1" ${requestScope.isDisable ? 'disabled="true"' : ''}>
                         <option value="" selected="selected"> -- select an option -- </option>
-                        <c:forEach items="${projects}" var="project">
-                            <option value="${project.id}" ${(project.id == task.projectId) ? 'selected="selected"' : ''}>${project.shortName}</option>
+                        <c:forEach items="${requestScope.projects}" var="project">
+                            <option value="${project.id}" ${(project.id == requestScope.task.projectId) ? 'selected="selected"' : ''}>${project.shortName}</option>
                         </c:forEach>
                     </select>
 
@@ -100,7 +100,7 @@
             </div>
         </div>
         <button type="submit" class="btn btn-success custom-width">Сохранить</button>
-        <a href="${path}"><button type="button" class="btn btn-danger custom-width">Отмена</button></a>
+        <a href="${requestScope.path}"><button type="button" class="btn btn-danger custom-width">Отмена</button></a>
     </form>
 </div>
 </body>
