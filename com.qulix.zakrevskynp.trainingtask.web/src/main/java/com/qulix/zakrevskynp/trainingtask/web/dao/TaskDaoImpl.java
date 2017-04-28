@@ -88,7 +88,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
      * @param task task data from the form
      */
     public void update(Task task)  {
-        super.update(task, UPDATE_QUERY, UPDATE_TASKS_ERROR, task.getName(), task.getWorkTime().toMinutes(), task.getStartDate(), task.getEndDate(), task.getStatus().toString(), task.getProjectId(), task.getPersonId(), task.getId());
+        super.update(UPDATE_QUERY, UPDATE_TASKS_ERROR, task.getName(), task.getWorkTime().toMinutes(), task.getStartDate(), task.getEndDate(), task.getStatus().toString(), task.getProjectId(), task.getPersonId(), task.getId());
     }
 
     /**

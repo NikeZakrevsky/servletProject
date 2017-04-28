@@ -75,7 +75,7 @@ public class PersonDaoImpl extends AbstractDao<Person> {
      * @param person Person object
      */
     public void update(Person person) {
-        super.update(person, UPDATE_QUERY, UPDATE_PERSON_ERROR, person.getFirstName(), person.getMiddleName(), person.getLastName(), person.getPosition(), person.getId());
+        super.update(UPDATE_QUERY, UPDATE_PERSON_ERROR, person.getFirstName(), person.getMiddleName(), person.getLastName(), person.getPosition(), person.getId());
     }
 
     /**

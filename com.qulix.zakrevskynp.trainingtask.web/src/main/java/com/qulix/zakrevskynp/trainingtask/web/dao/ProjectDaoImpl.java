@@ -36,7 +36,7 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
      * @param project project data from form
      */
     public void update(Project project) {
-        super.update(project, UPDATE_QUERY, UPDATE_PROJECT_ERROR, project.getName(), project.getShortName(), project.getDescription(), project.getId());
+        super.update(UPDATE_QUERY, UPDATE_PROJECT_ERROR, project.getName(), project.getShortName(), project.getDescription(), project.getId());
     }
 
     /**

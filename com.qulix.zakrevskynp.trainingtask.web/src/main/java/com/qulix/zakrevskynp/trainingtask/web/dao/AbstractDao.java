@@ -21,7 +21,7 @@ abstract class AbstractDao<T extends BaseDAOEntity> implements IDao<T> {
     /**
      * Creating prepared statement error message
      */
-    static final String PREPARED_STATEMENT_ERROR = "Ошибка при создании PreparedStatement-а";
+    private static final String PREPARED_STATEMENT_ERROR = "Ошибка при создании PreparedStatement-а";
 
 
     /**
@@ -60,22 +60,7 @@ abstract class AbstractDao<T extends BaseDAOEntity> implements IDao<T> {
      * @param error error message
      */
     protected void remove(int id, String removeQuery, String error)  {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = ConnectionFactory.getConnection();
-            preparedStatement = connection.prepareStatement(removeQuery);
-            setPreparedStatement(preparedStatement, id);
-            preparedStatement.execute();
-            connection.commit();
-        }
-        catch (SQLException e) {
-            throw new DaoException(error, e);
-        }
-        finally {
-            closeStatement(preparedStatement);
-            closeConnection(connection);
-        }
+        executeQuery(removeQuery, error, id);
     }
 
     /**
@@ -86,11 +71,15 @@ abstract class AbstractDao<T extends BaseDAOEntity> implements IDao<T> {
      * @param error error message
      */
     protected void add(T entity, String insertQuery, String error, Object... parameters) {
+        executeQuery(insertQuery, error, parameters);
+    }
+
+    private void executeQuery(String query, String error, Object... parameters) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.getConnection();
-            preparedStatement = connection.prepareStatement(insertQuery);
+            preparedStatement = connection.prepareStatement(query);
             setPreparedStatement(preparedStatement, parameters);
             preparedStatement.execute();
             connection.commit();
@@ -99,8 +88,8 @@ abstract class AbstractDao<T extends BaseDAOEntity> implements IDao<T> {
             throw new DaoException(error, e);
         }
         finally {
-            closeStatement(preparedStatement);
             closeConnection(connection);
+            closeStatement(preparedStatement);
         }
     }
 
@@ -137,28 +126,11 @@ abstract class AbstractDao<T extends BaseDAOEntity> implements IDao<T> {
     /**
      * Updates entity
      *
-     * @param entity entity for updating
-     * @param id id of entity
      * @param updateQuery sql query for updating entity
      * @param error error message
      */
-    protected void update(T entity, String updateQuery, String error, Object... parameters) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = ConnectionFactory.getConnection();
-            preparedStatement = connection.prepareStatement(updateQuery);
-            setPreparedStatement(preparedStatement, parameters);
-            preparedStatement.execute();
-            connection.commit();
-        }
-        catch (SQLException e) {
-            throw new DaoException(error, e);
-        }
-        finally {
-            closeStatement(preparedStatement);
-            closeConnection(connection);
-        }
+    protected void update(String updateQuery, String error, Object... parameters) {
+        executeQuery(updateQuery, error, parameters);
     }
 
     /**
