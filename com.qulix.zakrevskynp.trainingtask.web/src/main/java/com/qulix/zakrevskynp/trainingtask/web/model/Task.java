@@ -47,6 +47,10 @@ public class Task extends BaseDAOEntity {
     public Task() {
     }
 
+    public Task(Integer projectId) {
+        this.projectId = projectId;
+    }
+
     /**
      * Gets id of task
      *

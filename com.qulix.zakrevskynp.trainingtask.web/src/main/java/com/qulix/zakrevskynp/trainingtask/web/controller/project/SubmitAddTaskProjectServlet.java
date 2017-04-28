@@ -30,8 +30,7 @@ public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
         request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDaoImpl().getAll());
         request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDaoImpl().getAll());
         if (!request.getParameter(ID).equals("")) {
-            Task task = new Task();
-            task.setProjectId(Integer.parseInt(request.getParameter(ID)));
+            Task task = new Task(Integer.parseInt(request.getParameter(ID)));
             request.setAttribute(Attribute.TASK_OBJECT_NAME, task);
         }
         request.setAttribute(IS_DISABLE, true);
