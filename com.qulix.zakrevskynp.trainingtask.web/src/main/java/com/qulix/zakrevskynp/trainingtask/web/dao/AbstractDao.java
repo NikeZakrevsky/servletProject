@@ -65,7 +65,7 @@ abstract class AbstractDao<T extends BaseDAOEntity> implements IDao<T> {
         try {
             connection = ConnectionFactory.getConnection();
             preparedStatement = connection.prepareStatement(removeQuery);
-            preparedStatement.setInt(1, id);
+            setPreparedStatement(preparedStatement, id);
             preparedStatement.execute();
             connection.commit();
         }
@@ -85,13 +85,13 @@ abstract class AbstractDao<T extends BaseDAOEntity> implements IDao<T> {
      * @param insertQuery sql query for inserting entity
      * @param error error message
      */
-    protected void add(T entity, String insertQuery, String error) {
+    protected void add(T entity, String insertQuery, String error, Object... parameters) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.getConnection();
             preparedStatement = connection.prepareStatement(insertQuery);
-            setPreparedStatement(preparedStatement, entity);
+            setPreparedStatement(preparedStatement, parameters);
             preparedStatement.execute();
             connection.commit();
         }
@@ -119,7 +119,7 @@ abstract class AbstractDao<T extends BaseDAOEntity> implements IDao<T> {
         try {
             connection = ConnectionFactory.getConnection();
             preparedStatement = connection.prepareStatement(getByIdQuery);
-            preparedStatement.setInt(1, id);
+            setPreparedStatement(preparedStatement, id);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
             return resultSetAsObject(resultSet);
@@ -142,14 +142,13 @@ abstract class AbstractDao<T extends BaseDAOEntity> implements IDao<T> {
      * @param updateQuery sql query for updating entity
      * @param error error message
      */
-    protected void update(T entity, int id, String updateQuery, String error) {
+    protected void update(T entity, String updateQuery, String error, Object... parameters) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.getConnection();
             preparedStatement = connection.prepareStatement(updateQuery);
-            int lastIndex = setPreparedStatement(preparedStatement, entity);
-            preparedStatement.setInt(lastIndex, id);
+            setPreparedStatement(preparedStatement, parameters);
             preparedStatement.execute();
             connection.commit();
         }
@@ -183,9 +182,18 @@ abstract class AbstractDao<T extends BaseDAOEntity> implements IDao<T> {
      * Set parameters to prepared statement
      *
      * @param preparedStatement link of the prepared statement for setting parameters
-     * @throws SQLException throws while setting parameters to prepared statement
      */
-    protected abstract int setPreparedStatement(PreparedStatement preparedStatement, T entity) throws SQLException;
+    protected void setPreparedStatement(PreparedStatement preparedStatement, Object... parameters) {
+        try {
+            for (int i = 0; i < parameters.length; i++) {
+                Object param = parameters[i];
+                preparedStatement.setObject(i + 1, param);
+            }
+        }
+        catch (SQLException e) {
+            throw new DaoException(PREPARED_STATEMENT_ERROR, e);
+        }
+    }
 
     /**
      * Close result set

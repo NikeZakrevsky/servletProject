@@ -69,7 +69,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
      * @param task task form data
      */
     public void add(Task task)  {
-        super.add(task, INSERT_QUERY, ADD_TASK_ERROR);
+        super.add(task, INSERT_QUERY, ADD_TASK_ERROR, task.getName(), task.getWorkTime(), task.getStartDate(), task.getEndDate(), task.getStatus(), task.getProjectId(), task.getPersonId());
     }
 
     /**
@@ -88,7 +88,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
      * @param task task data from the form
      */
     public void update(Task task)  {
-        super.update(task, task.getId(), UPDATE_QUERY, UPDATE_TASKS_ERROR);
+        super.update(task, UPDATE_QUERY, UPDATE_TASKS_ERROR, task.getName(), task.getWorkTime().toMinutes(), task.getStartDate(), task.getEndDate(), task.getStatus().toString(), task.getProjectId(), task.getPersonId(), task.getId());
     }
 
     /**
@@ -231,27 +231,5 @@ public class TaskDaoImpl extends AbstractDao<Task> {
             throw new DaoException(RESULT_SET_ERROR, e);
         }
 
-    }
-    /**
-     * Set parameters to prepared statement
-     *
-     * @param preparedStatement link of the prepared statement for setting parameters
-     * @param task task form data
-     */
-    @Override
-    public int setPreparedStatement(PreparedStatement preparedStatement, Task task) throws SQLException {
-        try {
-            preparedStatement.setString(1, task.getName());
-            preparedStatement.setLong(2, task.getWorkTime().toMinutes());
-            preparedStatement.setDate(3, task.getStartDate());
-            preparedStatement.setDate(4, task.getEndDate());
-            preparedStatement.setString(5, task.getStatus().toString());
-            preparedStatement.setObject(6, task.getProjectId());
-            preparedStatement.setObject(7, task.getPersonId());
-            return 8;
-        }
-        catch (SQLException e) {
-            throw new DaoException(RESULT_SET_ERROR, e);
-        }
     }
 }

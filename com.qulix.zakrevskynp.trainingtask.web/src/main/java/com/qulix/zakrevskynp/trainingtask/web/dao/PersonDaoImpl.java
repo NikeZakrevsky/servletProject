@@ -1,6 +1,5 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -48,7 +47,7 @@ public class PersonDaoImpl extends AbstractDao<Person> {
      * @param person person data from the form
      */
     public void add(Person person)  {
-        super.add(person, INSERT_QUERY, ADD_PERSON_ERROR);
+        super.add(person, INSERT_QUERY, ADD_PERSON_ERROR, person.getFirstName(), person.getMiddleName(), person.getLastName(), person.getPosition());
     }
 
     /**
@@ -76,7 +75,7 @@ public class PersonDaoImpl extends AbstractDao<Person> {
      * @param person Person object
      */
     public void update(Person person) {
-        super.update(person, person.getId(), UPDATE_QUERY, UPDATE_PERSON_ERROR);
+        super.update(person, UPDATE_QUERY, UPDATE_PERSON_ERROR, person.getFirstName(), person.getMiddleName(), person.getLastName(), person.getPosition(), person.getId());
     }
 
     /**
@@ -120,23 +119,4 @@ public class PersonDaoImpl extends AbstractDao<Person> {
         }
     }
 
-    /**
-     * Setting parameters to prepared statement
-     *
-     * @param preparedStatement link of the prepared statement for setting parameters
-     * @param person Person object
-     */
-    @Override
-    public int setPreparedStatement(PreparedStatement preparedStatement, Person person) {
-        try {
-            preparedStatement.setString(1, person.getFirstName());
-            preparedStatement.setString(2, person.getMiddleName());
-            preparedStatement.setString(3, person.getLastName());
-            preparedStatement.setString(4, person.getPosition());
-            return 5;
-        }
-        catch (SQLException e) {
-            throw new DaoException(PREPARED_STATEMENT_ERROR, e);
-        }
-    }
 }

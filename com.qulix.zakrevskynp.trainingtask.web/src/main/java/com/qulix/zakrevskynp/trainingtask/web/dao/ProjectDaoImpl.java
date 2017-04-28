@@ -36,7 +36,7 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
      * @param project project data from form
      */
     public void update(Project project) {
-        super.update(project, project.getId(), UPDATE_QUERY, UPDATE_PROJECT_ERROR);
+        super.update(project, UPDATE_QUERY, UPDATE_PROJECT_ERROR, project.getName(), project.getShortName(), project.getDescription(), project.getId());
     }
 
     /**
@@ -70,7 +70,7 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
     }
 
     public void add(Project project) {
-        add(project, INSERT_QUERY, ADD_PROJECT_ERROR);
+        add(project, INSERT_QUERY, ADD_PROJECT_ERROR, project.getName(), project.getShortName(), project.getDescription());
     }
 
     /**
@@ -79,7 +79,7 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
      *  @param project new project
      */
     @Override
-    public void add(Project project, String insertQuery, String error) {
+    public void add(Project project, String insertQuery, String error, Object... parameters) {
         List<Task> tasks = project.getTasks();
         ResultSet generatedKeys = null;
         Connection connection = null;
@@ -87,7 +87,7 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
         try {
             connection = ConnectionFactory.getConnection();
             preparedStatement = connection.prepareStatement(INSERT_QUERY, Statement.RETURN_GENERATED_KEYS);
-            setPreparedStatement(preparedStatement, project);
+            setPreparedStatement(preparedStatement, parameters);
             preparedStatement.execute();
             generatedKeys = preparedStatement.getGeneratedKeys();
             generatedKeys.next();
@@ -132,26 +132,6 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
         }
         catch (SQLException e) {
             throw new DaoException(RESULT_SET_ERROR, e);
-        }
-    }
-
-    /**
-     * Set parameters to prepared statement
-     *
-     * @param preparedStatement link of the prepared statement for setting parameters
-     * @param project Project object
-     * @throws SQLException throws while setting parameters in @{{@link PreparedStatement}}
-     */
-    @Override
-    public int setPreparedStatement(PreparedStatement preparedStatement, Project project) throws SQLException {
-        try {
-            preparedStatement.setString(1, project.getName());
-            preparedStatement.setString(2, project.getShortName());
-            preparedStatement.setString(3, project.getDescription());
-            return 4;
-        }
-        catch (SQLException e) {
-            throw new DaoException(PREPARED_STATEMENT_ERROR, e);
         }
     }
 
