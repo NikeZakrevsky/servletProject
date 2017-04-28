@@ -3,13 +3,15 @@ package com.qulix.zakrevskynp.trainingtask.web.dao;
 import java.sql.*;
 import java.util.List;
 
+import com.qulix.zakrevskynp.trainingtask.web.model.BaseDAOEntity;
+
 /**
  * Abstract class with shared methods for DAOs
  *
  * @param <T>
  * @author Q-NZA
  */
-abstract class AbstractDao<T> implements IDao<T> {
+abstract class AbstractDao<T extends BaseDAOEntity> implements IDao<T> {
 
     /**
      * Reading of the result error message

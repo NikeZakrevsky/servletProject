@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author Q-NZA
  */
-public class Project {
+public class Project extends BaseDAOEntity {
     private Integer id;
     private String name;
     private String shortName;
@@ -24,7 +24,7 @@ public class Project {
      * @param description description
      */
     public Project(Integer id, String name, String shortName, String description) {
-        this.id = id;
+        super.id = id;
         this.name = name;
         this.shortName = shortName;
         this.description = description;
@@ -36,7 +36,7 @@ public class Project {
      * @return project id
      */
     public int getId() {
-        return id;
+        return super.id;
     }
 
     /**

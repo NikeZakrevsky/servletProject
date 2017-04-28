@@ -7,8 +7,7 @@ import java.util.List;
  *
  * @author Q-NZA
  */
-public class Person {
-    private Integer id;
+public class Person extends BaseDAOEntity {
     private String firstName;
     private String middleName;
     private String lastName;
@@ -25,7 +24,7 @@ public class Person {
      * @param position position
      */
     public Person(Integer id, String firstName, String middleName, String lastName, String position) {
-        this.id = id;
+        super.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -38,7 +37,7 @@ public class Person {
      * @return person id
      */
     public int getId() {
-        return id;
+        return super.id;
     }
 
     /**

@@ -8,8 +8,7 @@ import java.time.Duration;
  *
  * @author Q-NZA
  */
-public class Task {
-    private Integer id;
+public class Task extends BaseDAOEntity {
     private String name;
     private Duration workTime;
     private Date startDate;
@@ -33,7 +32,7 @@ public class Task {
      */
     public Task(Integer id, String name, Duration workTime, Date startDate, Date endDate, TaskStatus status,
         String performer) {
-        this.id = id;
+        super.id = id;
         this.name = name;
         this.workTime = workTime;
         this.startDate = startDate;
@@ -54,7 +53,7 @@ public class Task {
      * @return task id
      */
     public Integer getId() {
-        return id;
+        return super.id;
     }
 
     /**
