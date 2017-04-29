@@ -57,18 +57,22 @@ public class TaskDataValidator extends Validator {
         validateFieldLength(this.parameters.get(STATUS_FIELD), STATUS, errors, 20);
         validateFieldEmpty(this.parameters.get(WORK_TIME_FIELD), JOB, errors);
         validateFieldLength(this.parameters.get(WORK_TIME_FIELD), JOB, errors, 8);
-        validateFieldNumbers(parameters.get(WORK_TIME_FIELD), JOB, errors);
+        parameters.put("workTimeString", parameters.get(WORK_TIME_FIELD));
+        if (validateFieldNumbers(parameters.get(WORK_TIME_FIELD), JOB, errors)) {
+            parseFloatParams(WORK_TIME_FIELD, this.parameters);
+            if (parameters.get(WORK_TIME_FIELD) != null) {
+                parameters.put(WORK_TIME_FIELD, Duration.ofMinutes((long) (int) (Float.parseFloat(parameters.get(WORK_TIME_FIELD).toString()) * 60)));
+            }
+        }
+        else {
+            parameters.put(WORK_TIME_FIELD, null);
+        }
         if (this.parameters.get(PROJECT_ID1_FIELD) != null) {
             this.parameters.put(PROJECT_ID_FIELD, this.parameters.get(PROJECT_ID1_FIELD));
         }
         parseIntegerParams(PROJECT_ID_FIELD, this.parameters);
         parseIntegerParams(PERSON_ID_FIELD, this.parameters);
         parseIntegerParams(ID, this.parameters);
-        parseFloatParams(WORK_TIME_FIELD, this.parameters);
-        if (parameters.get(WORK_TIME_FIELD) != null) {
-            parameters.put(WORK_TIME_FIELD, Duration.ofMinutes((long) (int) (Float.parseFloat(parameters.get(WORK_TIME_FIELD)
-                    .toString()) * 60)));
-        }
         return errors;
     }
 

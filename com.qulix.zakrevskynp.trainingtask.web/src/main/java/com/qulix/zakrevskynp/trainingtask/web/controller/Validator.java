@@ -96,9 +96,11 @@ public abstract class Validator {
      * @param fieldName field name for validation
      * @param errors list of the errors
      */
-    protected void validateFieldNumbers(Object field, String fieldName, List<String> errors) {
+    protected boolean validateFieldNumbers(Object field, String fieldName, List<String> errors) {
         if (!field.toString().matches(REGEX1)) {
             errors.add(String.format(NUMBER_ERROR, fieldName));
+            return false;
         }
+        return true;
     }
 }
