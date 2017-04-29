@@ -17,10 +17,10 @@ import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
 public class TaskDaoImpl extends AbstractDao<Task> {
     
     private static final String SELECT_QUERY = "select task_id, task_name, work_time, start_date, end_date, status, short_name, " +
-        "project_id, person_id, first_name + ' ' + middle_name + ' ' + last_name as person from tasks left join projects on" +
+        "project_id, person_id, first_name, middle_name, last_name, position from tasks left join projects on" +
         " tasks.project_id = projects.project_id left join persons on tasks.person_id = persons.person_id";
     private static final String SELECT_BY_ID_QUERY = "select task_id, task_name, work_time, start_date, end_date, status, short_name, " +
-        "project_id, person_id, first_name + ' ' + middle_name + ' ' + last_name as person from tasks left join projects on" +
+        "project_id, person_id, first_name, middle_name, last_name, position as person from tasks left join projects on" +
         " tasks.project_id = projects.project_id left join persons on tasks.person_id = persons.person_id where task_id = ?";
     private static final String DELETE_QUERY = "delete from tasks where task_id=?";
     private static final String INSERT_QUERY = "insert into tasks(task_name, work_time, start_date, end_date, status, project_id, " +
@@ -109,7 +109,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
         task.setId(id + 1);
         if (task.getPersonId() != null) {
             Person person = new PersonDaoImpl().get(task.getPersonId());
-            task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
+            task.setPerson(person);
         }
         tasks.add(task);
         return tasks;
@@ -137,7 +137,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
     private void setPerformer(Task task) {
         if (task.getPersonId() != null) {
             Person person = new PersonDaoImpl().get(task.getPersonId());
-            task.setPerformer(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
+            task.setPerson(person);
         }
     }
 
@@ -176,8 +176,8 @@ public class TaskDaoImpl extends AbstractDao<Task> {
             Integer projectId = resultSet.getInt(PROJECTID);
             Integer personId = (Integer) resultSet.getObject(PERSONID);
             String projectShortName = resultSet.getString(SHORTNAME);
-            String performer = resultSet.getString(PERSON);
-            Task task = new Task(id, name, time, startDate, endDate, status, performer);
+            Person person = new PersonDaoImpl().resultSetAsObject(resultSet);
+            Task task = new Task(id, name, time, startDate, endDate, status, person);
             task.setProjectId(projectId);
             task.setPersonId(personId);
             task.setProjectShortName(projectShortName);

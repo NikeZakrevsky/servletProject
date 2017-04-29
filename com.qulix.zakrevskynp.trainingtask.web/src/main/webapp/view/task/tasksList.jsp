@@ -33,7 +33,7 @@
                 <td>${task.name}</td>
                 <td>${task.startDate}</td>
                 <td>${task.endDate}</td>
-                <td>${task.performer}</td>
+                <td>${task.person.firstName} ${task.person.middleName} ${task.person.lastName}</td>
                 <td>${task.status}</td>
                 <td>
                     <a href="editTask?id=${task.id}"><button type="button" class="btn btn-success custom-width">Изменить</button></a>  <a href="removeTask?id=${task.id}"><button type="button" class="btn btn-danger custom-width">Удалить</button></a>

@@ -73,7 +73,7 @@
                                     <td>${task.name}</td>
                                     <td>${task.startDate}</td>
                                     <td>${task.endDate}</td>
-                                    <td>${task.performer}</td>
+                                    <td>${task.person.firstName} ${task.person.middleName} ${task.person.lastName}</td>
                                     <td>${task.status}</td>
                                     <td>
                                         <button onclick="this.form.action = 'removeTaskProject?taskId=${task.id}&id=${requestScope.project.id}'" type="submit" class="btn btn-danger custom-width">Удалить</button>

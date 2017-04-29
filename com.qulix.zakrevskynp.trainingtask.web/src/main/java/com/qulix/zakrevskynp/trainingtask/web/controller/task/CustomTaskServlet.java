@@ -5,6 +5,8 @@ import java.time.Duration;
 import java.util.Map;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
+import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDaoImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
@@ -44,8 +46,11 @@ public class CustomTaskServlet extends CustomServlet {
         Integer projectId = (Integer) parameters.get(PROJECTID);
         Integer personId = (Integer) parameters.get(PERSONID);
         String projectShortName = (String) parameters.get(SHORTNAME);
-        String performer = (String) parameters.get(PERSON);
-        Task task = new Task(id, name, workTime, startDate, endDate, status, performer);
+        Person person = null;
+        if (personId != null) {
+            person = new PersonDaoImpl().get(personId);
+        }
+        Task task = new Task(id, name, workTime, startDate, endDate, status, person);
         task.setProjectId(projectId);
         task.setPersonId(personId);
         task.setProjectShortName(projectShortName);

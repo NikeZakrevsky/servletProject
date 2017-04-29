@@ -14,10 +14,10 @@ public class Task extends BaseDAOEntity {
     private Date startDate;
     private Date endDate;
     private TaskStatus status;
-    private String performer;
     private String projectShortName;
     private Integer projectId;
     private Integer personId;
+    private Person person;
 
     /**
      * Constructing of the Task object
@@ -28,17 +28,17 @@ public class Task extends BaseDAOEntity {
      * @param startDate starting date
      * @param endDate ending date
      * @param status status of the task
-     * @param performer performer
+     * @param person person
      */
     public Task(Integer id, String name, Duration workTime, Date startDate, Date endDate, TaskStatus status,
-        String performer) {
+        Person person) {
         super.id = id;
         this.name = name;
         this.workTime = workTime;
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
-        this.performer = performer;
+        this.person = person;
     }
 
     /**
@@ -115,24 +115,6 @@ public class Task extends BaseDAOEntity {
     }
 
     /**
-     * Sets performer of task
-     *
-     * @param performer
-     */
-    public void setPerformer(String performer) {
-        this.performer = performer;
-    }
-
-    /**
-     * Gets performer of task
-     *
-     * @return task performer
-     */
-    public String getPerformer() {
-        return performer;
-    }
-
-    /**
      * Gets short name of project
      *
      * @return project short name
@@ -195,10 +177,18 @@ public class Task extends BaseDAOEntity {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", status=" + status +
-                ", performer='" + performer + '\'' +
+                ", person='" + person + '\'' +
                 ", projectShortName='" + projectShortName + '\'' +
                 ", projectId=" + projectId +
                 ", personId=" + personId +
                 '}';
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }

@@ -1,7 +1,5 @@
 package com.qulix.zakrevskynp.trainingtask.web.model;
 
-import java.util.List;
-
 /**
  * Person entity model
  *
@@ -12,7 +10,6 @@ public class Person extends BaseDAOEntity {
     private String middleName;
     private String lastName;
     private String position;
-    private List<Task> tasks;
 
     /**
      * Create person object
@@ -74,23 +71,5 @@ public class Person extends BaseDAOEntity {
      */
     public String getPosition() {
         return position;
-    }
-
-    /**
-     * Gets list of tasks
-     *
-     * @return list of tasks
-     */
-    public List<Task> getTask() {
-        return tasks;
-    }
-
-    /**
-     * Sets list of tasks
-     *
-     * @param tasks list of tasks
-     */
-    public void setTask(List<Task> tasks) {
-        this.tasks = tasks;
     }
 }
