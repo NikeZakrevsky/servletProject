@@ -37,8 +37,10 @@ public class EditProjectServlet extends CustomProjectServlet {
         List<String> errors = validator.validate(parameters);
         if (errors.isEmpty()) {
             Project project = parametersToObject(parameters);
+            Project project1 = new ProjectDaoImpl().get(Integer.parseInt(request.getParameter(ID)));
+            project.setTasks(project1.getTasks());
             new ProjectDaoImpl().update(project);
-            updateChangedTasks(request);
+            updateChangedTasks(request, project);
             response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
         }
         else {
@@ -53,10 +55,11 @@ public class EditProjectServlet extends CustomProjectServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Task> resultTasks;
+        ProjectDaoImpl projectDao = new ProjectDaoImpl();
+        Project project = projectDao.get(Integer.parseInt(request.getParameter(ID)));
         if (request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME) == null) {
             resultTasks = new ArrayList<>();
-            TaskDaoImpl tasksDAO = new TaskDaoImpl();
-            List<Task> tasks =  tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter(ID)));
+            List<Task> tasks =  project.getTasks();
             if (tasks != null) {
                 resultTasks.addAll(tasks);
             }
@@ -66,7 +69,6 @@ public class EditProjectServlet extends CustomProjectServlet {
             resultTasks = getItems(request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
         }
         if (request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME) == null) {
-            Project project = new ProjectDaoImpl().get(Integer.parseInt(request.getParameter(ID)));
             request.setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
         }
         else {
@@ -78,10 +80,18 @@ public class EditProjectServlet extends CustomProjectServlet {
         request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);
     }
 
-    private void updateChangedTasks(HttpServletRequest request) {
+    private void updateChangedTasks(HttpServletRequest request, Project project) {
         List<Task> resultTasks = getItems(request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
+        System.out.println("ResultTasks");
+        for (Task resultTask : resultTasks) {
+            System.out.println(resultTask);
+        }
+        System.out.println("Prev");
         TaskDaoImpl tasksDAO = new TaskDaoImpl();
-        List<Task> tasksList = tasksDAO.getTasksByProjectId(Integer.parseInt(request.getParameter(ID)));
+        List<Task> tasksList = project.getTasks();
+        for (Task task : tasksList) {
+            System.out.println(task);
+        }
         Set<Object> t1 = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
         Set<Object> t2 = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
         for (Task task : tasksList) {

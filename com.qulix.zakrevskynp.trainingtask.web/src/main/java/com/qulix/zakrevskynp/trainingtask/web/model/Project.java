@@ -9,7 +9,6 @@ import java.util.List;
  * @author Q-NZA
  */
 public class Project extends BaseDAOEntity {
-    private Integer id;
     private String name;
     private String shortName;
     private String description;
@@ -80,5 +79,16 @@ public class Project extends BaseDAOEntity {
      */
     public void setTasks(List<Task> tasksList) {
         this.tasksList = tasksList;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + super.id +
+                ", name='" + name + '\'' +
+                ", shortName='" + shortName + '\'' +
+                ", description='" + description + '\'' +
+                ", tasksList=" + tasksList +
+                '}';
     }
 }

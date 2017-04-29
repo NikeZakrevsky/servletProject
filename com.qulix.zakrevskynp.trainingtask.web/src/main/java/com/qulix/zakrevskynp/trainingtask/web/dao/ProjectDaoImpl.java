@@ -2,7 +2,10 @@ package com.qulix.zakrevskynp.trainingtask.web.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
@@ -15,18 +18,19 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 public class ProjectDaoImpl extends AbstractDao<Project> {
 
-    private static final String SELECT_QUERY = "select id, name, short_name, description from projects";
-    private static final String INSERT_QUERY = "insert into projects(name, short_name, description) values (?, ?, ?)";
-    private static final String DELETE_QUERY = "delete from projects where id=?";
-    private static final String SELECT_BY_ID_QUERY = "select id, name, short_name, description from projects where id =?";
-    private static final String UPDATE_QUERY = "update projects set name = ?, short_name = ?, description = ? where id = ?";
+    private static final String SELECT_QUERY = "select project_id, project_name, short_name, description, task_id, task_name, work_time, start_date, end_date, status, " +
+            "project_id, person_id, first_name + ' ' + middle_name + ' ' + last_name as person from projects left join tasks on tasks.project_id = projects.project_id left join persons on tasks.person_id = persons.person_id";
+    private static final String INSERT_QUERY = "insert into projects(project_name, short_name, description) values (?, ?, ?)";
+    private static final String DELETE_QUERY = "delete from projects where project_id=?";
+    private static final String SELECT_BY_ID_QUERY = SELECT_QUERY + " where project_id =?";
+    private static final String UPDATE_QUERY = "update projects set project_name = ?, short_name = ?, description = ? where project_id = ?";
     private static final String ADD_PROJECT_ERROR = "Ошибка при добавлении проекта";
     private static final String REMOVE_PROJECT_ERROR = "Ошибка при удалении проекта";
     private static final String UPDATE_PROJECT_ERROR = "Ошибка при обновлении проекта";
     private static final String GET_PROJECTS_LIST_ERROR = "Ошибка при получении списка проектов";
     private static final String GET_PROJECT_BY_ID_ERROR = "Ошибка при получении проекта";
-    private static final String ID = "id";
-    private static final String NAME = "name";
+    private static final String ID = "project_id";
+    private static final String NAME = "project_name";
     private static final String SHORTNAME = "short_name";
     private static final String DESCRIPTION = "description";
 
@@ -124,11 +128,11 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
     @Override
     public Project resultSetAsObject(ResultSet resultSet) throws SQLException {
         try {
-            Integer id = resultSet.getInt(ID);
-            String name = resultSet.getString(NAME);
-            String shortName = resultSet.getString(SHORTNAME);
-            String description = resultSet.getString(DESCRIPTION);
-            return new Project(id, name, shortName, description);
+                Integer id = resultSet.getInt(ID);
+                String name = resultSet.getString(NAME);
+                String shortName = resultSet.getString(SHORTNAME);
+                String description = resultSet.getString(DESCRIPTION);
+                return new Project(id, name, shortName, description);
         }
         catch (SQLException e) {
             throw new DaoException(RESULT_SET_ERROR, e);
@@ -138,18 +142,34 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
     /**
      * Convert the ResultSet to a List of objects
      *
-     * @param rs @{{@link ResultSet}} object converted to list
+     * @param resultSet @{{@link ResultSet}} object converted to list
      * @return tasks list
      * @throws SQLException throws while getting data from result set
      */
     @Override
-    public List<Project> resultSetToList(ResultSet rs) {
+    public List<Project> resultSetToList(ResultSet resultSet) {
+        Map<Integer, Project> projects = new HashMap<>();
+        TaskDaoImpl taskDao = new TaskDaoImpl();
         try {
-            List<Project> projects = new ArrayList<>();
-            while (rs.next()) {
-                projects.add(resultSetAsObject(rs));
+            while (resultSet.next()) {
+                int id = resultSet.getInt(ID);
+                Project project = projects.get(id);
+                if (project == null) {
+                    project = resultSetAsObject(resultSet);
+                    projects.put(id, project);
+                }
+                List<Task> tasks = project.getTasks();
+                if (tasks == null) {
+                    project.setTasks(new ArrayList<>());
+                }
+                if (resultSet.getObject("task_id") != null) {
+                    Task task = taskDao.resultSetAsObject(resultSet);
+                    project.getTasks().add(task);
+                }
+
             }
-            return projects;
+            List<Project> result = projects.entrySet().stream().map(Map.Entry::getValue).collect(Collectors.toList());
+            return result;
         }
         catch (SQLException e) {
             throw new DaoException(RESULT_SET_ERROR, e);

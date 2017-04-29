@@ -185,4 +185,20 @@ public class Task extends BaseDAOEntity {
     public void setPersonId(Integer personId) {
         this.personId = personId;
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + super.id +
+                ", name='" + name + '\'' +
+                ", workTime=" + workTime +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", status=" + status +
+                ", performer='" + performer + '\'' +
+                ", projectShortName='" + projectShortName + '\'' +
+                ", projectId=" + projectId +
+                ", personId=" + personId +
+                '}';
+    }
 }

@@ -16,24 +16,24 @@ import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
  */
 public class TaskDaoImpl extends AbstractDao<Task> {
     
-    private static final String SELECT_QUERY = "select id, name, work_time, start_date, end_date, status, short_name, " +
+    private static final String SELECT_QUERY = "select task_id, task_name, work_time, start_date, end_date, status, short_name, " +
         "project_id, person_id, first_name + ' ' + middle_name + ' ' + last_name as person from tasks left join projects on" +
-        " tasks.project_id = projects.id left join persons on tasks.person_id = persons.id";
-    private static final String SELECT_BY_ID_QUERY = "select id, name, work_time, start_date, end_date, status, short_name, " +
+        " tasks.project_id = projects.project_id left join persons on tasks.person_id = persons.person_id";
+    private static final String SELECT_BY_ID_QUERY = "select task_id, task_name, work_time, start_date, end_date, status, short_name, " +
         "project_id, person_id, first_name + ' ' + middle_name + ' ' + last_name as person from tasks left join projects on" +
-        " tasks.project_id = projects.id left join persons on tasks.person_id = persons.id where id = ?";
-    private static final String DELETE_QUERY = "delete from tasks where id=?";
-    private static final String INSERT_QUERY = "insert into tasks(name, work_time, start_date, end_date, status, project_id, " +
+        " tasks.project_id = projects.project_id left join persons on tasks.person_id = persons.person_id where task_id = ?";
+    private static final String DELETE_QUERY = "delete from tasks where task_id=?";
+    private static final String INSERT_QUERY = "insert into tasks(task_name, work_time, start_date, end_date, status, project_id, " +
         "person_id) values (?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_QUERY = "update tasks set name = ?, work_time = ?, start_date = ?, end_date = ?, " +
-        "status = ?, project_id = ?, person_id = ? where id = ?";
+    private static final String UPDATE_QUERY = "update tasks set task_name = ?, work_time = ?, start_date = ?, end_date = ?, " +
+        "status = ?, project_id = ?, person_id = ? where task_id = ?";
     private static final String GET_TASKS_LIST_ERROR = "Ошибка при получении списка задач";
     private static final String REMOVE_TASKS_ERROR = "Ошибка при удалении задачи";
     private static final String ADD_TASK_ERROR = "Ошибка при добавлении задачи";
     private static final String UPDATE_TASKS_ERROR = "Ошибка при обновлении задачи";
     private static final String GET_TASKS_BY_ID_ERROR = "Ошибка при получении задачи";
-    private static final String ID = "id";
-    private static final String NAME = "name";
+    private static final String ID = "task_id";
+    private static final String NAME = "task_name";
     private static final String TIME = "work_time";
     private static final String STARTDATE = "start_date";
     private static final String ENDDATE = "end_date";
@@ -69,7 +69,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
      * @param task task form data
      */
     public void add(Task task)  {
-        super.add(task, INSERT_QUERY, ADD_TASK_ERROR, task.getName(), task.getWorkTime(), task.getStartDate(), task.getEndDate(), task.getStatus(), task.getProjectId(), task.getPersonId());
+        super.add(task, INSERT_QUERY, ADD_TASK_ERROR, task.getName(), task.getWorkTime().toMinutes(), task.getStartDate(), task.getEndDate(), task.getStatus().toString(), task.getProjectId(), task.getPersonId());
     }
 
     /**
@@ -160,7 +160,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
      * @param id project id
      * @return List of tasks with specified project id
      */
-    public List<Task> getTasksByProjectId(int id)  {
+    /*public List<Task> getTasksByProjectId(int id)  {
         ResultSet resultSet = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -179,7 +179,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
             closeConnection(connection);
             closeStatement(preparedStatement);
         }
-    }
+    }*/
 
     /**
      * Create Task object from ResultSet
@@ -195,7 +195,11 @@ public class TaskDaoImpl extends AbstractDao<Task> {
             Duration time = Duration.ofMinutes(resultSet.getInt(TIME));
             Date startDate = resultSet.getDate(STARTDATE);
             Date endDate = resultSet.getDate(ENDDATE);
-            TaskStatus status = TaskStatus.valueOf(resultSet.getString(STATUS));
+            String stringStatus = resultSet.getString(STATUS);
+            TaskStatus status = null;
+            if (stringStatus != null) {
+                status = TaskStatus.valueOf(stringStatus);
+            }
             Integer projectId = resultSet.getInt(PROJECTID);
             Integer personId = (Integer) resultSet.getObject(PERSONID);
             String projectShortName = resultSet.getString(SHORTNAME);

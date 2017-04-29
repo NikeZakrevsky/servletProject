@@ -100,7 +100,7 @@
             </div>
         </div>
         <button type="submit" class="btn btn-success custom-width">Сохранить</button>
-        <a href="${requestScope.path}"><button type="button" class="btn btn-danger custom-width">Отмена</button></a>
+        <a href="${sessionScope.path}"><button type="button" class="btn btn-danger custom-width">Отмена</button></a>
     </form>
 </div>
 </body>

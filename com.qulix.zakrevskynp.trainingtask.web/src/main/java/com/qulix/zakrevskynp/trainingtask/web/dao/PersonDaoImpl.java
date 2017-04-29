@@ -14,19 +14,19 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
  */
 public class PersonDaoImpl extends AbstractDao<Person> {
     
-    private static final String SELECT_QUERY = "select id, first_name, middle_name, last_name, position from persons";
+    private static final String SELECT_QUERY = "select person_id, first_name, middle_name, last_name, position from persons";
     private static final String INSERT_QUERY = "insert into persons(first_name, middle_name, last_name,position) values(?,?,?,?)";
-    private static final String DELETE_QUERY = "delete from persons where id=?";
-    private static final String SELECT_BY_ID_QUERY = "select id, first_name, middle_name, last_name, position from persons " +
-        "where id=?";
+    private static final String DELETE_QUERY = "delete from persons where person_id=?";
+    private static final String SELECT_BY_ID_QUERY = "select person_id, first_name, middle_name, last_name, position from persons " +
+        "where person_id=?";
     private static final String UPDATE_QUERY = "update persons set first_name = ?, middle_name = ?, last_name = ?,position = ? " +
-        "where id = ?";
+        "where person_id = ?";
     private static final String ADD_PERSON_ERROR = "Ошибка при добавлении исполнителя";
     private static final String REMOVE_PERSON_ERROR = "Ошибка при удалении исполнителя";
     private static final String GET_PERSONS_LIST_ERROR = "Ошибка при получении списка исполнителей";
     private static final String GET_PERSON_BY_ID_ERROR = "Ошибка при получении исполнителя";
     private static final String UPDATE_PERSON_ERROR = "Ошибка при обновлении исполнителя";
-    private static final String ID = "id";
+    private static final String ID = "person_id";
     private static final String FIRST_NAME = "first_name";
     private static final String MIDDLE_NAME = "middle_name";
     private static final String LAST_NAME = "last_name";

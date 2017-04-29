@@ -110,8 +110,11 @@ abstract class AbstractDao<T extends BaseDAOEntity> implements IDao<T> {
             preparedStatement = connection.prepareStatement(getByIdQuery);
             setPreparedStatement(preparedStatement, id);
             resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            return resultSetAsObject(resultSet);
+            List<T> ts = resultSetToList(resultSet);
+            if (ts.size() > 0) {
+                return ts.get(0);
+            }
+            return null;
         }
         catch (SQLException e) {
             throw new DaoException(error, e);
