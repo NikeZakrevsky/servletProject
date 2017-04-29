@@ -7,6 +7,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,6 +40,7 @@ public class TaskDataValidator extends Validator {
     private static final String PROJECT_ID1_FIELD = "projectId1";
     private static final String STATUS_FIELD = "taskStatus";
     private static final String PERSON_ID_FIELD = "personId";
+    private static final String BETWEEN_ERROR = "Время работы больше, чем между датами";
 
     /**
      * Validate task information
@@ -63,6 +65,8 @@ public class TaskDataValidator extends Validator {
             if (parameters.get(WORK_TIME_FIELD) != null) {
                 parameters.put(WORK_TIME_FIELD, Duration.ofMinutes((long) (int) (Float.parseFloat(parameters.get(WORK_TIME_FIELD).toString()) * 60)));
             }
+
+            validateDateTime(startDate, endDate, (Duration) parameters.get(WORK_TIME_FIELD), BETWEEN_ERROR);
         }
         else {
             parameters.put(WORK_TIME_FIELD, null);
@@ -73,6 +77,7 @@ public class TaskDataValidator extends Validator {
         parseIntegerParams(PROJECT_ID_FIELD, this.parameters);
         parseIntegerParams(PERSON_ID_FIELD, this.parameters);
         parseIntegerParams(ID, this.parameters);
+
         return errors;
     }
 
@@ -81,6 +86,13 @@ public class TaskDataValidator extends Validator {
             if (!startDate.before(endDate) && !startDate.equals(endDate)) {
                 errors.add(error);
             }
+        }
+    }
+
+    private void validateDateTime(java.util.Date startDate, java.util.Date endDate, Duration duration, String error) {
+        long diff = endDate.getTime() - startDate.getTime();
+        if(duration.toMinutes() / 60.0 - TimeUnit.HOURS.convert(diff, TimeUnit.MILLISECONDS) > 0) {
+            errors.add(error);
         }
     }
 
