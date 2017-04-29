@@ -22,13 +22,14 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
             "project_id, person_id, first_name, middle_name, last_name, position as person from projects left join tasks on tasks.project_id = projects.project_id left join persons on tasks.person_id = persons.person_id";
     private static final String INSERT_QUERY = "insert into projects(project_name, short_name, description) values (?, ?, ?)";
     private static final String DELETE_QUERY = "delete from projects where project_id=?";
-    private static final String SELECT_BY_ID_QUERY = SELECT_QUERY + " where project_id =?";
+    private static final String SELECT_PROJECT = SELECT_QUERY + " where project_id =?";
     private static final String UPDATE_QUERY = "update projects set project_name = ?, short_name = ?, description = ? where project_id = ?";
+    
     private static final String ADD_PROJECT_ERROR = "Ошибка при добавлении проекта";
     private static final String REMOVE_PROJECT_ERROR = "Ошибка при удалении проекта";
     private static final String UPDATE_PROJECT_ERROR = "Ошибка при обновлении проекта";
-    private static final String GET_PROJECTS_LIST_ERROR = "Ошибка при получении списка проектов";
-    private static final String GET_PROJECT_BY_ID_ERROR = "Ошибка при получении проекта";
+    private static final String GET_PROJECTS_ERROR = "Ошибка при получении списка проектов";
+    private static final String GET_PROJECT_ERROR = "Ошибка при получении проекта";
     private static final String ID = "project_id";
     private static final String NAME = "project_name";
     private static final String SHORTNAME = "short_name";
@@ -50,7 +51,7 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
      * @return Project object
      */
     public Project get(int id) {
-        return super.get(id, SELECT_BY_ID_QUERY, GET_PROJECT_BY_ID_ERROR);
+        return super.get(id, SELECT_PROJECT, GET_PROJECT_ERROR);
     }
 
 
@@ -60,7 +61,7 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
      * @return list of all projects from database
      */
     public List<Project> getAll() {
-        return super.getAll(SELECT_QUERY, GET_PROJECTS_LIST_ERROR);
+        return super.getAll(SELECT_QUERY, GET_PROJECTS_ERROR);
     }
 
 
