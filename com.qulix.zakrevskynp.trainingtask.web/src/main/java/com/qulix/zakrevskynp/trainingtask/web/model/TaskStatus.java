@@ -21,7 +21,6 @@ public enum TaskStatus {
 
     public static TaskStatus fromString(String text) {
         for (TaskStatus taskStatus : TaskStatus.values()) {
-            System.out.println(taskStatus.status + " " + text);
             if (taskStatus.status.equalsIgnoreCase(text)) {
                 return taskStatus;
             }
