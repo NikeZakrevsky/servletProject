@@ -3,6 +3,7 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDaoImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDaoImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
@@ -27,9 +29,17 @@ public class SubmitEditTaskProjectServlet extends CustomProjectServlet {
     private static final String EDIT_TASK_PROJECT = "editTaskProject";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, getParametersFromRequest(request));
+        Map<String, Object> parameters = getParametersFromRequest(request);
+        ProjectDataValidator projectDataValidator = new ProjectDataValidator();
+        projectDataValidator.validate(parameters);
+        Project newProject = parametersToObject(parameters);
+        Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
+        project.setName(newProject.getName());
+        project.setShortName(newProject.getShortName());
+        project.setDescription(project.getDescription());
+        request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
         request.setAttribute(Attribute.PATH, request.getSession().getAttribute(Attribute.PATH).toString());
-        List<Task> tasks = getItems(request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
+        List<Task> tasks = project.getTasks();
         for (Task task : tasks) {
             if (task.getId() == Integer.parseInt(request.getParameter(TASK_ID))) {
                 request.setAttribute(Attribute.TASK_OBJECT_NAME, task);

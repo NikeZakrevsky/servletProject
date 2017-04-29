@@ -81,6 +81,18 @@ public class Project extends BaseDAOEntity {
         this.tasksList = tasksList;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Project{" +

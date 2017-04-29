@@ -155,33 +155,6 @@ public class TaskDaoImpl extends AbstractDao<Task> {
     }
 
     /**
-     * Get tasks list for project
-     *
-     * @param id project id
-     * @return List of tasks with specified project id
-     */
-    /*public List<Task> getTasksByProjectId(int id)  {
-        ResultSet resultSet = null;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = ConnectionFactory.getConnection();
-            preparedStatement = connection.prepareStatement(SELECT_QUERY + WHERE_ID);
-            preparedStatement.setInt(1, id);
-            resultSet = preparedStatement.executeQuery();
-            return resultSetToList(resultSet);
-        }
-        catch (SQLException e) {
-            throw new DaoException(GET_TASKS_LIST_ERROR, e);
-        }
-        finally {
-            closeResultSet(resultSet);
-            closeConnection(connection);
-            closeStatement(preparedStatement);
-        }
-    }*/
-
-    /**
      * Create Task object from ResultSet
      *
      * @param resultSet resultSet for converting to object

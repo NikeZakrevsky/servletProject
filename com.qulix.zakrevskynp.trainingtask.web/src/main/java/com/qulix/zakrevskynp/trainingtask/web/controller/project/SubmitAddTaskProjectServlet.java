@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDaoImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDaoImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
@@ -26,7 +27,14 @@ public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
-        request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, parameters);
+        ProjectDataValidator projectDataValidator = new ProjectDataValidator();
+        projectDataValidator.validate(parameters);
+        Project newProject = parametersToObject(parameters);
+        Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
+        project.setName(newProject.getName());
+        project.setShortName(newProject.getShortName());
+        project.setDescription(newProject.getDescription());
+        request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
         request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDaoImpl().getAll());
         request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDaoImpl().getAll());
         if (!request.getParameter(ID).equals("")) {

@@ -2,16 +2,18 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.task;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
+import com.qulix.zakrevskynp.trainingtask.web.controller.project.CustomProjectServlet;
+import com.qulix.zakrevskynp.trainingtask.web.controller.project.ProjectDataValidator;
 import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDaoImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
@@ -20,18 +22,23 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  * @author Q-NZA
  */
 @WebServlet("/removeTaskProject")
-public class RemoveTaskProjectServlet extends CustomServlet {
+public class RemoveTaskProjectServlet extends CustomProjectServlet {
 
     private static final String TASK_ID = "taskId";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, getParametersFromRequest(request));
-        HttpSession session = request.getSession();
-        String returningPath = request.getSession(false).getAttribute(Attribute.PATH).toString();
-        List<Task> tasks = getItems(session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
+        Map<String, Object> parametersFromRequest = getParametersFromRequest(request);
+        ProjectDataValidator projectDataValidator = new ProjectDataValidator();
+        projectDataValidator.validate(parametersFromRequest);
+        Project newProject = parametersToObject(parametersFromRequest);
+        Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
+        List<Task> tasks = project.getTasks();
+        newProject.setTasks(tasks);
         List<Task> resultTasks = new TaskDaoImpl().removeTask(Integer.parseInt(request.getParameter(TASK_ID)), tasks);
-        session.setAttribute(Attribute.RESULT_TASKS_LIST_NAME, resultTasks);
-        session.setAttribute(Attribute.RESULT_TASKS_LIST_NAME, session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
+        project.setTasks(resultTasks);
+        request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, newProject);
+        request.setAttribute(Attribute.PROJECT_OBJECT_NAME, newProject);
+        String returningPath = request.getSession().getAttribute(Attribute.PATH).toString();
         response.sendRedirect(returningPath);
     }
 }

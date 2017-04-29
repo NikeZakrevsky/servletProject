@@ -2,7 +2,6 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -54,34 +53,24 @@ public class EditProjectServlet extends CustomProjectServlet {
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Task> resultTasks;
-        ProjectDaoImpl projectDao = new ProjectDaoImpl();
-        Project project = projectDao.get(Integer.parseInt(request.getParameter(ID)));
-        if (request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME) == null) {
-            resultTasks = new ArrayList<>();
-            List<Task> tasks =  project.getTasks();
-            if (tasks != null) {
-                resultTasks.addAll(tasks);
-            }
-            request.getSession().setAttribute(Attribute.RESULT_TASKS_LIST_NAME, resultTasks);
-        }
-        else {
-            resultTasks = getItems(request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
-        }
+        Project project;
         if (request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME) == null) {
-            request.setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
+            ProjectDaoImpl projectDao = new ProjectDaoImpl();
+            project = projectDao.get(Integer.parseInt(request.getParameter(ID)));
+            request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
         }
         else {
-            request.setAttribute(Attribute.PROJECT_OBJECT_NAME, request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME));
+            project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
         }
-        request.setAttribute(Attribute.TASKS_LIST_NAME, resultTasks);
-        request.getSession(true).setAttribute(Attribute.PATH, EDIT_PROJECT + request.getParameter(ID));
+        request.setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
+        request.getSession().setAttribute(Attribute.PATH, EDIT_PROJECT + request.getParameter(ID));
         request.setAttribute(Attribute.PATH, EDIT_PROJECT + request.getParameter(ID));
         request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);
     }
 
     private void updateChangedTasks(HttpServletRequest request, Project project) {
-        List<Task> resultTasks = getItems(request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
+        Project newProject = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
+        List<Task> resultTasks = newProject.getTasks();
         System.out.println("ResultTasks");
         for (Task resultTask : resultTasks) {
             System.out.println(resultTask);

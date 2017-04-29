@@ -14,6 +14,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDaoImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDaoImpl;
 import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDaoImpl;
+import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
@@ -34,9 +35,10 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
             TaskDaoImpl tasksDAO = new TaskDaoImpl();
-            List<Task> tasks = getItems(request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
-            List<Task> resultTasks = tasksDAO.updateTaskInList(task, tasks, Integer.parseInt(request.getParameter(ID)));
-            request.getSession().setAttribute(Attribute.RESULT_TASKS_LIST_NAME, resultTasks);
+            Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
+            List<Task> resultTasks = tasksDAO.updateTaskInList(task, project.getTasks(), Integer.parseInt(request.getParameter(ID)));
+            project.setTasks(resultTasks);
+            request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
             response.sendRedirect(returningPath);
         }
         else {

@@ -67,7 +67,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${requestScope.tasks}" var="task">
+                                <c:forEach items="${requestScope.project.tasks}" var="task">
                                 <tr>
                                     <td>${task.id}</td>
                                     <td>${task.name}</td>
