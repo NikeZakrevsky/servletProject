@@ -24,8 +24,8 @@ public class TaskDataValidator extends Validator {
     private Map<String, Object> parameters;
     private List<String> errors = new ArrayList<>();
     private static final String DATE_FORMAT = "yyyy-MM-dd";
-    private static final String START_DATE_ERROR = "Дата начала : неверный формат";
-    private static final String END_DATE_ERROR = "Дата окончания : неверный формат";
+    private static final String START_DATE_ERROR = "Неверный формат поля \"Дата начала\"";
+    private static final String END_DATE_ERROR = "Неверный формат поля \"Дата окончания\"";
     private static final String END_BEFORE_START_ERROR = "Дата начала должна быть раньше даты окончания";
     private static final String NAME = "Название";
     private static final String STATUS = "Статус";

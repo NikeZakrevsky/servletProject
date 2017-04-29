@@ -11,10 +11,10 @@ import java.util.function.Predicate;
  */
 public abstract class Validator {
 
-    private static final String EMPTY_ERROR = "пустое поле";
-    private static final String LENGTH_ERROR = "длина поля превышает 20 символов";
-    private static final String SYMBOLS_ERROR = "поле может содержать только латинские и русские буквы";
-    private static final String NUMBER_ERROR = "неверный формат поля";
+    private static final String EMPTY_ERROR = "Укажите значение поля \"%s\"";
+    private static final String LENGTH_ERROR = "Длина поля \"%s\" не должна превышать 20 символов";
+    private static final String SYMBOLS_ERROR = "Поле \"%s\" должно содержать только латинские и русские буквы";
+    private static final String NUMBER_ERROR = "Поле \"%s\" должно содержать только цифры";
     private static final String REGEX = "^[a-zA-ZА-Яа-яёЁ\\s]*$";
     private static final String REGEX1 = "\\d{1,8}(.\\d)?";
     private Predicate<Object> testEmpty = e -> e == null || e.equals("");
@@ -29,7 +29,7 @@ public abstract class Validator {
      */
     protected void validateFieldLength(Object field, String fieldName, List<String> errors, int fieldLength) {
         if (field.toString().length() > fieldLength) {
-            errors.add(fieldName + " : " + LENGTH_ERROR);
+            errors.add(String.format(LENGTH_ERROR, fieldName));
         }
     }
 
@@ -42,7 +42,7 @@ public abstract class Validator {
      */
     protected void validateFieldEmpty(Object field, String fieldName, List<String> errors) {
         if (testEmpty.test(field)) {
-            errors.add(fieldName + " : " + EMPTY_ERROR);
+            errors.add(String.format(EMPTY_ERROR, fieldName));
         }
     }
 
@@ -85,7 +85,7 @@ public abstract class Validator {
      */
     protected void validateFieldSymbols(Object field, String fieldName, List<String> errors) {
         if (!field.toString().matches(REGEX)) {
-            errors.add(fieldName + " : " + SYMBOLS_ERROR);
+            errors.add(String.format(SYMBOLS_ERROR, fieldName));
         }
     }
 
@@ -98,7 +98,7 @@ public abstract class Validator {
      */
     protected void validateFieldNumbers(Object field, String fieldName, List<String> errors) {
         if (!field.toString().matches(REGEX1)) {
-            errors.add(fieldName + " : " + NUMBER_ERROR);
+            errors.add(String.format(NUMBER_ERROR, fieldName));
         }
     }
 }

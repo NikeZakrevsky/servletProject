@@ -31,10 +31,8 @@ public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
         projectDataValidator.validate(parameters);
         Project newProject = parametersToObject(parameters);
         Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
-        project.setName(newProject.getName());
-        project.setShortName(newProject.getShortName());
-        project.setDescription(newProject.getDescription());
-        request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
+        newProject.setTasks(project.getTasks());
+        request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, newProject);
         request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDaoImpl().getAll());
         request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDaoImpl().getAll());
         if (!request.getParameter(ID).equals("")) {
