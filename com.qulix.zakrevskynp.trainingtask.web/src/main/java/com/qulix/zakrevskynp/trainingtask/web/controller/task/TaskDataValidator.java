@@ -74,7 +74,7 @@ public class TaskDataValidator extends Validator {
 
     private void validateEndDateBeforeStartDate(java.util.Date startDate, java.util.Date endDate, String error) {
         if (startDate != null && endDate != null) {
-            if (!startDate.before(endDate)) {
+            if (!startDate.before(endDate) && !startDate.equals(endDate)) {
                 errors.add(error);
             }
         }
