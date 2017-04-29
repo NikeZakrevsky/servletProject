@@ -42,7 +42,7 @@ public class PersonDataValidator extends Validator {
         validateFieldLength(parameters.get(LAST_NAME_FIELD), LAST_NAME, errors, 20);
         validateFieldSymbols(parameters.get(LAST_NAME_FIELD), LAST_NAME, errors);
         validateFieldEmpty(parameters.get(POSITION_FIELD), POSITION, errors);
-        validateFieldLength(parameters.get(POSITION_FIELD), POSITION, errors, 20);
+        validateFieldLength(parameters.get(POSITION_FIELD), POSITION, errors, 40);
         return errors;
     }
 }

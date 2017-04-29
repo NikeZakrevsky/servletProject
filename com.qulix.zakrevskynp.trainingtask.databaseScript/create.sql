@@ -10,7 +10,7 @@ create table persons (
   first_name varchar(25) not null,
   middle_name varchar(25) not null,
   last_name varchar(25) not null,
-  position varchar(25) not null
+  position varchar(40) not null
 );
 
 create table tasks (
