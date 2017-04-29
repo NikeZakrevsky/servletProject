@@ -42,7 +42,7 @@ public class CustomTaskServlet extends CustomServlet {
         Duration workTime = (Duration) parameters.get(TIME);
         Date startDate = (Date) parameters.get(STARTDATE);
         Date endDate = (Date) parameters.get(ENDDATE);
-        TaskStatus status = TaskStatus.valueOf(parameters.get(STATUS).toString());
+        TaskStatus status = TaskStatus.fromString(parameters.get(STATUS).toString());
         Integer projectId = (Integer) parameters.get(PROJECTID);
         Integer personId = (Integer) parameters.get(PERSONID);
         String projectShortName = (String) parameters.get(SHORTNAME);

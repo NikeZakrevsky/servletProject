@@ -76,10 +76,10 @@
             <label class="col-md-2 control-lable">Статус</label>
                 <div class="col-md-7">
 	                <select name = "taskStatus">
-                        <option value="NOT_STARTED" ${"NOT_STARTED".equals(requestScope.task.status.toString()) ? 'selected="selected"' : ''}>Not started</option>
-                        <option value="IN_PROCESS" ${"IN_PROCESS".equals(requestScope.task.status.toString()) ? 'selected="selected"' : ''}>In process</option>
-                        <option value="COMPLETED" ${"COMPLETED".equals(requestScope.task.status.toString()) ? 'selected="selected"' : ''}>Completed</option>
-                        <option value="DELAYED" ${"DELAYED".equals(requestScope.task.status.toString()) ? 'selected="selected"' : ''}>Delayed</option>
+                        <option value="Не начата" ${"Не начата".equals(requestScope.task.status.toString()) ? 'selected="selected"' : ''}>Не начата</option>
+                        <option value="В процессе" ${"В процессе".equals(requestScope.task.status.toString()) ? 'selected="selected"' : ''}>В процессе</option>
+                        <option value="Завершена" ${"Завершена".equals(requestScope.task.status.toString()) ? 'selected="selected"' : ''}>Завершена</option>
+                        <option value="Отложена" ${"Отложена".equals(requestScope.task.status.toString()) ? 'selected="selected"' : ''}>Отложена</option>
                     </select>
                 </div>
             </div>

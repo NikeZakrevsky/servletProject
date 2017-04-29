@@ -171,7 +171,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
             String stringStatus = resultSet.getString(STATUS);
             TaskStatus status = null;
             if (stringStatus != null) {
-                status = TaskStatus.valueOf(stringStatus);
+                status = TaskStatus.fromString(stringStatus);
             }
             Integer projectId = resultSet.getInt(PROJECTID);
             Integer personId = (Integer) resultSet.getObject(PERSONID);
@@ -188,6 +188,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
         }
 
     }
+
 
     /**
      * Convert the ResultSet to a List of objects
