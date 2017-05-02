@@ -18,7 +18,6 @@ import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
  * @author Q-NZA
  */
 class ConnectionFactory {
-    private static Properties dbProperties;
     private static final String USER = "user";
     private static final String PASSWORD = "password";
     private static final String DRIVER_CLASS = "driverClass";
@@ -39,7 +38,7 @@ class ConnectionFactory {
      * Reading properties of the database connection
      */
     static  {
-        dbProperties = new Properties();
+        Properties dbProperties = new Properties();
         try {
             dbProperties.load(new FileInputStream(JDBC_PROPERTIES));
             urlProperty = dbProperties.getProperty(URL);

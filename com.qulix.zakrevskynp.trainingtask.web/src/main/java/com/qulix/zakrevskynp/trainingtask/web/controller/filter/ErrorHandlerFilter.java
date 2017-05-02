@@ -18,6 +18,8 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 @WebFilter(filterName = "errorHandlerServlet", urlPatterns = {"/*"})
 public class ErrorHandlerFilter implements Filter {
 
+    private static final Logger LOGGER = LoggingFactory.getLogger();
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
@@ -37,8 +39,7 @@ public class ErrorHandlerFilter implements Filter {
             ch.doFilter(request, response);
         }
         catch (Exception e) {
-            Logger logger = LoggingFactory.getLogger();
-            logger.log(Level.SEVERE, "Exception: ", e);
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
             String error = e.getMessage();
             request.setAttribute("error", error);
             request.getRequestDispatcher(Attribute.PERSONS_LIST_VIEW).forward(request, response);
