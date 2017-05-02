@@ -51,7 +51,7 @@
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Должность</label>
                 <div class="col-md-7">
-	                <input type = "text" name = "position" size = "70" maxlength="40" value="${requestScope.person.position}"/>
+	                <input type = "text" name = "position" size = "70" maxlength="60" value="${requestScope.person.position}"/>
                 </div>
             </div>
         </div>

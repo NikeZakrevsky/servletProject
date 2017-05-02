@@ -1,6 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -33,7 +34,10 @@ public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
 
         Project newProject = parametersToObject(parameters);
         Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
-        newProject.setTasks(project.getTasks());
+        List<Task> tasks = project.getTasks();
+        if (tasks != null) {
+            newProject.setTasks(tasks);
+        }
 
         request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, newProject);
         request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDaoImpl().getAll());

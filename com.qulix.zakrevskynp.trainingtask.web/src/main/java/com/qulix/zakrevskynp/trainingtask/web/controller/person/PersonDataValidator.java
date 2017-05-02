@@ -46,7 +46,7 @@ public class PersonDataValidator extends Validator {
 
     private void validatePosition(Map<String, Object> parameters, List<String> errors) {
         validateFieldEmpty(parameters.get(POSITION_FIELD), POSITION, errors);
-        validateFieldLength(parameters.get(POSITION_FIELD), POSITION, errors, 40);
+        validateFieldLength(parameters.get(POSITION_FIELD), POSITION, errors, 60);
     }
 
     private void validateLastName(Map<String, Object> parameters, List<String> errors) {
