@@ -28,7 +28,7 @@
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Название</label>
                 <div class="col-md-7">
-                    <input type = "text" name = "name" size = "70" maxlength="20" value = "${requestScope.task.name}"/>
+                    <input type = "text" name = "name" size = "70" maxlength="20" value = "${requestScope.task.name}" pattern="[A-Za-z]{3}"/>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
             <div class="form-group col-md-12">
             <label class="col-md-2 control-lable">Работа(часы)</label>
                 <div class="col-md-7">
-	                <input type = "text" name = "workTime" size = "70" min="1" max="999" step="0.1" value = "${requestScope.task.workTime != null ? requestScope.task.workTime.toMinutes() / 60 : requestScope.task.workTimeString}"/>
+	                <input type = "number" name = "workTime" size = "70" min="0" max="999" step="0.1" value = "${requestScope.task.workTime != null ? requestScope.task.workTime.toMinutes() / 60 : requestScope.task.workTimeString}"/>
                 </div>
             </div>
         </div>
