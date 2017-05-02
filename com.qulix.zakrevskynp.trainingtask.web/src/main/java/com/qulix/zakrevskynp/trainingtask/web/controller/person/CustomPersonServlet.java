@@ -2,7 +2,7 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.person;
 
 import java.util.Map;
 
-import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
+import com.qulix.zakrevskynp.trainingtask.web.controller.BaseHttpServlet;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
@@ -10,7 +10,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
  *
  * @author Q-NZA
  */
-class CustomPersonServlet extends CustomServlet {
+class CustomPersonServlet extends BaseHttpServlet {
 
     private static final String ID = "id";
     private static final String FIRST_NAME = "firstName";

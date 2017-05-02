@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
+import com.qulix.zakrevskynp.trainingtask.web.controller.BaseHttpServlet;
 import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDaoImpl;
 
 /**
@@ -18,7 +18,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDaoImpl;
  * @author Q-NZA
  */
 @WebServlet("/tasksList")
-public class TasksListServlet extends CustomServlet {
+public class TasksListServlet extends BaseHttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute(Attribute.PATH, Attribute.TASKS_LIST);

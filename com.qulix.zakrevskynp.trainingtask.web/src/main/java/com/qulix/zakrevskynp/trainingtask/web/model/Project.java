@@ -30,15 +30,6 @@ public class Project extends BaseDAOEntity {
     }
 
     /**
-     * Gets project id
-     *
-     * @return project id
-     */
-    public int getId() {
-        return super.id;
-    }
-
-    /**
      * Gets project name
      *
      * @return project name

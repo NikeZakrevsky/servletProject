@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
+import com.qulix.zakrevskynp.trainingtask.web.controller.BaseHttpServlet;
 import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDaoImpl;
 
 /**
@@ -17,7 +17,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDaoImpl;
  * @author Q-NZA
  */
 @WebServlet("/removeTask")
-public class RemoveTaskServlet extends CustomServlet {
+public class RemoveTaskServlet extends BaseHttpServlet {
 
     private static final String ID = "id";
 

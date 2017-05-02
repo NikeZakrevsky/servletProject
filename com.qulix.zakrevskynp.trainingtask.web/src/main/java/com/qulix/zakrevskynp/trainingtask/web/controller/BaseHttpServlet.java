@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Extends HttpServlet
+ * Custom servlet with common methods for controllers
  *
  * @author Q-NZA
  */
-public class CustomServlet extends HttpServlet {
+public class BaseHttpServlet extends HttpServlet {
 
     /**
      * Convert parameters from request to map

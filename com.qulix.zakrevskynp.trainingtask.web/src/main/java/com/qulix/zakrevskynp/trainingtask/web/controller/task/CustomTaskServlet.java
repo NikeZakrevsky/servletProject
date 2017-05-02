@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.time.Duration;
 import java.util.Map;
 
-import com.qulix.zakrevskynp.trainingtask.web.controller.CustomServlet;
+import com.qulix.zakrevskynp.trainingtask.web.controller.BaseHttpServlet;
 import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDaoImpl;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
@@ -15,7 +15,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  *
  * @author Q-NZA
  */
-public class CustomTaskServlet extends CustomServlet {
+public class CustomTaskServlet extends BaseHttpServlet {
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String TIME = "workTime";

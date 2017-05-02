@@ -52,24 +52,6 @@ public class Task extends BaseDAOEntity {
     }
 
     /**
-     * Gets id of task
-     *
-     * @return task id
-     */
-    public Integer getId() {
-        return super.id;
-    }
-
-    /**
-     * Sets id of task
-     *
-     * @param id id of task
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    /**
      * Gets name of task
      *
      * @return task name

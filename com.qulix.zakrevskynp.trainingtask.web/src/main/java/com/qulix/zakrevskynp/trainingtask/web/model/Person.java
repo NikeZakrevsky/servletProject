@@ -28,20 +28,6 @@ public class Person extends BaseDAOEntity {
         this.position = position;
     }
 
-    /**
-     * Gets id
-     *
-     * @return person id
-     */
-    public int getId() {
-        return super.id;
-    }
-
-    /**
-     * Gets person first name
-     *
-     * @return person first name
-     */
     public String getFirstName() {
         return firstName;
     }
