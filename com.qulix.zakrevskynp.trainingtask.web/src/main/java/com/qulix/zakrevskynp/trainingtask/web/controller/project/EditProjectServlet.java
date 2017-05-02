@@ -71,16 +71,8 @@ public class EditProjectServlet extends CustomProjectServlet {
     private void updateChangedTasks(HttpServletRequest request, Project project) {
         Project newProject = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
         List<Task> resultTasks = newProject.getTasks();
-        System.out.println("ResultTasks");
-        for (Task resultTask : resultTasks) {
-            System.out.println(resultTask);
-        }
-        System.out.println("Prev");
         TaskDaoImpl tasksDAO = new TaskDaoImpl();
         List<Task> tasksList = project.getTasks();
-        for (Task task : tasksList) {
-            System.out.println(task);
-        }
         Set<Object> t1 = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
         Set<Object> t2 = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
         for (Task task : tasksList) {

@@ -18,8 +18,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 public class ProjectDaoImpl extends AbstractDao<Project> {
 
-    private static final String SELECT_QUERY = "select project_id, project_name, short_name, description, task_id, task_name, work_time, start_date, end_date, status, " +
-            "project_id, person_id, first_name, middle_name, last_name, position as person from projects left join tasks on tasks.project_id = projects.project_id left join persons on tasks.person_id = persons.person_id";
+    private static final String SELECT_QUERY = "select project_id, project_name, short_name, description, task_id, task_name, work_time, start_date, end_date, status, project_id, person_id, first_name, middle_name, last_name, position as person from projects left join tasks on tasks.project_id = projects.project_id left join persons on tasks.person_id = persons.person_id";
     private static final String INSERT_QUERY = "insert into projects(project_name, short_name, description) values (?, ?, ?)";
     private static final String DELETE_QUERY = "delete from projects where project_id=?";
     private static final String SELECT_PROJECT = SELECT_QUERY + " where project_id =?";
@@ -133,11 +132,11 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
     @Override
     public Project resultSetAsObject(ResultSet resultSet) throws SQLException {
         try {
-                Integer id = resultSet.getInt(ID);
-                String name = resultSet.getString(NAME);
-                String shortName = resultSet.getString(SHORTNAME);
-                String description = resultSet.getString(DESCRIPTION);
-                return new Project(id, name, shortName, description);
+            Integer id = resultSet.getInt(ID);
+            String name = resultSet.getString(NAME);
+            String shortName = resultSet.getString(SHORTNAME);
+            String description = resultSet.getString(DESCRIPTION);
+            return new Project(id, name, shortName, description);
         }
         catch (SQLException e) {
             throw new DaoException(RESULT_SET_ERROR, e);
@@ -173,8 +172,7 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
                 }
 
             }
-            List<Project> result = projects.entrySet().stream().map(Map.Entry::getValue).collect(Collectors.toList());
-            return result;
+            return projects.entrySet().stream().map(Map.Entry::getValue).collect(Collectors.toList());
         }
         catch (SQLException e) {
             throw new DaoException(RESULT_SET_ERROR, e);

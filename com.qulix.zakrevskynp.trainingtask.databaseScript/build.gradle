@@ -32,19 +32,19 @@ static def executeSqlScrips(String fileName) {
 
 task createDatabase {
     doLast {
-        executeSqlScrips('com.qulix.zakrevskynp.trainingtask.databaseScript/create.sql')
+        executeSqlScrips('create.sql')
     }
 }
 
 task dropDatabase {
     doLast {
-        executeSqlScrips('com.qulix.zakrevskynp.trainingtask.databaseScript/drop.sql')
+        executeSqlScrips('drop.sql')
     }
 }
 
 task insertTestData {
     doLast {
-        executeSqlScrips('com.qulix.zakrevskynp.trainingtask.databaseScript/insertTestData.sql')
+        executeSqlScrips('insertTestData.sql')
     }
 }
 

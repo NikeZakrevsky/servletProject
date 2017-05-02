@@ -14,7 +14,7 @@ dependencies {
             "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
 }
 
-tasks.withType(JavaCompile) {
+compileJava {
     options.encoding = 'UTF-8'
 }
 
@@ -32,8 +32,5 @@ tomcatRun {
     contextPath = "/"
     webDefaultXml = file("src/main/webapp/WEB-INF/web.xml")
 }
-tasks.withType(War) {
-    destinationDir = file("tomcat/")
-    archiveName = "${project.name}.war"
-}
+
 task startServer(dependsOn: 'tomcatRun'){}
