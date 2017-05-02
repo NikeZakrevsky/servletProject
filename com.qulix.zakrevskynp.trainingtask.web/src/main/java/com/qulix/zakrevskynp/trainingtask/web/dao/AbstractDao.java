@@ -53,7 +53,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Removes entity
+     * Deletion of an entity
      *
      * @param id id of entity
      * @param removeQuery sql query for removing entity
@@ -64,7 +64,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Adds entity
+     * Adding an entity
      *
      * @param entity entity for adding
      * @param insertQuery sql query for inserting entity
@@ -94,7 +94,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Gets entity by id
+     * Getting the entity by identifier
      *
      * @param id id of entity
      * @param getByIdQuery sql query for getting entity by id
@@ -127,7 +127,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Updates entity
+     * Updating an entity
      *
      * @param updateQuery sql query for updating entity
      * @param error error message
@@ -137,7 +137,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Create Task object from ResultSet
+     * Creating Task object from the ResultSet
      *
      * @param resultSet resultSet for converting to object
      * @return created task object
@@ -145,7 +145,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     protected abstract T resultSetAsObject(ResultSet resultSet) throws SQLException;
 
     /**
-     * Convert the ResultSet to a List of objects
+     * Converting of the ResultSet to a List of objects
      *
      * @param rs @{{@link ResultSet}} object converted to list
      * @return tasks list
@@ -154,7 +154,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     protected abstract List<T> resultSetToList(ResultSet rs) throws SQLException;
 
     /**
-     * Set parameters to prepared statement
+     * Setting parameters to prepared statement
      *
      * @param preparedStatement link of the prepared statement for setting parameters
      */
@@ -171,7 +171,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Close result set
+     * Closing of the result set
      *
      * @param resultSet result set for closing
      */
@@ -187,7 +187,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Close statement
+     * Closing of the statement
      *
      * @param statement statement closing
      */
@@ -203,7 +203,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Close connection
+     * Closing of the connection
      *
      * @param connection connection for closing
      */

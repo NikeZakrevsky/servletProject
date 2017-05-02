@@ -22,7 +22,7 @@ public class ProjectDataValidator extends Validator {
     /**
      * Validate project information
      * 
-     * @param parameters project form data
+     * @param parameters project data from the form
      * @return list of errors
      */
     public List<String> validate(Map<String, Object> parameters) {

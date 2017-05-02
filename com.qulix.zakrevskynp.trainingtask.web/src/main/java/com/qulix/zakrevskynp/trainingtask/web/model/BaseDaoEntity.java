@@ -1,7 +1,8 @@
 package com.qulix.zakrevskynp.trainingtask.web.model;
 
 /**
- * Base dao entity
+ * Base dao entity with id field
+ *
  * @author Q-NZA
  */
 public class BaseDaoEntity {

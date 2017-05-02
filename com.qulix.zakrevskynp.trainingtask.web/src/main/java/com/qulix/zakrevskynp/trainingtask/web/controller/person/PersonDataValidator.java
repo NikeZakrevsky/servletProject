@@ -24,9 +24,9 @@ public class PersonDataValidator extends Validator {
     private static final String POSITION_FIELD = "position";
 
     /**
-     * Validates person data
+     * Validation of person data
      *
-     * @param parameters person form data
+     * @param parameters person data from the form
      * @return list of errors
      */
     public List<String> validate(Map<String, Object> parameters) {

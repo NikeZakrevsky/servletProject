@@ -18,7 +18,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Show the form of updating a task in session
+ * Shows the form of updating a task in session
  *
  * @author Q-NZA
  */

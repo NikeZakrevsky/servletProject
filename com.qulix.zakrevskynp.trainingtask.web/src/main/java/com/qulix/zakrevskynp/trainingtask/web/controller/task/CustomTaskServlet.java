@@ -28,7 +28,7 @@ public class CustomTaskServlet extends BaseHttpServlet {
     private static final String PERSON = "person";
 
     /**
-     * Converts map with request parameters to @{{@link Task}} object
+     * Converts a map with request parameters to a @{{@link Task}} object
      *
      * @param parameters map with request parameters
      * @return @{{@link Task}} object

@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 /**
- * Validate data from the forms
+ * Validates data from forms
  *
  * @author Q-NZA
  */
@@ -121,7 +121,8 @@ public abstract class Validator {
         return date;
     }
 
-    protected void validateEndDateBeforeStartDate(java.util.Date startDate, java.util.Date endDate, String error, List<String> errors ) {
+    protected void validateEndDateBeforeStartDate(java.util.Date startDate, java.util.Date endDate, String error, List<String>
+        errors) {
         if (startDate != null && endDate != null) {
             if (!startDate.before(endDate) && !startDate.equals(endDate)) {
                 errors.add(error);
@@ -129,7 +130,8 @@ public abstract class Validator {
         }
     }
 
-    protected void validateDateTime(java.util.Date startDate, java.util.Date endDate, Duration duration, String error, List<String> errors) {
+    protected void validateDateTime(java.util.Date startDate, java.util.Date endDate, Duration duration, String error,
+        List<String> errors) {
         long diff = endDate.getTime() - startDate.getTime();
         if (duration.toMinutes() / 60.0 - TimeUnit.HOURS.convert(diff, TimeUnit.MILLISECONDS) > 0) {
             errors.add(error);

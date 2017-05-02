@@ -17,7 +17,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Saves data from the project updating form
+ * Saves data from the project update form
  *
  * @author Q-NZA
  */

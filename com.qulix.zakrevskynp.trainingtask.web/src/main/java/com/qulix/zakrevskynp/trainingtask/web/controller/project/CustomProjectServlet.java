@@ -18,7 +18,7 @@ public class CustomProjectServlet extends BaseHttpServlet {
     private static final String DESCRIPTION = "description";
 
     /**
-     * Converts map with request parameters to @{{@link Project}} object
+     * Converts a map with request parameters to a @{{@link Project}} object
      *
      * @param parameters map with request parameters
      * @return @{{@link Project}} object

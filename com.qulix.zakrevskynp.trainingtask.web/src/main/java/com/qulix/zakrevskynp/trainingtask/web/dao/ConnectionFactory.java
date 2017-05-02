@@ -64,7 +64,7 @@ class ConnectionFactory {
     }
 
     /**
-     * Getting an exist connection
+     * Obtaining an existing connection
      *
      * @return Connection object
      * @throws SQLException throws while getting connection to database
