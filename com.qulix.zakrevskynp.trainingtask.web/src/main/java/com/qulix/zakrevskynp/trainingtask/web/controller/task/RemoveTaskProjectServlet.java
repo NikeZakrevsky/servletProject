@@ -28,14 +28,17 @@ public class RemoveTaskProjectServlet extends CustomProjectServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parametersFromRequest = getParametersFromRequest(request);
+
         ProjectDataValidator projectDataValidator = new ProjectDataValidator();
         projectDataValidator.validate(parametersFromRequest);
+
         Project newProject = parametersToObject(parametersFromRequest);
         Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
         List<Task> tasks = project.getTasks();
         newProject.setTasks(tasks);
         List<Task> resultTasks = new TaskDaoImpl().removeTask(Integer.parseInt(request.getParameter(TASK_ID)), tasks);
         project.setTasks(resultTasks);
+
         request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, newProject);
         request.setAttribute(Attribute.PROJECT_OBJECT_NAME, newProject);
         String returningPath = request.getSession().getAttribute(Attribute.PATH).toString();

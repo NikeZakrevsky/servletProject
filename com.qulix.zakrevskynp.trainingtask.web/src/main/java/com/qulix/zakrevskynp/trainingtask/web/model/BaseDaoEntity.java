@@ -1,6 +1,10 @@
 package com.qulix.zakrevskynp.trainingtask.web.model;
 
-public class BaseDAOEntity {
+/**
+ * Base dao entity
+ * @author Q-NZA
+ */
+public class BaseDaoEntity {
     protected Integer id;
 
     public Integer getId() {

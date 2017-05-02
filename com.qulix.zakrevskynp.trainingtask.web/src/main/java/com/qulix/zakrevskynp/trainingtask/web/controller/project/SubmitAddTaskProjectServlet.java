@@ -27,11 +27,14 @@ public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
+
         ProjectDataValidator projectDataValidator = new ProjectDataValidator();
         projectDataValidator.validate(parameters);
+
         Project newProject = parametersToObject(parameters);
         Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
         newProject.setTasks(project.getTasks());
+
         request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, newProject);
         request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDaoImpl().getAll());
         request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDaoImpl().getAll());

@@ -29,9 +29,11 @@ public class EditTaskServlet extends CustomTaskServlet {
     private static final String IS_DISABLE = "isDisable";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        TaskDataValidator validator = new TaskDataValidator();
         Map<String, Object> parameters = getParametersFromRequest(request);
+
+        TaskDataValidator validator = new TaskDataValidator();
         List<String> errors = validator.validate(parameters);
+        
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
             new TaskDaoImpl().update(task);

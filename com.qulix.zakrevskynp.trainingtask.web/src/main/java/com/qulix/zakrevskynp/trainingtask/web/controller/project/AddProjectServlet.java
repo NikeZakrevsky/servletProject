@@ -26,7 +26,10 @@ public class AddProjectServlet extends CustomProjectServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
-        List<String> errors = new ProjectDataValidator().validate(parameters);
+
+        ProjectDataValidator projectDataValidator = new ProjectDataValidator();
+        List<String> errors = projectDataValidator.validate(parameters);
+
         if (errors.isEmpty()) {
             Project project = parametersToObject(parameters);
             List<Task> tasks = getItems(request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME));

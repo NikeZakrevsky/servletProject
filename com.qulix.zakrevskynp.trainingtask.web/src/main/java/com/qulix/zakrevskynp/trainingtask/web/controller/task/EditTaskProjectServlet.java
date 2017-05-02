@@ -28,15 +28,17 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
     private static final String ID = "id";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        TaskDataValidator validator = new TaskDataValidator();
         Map<String, Object> parameters = getParametersFromRequest(request);
         String returningPath = request.getSession().getAttribute(Attribute.PATH).toString();
+
+        TaskDataValidator validator = new TaskDataValidator();
         List<String> errors = validator.validate(parameters);
+
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
-            TaskDaoImpl tasksDAO = new TaskDaoImpl();
+            TaskDaoImpl dao = new TaskDaoImpl();
             Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
-            List<Task> resultTasks = tasksDAO.updateTaskInList(task, project.getTasks(), Integer.parseInt(request.getParameter(ID)));
+            List<Task> resultTasks = dao.updateTaskInList(task, project.getTasks(), Integer.parseInt(request.getParameter(ID)));
             project.setTasks(resultTasks);
             request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
             response.sendRedirect(returningPath);

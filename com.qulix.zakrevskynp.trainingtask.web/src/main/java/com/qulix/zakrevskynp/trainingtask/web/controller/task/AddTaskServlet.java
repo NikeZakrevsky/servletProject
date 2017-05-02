@@ -26,7 +26,10 @@ public class AddTaskServlet extends CustomTaskServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
-        List<String> errors = new TaskDataValidator().validate(parameters);
+
+        TaskDataValidator taskDataValidator = new TaskDataValidator();
+        List<String> errors = taskDataValidator.validate(parameters);
+
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
             new TaskDaoImpl().add(task);

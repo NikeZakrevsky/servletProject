@@ -32,8 +32,10 @@ public class EditProjectServlet extends CustomProjectServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
+
         ProjectDataValidator validator = new ProjectDataValidator();
         List<String> errors = validator.validate(parameters);
+        
         if (errors.isEmpty()) {
             Project project = parametersToObject(parameters);
             Project project1 = new ProjectDaoImpl().get(Integer.parseInt(request.getParameter(ID)));

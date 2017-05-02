@@ -63,7 +63,8 @@ public class TaskDataValidator extends Validator {
         if (validateFieldNumbers(parameters.get(WORK_TIME_FIELD), JOB, errors)) {
             parseFloatParams(WORK_TIME_FIELD, this.parameters);
             if (parameters.get(WORK_TIME_FIELD) != null) {
-                parameters.put(WORK_TIME_FIELD, Duration.ofMinutes((long) (int) (Float.parseFloat(parameters.get(WORK_TIME_FIELD).toString()) * 60)));
+                parameters.put(WORK_TIME_FIELD, Duration.ofMinutes((long) (int) (Float.parseFloat(parameters.get(WORK_TIME_FIELD)
+                    .toString()) * 60)));
             }
 
             validateDateTime(startDate, endDate, (Duration) parameters.get(WORK_TIME_FIELD), BETWEEN_ERROR);
@@ -91,7 +92,7 @@ public class TaskDataValidator extends Validator {
 
     private void validateDateTime(java.util.Date startDate, java.util.Date endDate, Duration duration, String error) {
         long diff = endDate.getTime() - startDate.getTime();
-        if(duration.toMinutes() / 60.0 - TimeUnit.HOURS.convert(diff, TimeUnit.MILLISECONDS) > 0) {
+        if (duration.toMinutes() / 60.0 - TimeUnit.HOURS.convert(diff, TimeUnit.MILLISECONDS) > 0) {
             errors.add(error);
         }
     }

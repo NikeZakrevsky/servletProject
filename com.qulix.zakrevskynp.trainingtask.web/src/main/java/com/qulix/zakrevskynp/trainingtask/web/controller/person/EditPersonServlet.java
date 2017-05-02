@@ -26,7 +26,10 @@ public class EditPersonServlet extends CustomPersonServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
-        List<String> errors = new PersonDataValidator().validate(parameters);
+
+        PersonDataValidator personDataValidator = new PersonDataValidator();
+        List<String> errors = personDataValidator.validate(parameters);
+
         if (errors.isEmpty()) {
             Person person = parametersToObject(parameters);
             new PersonDaoImpl().update(person);

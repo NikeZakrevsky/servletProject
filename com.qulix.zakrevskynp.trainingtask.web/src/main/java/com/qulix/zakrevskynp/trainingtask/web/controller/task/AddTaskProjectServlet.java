@@ -29,8 +29,12 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute(IS_DISABLE, true);
+
         Map<String, Object> parameters = getParametersFromRequest(request);
-        List<String> errors = new TaskDataValidator().validate(parameters);
+
+        TaskDataValidator taskDataValidator = new TaskDataValidator();
+        List<String> errors = taskDataValidator.validate(parameters);
+
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
             Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);

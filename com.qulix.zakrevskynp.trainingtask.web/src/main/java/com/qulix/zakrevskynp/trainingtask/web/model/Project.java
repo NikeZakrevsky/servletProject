@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author Q-NZA
  */
-public class Project extends BaseDAOEntity {
+public class Project extends BaseDaoEntity {
     private String name;
     private String shortName;
     private String description;

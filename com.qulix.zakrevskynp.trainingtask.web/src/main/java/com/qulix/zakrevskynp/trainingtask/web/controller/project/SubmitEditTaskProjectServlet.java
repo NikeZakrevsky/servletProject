@@ -30,13 +30,16 @@ public class SubmitEditTaskProjectServlet extends CustomProjectServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
+
         ProjectDataValidator projectDataValidator = new ProjectDataValidator();
         projectDataValidator.validate(parameters);
+
         Project newProject = parametersToObject(parameters);
         Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
         project.setName(newProject.getName());
         project.setShortName(newProject.getShortName());
         project.setDescription(project.getDescription());
+
         request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
         request.setAttribute(Attribute.PATH, request.getSession().getAttribute(Attribute.PATH).toString());
         List<Task> tasks = project.getTasks();

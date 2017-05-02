@@ -5,7 +5,7 @@ package com.qulix.zakrevskynp.trainingtask.web.model;
  *
  * @author Q-NZA
  */
-public class Person extends BaseDAOEntity {
+public class Person extends BaseDaoEntity {
     private String firstName;
     private String middleName;
     private String lastName;

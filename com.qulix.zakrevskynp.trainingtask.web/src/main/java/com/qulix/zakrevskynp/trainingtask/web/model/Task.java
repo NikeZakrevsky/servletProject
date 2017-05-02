@@ -8,7 +8,7 @@ import java.time.Duration;
  *
  * @author Q-NZA
  */
-public class Task extends BaseDAOEntity {
+public class Task extends BaseDaoEntity {
     private String name;
     private Duration workTime;
     private Date startDate;

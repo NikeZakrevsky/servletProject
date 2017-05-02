@@ -49,7 +49,8 @@ public class PersonDaoImpl extends AbstractDao<Person> {
      */
     @Override
     public void add(Person person)  {
-        super.add(person, INSERT_QUERY, ADD_PERSON_ERROR, person.getFirstName(), person.getMiddleName(), person.getLastName(), person.getPosition());
+        super.add(person, INSERT_QUERY, ADD_PERSON_ERROR, person.getFirstName(), person.getMiddleName(), person.getLastName(),
+            person.getPosition());
     }
 
     /**
@@ -80,7 +81,8 @@ public class PersonDaoImpl extends AbstractDao<Person> {
      */
     @Override
     public void update(Person person) {
-        super.update(UPDATE_QUERY, UPDATE_PERSON_ERROR, person.getFirstName(), person.getMiddleName(), person.getLastName(), person.getPosition(), person.getId());
+        super.update(UPDATE_QUERY, UPDATE_PERSON_ERROR, person.getFirstName(), person.getMiddleName(), person.getLastName(),
+            person.getPosition(), person.getId());
     }
 
     /**
