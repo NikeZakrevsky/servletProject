@@ -27,13 +27,26 @@ public class ProjectDataValidator extends Validator {
      */
     public List<String> validate(Map<String, Object> parameters) {
         List<String> errors = new ArrayList<>();
-        parseIntegerParams(ID, parameters);
 
-        validateFieldEmpty(parameters.get(NAME_FIELD), NAME, errors);
-        validateFieldLength(parameters.get(NAME_FIELD), NAME, errors, 20);
-
-        validateFieldEmpty(parameters.get(SHORT_NAME_FIELD), SHORT_NAME, errors);
-        validateFieldLength(parameters.get(SHORT_NAME_FIELD), SHORT_NAME, errors, 20);
+        validateId(parameters);
+        validateName(parameters, errors);
+        validateShortName(parameters, errors);
         return errors;
     }
+
+    private void validateShortName(Map<String, Object> parameters, List<String> errors) {
+        validateFieldEmpty(parameters.get(SHORT_NAME_FIELD), SHORT_NAME, errors);
+        validateFieldLength(parameters.get(SHORT_NAME_FIELD), SHORT_NAME, errors, 20);
+    }
+
+    private void validateName(Map<String, Object> parameters, List<String> errors) {
+        validateFieldEmpty(parameters.get(NAME_FIELD), NAME, errors);
+        validateFieldLength(parameters.get(NAME_FIELD), NAME, errors, 20);
+    }
+
+    private void validateId(Map<String, Object> parameters) {
+        parseIntegerParams(ID, parameters);
+    }
+
+
 }

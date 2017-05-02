@@ -1,7 +1,11 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 /**
@@ -18,6 +22,7 @@ public abstract class Validator {
     private static final String REGEX = "^[a-zA-ZА-Яа-яёЁ\\s]*$";
     private static final String REGEX1 = "\\d{1,8}(.\\d)?";
     private Predicate<Object> testEmpty = e -> e == null || e.equals("");
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     /**
      * Field length validation
@@ -102,5 +107,32 @@ public abstract class Validator {
             return false;
         }
         return true;
+    }
+
+    protected java.util.Date validateDate(Object field, String error, List<String> errors) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        dateFormat.setLenient(false);
+        java.util.Date date = null;
+        try {
+            date = dateFormat.parse(field.toString());
+        } catch (ParseException e) {
+            errors.add(error);
+        }
+        return date;
+    }
+
+    protected void validateEndDateBeforeStartDate(java.util.Date startDate, java.util.Date endDate, String error, List<String> errors ) {
+        if (startDate != null && endDate != null) {
+            if (!startDate.before(endDate) && !startDate.equals(endDate)) {
+                errors.add(error);
+            }
+        }
+    }
+
+    protected void validateDateTime(java.util.Date startDate, java.util.Date endDate, Duration duration, String error, List<String> errors) {
+        long diff = endDate.getTime() - startDate.getTime();
+        if (duration.toMinutes() / 60.0 - TimeUnit.HOURS.convert(diff, TimeUnit.MILLISECONDS) > 0) {
+            errors.add(error);
+        }
     }
 }

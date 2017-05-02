@@ -14,7 +14,7 @@
     <%@ include file="../share/navigationBar.jsp" %>
     <div class="panel panel-default">
     <div class="panel-heading"><span class="lead">Управление задачами</span></div>
-	<form action = "${requestScope.action}" method = "POST">
+	<form action = "${requestScope.action}" method = "POST" novalidate>
         <%@ include file="../share/errors.jsp" %>
         <div class="row">
             <div class="form-group col-md-12">

@@ -19,7 +19,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 public class ProjectDaoImpl extends AbstractDao<Project> {
 
     private static final String SELECT_QUERY = "select project_id, project_name, short_name, description, task_id, task_name," +
-        "work_time, start_date, end_date, status, project_id, person_id, first_name, middle_name, last_name, position as person" +
+        "work_time, start_date, end_date, status, project_id, person_id, first_name, middle_name, last_name, position as person " +
         "from projects left join tasks on tasks.project_id =projects.project_id left join persons on tasks.person_id = persons." +
          "person_id";
     private static final String INSERT_QUERY = "insert into projects(project_name, short_name, description) values (?, ?, ?)";

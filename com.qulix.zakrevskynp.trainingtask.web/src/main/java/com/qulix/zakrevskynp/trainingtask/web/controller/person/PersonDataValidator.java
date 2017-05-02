@@ -31,18 +31,39 @@ public class PersonDataValidator extends Validator {
      */
     public List<String> validate(Map<String, Object> parameters) {
         List<String> errors = new ArrayList<>();
+
+        validateId(parameters);
+        validateFirstName(parameters, errors);
+        validateMiddleName(parameters, errors);
+        validateLastName(parameters, errors);
+        validatePosition(parameters, errors);
+        return errors;
+    }
+
+    private void validateId(Map<String, Object> parameters) {
         parseIntegerParams(ID, parameters);
-        validateFieldEmpty(parameters.get(FIRST_NAME_FIELD), FIRST_NAME, errors);
-        validateFieldLength(parameters.get(FIRST_NAME_FIELD), FIRST_NAME, errors, 20);
-        validateFieldSymbols(parameters.get(FIRST_NAME_FIELD), FIRST_NAME, errors);
-        validateFieldEmpty(parameters.get(MIDDLE_NAME_FIELD), MIDDLE_NAME, errors);
-        validateFieldLength(parameters.get(MIDDLE_NAME_FIELD), MIDDLE_NAME, errors, 20);
-        validateFieldSymbols(parameters.get(MIDDLE_NAME_FIELD), MIDDLE_NAME, errors);
+    }
+
+    private void validatePosition(Map<String, Object> parameters, List<String> errors) {
+        validateFieldEmpty(parameters.get(POSITION_FIELD), POSITION, errors);
+        validateFieldLength(parameters.get(POSITION_FIELD), POSITION, errors, 40);
+    }
+
+    private void validateLastName(Map<String, Object> parameters, List<String> errors) {
         validateFieldEmpty(parameters.get(LAST_NAME_FIELD), LAST_NAME, errors);
         validateFieldLength(parameters.get(LAST_NAME_FIELD), LAST_NAME, errors, 20);
         validateFieldSymbols(parameters.get(LAST_NAME_FIELD), LAST_NAME, errors);
-        validateFieldEmpty(parameters.get(POSITION_FIELD), POSITION, errors);
-        validateFieldLength(parameters.get(POSITION_FIELD), POSITION, errors, 40);
-        return errors;
+    }
+
+    private void validateMiddleName(Map<String, Object> parameters, List<String> errors) {
+        validateFieldEmpty(parameters.get(MIDDLE_NAME_FIELD), MIDDLE_NAME, errors);
+        validateFieldLength(parameters.get(MIDDLE_NAME_FIELD), MIDDLE_NAME, errors, 20);
+        validateFieldSymbols(parameters.get(MIDDLE_NAME_FIELD), MIDDLE_NAME, errors);
+    }
+
+    private void validateFirstName(Map<String, Object> parameters, List<String> errors) {
+        validateFieldEmpty(parameters.get(FIRST_NAME_FIELD), FIRST_NAME, errors);
+        validateFieldLength(parameters.get(FIRST_NAME_FIELD), FIRST_NAME, errors, 20);
+        validateFieldSymbols(parameters.get(FIRST_NAME_FIELD), FIRST_NAME, errors);
     }
 }
