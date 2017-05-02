@@ -40,6 +40,7 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
      *
      * @param project project data from form
      */
+    @Override
     public void update(Project project) {
         super.update(UPDATE_QUERY, UPDATE_PROJECT_ERROR, project.getName(), project.getShortName(), project.getDescription(), project.getId());
     }
@@ -50,6 +51,7 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
      * @param id project's id
      * @return Project object
      */
+    @Override
     public Project get(int id) {
         return super.get(id, SELECT_PROJECT, GET_PROJECT_ERROR);
     }
@@ -60,6 +62,7 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
      *
      * @return list of all projects from database
      */
+    @Override
     public List<Project> getAll() {
         return super.getAll(SELECT_QUERY, GET_PROJECTS_ERROR);
     }
@@ -70,10 +73,12 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
      *
      * @param id project id
      */
+    @Override
     public void remove(int id) {
         super.remove(id, DELETE_QUERY, REMOVE_PROJECT_ERROR);
     }
 
+    @Override
     public void add(Project project) {
         add(project, INSERT_QUERY, ADD_PROJECT_ERROR, project.getName(), project.getShortName(), project.getDescription());
     }
@@ -83,7 +88,6 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
      *
      *  @param project new project
      */
-    @Override
     public void add(Project project, String insertQuery, String error, Object... parameters) {
         List<Task> tasks = project.getTasks();
         ResultSet generatedKeys = null;

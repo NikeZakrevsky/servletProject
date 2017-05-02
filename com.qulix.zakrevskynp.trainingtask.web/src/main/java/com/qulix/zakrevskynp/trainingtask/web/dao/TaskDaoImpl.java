@@ -50,6 +50,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
      *
      * @return list of all tasks in database
      */
+    @Override
     public List<Task> getAll()  {
         return super.getAll(SELECT_QUERY, GET_TASKS_ERROR);
     }
@@ -59,6 +60,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
      *
      * @param id project's id
      */
+    @Override
     public void remove(int id)  {
         super.remove(id, DELETE_QUERY, REMOVE_TASKS_ERROR);
     }
@@ -68,6 +70,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
      *
      * @param task task form data
      */
+    @Override
     public void add(Task task)  {
         super.add(task, INSERT_QUERY, ADD_TASK_ERROR, task.getName(), task.getWorkTime().toMinutes(), task.getStartDate(), task.getEndDate(), task.getStatus().toString(), task.getProjectId(), task.getPersonId());
     }
@@ -78,6 +81,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
      * @param id task's id
      * @return Task object
      */
+    @Override
     public Task get(int id) {
         return super.get(id, SELECT_TASK_QUERY, GET_TASK_ERROR);
     }
@@ -87,6 +91,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
      *
      * @param task task data from the form
      */
+    @Override
     public void update(Task task)  {
         super.update(UPDATE_QUERY, UPDATE_TASKS_ERROR, task.getName(), task.getWorkTime().toMinutes(), task.getStartDate(), task.getEndDate(), task.getStatus().toString(), task.getProjectId(), task.getPersonId(), task.getId());
     }

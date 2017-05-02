@@ -37,6 +37,7 @@ public class PersonDaoImpl extends AbstractDao<Person> {
      *
      * @return list of all persons from the database
      */
+    @Override
     public List<Person> getAll()  {
         return super.getAll(SELECT_QUERY, GET_PERSONS_ERROR);
     }
@@ -46,6 +47,7 @@ public class PersonDaoImpl extends AbstractDao<Person> {
      *
      * @param person person data from the form
      */
+    @Override
     public void add(Person person)  {
         super.add(person, INSERT_QUERY, ADD_PERSON_ERROR, person.getFirstName(), person.getMiddleName(), person.getLastName(), person.getPosition());
     }
@@ -55,6 +57,7 @@ public class PersonDaoImpl extends AbstractDao<Person> {
      *
      * @param id person's id
      */
+    @Override
     public void remove(int id)  {
         super.remove(id, DELETE_QUERY, REMOVE_PERSON_ERROR);
     }
@@ -65,6 +68,7 @@ public class PersonDaoImpl extends AbstractDao<Person> {
      * @param id person's id
      * @return @{{@link Person}}
      */
+    @Override
     public Person get(int id) {
         return super.get(id, SELECT_PERSON, GET_PERSON_ERROR);
     }
@@ -74,6 +78,7 @@ public class PersonDaoImpl extends AbstractDao<Person> {
      *
      * @param person Person object
      */
+    @Override
     public void update(Person person) {
         super.update(UPDATE_QUERY, UPDATE_PERSON_ERROR, person.getFirstName(), person.getMiddleName(), person.getLastName(), person.getPosition(), person.getId());
     }
