@@ -27,17 +27,17 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     /**
      * Gets all entities
      *
-     * @param selectQuery sql query for selecting entities
+     * @param query sql query for selecting entities
      * @param error error message
      * @return list of entities
      */
-    protected List<T> getAll(String selectQuery, String error) {
+    protected List<T> getAll(String query, String error) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
             connection = ConnectionFactory.getConnection();
-            preparedStatement = connection.prepareStatement(selectQuery);
+            preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
             return resultSetToList(resultSet);
         }
@@ -56,22 +56,22 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
      * Deletion of an entity
      *
      * @param id id of entity
-     * @param removeQuery sql query for removing entity
+     * @param query sql query for removing entity
      * @param error error message
      */
-    protected void remove(int id, String removeQuery, String error)  {
-        executeQuery(removeQuery, error, id);
+    protected void remove(int id, String query, String error)  {
+        executeQuery(query, error, id);
     }
 
     /**
      * Adding an entity
      *
      * @param entity entity for adding
-     * @param insertQuery sql query for inserting entity
+     * @param query sql query for inserting entity
      * @param error error message
      */
-    protected void add(T entity, String insertQuery, String error, Object... parameters) {
-        executeQuery(insertQuery, error, parameters);
+    protected void add(T entity, String query, String error, Object... parameters) {
+        executeQuery(query, error, parameters);
     }
 
     private void executeQuery(String query, String error, Object... parameters) throws DaoException {
@@ -97,17 +97,17 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
      * Getting the entity by identifier
      *
      * @param id id of entity
-     * @param getByIdQuery sql query for getting entity by id
+     * @param query sql query for getting entity by id
      * @param error error message
      * @return entity
      */
-    protected T get(int id, String getByIdQuery, String error)  {
+    protected T get(int id, String query, String error)  {
         ResultSet resultSet = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.getConnection();
-            preparedStatement = connection.prepareStatement(getByIdQuery);
+            preparedStatement = connection.prepareStatement(query);
             setPreparedStatement(preparedStatement, id);
             resultSet = preparedStatement.executeQuery();
             List<T> ts = resultSetToList(resultSet);
@@ -129,11 +129,11 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     /**
      * Updating an entity
      *
-     * @param updateQuery sql query for updating entity
+     * @param query sql query for updating entity
      * @param error error message
      */
-    protected void update(String updateQuery, String error, Object... parameters) {
-        executeQuery(updateQuery, error, parameters);
+    protected void update(String query, String error, Object... parameters) {
+        executeQuery(query, error, parameters);
     }
 
     /**
@@ -147,11 +147,11 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     /**
      * Converting of the ResultSet to a List of objects
      *
-     * @param rs @{{@link ResultSet}} object converted to list
+     * @param resultSet @{{@link ResultSet}} object converted to list
      * @return tasks list
      * @throws SQLException throws while getting data from result set
      */
-    protected abstract List<T> resultSetToList(ResultSet rs) throws SQLException;
+    protected abstract List<T> resultSetToList(ResultSet resultSet) throws SQLException;
 
     /**
      * Set parameters to prepared statement

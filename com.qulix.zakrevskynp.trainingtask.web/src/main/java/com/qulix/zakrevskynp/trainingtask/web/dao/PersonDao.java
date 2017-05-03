@@ -109,15 +109,15 @@ public class PersonDao extends AbstractDao<Person> {
     /**
      * Converting the ResultSet to a list of objects
      *
-     * @param rs @{{@link ResultSet}} object converted to list
+     * @param resultSet @{{@link ResultSet}} object converted to list
      * @return tasks list
      */
     @Override
-    public List<Person> resultSetToList(ResultSet rs) {
+    public List<Person> resultSetToList(ResultSet resultSet) {
         try {
             List<Person> persons = new ArrayList<>();
-            while (rs.next()) {
-                persons.add(resultSetAsObject(rs));
+            while (resultSet.next()) {
+                persons.add(resultSetAsObject(resultSet));
             }
             return persons;
         }
