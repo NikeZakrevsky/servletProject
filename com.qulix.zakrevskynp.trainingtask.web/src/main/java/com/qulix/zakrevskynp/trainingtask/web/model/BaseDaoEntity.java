@@ -6,7 +6,7 @@ package com.qulix.zakrevskynp.trainingtask.web.model;
  * @author Q-NZA
  */
 public class BaseDaoEntity {
-    protected Integer id;
+    private Integer id;
 
     /**
      * Gets person id
@@ -20,7 +20,7 @@ public class BaseDaoEntity {
     /**
      * Sets person id
      *
-     * @param id
+     * @param id id of the person
      */
     public void setId(Integer id) {
         this.id = id;

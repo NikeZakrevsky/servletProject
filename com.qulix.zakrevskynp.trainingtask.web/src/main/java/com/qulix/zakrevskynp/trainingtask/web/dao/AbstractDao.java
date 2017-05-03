@@ -22,8 +22,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
      * Creating prepared statement error message
      */
     private static final String PREPARED_STATEMENT_ERROR = "Ошибка при создании PreparedStatement-а";
-
-
+    
     /**
      * Gets all entities
      *
