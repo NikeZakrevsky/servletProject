@@ -19,13 +19,14 @@ task startDatabaseServer(type: JavaExec) {
 URLClassLoader loader = GroovyObject.class.classLoader as URLClassLoader
 configurations.hsqldb.each {File file ->  loader.addURL(file.toURI().toURL()) }
 
-static def executeSqlScrips(String fileName) {
+def executeSqlScrips(String fileName) {
     def props = [user: 'sa', password: '', allowMultiQueries: 'true'] as Properties
     def driver = 'org.hsqldb.jdbcDriver'
     def url = 'jdbc:hsqldb:hsql://localhost:9001/testdb'
     def sql = Sql.newInstance(url, props, driver)
     String sqlFilePath = fileName
-    String sqlString = new File(getProjectDir().absolutePath+ sqlFilePath).text
+    String sqlString = new File(project.getProjectDir().absolutePath + sqlFilePath).text
+    print(sqlString)
     sql.execute(sqlString)
     sql.close()
 }
