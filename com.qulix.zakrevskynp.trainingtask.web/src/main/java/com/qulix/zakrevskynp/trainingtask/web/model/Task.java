@@ -41,12 +41,6 @@ public class Task extends BaseDaoEntity {
         this.person = person;
     }
 
-    /**
-     * Constructing of the Task object
-     */
-    public Task() {
-    }
-
     public Task(Integer projectId) {
         this.projectId = projectId;
     }
