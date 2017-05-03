@@ -20,7 +20,7 @@ public class BaseDaoEntity {
     /**
      * Sets person id
      *
-     * @param id id of the person
+     * @param id
      */
     public void setId(Integer id) {
         this.id = id;

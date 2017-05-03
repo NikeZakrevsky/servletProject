@@ -25,26 +25,26 @@ static def executeSqlScrips(String fileName) {
     def url = 'jdbc:hsqldb:hsql://localhost:9001/testdb'
     def sql = Sql.newInstance(url, props, driver)
     String sqlFilePath = fileName
-    String sqlString = new File(sqlFilePath).text
+    String sqlString = new File(getProjectDir().absolutePath+ sqlFilePath).text
     sql.execute(sqlString)
     sql.close()
 }
 
 task createDatabase {
     doLast {
-        executeSqlScrips('create.sql')
+        executeSqlScrips('/create.sql')
     }
 }
 
 task dropDatabase {
     doLast {
-        executeSqlScrips('drop.sql')
+        executeSqlScrips('/drop.sql')
     }
 }
 
 task insertTestData {
     doLast {
-        executeSqlScrips('insertTestData.sql')
+        executeSqlScrips('/insertTestData.sql')
     }
 }
 

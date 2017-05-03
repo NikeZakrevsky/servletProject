@@ -203,7 +203,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Closing of the connection
+     * Clos connection
      *
      * @param connection connection for closing
      */
