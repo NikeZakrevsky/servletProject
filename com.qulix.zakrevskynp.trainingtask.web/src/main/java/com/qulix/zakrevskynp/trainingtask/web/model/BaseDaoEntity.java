@@ -8,10 +8,20 @@ package com.qulix.zakrevskynp.trainingtask.web.model;
 public class BaseDaoEntity {
     protected Integer id;
 
+    /**
+     * Gets person id
+     *
+     * @return id of the person
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Sets person id
+     *
+     * @param id id of the person
+     */
     public void setId(Integer id) {
         this.id = id;
     }
