@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Custom servlet with common methods for controllers
+ * Base servlet with common methods for controllers
  *
  * @author Q-NZA
  */
