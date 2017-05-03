@@ -52,7 +52,7 @@ public class CustomTaskServlet extends BaseHttpServlet {
         }
         Task task = new Task(id, name, workTime, startDate, endDate, status, person);
         task.setProjectId(projectId);
-        task.setPersonId(personId);
+        task.setPerson(person);
         task.setProjectShortName(projectShortName);
         return task;
     }

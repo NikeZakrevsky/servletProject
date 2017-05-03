@@ -16,7 +16,6 @@ public class Task extends BaseDaoEntity {
     private TaskStatus status;
     private String projectShortName;
     private Integer projectId;
-    private Integer personId;
     private Person person;
 
     /**
@@ -118,30 +117,12 @@ public class Task extends BaseDaoEntity {
     }
 
     /**
-     * Gets id of person
-     *
-     * @return person id
-     */
-    public Integer getPersonId() {
-        return personId;
-    }
-
-    /**
      * Sets short name of the project
      *
      * @param projectShortName short name of the project
      */
     public void setProjectShortName(String projectShortName) {
         this.projectShortName = projectShortName;
-    }
-
-    /**
-     * Sets id of the person
-     *
-     * @param personId id of the person
-     */
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
     }
 
     @Override
@@ -156,7 +137,7 @@ public class Task extends BaseDaoEntity {
                 ", person='" + person + '\'' +
                 ", projectShortName='" + projectShortName + '\'' +
                 ", projectId=" + projectId +
-                ", personId=" + personId +
+                ", personId=" + person.getId() +
                 '}';
     }
 

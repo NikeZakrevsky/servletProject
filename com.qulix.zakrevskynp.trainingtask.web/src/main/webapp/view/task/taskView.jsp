@@ -61,7 +61,7 @@
                         <select name = "personId">
                             <option value> -- select an option -- </option>
                             <c:forEach items="${requestScope.persons}" var="person">
-                                <option value="${person.id}" ${(person.id == requestScope.task.personId) ? 'selected="selected"' : ''}>${person.firstName} ${person.middleName} ${person.lastName}</option>
+                                <option value="${person.id}" ${(person.id == requestScope.task.person.id) ? 'selected="selected"' : ''}>${person.firstName} ${person.middleName} ${person.lastName}</option>
                             </c:forEach>
                         </select>
                     </div>
