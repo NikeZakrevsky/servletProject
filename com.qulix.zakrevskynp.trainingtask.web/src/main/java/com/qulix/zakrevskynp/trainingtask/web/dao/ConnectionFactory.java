@@ -34,10 +34,15 @@ class ConnectionFactory {
     private ConnectionFactory() {
     }
 
+    static  {
+        readDatabaseProperties();
+        loadDriver();
+    }
+
     /**
      * Reading properties of the database connection
      */
-    static  {
+    private static void readDatabaseProperties() {
         Properties dbProperties = new Properties();
         try {
             dbProperties.load(new FileInputStream(JDBC_PROPERTIES));
@@ -46,15 +51,15 @@ class ConnectionFactory {
             passwordProperty = dbProperties.getProperty(PASSWORD);
             driverProperty = dbProperties.getProperty(DRIVER_CLASS);
         }
-        catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Exception: " + READ_PROPERTIES_ERROR + e);
+            catch (IOException e) {
+                LOGGER.log(Level.SEVERE, "Exception: " + READ_PROPERTIES_ERROR + e);
         }
     }
 
     /**
      * Loading the database driver
      */
-    static  {
+    private static void loadDriver() {
         try {
             Class.forName(driverProperty);
         }
