@@ -34,11 +34,12 @@ public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
 
         Project newProject = parametersToObject(parameters);
         Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
-        List<Task> tasks = project.getTasks();
-        if (tasks != null) {
-            newProject.setTasks(tasks);
+        if (project != null) {
+            List<Task> tasks = project.getTasks();
+            if (tasks != null) {
+                newProject.setTasks(tasks);
+            }
         }
-
         request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, newProject);
         request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDao().getAll());
         request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDao().getAll());

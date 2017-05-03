@@ -31,9 +31,9 @@ public class AddProjectServlet extends CustomProjectServlet {
         List<String> errors = projectDataValidator.validate(parameters);
 
         if (errors.isEmpty()) {
-            Project project = parametersToObject(parameters);
-            List<Task> tasks = getItems(request.getSession().getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
-            project.setTasks(tasks);
+            Project newProject = parametersToObject(parameters);
+            Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
+            newProject.setTasks(project.getTasks());
             new ProjectDao().add(project);
             request.getSession().invalidate();
             response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
@@ -53,9 +53,8 @@ public class AddProjectServlet extends CustomProjectServlet {
         request.getSession(true).setAttribute(Attribute.PATH,  Attribute.ADD_PROJECT);
         request.setAttribute(Attribute.PATH, Attribute.ADD_PROJECT);
         HttpSession session = request.getSession();
-        List<Task> tasks = getItems(session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
-        session.setAttribute(Attribute.RESULT_TASKS_LIST_NAME, tasks);
-        request.setAttribute(Attribute.TASKS_LIST_NAME, tasks);
+        Project project = (Project) session.getAttribute(Attribute.PROJECT_OBJECT_NAME);
+        request.setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
         request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);
     }
 }

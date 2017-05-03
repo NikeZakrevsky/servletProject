@@ -154,7 +154,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     protected abstract List<T> resultSetToList(ResultSet rs) throws SQLException;
 
     /**
-     * Setting parameters to prepared statement
+     * Set parameters to prepared statement
      *
      * @param preparedStatement link of the prepared statement for setting parameters
      */
@@ -171,7 +171,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Closing of the result set
+     * Close result set
      *
      * @param resultSet result set for closing
      */
@@ -187,7 +187,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Closing of the statement
+     * Close statement
      *
      * @param statement statement closing
      */
@@ -203,7 +203,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Clos connection
+     * Close connection
      *
      * @param connection connection for closing
      */
