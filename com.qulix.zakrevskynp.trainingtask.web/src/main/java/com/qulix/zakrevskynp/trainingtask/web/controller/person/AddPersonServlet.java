@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDaoImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
@@ -30,7 +30,7 @@ public class AddPersonServlet extends CustomPersonServlet {
 
         if (errors.isEmpty()) {
             Person person = parametersToObject(parameters);
-            new PersonDaoImpl().add(person);
+            new PersonDao().add(person);
             response.sendRedirect(Attribute.REDIRECT_PERSON_LIST);
         }
         else {

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDaoImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDao;
 
 /**
  * Handling the action of removing a person and redirects to the @{{@link PersonsListServlet}}
@@ -21,7 +21,7 @@ public class RemovePersonServlet extends CustomPersonServlet {
     private static final String ID = "id";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        new PersonDaoImpl().remove(Integer.parseInt(request.getParameter(ID)));
+        new PersonDao().remove(Integer.parseInt(request.getParameter(ID)));
         response.sendRedirect(Attribute.REDIRECT_PERSON_LIST);
     }
 }

@@ -14,7 +14,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
  *
  * @author Q-NZA
  */
-public class TaskDaoImpl extends AbstractDao<Task> {
+public class TaskDao extends AbstractDao<Task> {
     
     private static final String SELECT_QUERY = "select task_id, task_name, work_time, start_date, end_date, status, short_name," +
         "project_id, person_id, first_name, middle_name, last_name, position from tasks left join projects on" +
@@ -116,7 +116,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
         }
         task.setId(id + 1);
         if (task.getPersonId() != null) {
-            Person person = new PersonDaoImpl().get(task.getPersonId());
+            Person person = new PersonDao().get(task.getPersonId());
             task.setPerson(person);
         }
         tasks.add(task);
@@ -144,7 +144,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
 
     private void setPerformer(Task task) {
         if (task.getPersonId() != null) {
-            Person person = new PersonDaoImpl().get(task.getPersonId());
+            Person person = new PersonDao().get(task.getPersonId());
             task.setPerson(person);
         }
     }
@@ -184,7 +184,7 @@ public class TaskDaoImpl extends AbstractDao<Task> {
             Integer projectId = resultSet.getInt(PROJECTID);
             Integer personId = (Integer) resultSet.getObject(PERSONID);
             String projectShortName = resultSet.getString(SHORTNAME);
-            Person person = new PersonDaoImpl().resultSetAsObject(resultSet);
+            Person person = new PersonDao().resultSetAsObject(resultSet);
             Task task = new Task(id, name, time, startDate, endDate, status, person);
             task.setProjectId(projectId);
             task.setPersonId(personId);

@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDaoImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDaoImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDao;
+import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
@@ -40,8 +40,8 @@ public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
         }
 
         request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, newProject);
-        request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDaoImpl().getAll());
-        request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDaoImpl().getAll());
+        request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDao().getAll());
+        request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDao().getAll());
         if (!request.getParameter(ID).equals("")) {
             Task task = new Task(Integer.parseInt(request.getParameter(ID)));
             request.setAttribute(Attribute.TASK_OBJECT_NAME, task);

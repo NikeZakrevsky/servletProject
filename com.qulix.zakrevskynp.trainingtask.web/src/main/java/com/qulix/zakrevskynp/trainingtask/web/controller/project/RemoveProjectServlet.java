@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDaoImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
 
 /**
  * Handling the action of removing a project and redirects to the @{{@link ProjectsListServlet}}
@@ -22,7 +22,7 @@ public class RemoveProjectServlet extends CustomProjectServlet {
     private static final String ID = "id";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        new ProjectDaoImpl().remove(Integer.parseInt(request.getParameter(ID)));
+        new ProjectDao().remove(Integer.parseInt(request.getParameter(ID)));
         response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
     }
 }

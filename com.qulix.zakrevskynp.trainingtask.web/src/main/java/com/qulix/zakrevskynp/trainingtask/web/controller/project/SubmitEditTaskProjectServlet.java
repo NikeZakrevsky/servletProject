@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDaoImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDaoImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDao;
+import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
@@ -46,8 +46,8 @@ public class SubmitEditTaskProjectServlet extends CustomProjectServlet {
         for (Task task : tasks) {
             if (task.getId() == Integer.parseInt(request.getParameter(TASK_ID))) {
                 request.setAttribute(Attribute.TASK_OBJECT_NAME, task);
-                request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDaoImpl().getAll());
-                request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDaoImpl().getAll());
+                request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDao().getAll());
+                request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDao().getAll());
                 request.setAttribute(IS_DISABLE, true);
                 request.setAttribute(Attribute.ACTION, EDIT_TASK_PROJECT);
                 request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);

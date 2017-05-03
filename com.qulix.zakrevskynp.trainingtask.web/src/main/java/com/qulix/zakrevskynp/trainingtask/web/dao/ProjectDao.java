@@ -16,7 +16,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  *
  * @author Q-NZA
  */
-public class ProjectDaoImpl extends AbstractDao<Project> {
+public class ProjectDao extends AbstractDao<Project> {
 
     private static final String SELECT_QUERY = "select project_id, project_name, short_name, description, task_id, task_name," +
         "work_time, start_date, end_date, status, project_id, person_id, first_name,middle_name, last_name, position as person " +
@@ -106,7 +106,7 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
             generatedKeys = preparedStatement.getGeneratedKeys();
             generatedKeys.next();
             connection.commit();
-            ProjectDaoImpl.this.addProjectTasks(tasks, generatedKeys);
+            ProjectDao.this.addProjectTasks(tasks, generatedKeys);
         }
         catch (SQLException e) {
             throw new DaoException(ADD_PROJECT_ERROR, e);
@@ -119,7 +119,7 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
     }
 
     private void addProjectTasks(List<Task> tasks, ResultSet resultSet) throws SQLException {
-        TaskDaoImpl tasksDAO = new TaskDaoImpl();
+        TaskDao tasksDAO = new TaskDao();
         if (tasks != null && !tasks.isEmpty()) {
             for (Task task : tasks) {
                 task.setProjectId(resultSet.getInt(1));
@@ -159,7 +159,7 @@ public class ProjectDaoImpl extends AbstractDao<Project> {
     @Override
     public List<Project> resultSetToList(ResultSet resultSet) throws SQLException {
         Map<Integer, Project> projects = new HashMap<>();
-        TaskDaoImpl taskDao = new TaskDaoImpl();
+        TaskDao taskDao = new TaskDao();
         while (resultSet.next()) {
             int id = resultSet.getInt(ID);
             Project project = projects.get(id);

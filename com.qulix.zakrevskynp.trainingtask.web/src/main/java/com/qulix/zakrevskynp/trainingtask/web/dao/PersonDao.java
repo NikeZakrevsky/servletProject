@@ -12,7 +12,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
  *
  * @author Q-NZA
  */
-public class PersonDaoImpl extends AbstractDao<Person> {
+public class PersonDao extends AbstractDao<Person> {
     
     private static final String SELECT_QUERY = "select person_id, first_name, middle_name, last_name, position from persons";
     private static final String INSERT_QUERY = "insert into persons(first_name, middle_name, last_name,position) values(?,?,?,?)";

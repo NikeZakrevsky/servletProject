@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDaoImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDaoImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDaoImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDao;
+import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
+import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
@@ -32,12 +32,12 @@ public class AddTaskServlet extends CustomTaskServlet {
 
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
-            new TaskDaoImpl().add(task);
+            new TaskDao().add(task);
             response.sendRedirect(Attribute.TASKS_LIST);
         }
         else {
-            request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDaoImpl().getAll());
-            request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDaoImpl().getAll());
+            request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDao().getAll());
+            request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDao().getAll());
             request.setAttribute(Attribute.ACTION, Attribute.ADD_TASK);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
             request.setAttribute(Attribute.TASK_OBJECT_NAME, parameters);
@@ -46,8 +46,8 @@ public class AddTaskServlet extends CustomTaskServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDaoImpl().getAll());
-        request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDaoImpl().getAll());
+        request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDao().getAll());
+        request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDao().getAll());
         request.setAttribute(Attribute.ACTION, Attribute.ADD_TASK);
         request.setAttribute(Attribute.PATH, Attribute.TASKS_LIST);
         request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);

@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
-import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDaoImpl;
-import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDaoImpl;
+import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
+import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
@@ -38,9 +38,9 @@ public class EditProjectServlet extends CustomProjectServlet {
         
         if (errors.isEmpty()) {
             Project project = parametersToObject(parameters);
-            Project project1 = new ProjectDaoImpl().get(Integer.parseInt(request.getParameter(ID)));
+            Project project1 = new ProjectDao().get(Integer.parseInt(request.getParameter(ID)));
             project.setTasks(project1.getTasks());
-            new ProjectDaoImpl().update(project);
+            new ProjectDao().update(project);
             updateChangedTasks(request, project);
             response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
         }
@@ -57,7 +57,7 @@ public class EditProjectServlet extends CustomProjectServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Project project;
         if (request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME) == null) {
-            ProjectDaoImpl projectDao = new ProjectDaoImpl();
+            ProjectDao projectDao = new ProjectDao();
             project = projectDao.get(Integer.parseInt(request.getParameter(ID)));
             request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
         }
@@ -73,7 +73,7 @@ public class EditProjectServlet extends CustomProjectServlet {
     private void updateChangedTasks(HttpServletRequest request, Project project) {
         Project newProject = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
         List<Task> resultTasks = newProject.getTasks();
-        TaskDaoImpl tasksDAO = new TaskDaoImpl();
+        TaskDao tasksDAO = new TaskDao();
         List<Task> tasksList = project.getTasks();
         Set<Object> t1 = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
         Set<Object> t2 = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
