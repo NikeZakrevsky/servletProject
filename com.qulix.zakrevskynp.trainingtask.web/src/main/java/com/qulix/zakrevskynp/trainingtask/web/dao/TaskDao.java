@@ -169,7 +169,7 @@ public class TaskDao extends AbstractDao<Task> {
      * @return created task object
      */
     @Override
-    public Task resultSetAsObject(ResultSet resultSet) throws SQLException {
+    protected Task resultSetAsObject(ResultSet resultSet) throws SQLException {
         try {
             Integer id = resultSet.getInt(ID);
             String name = resultSet.getString(NAME);
@@ -205,7 +205,7 @@ public class TaskDao extends AbstractDao<Task> {
      * @return tasks list
      */
     @Override
-    public List<Task> resultSetToList(ResultSet rs) {
+    protected List<Task> resultSetToList(ResultSet rs) {
         try {
             List<Task> tasks = new ArrayList<>();
             while (rs.next()) {

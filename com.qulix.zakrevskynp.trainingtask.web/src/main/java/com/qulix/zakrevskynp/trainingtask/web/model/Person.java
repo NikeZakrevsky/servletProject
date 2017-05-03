@@ -21,7 +21,7 @@ public class Person extends BaseDaoEntity {
      * @param position position
      */
     public Person(Integer id, String firstName, String middleName, String lastName, String position) {
-        super.id = id;
+        super.setId(id);
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;

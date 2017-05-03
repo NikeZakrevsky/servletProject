@@ -136,7 +136,7 @@ public class ProjectDao extends AbstractDao<Project> {
      * @throws SQLException throws while getting data from @{{@link ResultSet}}
      */
     @Override
-    public Project resultSetAsObject(ResultSet resultSet) throws SQLException {
+    protected Project resultSetAsObject(ResultSet resultSet) throws SQLException {
         try {
             Integer id = resultSet.getInt(ID);
             String name = resultSet.getString(NAME);
@@ -157,7 +157,7 @@ public class ProjectDao extends AbstractDao<Project> {
      * @throws SQLException throws while getting data from result set
      */
     @Override
-    public List<Project> resultSetToList(ResultSet resultSet) throws SQLException {
+    protected List<Project> resultSetToList(ResultSet resultSet) throws SQLException {
         Map<Integer, Project> projects = new HashMap<>();
         TaskDao taskDao = new TaskDao();
         while (resultSet.next()) {

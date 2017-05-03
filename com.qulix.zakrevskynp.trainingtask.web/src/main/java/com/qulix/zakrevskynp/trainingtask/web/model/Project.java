@@ -23,7 +23,7 @@ public class Project extends BaseDaoEntity {
      * @param description description
      */
     public Project(Integer id, String name, String shortName, String description) {
-        super.id = id;
+        super.setId(id);
         this.name = name;
         this.shortName = shortName;
         this.description = description;
@@ -87,7 +87,7 @@ public class Project extends BaseDaoEntity {
     @Override
     public String toString() {
         return "Project{" +
-                "id=" + super.id +
+                "id=" + super.getId() +
                 ", name='" + name + '\'' +
                 ", shortName='" + shortName + '\'' +
                 ", description='" + description + '\'' +

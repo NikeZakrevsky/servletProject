@@ -32,7 +32,7 @@ public class Task extends BaseDaoEntity {
      */
     public Task(Integer id, String name, Duration workTime, Date startDate, Date endDate, TaskStatus status,
         Person person) {
-        super.id = id;
+        super.setId(id);
         this.name = name;
         this.workTime = workTime;
         this.startDate = startDate;
@@ -147,7 +147,7 @@ public class Task extends BaseDaoEntity {
     @Override
     public String toString() {
         return "Task{" +
-                "id=" + super.id +
+                "id=" + super.getId() +
                 ", name='" + name + '\'' +
                 ", workTime=" + workTime +
                 ", startDate=" + startDate +

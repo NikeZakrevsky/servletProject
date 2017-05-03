@@ -92,7 +92,7 @@ public class PersonDao extends AbstractDao<Person> {
      * @return created person object
      */
     @Override
-    public Person resultSetAsObject(ResultSet resultSet) {
+    protected Person resultSetAsObject(ResultSet resultSet) {
         try {
             Integer id = resultSet.getInt(ID);
             String firstName = resultSet.getString(FIRST_NAME);
@@ -113,7 +113,7 @@ public class PersonDao extends AbstractDao<Person> {
      * @return tasks list
      */
     @Override
-    public List<Person> resultSetToList(ResultSet resultSet) {
+    protected List<Person> resultSetToList(ResultSet resultSet) {
         try {
             List<Person> persons = new ArrayList<>();
             while (resultSet.next()) {
