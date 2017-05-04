@@ -22,14 +22,14 @@ public class EncodingFilter implements Filter {
      *
      * @param request @{({@link ServletRequest}} object
      * @param response @{({@link ServletResponse}} object
-     * @param ch @{{@link FilterChain}} object
+     * @param filter @{{@link FilterChain}} object
      * @throws IOException throws while forwarding request
      * @throws ServletException throws while forwarding request
      */
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain ch) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filter) throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
-        ch.doFilter(request, response);
+        filter.doFilter(request, response);
     }
 
     @Override

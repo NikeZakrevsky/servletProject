@@ -48,7 +48,6 @@ public class TaskDao extends AbstractDao<Task> {
     private static final String SHORTNAME = "short_name";
     private static final String PERSON = "person";
     private static final String WHERE_ID = " where project_id = ?";
-    private int id = 0;
 
     /**
      * Getting all tasks from the database
@@ -155,15 +154,15 @@ public class TaskDao extends AbstractDao<Task> {
     /**
      * Convert the ResultSet to a List of objects
      *
-     * @param rs @{{@link ResultSet}} object converted to list
+     * @param resultSet @{{@link ResultSet}} object converted to list
      * @return tasks list
      */
     @Override
-    protected List<Task> resultSetToList(ResultSet rs) {
+    protected List<Task> resultSetToList(ResultSet resultSet) {
         try {
             List<Task> tasks = new ArrayList<>();
-            while (rs.next()) {
-                tasks.add(resultSetAsObject(rs));
+            while (resultSet.next()) {
+                tasks.add(resultSetAsObject(resultSet));
             }
             return tasks;
         }
@@ -176,20 +175,20 @@ public class TaskDao extends AbstractDao<Task> {
         Project newProject = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
         List<Task> resultTasks = newProject.getTasks();
         List<Task> tasksList = project.getTasks();
-        Set<Object> t1 = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
-        Set<Object> t2 = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
+        Set<Object> tasksSet = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
+        Set<Object> resultTasksSet = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
         for (Task task : tasksList) {
-            if (!t2.contains(task.getId())) {
+            if (!resultTasksSet.contains(task.getId())) {
                 remove(task.getId());
             }
         }
         for (Task resultTask : resultTasks) {
-            if (t1.contains(resultTask.getId())) {
+            if (tasksSet.contains(resultTask.getId())) {
                 update(resultTask);
             }
         }
         for (Task resultTask : resultTasks) {
-            if (!t1.contains(resultTask.getId())) {
+            if (!tasksSet.contains(resultTask.getId())) {
                 add(resultTask);
             }
         }

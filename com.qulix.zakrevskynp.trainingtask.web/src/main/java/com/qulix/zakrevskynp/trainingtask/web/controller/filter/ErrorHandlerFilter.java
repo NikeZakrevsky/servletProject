@@ -20,6 +20,7 @@ public class ErrorHandlerFilter implements Filter {
 
     private static final Logger LOGGER = LoggingFactory.getLogger();
     private final static String error = "Ошибка при чтении данных";
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
@@ -29,14 +30,14 @@ public class ErrorHandlerFilter implements Filter {
      *
      * @param request @{({@link ServletRequest}} object
      * @param response @{({@link ServletResponse}} object
-     * @param ch @{{@link FilterChain}} object
+     * @param filter @{{@link FilterChain}} object
      * @throws IOException throws while forwarding request
      * @throws ServletException throws while forwarding request
      */
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain ch) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filter) throws IOException, ServletException {
         try {
-            ch.doFilter(request, response);
+            filter.doFilter(request, response);
         }
         catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Exception: ", e);

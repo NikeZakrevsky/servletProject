@@ -43,13 +43,13 @@ class ConnectionFactory {
      * Reading properties of the database connection
      */
     private static void readDatabaseProperties() {
-        Properties dbProperties = new Properties();
+        Properties databaseProperties = new Properties();
         try {
-            dbProperties.load(new FileInputStream(JDBC_PROPERTIES));
-            urlProperty = dbProperties.getProperty(URL);
-            userProperty = dbProperties.getProperty(USER);
-            passwordProperty = dbProperties.getProperty(PASSWORD);
-            driverProperty = dbProperties.getProperty(DRIVER_CLASS);
+            databaseProperties.load(new FileInputStream(JDBC_PROPERTIES));
+            urlProperty = databaseProperties.getProperty(URL);
+            userProperty = databaseProperties.getProperty(USER);
+            passwordProperty = databaseProperties.getProperty(PASSWORD);
+            driverProperty = databaseProperties.getProperty(DRIVER_CLASS);
         }
         catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Exception: " + READ_PROPERTIES_ERROR + e);

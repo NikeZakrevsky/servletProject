@@ -32,16 +32,16 @@ public class BaseHttpServlet extends HttpServlet {
     /**
      * Cast Object to List<Task> for avoiding unchecked cast warning
      *
-     * @param var object for casting
+     * @param object object for casting
      * @return list of tasks
      */
-    protected List<Task> getItems(Object var) {
-        if (var == null) {
+    protected List<Task> getItems(Object object) {
+        if (object == null) {
             return null;
         }
         List<Task> result = new ArrayList<>();
-        for (int i = 0; i < ((List<?>)var).size(); i++) {
-            Object item = ((List<?>) var).get(i);
+        for (int i = 0; i < ((List<?>) object).size(); i++) {
+            Object item = ((List<?>) object).get(i);
             if (item instanceof Task) {
                 result.add((Task) item);
             }
