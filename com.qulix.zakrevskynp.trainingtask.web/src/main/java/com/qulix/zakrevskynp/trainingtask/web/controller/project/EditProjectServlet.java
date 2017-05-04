@@ -4,8 +4,6 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,7 +39,7 @@ public class EditProjectServlet extends CustomProjectServlet {
             Project project1 = new ProjectDao().get(Integer.parseInt(request.getParameter(ID)));
             project.setTasks(project1.getTasks());
             new ProjectDao().update(project);
-            updateChangedTasks(request, project);
+            new TaskDao().updateChangedTasks(request, project);
             response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
         }
         else {
@@ -68,30 +66,6 @@ public class EditProjectServlet extends CustomProjectServlet {
         request.getSession().setAttribute(Attribute.PATH, EDIT_PROJECT + request.getParameter(ID));
         request.setAttribute(Attribute.PATH, EDIT_PROJECT + request.getParameter(ID));
         request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);
-    }
-
-    private void updateChangedTasks(HttpServletRequest request, Project project) {
-        Project newProject = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
-        List<Task> resultTasks = newProject.getTasks();
-        TaskDao tasksDAO = new TaskDao();
-        List<Task> tasksList = project.getTasks();
-        Set<Object> t1 = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
-        Set<Object> t2 = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
-        for (Task task : tasksList) {
-            if (!t2.contains(task.getId())) {
-                tasksDAO.remove(task.getId());
-            }    
-        }
-        for (Task resultTask : resultTasks) {
-            if (t1.contains(resultTask.getId())) {
-                tasksDAO.update(resultTask);
-            }
-        }
-        for (Task resultTask : resultTasks) {
-            if (!t1.contains(resultTask.getId())) {
-                tasksDAO.add(resultTask);
-            }
-        }
     }
 
 }
