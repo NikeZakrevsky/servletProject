@@ -3,100 +3,90 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Plugin tester</title>
-    <link rel="stylesheet" type="text/css" href="../../css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
 <body>
     <%@ include file="../share/navigationBar.jsp" %>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <span class="lead">Управление проектами</span>
-        </div>
-        <div class="formcontainer">
-            <form action = "${requestScope.action}" method = "POST">
-                <%@ include file="../share/errors.jsp" %>
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label class="col-md-2 control-lable">Идентификатор</label>
-                        <div class="col-md-7">
-                            <input type = "text" name = "id" size = "65" value = "${requestScope.project.id}" readonly/>
-                        </div>
-                    </div>
+    <span class="lead panel-heading">Управление проектами</span>
+    <div class="formcontainer">
+        <form action = "${requestScope.action}" method = "POST">
+            <%@ include file="../share/errors.jsp" %>
+
+            <label class="col-md-2">Идентификатор</label>
+            <div class="row">
+                <div class="col-md-3">
+                    <input class="form-group col-md-12" type = "text" name = "id" size = "65" value = "${requestScope.project.id}" readonly/>
                 </div>
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label class="col-md-2 control-lable">Название</label>
-                        <div class="col-md-7">
-                            <input type = "text" name = "name" size = "65" maxlength="20" value = "${requestScope.project.name}"/>
-                        </div>
-                    </div>
+            </div>
+
+            <label class="col-md-2">Название</label>
+            <div class="row">
+                <div class="col-md-3">
+                    <input class="form-group col-md-12" type = "text" name = "name" size = "65" maxlength="20" value = "${requestScope.project.name}"/>
                 </div>
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label class="col-md-2 control-lable">Сокращенное название</label>
-                        <div class="col-md-7">
-                            <input type = "text" name = "shortName" size = "65" maxlength="20" value = "${requestScope.project.shortName}"/>
-                        </div>
-                    </div>
+            </div>
+
+            <label class="col-md-2">Сокращенное название</label>
+            <div class="row">
+                <div class="col-md-3">
+                    <input class="form-group col-md-12" type = "text" name = "shortName" size = "65" maxlength="20" value = "${requestScope.project.shortName}"/>
                 </div>
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label class="col-md-2 control-lable">Описание</label>
-                        <div class="col-md-7">
-	                        <input type = "text" name = "description" size = "65" maxlength="20" value = "${requestScope.project.description}"/>
-                        </div>
-                    </div>
+            </div>
+
+            <label class="col-md-2">Описание</label>
+            <div class="row">
+                <div class="col-md-3">
+                    <input class="form-group col-md-12" type = "text" name = "description" size = "65" maxlength="20" value = "${requestScope.project.description}"/>
                 </div>
-                <button type="submit" class="btn btn-success custom-width">Сохранить</button>
-                <a href="projectsList"><button type="button" class="btn btn-danger custom-width">Отмена</button></a>
-                <div class="generic-container">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <span class="lead">Список задач</span>
-                        </div>
-                        <div class="tablecontainer">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Идентификатор</th>
-                                        <th>Название</th>
-                                        <th>Дата начала</th>
-                                        <th>Дата окончания</th>
-                                        <th>Исполнитель</th>
-                                        <th>Статус</th>
-                                        <th width="20%"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach items="${requestScope.project.tasks}" var="task">
-                                        <tr>
-                                            <td>${task.id}</td>
-                                            <td>${task.name}</td>
-                                            <td>${task.startDate}</td>
-                                            <td>${task.endDate}</td>
-                                            <td>${task.person.firstName} ${task.person.middleName} ${task.person.lastName}</td>
-                                            <td>${task.status.toString()}</td>
-                                            <td>
-                                                <button onclick="this.form.action = 'removeTaskProject?taskId=${task.id}&id=${requestScope.project.id}'" type="submit" class="btn btn-danger custom-width">Удалить</button>
-                                                <button onclick = "this.form.action = 'editTaskProject1?taskId=${task.id}'" type="submit" class="btn btn-success custom-width">Изменить</button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                <tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <c:choose>
-                        <c:when test="${requestScope.action.equals('editProject')}">
-                            <button onclick = "this.form.action = 'taskProject1?projectId=${requestScope.project.id}'" type="submit" class="btn btn-success custom-width">Добавить</button>
-                        </c:when>
-                        <c:otherwise>
-                            <button onclick = "this.form.action = 'taskProject1'" type="submit" class="btn btn-success custom-width">Добавить</button>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </form>
-        </div>
+            </div>
+
+             <div class="tablecontainer">
+                 <span class="lead panel-heading">Список задач</span>
+                 <table class="table table-hover">
+                     <thead>
+                        <tr>
+                            <th>Идентификатор</th>
+                            <th>Название</th>
+                            <th>Дата начала</th>
+                             <th>Дата окончания</th>
+                            <th>Исполнитель</th>
+                            <th>Статус</th>
+                            <th width="20%"></th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <c:forEach items="${requestScope.project.tasks}" var="task">
+                            <tr>
+                                <td>${task.id}</td>
+                                <td>${task.name}</td>
+                                <td>${task.startDate}</td>
+                                <td>${task.endDate}</td>
+                                <td>${task.person.firstName} ${task.person.middleName} ${task.person.lastName}</td>
+                                <td>${task.status.toString()}</td>
+                                <td>
+                                    <button onclick="this.form.action = 'removeTaskProject?taskId=${task.id}&id=${requestScope.project.id}'" type="submit" class="btn btn-danger custom-width">Удалить</button>
+                                    <button onclick = "this.form.action = 'editTaskProject1?taskId=${task.id}'" type="submit" class="btn btn-success custom-width">Изменить</button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                     <tbody>
+                 </table>
+             </div>
+        </form>
+    </div>
+    <div style = "margin-bottom: 20px;">
+    <c:choose>
+        <c:when test="${requestScope.action.equals('editProject')}">
+            <button onclick = "this.form.action = 'taskProject1?projectId=${requestScope.project.id}'" type="submit" class="btn btn-success custom-width">Добавить</button>
+        </c:when>
+        <c:otherwise>
+            <button onclick = "this.form.action = 'taskProject1'" type="submit" class="btn btn-success custom-width">Добавить</button>
+        </c:otherwise>
+    </c:choose>
+    </div>
+    <div class="row">
+        <button type="submit" class="btn btn-success col-md-1">Сохранить</button>
+        <a href="projectsList"><button type="button" class="btn btn-danger col-md-1">Отмена</button></a>
     </div>
 </body>
 </html>

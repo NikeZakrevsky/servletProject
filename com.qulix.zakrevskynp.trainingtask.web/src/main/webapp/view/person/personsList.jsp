@@ -6,39 +6,37 @@
 </head>
 <body>
     <%@ include file="../share/navigationBar.jsp" %>
-    <span style="color: red;">${requestScope.error}</span>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <span class="lead">Список сотрудников</span>
-        </div>
-        <div class="tablecontainer">
-            <table class="table table-hover">
-                <thead>
+    ${requestScope.error}
+    <div class="panel-heading">
+        <span class="lead">Список сотрудников</span>
+    </div>
+    <div class="tablecontainer">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Идентификатор</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Отчество</th>
+                    <th>Должность</th>
+                    <th width="20%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${requestScope.persons}" var="person">
                     <tr>
-                        <th>Идентификатор</th>
-                        <th>Имя</th>
-                        <th>Фамилия</th>
-                        <th>Отчество</th>
-                        <th>Должность</th>
-                        <th width="20%"></th>
+                        <td>${person.id}</td>
+                        <td>${person.firstName}</td>
+                        <td>${person.middleName}</td>
+                        <td>${person.lastName}</td>
+                        <td>${person.position}</td>
+                        <td>
+                            <a href="editPerson?id=${person.id}"><button type="button" class="btn btn-success custom-width">Изменить</button></a>  <a href="removePerson?id=${person.id}"><button type="button" class="btn btn-danger custom-width">Удалить</button></a>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <c:forEach items="${requestScope.persons}" var="person">
-                        <tr>
-                            <td>${person.id}</td>
-                            <td>${person.firstName}</td>
-                            <td>${person.middleName}</td>
-                            <td>${person.lastName}</td>
-                            <td>${person.position}</td>
-                            <td>
-                                <a href="editPerson?id=${person.id}"><button type="button" class="btn btn-success custom-width">Изменить</button></a>  <a href="removePerson?id=${person.id}"><button type="button" class="btn btn-danger custom-width">Удалить</button></a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                <tbody>
-            </table>
-        </div>
+                </c:forEach>
+            <tbody>
+        </table>
     </div>
     <a href="addPerson"><button type="button" class="btn btn-success custom-width">Добавить</button></a>
 </body>
