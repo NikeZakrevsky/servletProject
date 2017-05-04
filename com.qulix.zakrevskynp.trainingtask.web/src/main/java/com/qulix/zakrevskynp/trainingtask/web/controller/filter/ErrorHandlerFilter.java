@@ -19,7 +19,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 public class ErrorHandlerFilter implements Filter {
 
     private static final Logger LOGGER = LoggingFactory.getLogger();
-
+    private final static String error = "Ошибка при чтении данных";
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
@@ -40,7 +40,6 @@ public class ErrorHandlerFilter implements Filter {
         }
         catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Exception: ", e);
-            String error = e.getMessage();
             request.setAttribute("error", error);
             request.getRequestDispatcher(Attribute.PERSONS_LIST_VIEW).forward(request, response);
         }

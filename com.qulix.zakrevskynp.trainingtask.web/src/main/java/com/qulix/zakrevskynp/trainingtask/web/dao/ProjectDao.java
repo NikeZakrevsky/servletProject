@@ -27,12 +27,6 @@ public class ProjectDao extends AbstractDao<Project> {
     private static final String SELECT_PROJECT = SELECT_QUERY + " where project_id =?";
     private static final String UPDATE_QUERY = "update projects set project_name = ?, short_name = ?, description = ? where " +
         "project_id = ?";
-    
-    private static final String ADD_PROJECT_ERROR = "Ошибка при добавлении проекта";
-    private static final String REMOVE_PROJECT_ERROR = "Ошибка при удалении проекта";
-    private static final String UPDATE_PROJECT_ERROR = "Ошибка при обновлении проекта";
-    private static final String GET_PROJECTS_ERROR = "Ошибка при получении списка проектов";
-    private static final String GET_PROJECT_ERROR = "Ошибка при получении проекта";
 
     private static final String ID = "project_id";
     private static final String NAME = "project_name";
@@ -46,7 +40,7 @@ public class ProjectDao extends AbstractDao<Project> {
      */
     @Override
     public void update(Project project) {
-        super.update(UPDATE_QUERY, UPDATE_PROJECT_ERROR, project.getName(), project.getShortName(), project.getDescription(),
+        super.update(UPDATE_QUERY, project.getName(), project.getShortName(), project.getDescription(),
             project.getId());
     }
 
@@ -58,7 +52,7 @@ public class ProjectDao extends AbstractDao<Project> {
      */
     @Override
     public Project get(int id) {
-        return super.get(id, SELECT_PROJECT, GET_PROJECT_ERROR);
+        return super.get(id, SELECT_PROJECT);
     }
 
 
@@ -69,7 +63,7 @@ public class ProjectDao extends AbstractDao<Project> {
      */
     @Override
     public List<Project> getAll() {
-        return super.getAll(SELECT_QUERY, GET_PROJECTS_ERROR);
+        return super.getAll(SELECT_QUERY);
     }
 
 
@@ -80,12 +74,12 @@ public class ProjectDao extends AbstractDao<Project> {
      */
     @Override
     public void remove(int id) {
-        super.remove(id, DELETE_QUERY, REMOVE_PROJECT_ERROR);
+        super.remove(id, DELETE_QUERY);
     }
 
     @Override
     public void add(Project project) {
-        add(project, INSERT_QUERY, ADD_PROJECT_ERROR, project.getName(), project.getShortName(), project.getDescription());
+        add(project, INSERT_QUERY, project.getName(), project.getShortName(), project.getDescription());
     }
 
     /**
@@ -93,7 +87,7 @@ public class ProjectDao extends AbstractDao<Project> {
      *
      *  @param project new project
      */
-    public void add(Project project, String insertQuery, String error, Object... parameters) {
+    public void add(Project project, String insertQuery, Object... parameters) {
         List<Task> tasks = project.getTasks();
         ResultSet generatedKeys = null;
         Connection connection = null;
@@ -109,7 +103,7 @@ public class ProjectDao extends AbstractDao<Project> {
             ProjectDao.this.addProjectTasks(tasks, generatedKeys);
         }
         catch (SQLException e) {
-            throw new DaoException(ADD_PROJECT_ERROR, e);
+            throw new DaoException(e);
         }
         finally {
             closeResultSet(generatedKeys);
@@ -145,7 +139,7 @@ public class ProjectDao extends AbstractDao<Project> {
             return new Project(id, name, shortName, description);
         }
         catch (SQLException e) {
-            throw new DaoException(RESULT_SET_ERROR, e);
+            throw new DaoException(e);
         }
     }
 

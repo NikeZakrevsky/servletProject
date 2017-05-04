@@ -36,11 +36,7 @@ public class TaskDao extends AbstractDao<Task> {
         "project_id, person_id) values (?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_QUERY = "update tasks set task_name = ?, work_time = ?, start_date = ?, end_date = ?, " +
         "status = ?, project_id = ?, person_id = ? where task_id = ?";
-    private static final String GET_TASKS_ERROR = "Ошибка при получении списка задач";
-    private static final String REMOVE_TASKS_ERROR = "Ошибка при удалении задачи";
-    private static final String ADD_TASK_ERROR = "Ошибка при добавлении задачи";
-    private static final String UPDATE_TASKS_ERROR = "Ошибка при обновлении задачи";
-    private static final String GET_TASK_ERROR = "Ошибка при получении задачи";
+
     private static final String ID = "task_id";
     private static final String NAME = "task_name";
     private static final String TIME = "work_time";
@@ -61,7 +57,7 @@ public class TaskDao extends AbstractDao<Task> {
      */
     @Override
     public List<Task> getAll()  {
-        return super.getAll(SELECT_QUERY, GET_TASKS_ERROR);
+        return super.getAll(SELECT_QUERY);
     }
 
     /**
@@ -71,7 +67,7 @@ public class TaskDao extends AbstractDao<Task> {
      */
     @Override
     public void remove(int id)  {
-        super.remove(id, DELETE_QUERY, REMOVE_TASKS_ERROR);
+        super.remove(id, DELETE_QUERY);
     }
 
     /**
@@ -87,7 +83,7 @@ public class TaskDao extends AbstractDao<Task> {
         if (person != null) {
             personId = person.getId();
         }
-        super.add(task, INSERT_QUERY, ADD_TASK_ERROR, task.getName(), task.getWorkTime().toMinutes(), task.getStartDate(),
+        super.add(task, INSERT_QUERY, task.getName(), task.getWorkTime().toMinutes(), task.getStartDate(),
             task.getEndDate(), task.getStatus().toString(), task.getProjectId(), personId);
     }
     /**
@@ -98,7 +94,7 @@ public class TaskDao extends AbstractDao<Task> {
      */
     @Override
     public Task get(int id) {
-        return super.get(id, SELECT_TASK_QUERY, GET_TASK_ERROR);
+        return super.get(id, SELECT_TASK_QUERY);
     }
 
     /**
@@ -113,7 +109,7 @@ public class TaskDao extends AbstractDao<Task> {
         if (person != null) {
             personId = person.getId();
         }
-        super.update(UPDATE_QUERY, UPDATE_TASKS_ERROR, task.getName(), task.getWorkTime().toMinutes(), task.getStartDate(),
+        super.update(UPDATE_QUERY, task.getName(), task.getWorkTime().toMinutes(), task.getStartDate(),
             task.getEndDate(), task.getStatus().toString(), task.getProjectId(), personId, task.getId());
     }
 
@@ -150,7 +146,7 @@ public class TaskDao extends AbstractDao<Task> {
             return task;
         }
         catch (SQLException e) {
-            throw new DaoException(RESULT_SET_ERROR, e);
+            throw new DaoException( e);
         }
 
     }
@@ -172,7 +168,7 @@ public class TaskDao extends AbstractDao<Task> {
             return tasks;
         }
         catch (SQLException e) {
-            throw new DaoException(RESULT_SET_ERROR, e);
+            throw new DaoException(e);
         }
 
     }

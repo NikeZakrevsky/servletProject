@@ -21,11 +21,7 @@ public class PersonDao extends AbstractDao<Person> {
         "where person_id=?";
     private static final String UPDATE_QUERY = "update persons set first_name = ?, middle_name = ?, last_name = ?,position = ? " +
         "where person_id = ?";
-    private static final String ADD_PERSON_ERROR = "Ошибка при добавлении исполнителя";
-    private static final String REMOVE_PERSON_ERROR = "Ошибка при удалении исполнителя";
-    private static final String GET_PERSONS_ERROR = "Ошибка при получении списка исполнителей";
-    private static final String GET_PERSON_ERROR = "Ошибка при получении исполнителя";
-    private static final String UPDATE_PERSON_ERROR = "Ошибка при обновлении исполнителя";
+
     private static final String ID = "person_id";
     private static final String FIRST_NAME = "first_name";
     private static final String MIDDLE_NAME = "middle_name";
@@ -39,7 +35,7 @@ public class PersonDao extends AbstractDao<Person> {
      */
     @Override
     public List<Person> getAll()  {
-        return super.getAll(SELECT_QUERY, GET_PERSONS_ERROR);
+        return super.getAll(SELECT_QUERY);
     }
 
     /**
@@ -49,7 +45,7 @@ public class PersonDao extends AbstractDao<Person> {
      */
     @Override
     public void add(Person person)  {
-        super.add(person, INSERT_QUERY, ADD_PERSON_ERROR, person.getFirstName(), person.getMiddleName(), person.getLastName(),
+        super.add(person, INSERT_QUERY, person.getFirstName(), person.getMiddleName(), person.getLastName(),
             person.getPosition());
     }
 
@@ -60,7 +56,7 @@ public class PersonDao extends AbstractDao<Person> {
      */
     @Override
     public void remove(int id)  {
-        super.remove(id, DELETE_QUERY, REMOVE_PERSON_ERROR);
+        super.remove(id, DELETE_QUERY);
     }
 
     /**
@@ -71,7 +67,7 @@ public class PersonDao extends AbstractDao<Person> {
      */
     @Override
     public Person get(int id) {
-        return super.get(id, SELECT_PERSON, GET_PERSON_ERROR);
+        return super.get(id, SELECT_PERSON);
     }
 
     /**
@@ -81,7 +77,7 @@ public class PersonDao extends AbstractDao<Person> {
      */
     @Override
     public void update(Person person) {
-        super.update(UPDATE_QUERY, UPDATE_PERSON_ERROR, person.getFirstName(), person.getMiddleName(), person.getLastName(),
+        super.update(UPDATE_QUERY, person.getFirstName(), person.getMiddleName(), person.getLastName(),
             person.getPosition(), person.getId());
     }
 
@@ -102,7 +98,7 @@ public class PersonDao extends AbstractDao<Person> {
             return new Person(id, firstName, middleName, lastName, position);
         }
         catch (SQLException e) {
-            throw new DaoException(RESULT_SET_ERROR, e);
+            throw new DaoException(e);
         }
     }
 
@@ -122,7 +118,7 @@ public class PersonDao extends AbstractDao<Person> {
             return persons;
         }
         catch (SQLException e) {
-            throw new DaoException(RESULT_SET_ERROR, e);
+            throw new DaoException(e);
         }
     }
 
