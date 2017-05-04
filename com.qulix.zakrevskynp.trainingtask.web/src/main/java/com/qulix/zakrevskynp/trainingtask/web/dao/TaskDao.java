@@ -100,67 +100,13 @@ public class TaskDao extends AbstractDao<Task> {
      */
     @Override
     public void update(Task task)  {
+        Person person = task.getPerson();
+        Integer personId = null;
+        if (person != null) {
+            personId = person.getId();
+        }
         super.update(UPDATE_QUERY, UPDATE_TASKS_ERROR, task.getName(), task.getWorkTime().toMinutes(), task.getStartDate(),
-            task.getEndDate(), task.getStatus().toString(), task.getProjectId(), task.getPerson(), task.getId());
-    }
-
-    /**
-     * Insert task in database
-     *
-     * @param task data from add task form
-     * @return list of tasks with added new task
-     */
-    public List<Task> addTaskToList(Task task, List<Task> tasks) {
-        if (tasks == null) {
-            tasks = new ArrayList<>();
-        }
-        for (Task task1 : tasks) {
-            if (task1.getId() > id) {
-                id = task1.getId();
-            }
-        }
-        task.setId(id + 1);
-        tasks.add(task);
-        return tasks;
-    }
-
-    /**
-     * Update task in session
-     *
-     * @param task data from update task form for getting tasks list
-     * @param id task's id
-     */
-    public List<Task> updateTaskInList(Task task, List<Task> tasks, int id) {
-        int index = 0;
-        for (Task task1 : tasks) {
-            if (task1.getId() == id) {
-                setPerformer(task);
-                index = tasks.indexOf(task1);
-                break;
-            }
-        }
-        tasks.set(index, task);
-        return tasks;
-    }
-
-    private void setPerformer(Task task) {
-        if (task.getPerson().getId() != null) {
-            Person person = new PersonDao().get(task.getPerson().getId());
-            task.setPerson(person);
-        }
-    }
-
-    /**
-     * Remove task from session
-     *
-     * @param id task id
-     */
-    public List<Task> removeTask(int id, List<Task> tasks) {
-        if (id > this.id) {
-            this.id = id;
-        }
-        tasks.removeIf(task -> task.getId() == id);
-        return tasks;
+            task.getEndDate(), task.getStatus().toString(), task.getProjectId(), personId, task.getId());
     }
 
     /**
@@ -184,7 +130,11 @@ public class TaskDao extends AbstractDao<Task> {
             }
             Integer projectId = resultSet.getInt(PROJECTID);
             String projectShortName = resultSet.getString(SHORTNAME);
-            Person person = new PersonDao().resultSetAsObject(resultSet);
+            Object person_id = resultSet.getObject(PERSONID);
+            Person person = null;
+            if (person_id != null) {
+                person = new PersonDao().resultSetAsObject(resultSet);
+            }
             Task task = new Task(id, name, time, startDate, endDate, status, person);
             task.setProjectId(projectId);
             task.setPerson(person);

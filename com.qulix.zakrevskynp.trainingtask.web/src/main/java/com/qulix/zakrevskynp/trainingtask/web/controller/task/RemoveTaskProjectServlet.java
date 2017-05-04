@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.controller.project.CustomProjectServlet;
 import com.qulix.zakrevskynp.trainingtask.web.controller.project.ProjectDataValidator;
-import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
@@ -36,7 +35,7 @@ public class RemoveTaskProjectServlet extends CustomProjectServlet {
         Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
         List<Task> tasks = project.getTasks();
         newProject.setTasks(tasks);
-        List<Task> resultTasks = new TaskDao().removeTask(Integer.parseInt(request.getParameter(TASK_ID)), tasks);
+        List<Task> resultTasks = removeTask(Integer.parseInt(request.getParameter(TASK_ID)), tasks);
         project.setTasks(resultTasks);
 
         request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, newProject);
@@ -44,4 +43,15 @@ public class RemoveTaskProjectServlet extends CustomProjectServlet {
         String returningPath = request.getSession().getAttribute(Attribute.PATH).toString();
         response.sendRedirect(returningPath);
     }
+
+    /**
+     * Remove task from List
+     *
+     * @param id task id
+     */
+    private List<Task> removeTask(int id, List<Task> tasks) {
+        tasks.removeIf(task -> task.getId() == id);
+        return tasks;
+    }
+
 }

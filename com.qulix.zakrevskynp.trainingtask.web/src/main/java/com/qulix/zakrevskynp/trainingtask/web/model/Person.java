@@ -58,4 +58,15 @@ public class Person extends BaseDaoEntity {
     public String getPosition() {
         return position;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id='" + super.getId() + '\'' +
+                "firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", position='" + position + '\'' +
+                '}';
+    }
 }

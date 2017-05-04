@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDao;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
-import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDao;
+import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
@@ -36,9 +36,8 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
 
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
-            TaskDao dao = new TaskDao();
             Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
-            List<Task> resultTasks = dao.updateTaskInList(task, project.getTasks(), Integer.parseInt(request.getParameter(ID)));
+            List<Task> resultTasks = updateTaskInList(task, project.getTasks(), Integer.parseInt(request.getParameter(ID)));
             project.setTasks(resultTasks);
             request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
             response.sendRedirect(returningPath);
@@ -52,4 +51,31 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
             request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
         }
     }
+
+    /**
+     * Update task in List
+     *
+     * @param task data from update task form for getting tasks list
+     * @param id task's id
+     */
+    private List<Task> updateTaskInList(Task task, List<Task> tasks, int id) {
+        int index = 0;
+        for (Task task1 : tasks) {
+            if (task1.getId() == id) {
+                setPerformer(task);
+                index = tasks.indexOf(task1);
+                break;
+            }
+        }
+        tasks.set(index, task);
+        return tasks;
+    }
+
+    private void setPerformer(Task task) {
+        if (task.getPerson() != null) {
+            Person person = new PersonDao().get(task.getPerson().getId());
+            task.setPerson(person);
+        }
+    }
+
 }

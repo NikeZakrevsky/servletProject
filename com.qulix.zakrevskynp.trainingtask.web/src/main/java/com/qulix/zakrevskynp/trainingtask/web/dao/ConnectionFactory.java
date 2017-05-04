@@ -51,8 +51,8 @@ class ConnectionFactory {
             passwordProperty = dbProperties.getProperty(PASSWORD);
             driverProperty = dbProperties.getProperty(DRIVER_CLASS);
         }
-            catch (IOException e) {
-                LOGGER.log(Level.SEVERE, "Exception: " + READ_PROPERTIES_ERROR + e);
+        catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Exception: " + READ_PROPERTIES_ERROR + e);
         }
     }
 

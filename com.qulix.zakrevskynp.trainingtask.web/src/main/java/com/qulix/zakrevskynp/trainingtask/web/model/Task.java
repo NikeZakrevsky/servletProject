@@ -137,7 +137,7 @@ public class Task extends BaseDaoEntity {
                 ", person='" + person + '\'' +
                 ", projectShortName='" + projectShortName + '\'' +
                 ", projectId=" + projectId +
-                ", personId=" + person.getId() +
+                ", person=" + person +
                 '}';
     }
 
