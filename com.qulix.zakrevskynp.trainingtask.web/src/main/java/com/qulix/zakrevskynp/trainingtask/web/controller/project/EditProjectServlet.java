@@ -28,6 +28,14 @@ public class EditProjectServlet extends CustomProjectServlet {
     private static final String ID = "id";
     private static final String EDIT_PROJECT = "editProject?id=";
 
+    /**
+     * Form data processing
+     *
+     * @param request http request with form data
+     * @param response response object
+     * @throws ServletException servlet exception
+     * @throws IOException input/output exception
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
 
@@ -38,8 +46,10 @@ public class EditProjectServlet extends CustomProjectServlet {
             Project project = parametersToObject(parameters);
             Project project1 = new ProjectDao().get(Integer.parseInt(request.getParameter(ID)));
             project.setTasks(project1.getTasks());
+            Project newProject = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
+
             new ProjectDao().update(project);
-            new TaskDao().updateChangedTasks(request, project);
+            new TaskDao().updateChangedTasks(newProject, project);
 
             response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
         }
@@ -53,7 +63,15 @@ public class EditProjectServlet extends CustomProjectServlet {
             request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);
         }
     }
-    
+
+    /**
+     * Displays a page with a form
+     *
+     * @param request http request with form data
+     * @param response response object
+     * @throws ServletException servlet exception
+     * @throws IOException input/output exception
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Project project;
         if (request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME) == null) {

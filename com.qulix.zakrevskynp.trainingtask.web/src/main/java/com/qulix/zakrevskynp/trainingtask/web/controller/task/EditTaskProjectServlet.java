@@ -27,6 +27,14 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
 
     private static final String ID = "id";
 
+    /**
+     * Form data processing
+     *
+     * @param request http request with form data
+     * @param response response object
+     * @throws ServletException servlet exception
+     * @throws IOException input/output exception
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
         String returningPath = request.getSession().getAttribute(Attribute.PATH).toString();
@@ -54,12 +62,6 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
         }
     }
 
-    /**
-     * Update task in List
-     *
-     * @param task data from update task form for getting tasks list
-     * @param id task's id
-     */
     private List<Task> updateTaskInList(Task task, List<Task> tasks, int id) {
         int index = 0;
         for (Task task1 : tasks) {

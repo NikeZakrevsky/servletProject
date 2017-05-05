@@ -28,6 +28,14 @@ public class SubmitEditTaskProjectServlet extends CustomProjectServlet {
     private static final String TASK_ID = "taskId";
     private static final String EDIT_TASK_PROJECT = "editTaskProject";
 
+    /**
+     * Form data processing
+     *
+     * @param request http request with form data
+     * @param response response object
+     * @throws ServletException servlet exception
+     * @throws IOException input/output exception
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
 

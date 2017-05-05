@@ -24,6 +24,14 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 @WebServlet("/addTask")
 public class AddTaskServlet extends CustomTaskServlet {
 
+    /**
+     * Form data processing
+     *
+     * @param request http request with form data
+     * @param response response object
+     * @throws ServletException servlet exception
+     * @throws IOException input/output exception
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
 
@@ -47,6 +55,14 @@ public class AddTaskServlet extends CustomTaskServlet {
         }
     }
 
+    /**
+     * Displays a page with a form
+     *
+     * @param request http request with form data
+     * @param response response object
+     * @throws ServletException servlet exception
+     * @throws IOException input/output exception
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDao().getAll());
         request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDao().getAll());

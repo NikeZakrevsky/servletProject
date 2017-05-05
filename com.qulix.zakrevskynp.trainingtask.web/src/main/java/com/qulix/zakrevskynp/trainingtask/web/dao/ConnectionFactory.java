@@ -40,7 +40,7 @@ class ConnectionFactory {
     }
 
     /**
-     * Reading properties of the database connection
+     * Reads properties of the database connection
      */
     private static void readDatabaseProperties() {
         Properties databaseProperties = new Properties();
@@ -57,7 +57,7 @@ class ConnectionFactory {
     }
 
     /**
-     * Loading the database driver
+     * Loads the database driver
      */
     private static void loadDriver() {
         try {
@@ -69,7 +69,7 @@ class ConnectionFactory {
     }
 
     /**
-     * Obtaining an existing connection
+     * Obtains an existing connection
      *
      * @return Connection object
      * @throws SQLException throws while getting connection to database

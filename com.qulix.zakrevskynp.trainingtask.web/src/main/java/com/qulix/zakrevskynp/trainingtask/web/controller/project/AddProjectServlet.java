@@ -24,6 +24,14 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 @WebServlet("/addProject")
 public class AddProjectServlet extends CustomProjectServlet {
 
+    /**
+     * Form data processing
+     *
+     * @param request http request with form data
+     * @param response response object
+     * @throws ServletException servlet exception
+     * @throws IOException input/output exception
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
 
@@ -51,6 +59,14 @@ public class AddProjectServlet extends CustomProjectServlet {
         }
     }
 
+    /**
+     * Displays a page with a form
+     *
+     * @param request http request with form data
+     * @param response response object
+     * @throws ServletException servlet exception
+     * @throws IOException input/output exception
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Project project = (Project) session.getAttribute(Attribute.PROJECT_OBJECT_NAME);

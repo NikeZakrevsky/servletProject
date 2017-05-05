@@ -33,7 +33,7 @@ public class Person extends BaseDaoEntity {
     }
 
     /**
-     * Gets person middle name
+     * Gets middle name of the person
      *
      * @return person middle name
      */
@@ -42,7 +42,7 @@ public class Person extends BaseDaoEntity {
     }
 
     /**
-     * Gets person last name
+     * Gets last name of the person
      *
      * @return person last name
      */
@@ -51,7 +51,7 @@ public class Person extends BaseDaoEntity {
     }
 
     /**
-     * Gets person position
+     * Gets position of the person
      *
      * @return person position
      */
@@ -59,14 +59,4 @@ public class Person extends BaseDaoEntity {
         return position;
     }
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id='" + super.getId() + '\'' +
-                "firstName='" + firstName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", position='" + position + '\'' +
-                '}';
-    }
 }

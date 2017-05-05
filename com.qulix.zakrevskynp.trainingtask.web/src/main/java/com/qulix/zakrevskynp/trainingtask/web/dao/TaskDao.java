@@ -9,9 +9,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
-
-import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
@@ -48,7 +45,7 @@ public class TaskDao extends AbstractDao<Task> {
     private static final String SHORTNAME = "short_name";
 
     /**
-     * Getting all tasks from the database
+     * Gets all tasks from the database
      *
      * @return list of all tasks in database
      */
@@ -58,7 +55,7 @@ public class TaskDao extends AbstractDao<Task> {
     }
 
     /**
-     * Removing project from the database by id
+     * Removes project from the database by id
      *
      * @param id project's id
      */
@@ -68,7 +65,7 @@ public class TaskDao extends AbstractDao<Task> {
     }
 
     /**
-     * Inserting task in the database
+     * Inserts task in the database
      *
      * @param task task form data
      */
@@ -84,7 +81,7 @@ public class TaskDao extends AbstractDao<Task> {
             task.getEndDate(), task.getStatus().toString(), task.getProjectId(), personId);
     }
     /**
-     * Get task by id
+     * Gets task by id
      *
      * @param id task's id
      * @return Task object
@@ -95,7 +92,7 @@ public class TaskDao extends AbstractDao<Task> {
     }
 
     /**
-     * Update task in the database
+     * Updates task in the database
      *
      * @param task task data from the form
      */
@@ -111,7 +108,7 @@ public class TaskDao extends AbstractDao<Task> {
     }
 
     /**
-     * Create Task object from ResultSet
+     * Creates Task object from ResultSet
      *
      * @param resultSet resultSet for converting to object
      * @return created task object
@@ -150,7 +147,7 @@ public class TaskDao extends AbstractDao<Task> {
 
 
     /**
-     * Convert the ResultSet to a List of objects
+     * Converts the ResultSet to a List of objects
      *
      * @param resultSet @{{@link ResultSet}} object converted to list
      * @return tasks list
@@ -169,8 +166,14 @@ public class TaskDao extends AbstractDao<Task> {
         }
 
     }
-    public void updateChangedTasks(HttpServletRequest request, Project project) {
-        Project newProject = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
+
+    /**
+     * Updates tasks
+     *
+     * @param newProject project with new data
+     * @param project project with old data
+     */
+    public void updateChangedTasks(Project newProject, Project project) {
         List<Task> resultTasks = newProject.getTasks();
         List<Task> tasksList = project.getTasks();
         Set<Object> tasksSet = tasksList.stream().map(Task::getId).collect(Collectors.toSet());

@@ -24,6 +24,14 @@ public class EditPersonServlet extends CustomPersonServlet {
 
     private static final String ID = "id";
 
+    /**
+     * Form data processing
+     *
+     * @param request http request with form data
+     * @param response response object
+     * @throws ServletException servlet exception
+     * @throws IOException input/output exception
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
 
@@ -45,6 +53,14 @@ public class EditPersonServlet extends CustomPersonServlet {
         }
     }
 
+    /**
+     * Displays a page with a form
+     *
+     * @param request http request with form data
+     * @param response response object
+     * @throws ServletException servlet exception
+     * @throws IOException input/output exception
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Person person = new PersonDao().get(Integer.parseInt(request.getParameter(ID)));
         request.setAttribute(Attribute.PERSON_OBJECT_NAME, person);

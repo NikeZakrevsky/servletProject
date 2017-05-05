@@ -20,6 +20,14 @@ public class RemovePersonServlet extends CustomPersonServlet {
 
     private static final String ID = "id";
 
+    /**
+     * Processes a delete request
+     *
+     * @param request http request with form data
+     * @param response response object
+     * @throws ServletException servlet exception
+     * @throws IOException input/output exception
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         new PersonDao().remove(Integer.parseInt(request.getParameter(ID)));
 

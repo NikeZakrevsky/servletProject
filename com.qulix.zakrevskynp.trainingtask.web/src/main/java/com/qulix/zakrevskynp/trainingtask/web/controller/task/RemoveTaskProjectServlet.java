@@ -25,6 +25,14 @@ public class RemoveTaskProjectServlet extends CustomProjectServlet {
 
     private static final String TASK_ID = "taskId";
 
+    /**
+     * Form data processing
+     *
+     * @param request http request with form data
+     * @param response response object
+     * @throws ServletException servlet exception
+     * @throws IOException input/output exception
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parametersFromRequest = getParametersFromRequest(request);
 
@@ -45,11 +53,6 @@ public class RemoveTaskProjectServlet extends CustomProjectServlet {
         response.sendRedirect(returningPath);
     }
 
-    /**
-     * Remove task from List
-     *
-     * @param id task id
-     */
     private List<Task> removeTask(int id, List<Task> tasks) {
         tasks.removeIf(task -> task.getId() == id);
         return tasks;

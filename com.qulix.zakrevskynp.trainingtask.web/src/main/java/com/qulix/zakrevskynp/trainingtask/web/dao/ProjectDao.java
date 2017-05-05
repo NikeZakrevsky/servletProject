@@ -34,7 +34,7 @@ public class ProjectDao extends AbstractDao<Project> {
     private static final String DESCRIPTION = "description";
 
     /**
-     * Update information about project in database
+     * Updates information about project in database
      *
      * @param project project data from form
      */
@@ -45,7 +45,7 @@ public class ProjectDao extends AbstractDao<Project> {
     }
 
     /**
-     * Get project id
+     * Gets project id
      *
      * @param id project's id
      * @return Project object
@@ -57,7 +57,7 @@ public class ProjectDao extends AbstractDao<Project> {
 
 
     /**
-     * Get all projects from database
+     * Gets all projects from database
      *
      * @return list of all projects from database
      */
@@ -68,7 +68,7 @@ public class ProjectDao extends AbstractDao<Project> {
 
 
     /**
-     * Remove project from database by id
+     * Removes project from database by id
      *
      * @param id project id
      */
@@ -83,7 +83,7 @@ public class ProjectDao extends AbstractDao<Project> {
     }
 
     /**
-     *  Create new project with tasks
+     *  Creates new project with tasks
      *
      *  @param project new project
      */
@@ -123,7 +123,7 @@ public class ProjectDao extends AbstractDao<Project> {
     }
 
     /**
-     * Create object from ResutSet
+     * Creates object from ResutSet
      *
      * @param resultSet resultSet for converting to object
      * @return created project object
@@ -145,7 +145,7 @@ public class ProjectDao extends AbstractDao<Project> {
     }
 
     /**
-     * Convert the ResultSet to a List of objects
+     * Converts the ResultSet to a List of objects
      *
      * @param resultSet @{{@link ResultSet}} object converted to list
      * @return tasks list

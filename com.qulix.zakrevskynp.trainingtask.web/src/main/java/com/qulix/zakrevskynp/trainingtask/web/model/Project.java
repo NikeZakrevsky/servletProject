@@ -15,7 +15,7 @@ public class Project extends BaseDaoEntity {
     private List<Task> tasksList = new ArrayList<>();
 
     /**
-     * Create project object
+     * Creates project object
      *
      * @param id id of project
      * @param name name
@@ -30,7 +30,7 @@ public class Project extends BaseDaoEntity {
     }
 
     /**
-     * Gets project name
+     * Gets name of the project
      *
      * @return project name
      */
@@ -39,7 +39,7 @@ public class Project extends BaseDaoEntity {
     }
 
     /**
-     * Gets project short name
+     * Gets short name of the project
      *
      * @return project short name
      */
@@ -48,7 +48,7 @@ public class Project extends BaseDaoEntity {
     }
 
     /**
-     * Gets project description
+     * Gets description of the project
      *
      * @return project description
      */
@@ -57,7 +57,7 @@ public class Project extends BaseDaoEntity {
     }
 
     /**
-     * Gets project tasks
+     * Gets tasks of the project
      *
      * @return project tasks
      */
@@ -66,32 +66,36 @@ public class Project extends BaseDaoEntity {
     }
 
     /**
-     * Gets project tasks
+     * Sets tasks of the project
      */
     public void setTasks(List<Task> tasksList) {
         this.tasksList = tasksList;
     }
 
+    /**
+     * Sets name of the project
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Sets short name of the project
+     *
+     * @param shortName
+     */
     public void setShortName(String shortName) {
         this.shortName = shortName;
     }
 
+    /**
+     *
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                "id=" + super.getId() +
-                ", name='" + name + '\'' +
-                ", shortName='" + shortName + '\'' +
-                ", description='" + description + '\'' +
-                ", tasksList=" + tasksList +
-                '}';
-    }
 }

@@ -20,6 +20,14 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDao;
 @WebServlet("/tasksList")
 public class TasksListServlet extends BaseHttpServlet {
 
+    /**
+     * Displays a list of tasks
+     *
+     * @param request http request with form data
+     * @param response response object
+     * @throws ServletException servlet exception
+     * @throws IOException input/output exception
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute(Attribute.PATH, Attribute.TASKS_LIST);
         request.setAttribute(Attribute.TASKS_LIST_NAME, new TaskDao().getAll());

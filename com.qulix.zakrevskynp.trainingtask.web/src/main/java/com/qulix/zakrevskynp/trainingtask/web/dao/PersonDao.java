@@ -29,7 +29,7 @@ public class PersonDao extends AbstractDao<Person> {
     private static final String POSITION = "position";
 
     /**
-     * Getting a list of persons
+     * Gets a list of persons
      *
      * @return list of all persons from the database
      */
@@ -39,7 +39,7 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     /**
-     * Inserting a new person in the database
+     * Inserts a new person in the database
      *
      * @param person person data from the form
      */
@@ -50,7 +50,7 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     /**
-     * Removing a person from the database by id
+     * Removes a person from the database by id
      *
      * @param id person's id
      */
@@ -60,7 +60,7 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     /**
-     * Getting a person by id
+     * Gets a person by id
      *
      * @param id person's id
      * @return @{{@link Person}}
@@ -71,7 +71,7 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     /**
-     * Updating information about a person
+     * Updates information about a person
      *
      * @param person Person object
      */
@@ -82,7 +82,7 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     /**
-     * Creating object from the ResultSet
+     * Creats object from the ResultSet
      *
      * @param resultSet resultSet for converting to object
      * @return created person object
@@ -103,7 +103,7 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     /**
-     * Converting the ResultSet to a list of objects
+     * Converts the ResultSet to a list of objects
      *
      * @param resultSet @{{@link ResultSet}} object converted to list
      * @return tasks list

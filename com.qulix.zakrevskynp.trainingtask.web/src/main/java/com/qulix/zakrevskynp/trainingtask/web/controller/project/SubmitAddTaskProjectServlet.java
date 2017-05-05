@@ -25,7 +25,15 @@ public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
 
     private static final String ID = "id";
     private static final String IS_DISABLE = "isDisable";
-    
+
+    /**
+     * Form data processing
+     *
+     * @param request http request with form data
+     * @param response response object
+     * @throws ServletException servlet exception
+     * @throws IOException input/output exception
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> parameters = getParametersFromRequest(request);
 

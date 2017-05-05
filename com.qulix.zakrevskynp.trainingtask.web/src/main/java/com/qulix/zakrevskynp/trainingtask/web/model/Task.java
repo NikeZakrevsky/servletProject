@@ -45,7 +45,7 @@ public class Task extends BaseDaoEntity {
     }
 
     /**
-     * Gets name of task
+     * Gets name of the task
      *
      * @return task name
      */
@@ -54,16 +54,16 @@ public class Task extends BaseDaoEntity {
     }
 
     /**
-     * Gets work time of task
+     * Gets work time of the task
      *
-     * @return task  work time
+     * @return task work time
      */
     public Duration getWorkTime() {
         return workTime;
     }
     
     /**
-     * Gets start date of task
+     * Gets start date of the task
      *
      * @return task start date
      */
@@ -72,7 +72,7 @@ public class Task extends BaseDaoEntity {
     }
 
     /**
-     * Gets end date of task
+     * Gets end date of the task
      *
      * @return task end date
      */
@@ -81,7 +81,7 @@ public class Task extends BaseDaoEntity {
     }
 
     /**
-     * Gets status of task
+     * Gets status of the task
      *
      * @return task status
      */
@@ -90,7 +90,7 @@ public class Task extends BaseDaoEntity {
     }
 
     /**
-     * Gets short name of project
+     * Gets short name of the project
      *
      * @return project short name
      */
@@ -99,7 +99,7 @@ public class Task extends BaseDaoEntity {
     }
 
     /**
-     * Gets id of project
+     * Gets id of the project
      *
      * @return project id
      */
@@ -108,9 +108,9 @@ public class Task extends BaseDaoEntity {
     }
 
     /**
-     * Sets id of project
+     * Sets id of the project
      *
-     * @param projectId id of project
+     * @param projectId id of the project
      */
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
@@ -125,26 +125,20 @@ public class Task extends BaseDaoEntity {
         this.projectShortName = projectShortName;
     }
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + super.getId() +
-                ", name='" + name + '\'' +
-                ", workTime=" + workTime +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", status=" + status +
-                ", person='" + person + '\'' +
-                ", projectShortName='" + projectShortName + '\'' +
-                ", projectId=" + projectId +
-                ", person=" + person +
-                '}';
-    }
-
+    /**
+     * Gets person of the task
+     *
+     * @return Person object
+     */
     public Person getPerson() {
         return person;
     }
 
+    /**
+     * Sets person of the task
+     *
+     * @param person Person object
+     */
     public void setPerson(Person person) {
         this.person = person;
     }

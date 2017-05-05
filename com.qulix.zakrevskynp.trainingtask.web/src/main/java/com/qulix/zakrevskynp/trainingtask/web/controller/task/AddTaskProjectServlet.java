@@ -27,6 +27,14 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
 
     private static final String IS_DISABLE = "isDisable";
 
+    /**
+     * Form data processing
+     *
+     * @param request http request with form data
+     * @param response response object
+     * @throws ServletException servlet exception
+     * @throws IOException input/output exception
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute(IS_DISABLE, true);
 
@@ -55,12 +63,6 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
         }
     }
 
-    /**
-     * Insert task in List
-     *
-     * @param task data from add task form
-     * @return list of tasks with added new task
-     */
     private List<Task> addTaskToList(Task task, List<Task> tasks) {
         int id = 0;
         if (tasks == null) {
