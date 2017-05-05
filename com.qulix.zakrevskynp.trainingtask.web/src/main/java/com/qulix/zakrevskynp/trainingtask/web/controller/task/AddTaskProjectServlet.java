@@ -41,6 +41,7 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
             List<Task> resultTasks = addTaskToList(task, project.getTasks());
             project.setTasks(resultTasks);
             request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
+
             response.sendRedirect(request.getSession().getAttribute(Attribute.PATH).toString());
         }
         else {
@@ -49,6 +50,7 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
             request.setAttribute(Attribute.ACTION, Attribute.TASK_PROJECT);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
             request.setAttribute(Attribute.TASK_OBJECT_NAME, parameters);
+
             request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
         }
     }

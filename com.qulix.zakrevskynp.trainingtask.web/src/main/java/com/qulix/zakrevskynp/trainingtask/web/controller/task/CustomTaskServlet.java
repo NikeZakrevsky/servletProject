@@ -46,10 +46,12 @@ public class CustomTaskServlet extends BaseHttpServlet {
         Integer projectId = (Integer) parameters.get(PROJECTID);
         Integer personId = (Integer) parameters.get(PERSONID);
         String projectShortName = (String) parameters.get(SHORTNAME);
+
         Person person = null;
         if (personId != null) {
             person = new PersonDao().get(personId);
         }
+
         Task task = new Task(id, name, workTime, startDate, endDate, status, person);
         task.setProjectId(projectId);
         task.setPerson(person);

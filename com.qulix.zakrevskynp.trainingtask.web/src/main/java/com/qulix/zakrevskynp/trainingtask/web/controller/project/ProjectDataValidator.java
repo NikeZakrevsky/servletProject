@@ -27,10 +27,10 @@ public class ProjectDataValidator extends Validator {
      */
     public List<String> validate(Map<String, Object> parameters) {
         List<String> errors = new ArrayList<>();
-
         validateId(parameters);
         validateName(parameters, errors);
         validateShortName(parameters, errors);
+
         return errors;
     }
 

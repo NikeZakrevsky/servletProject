@@ -37,6 +37,7 @@ public class PersonDataValidator extends Validator {
         validateMiddleName(parameters, errors);
         validateLastName(parameters, errors);
         validatePosition(parameters, errors);
+
         return errors;
     }
 

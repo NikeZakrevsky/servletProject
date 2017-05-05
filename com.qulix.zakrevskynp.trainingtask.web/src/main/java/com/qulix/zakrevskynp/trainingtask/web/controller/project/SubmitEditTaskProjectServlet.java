@@ -42,6 +42,7 @@ public class SubmitEditTaskProjectServlet extends CustomProjectServlet {
 
         request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
         request.setAttribute(Attribute.PATH, request.getSession().getAttribute(Attribute.PATH).toString());
+
         List<Task> tasks = project.getTasks();
         for (Task task : tasks) {
             if (task.getId() == Integer.parseInt(request.getParameter(TASK_ID))) {
@@ -50,6 +51,7 @@ public class SubmitEditTaskProjectServlet extends CustomProjectServlet {
                 request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDao().getAll());
                 request.setAttribute(IS_DISABLE, true);
                 request.setAttribute(Attribute.ACTION, EDIT_TASK_PROJECT);
+
                 request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
             }
         }

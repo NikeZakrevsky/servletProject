@@ -36,25 +36,30 @@ public class AddProjectServlet extends CustomProjectServlet {
             newProject.setTasks(project.getTasks());
             new ProjectDao().add(project);
             request.getSession().invalidate();
+
             response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
         }
         else {
             HttpSession session = request.getSession();
+            List<Task> tasks = getItems(session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
+            
             request.setAttribute(Attribute.PROJECT_OBJECT_NAME, parameters);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
-            List<Task> tasks = getItems(session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
             request.setAttribute(Attribute.TASKS_LIST_NAME, tasks);
+
             request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute(Attribute.ACTION, Attribute.ADD_PROJECT);
-        request.getSession(true).setAttribute(Attribute.PATH,  Attribute.ADD_PROJECT);
-        request.setAttribute(Attribute.PATH, Attribute.ADD_PROJECT);
         HttpSession session = request.getSession();
         Project project = (Project) session.getAttribute(Attribute.PROJECT_OBJECT_NAME);
+        session.setAttribute(Attribute.PATH,  Attribute.ADD_PROJECT);
+
+        request.setAttribute(Attribute.ACTION, Attribute.ADD_PROJECT);
+        request.setAttribute(Attribute.PATH, Attribute.ADD_PROJECT);
         request.setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
+
         request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);
     }
 }

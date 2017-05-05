@@ -21,8 +21,10 @@ public class PersonsListServlet extends CustomPersonServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List personsList = new PersonDao().getAll();
+
         request.setAttribute(Attribute.ERROR_LIST_NAME, request.getSession().getAttribute(Attribute.ERROR_LIST_NAME));
         request.setAttribute(Attribute.PERSONS_LIST_NAME, personsList);
+
         request.getRequestDispatcher(Attribute.PERSONS_LIST_VIEW).forward(request, response);
     }
 }

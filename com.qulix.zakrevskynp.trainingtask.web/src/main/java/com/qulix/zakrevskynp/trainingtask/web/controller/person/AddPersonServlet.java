@@ -31,18 +31,21 @@ public class AddPersonServlet extends CustomPersonServlet {
         if (errors.isEmpty()) {
             Person person = parametersToObject(parameters);
             new PersonDao().add(person);
+
             response.sendRedirect(Attribute.REDIRECT_PERSON_LIST);
         }
         else {
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
             request.setAttribute(Attribute.PERSON_OBJECT_NAME, parameters);
             request.setAttribute(Attribute.ACTION, Attribute.ADD_PERSON);
+
             request.getRequestDispatcher(Attribute.PERSON_VIEW).forward(request, response);
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute(Attribute.ACTION, Attribute.ADD_PERSON);
+
         request.getRequestDispatcher(Attribute.PERSON_VIEW).forward(request, response);
     }
 }

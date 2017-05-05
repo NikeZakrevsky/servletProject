@@ -40,6 +40,7 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
             List<Task> resultTasks = updateTaskInList(task, project.getTasks(), Integer.parseInt(request.getParameter(ID)));
             project.setTasks(resultTasks);
             request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
+
             response.sendRedirect(returningPath);
         }
         else {
@@ -48,6 +49,7 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
             request.setAttribute(Attribute.ACTION, Attribute.EDIT_TASK_PROJECT);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
             request.setAttribute(Attribute.TASK_OBJECT_NAME, parameters);
+
             request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
         }
     }

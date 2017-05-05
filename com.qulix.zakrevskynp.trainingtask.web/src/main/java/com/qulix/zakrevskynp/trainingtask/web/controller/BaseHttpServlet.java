@@ -26,6 +26,7 @@ public class BaseHttpServlet extends HttpServlet {
      */
     protected Map<String, Object> getParametersFromRequest(HttpServletRequest request) {
         List<String> parametersNames = Collections.list(request.getParameterNames());
+
         return parametersNames.stream().collect(Collectors.toMap(x -> x, request::getParameter));
     }
 
@@ -39,6 +40,7 @@ public class BaseHttpServlet extends HttpServlet {
         if (object == null) {
             return null;
         }
+
         List<Task> result = new ArrayList<>();
         for (int i = 0; i < ((List<?>) object).size(); i++) {
             Object item = ((List<?>) object).get(i);
@@ -46,6 +48,7 @@ public class BaseHttpServlet extends HttpServlet {
                 result.add((Task) item);
             }
         }
+
         return result;
     }
 

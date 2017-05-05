@@ -23,6 +23,7 @@ public class TasksListServlet extends BaseHttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute(Attribute.PATH, Attribute.TASKS_LIST);
         request.setAttribute(Attribute.TASKS_LIST_NAME, new TaskDao().getAll());
+
         request.getRequestDispatcher(Attribute.TASKS_LIST_VIEW).forward(request, response);
     }
 

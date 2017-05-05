@@ -21,7 +21,9 @@ public class ProjectsListServlet extends CustomProjectServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().invalidate();
+
         request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDao().getAll());
+
         request.getRequestDispatcher(Attribute.PROJECTS_LIST_VIEW).forward(request, response);
     }
 }

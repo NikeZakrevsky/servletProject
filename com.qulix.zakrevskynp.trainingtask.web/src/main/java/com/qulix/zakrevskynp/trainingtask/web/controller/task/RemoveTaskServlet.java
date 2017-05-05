@@ -23,7 +23,9 @@ public class RemoveTaskServlet extends BaseHttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String returningPath = request.getSession(false).getAttribute(Attribute.PATH).toString();
+
         new TaskDao().remove(Integer.parseInt(request.getParameter(ID)));
+        
         response.sendRedirect(returningPath);
     }
 }

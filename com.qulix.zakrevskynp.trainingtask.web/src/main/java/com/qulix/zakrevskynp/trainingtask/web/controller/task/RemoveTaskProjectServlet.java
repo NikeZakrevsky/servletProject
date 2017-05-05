@@ -41,6 +41,7 @@ public class RemoveTaskProjectServlet extends CustomProjectServlet {
         request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, newProject);
         request.setAttribute(Attribute.PROJECT_OBJECT_NAME, newProject);
         String returningPath = request.getSession().getAttribute(Attribute.PATH).toString();
+
         response.sendRedirect(returningPath);
     }
 

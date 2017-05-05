@@ -33,6 +33,7 @@ class CustomPersonServlet extends BaseHttpServlet {
         String middleName = (String) parameters.get(MIDDLE_NAME);
         String lastName = (String) parameters.get(LAST_NAME);
         String position = (String) parameters.get(POSITION);
+
         return new Person(id, firstName, middleName, lastName, position);
     }
 }

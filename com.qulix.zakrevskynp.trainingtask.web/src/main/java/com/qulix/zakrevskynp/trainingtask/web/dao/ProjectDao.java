@@ -136,6 +136,7 @@ public class ProjectDao extends AbstractDao<Project> {
             String name = resultSet.getString(NAME);
             String shortName = resultSet.getString(SHORTNAME);
             String description = resultSet.getString(DESCRIPTION);
+
             return new Project(id, name, shortName, description);
         }
         catch (SQLException e) {
@@ -171,6 +172,7 @@ public class ProjectDao extends AbstractDao<Project> {
             }
 
         }
+
         return projects.entrySet().stream().map(Map.Entry::getValue).collect(Collectors.toList());
     }
 }

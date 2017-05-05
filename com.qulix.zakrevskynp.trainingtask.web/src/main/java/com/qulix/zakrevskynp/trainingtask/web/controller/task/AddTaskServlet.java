@@ -33,6 +33,7 @@ public class AddTaskServlet extends CustomTaskServlet {
         if (errors.isEmpty()) {
             Task task = parametersToObject(parameters);
             new TaskDao().add(task);
+
             response.sendRedirect(Attribute.TASKS_LIST);
         }
         else {
@@ -41,6 +42,7 @@ public class AddTaskServlet extends CustomTaskServlet {
             request.setAttribute(Attribute.ACTION, Attribute.ADD_TASK);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
             request.setAttribute(Attribute.TASK_OBJECT_NAME, parameters);
+
             request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
         }
     }
@@ -50,6 +52,7 @@ public class AddTaskServlet extends CustomTaskServlet {
         request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDao().getAll());
         request.setAttribute(Attribute.ACTION, Attribute.ADD_TASK);
         request.setAttribute(Attribute.PATH, Attribute.TASKS_LIST);
+
         request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
     }
 }

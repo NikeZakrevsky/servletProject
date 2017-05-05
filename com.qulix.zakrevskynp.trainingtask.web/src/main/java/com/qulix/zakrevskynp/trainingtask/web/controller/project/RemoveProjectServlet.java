@@ -23,6 +23,7 @@ public class RemoveProjectServlet extends CustomProjectServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         new ProjectDao().remove(Integer.parseInt(request.getParameter(ID)));
+
         response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
     }
 }

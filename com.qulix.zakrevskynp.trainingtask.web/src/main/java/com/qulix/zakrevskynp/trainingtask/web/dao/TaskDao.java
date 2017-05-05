@@ -46,8 +46,6 @@ public class TaskDao extends AbstractDao<Task> {
     private static final String PROJECTID = "project_id";
     private static final String PERSONID = "person_id";
     private static final String SHORTNAME = "short_name";
-    private static final String PERSON = "person";
-    private static final String WHERE_ID = " where project_id = ?";
 
     /**
      * Getting all tasks from the database
@@ -133,9 +131,9 @@ public class TaskDao extends AbstractDao<Task> {
             }
             Integer projectId = resultSet.getInt(PROJECTID);
             String projectShortName = resultSet.getString(SHORTNAME);
-            Object person_id = resultSet.getObject(PERSONID);
+            Object personId = resultSet.getObject(PERSONID);
             Person person = null;
-            if (person_id != null) {
+            if (personId != null) {
                 person = new PersonDao().resultSetAsObject(resultSet);
             }
             Task task = new Task(id, name, time, startDate, endDate, status, person);
@@ -145,7 +143,7 @@ public class TaskDao extends AbstractDao<Task> {
             return task;
         }
         catch (SQLException e) {
-            throw new DaoException( e);
+            throw new DaoException(e);
         }
 
     }

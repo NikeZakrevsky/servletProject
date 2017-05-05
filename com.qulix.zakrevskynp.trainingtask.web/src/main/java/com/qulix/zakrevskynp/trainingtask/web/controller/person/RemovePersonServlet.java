@@ -22,6 +22,7 @@ public class RemovePersonServlet extends CustomPersonServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         new PersonDao().remove(Integer.parseInt(request.getParameter(ID)));
+
         response.sendRedirect(Attribute.REDIRECT_PERSON_LIST);
     }
 }

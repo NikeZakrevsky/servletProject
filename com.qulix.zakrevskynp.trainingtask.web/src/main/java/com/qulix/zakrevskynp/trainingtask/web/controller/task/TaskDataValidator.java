@@ -43,14 +43,21 @@ public class TaskDataValidator extends Validator {
         validateIds(parameters);
         validateName(parameters, errors);
         validateStatus(parameters, errors);
+        validateDates(parameters, errors);
+
+        return errors;
+    }
+
+    private void validateDates(Map<String, Object> parameters, List<String> errors) {
         java.util.Date startDate = validateStartDate(parameters, errors);
         java.util.Date endDate = validateEndDate(parameters, errors);
+
         validateEndDateBeforeStartDate(startDate, endDate, END_BEFORE_START_ERROR, errors);
+
         boolean isWorkTimeValid = validateWorkTime(parameters, errors);
         if (isWorkTimeValid && startDate != null && endDate != null) {
             validateDateTime(startDate, endDate, (Duration) parameters.get(WORK_TIME_FIELD), BETWEEN_ERROR, errors);
         }
-        return errors;
     }
 
     private java.util.Date validateEndDate(Map<String, Object> parameters, List<String> errors) {
@@ -82,7 +89,9 @@ public class TaskDataValidator extends Validator {
     private boolean validateWorkTime(Map<String, Object> parameters, List<String> errors) {
         validateFieldEmpty(parameters.get(WORK_TIME_FIELD), JOB, errors);
         validateFieldLength(parameters.get(WORK_TIME_FIELD), JOB, errors, 8);
+
         parameters.put("workTimeString", parameters.get(WORK_TIME_FIELD));
+
         if (validateFieldNumbers(parameters.get(WORK_TIME_FIELD), JOB, errors)) {
             parseFloatParams(WORK_TIME_FIELD, parameters);
             if (parameters.get(WORK_TIME_FIELD) != null) {

@@ -40,6 +40,7 @@ public class EditProjectServlet extends CustomProjectServlet {
             project.setTasks(project1.getTasks());
             new ProjectDao().update(project);
             new TaskDao().updateChangedTasks(request, project);
+
             response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
         }
         else {
@@ -48,6 +49,7 @@ public class EditProjectServlet extends CustomProjectServlet {
             List<Task> resultTasks = getItems(session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
             request.setAttribute(Attribute.TASKS_LIST_NAME, resultTasks);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
+
             request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);
         }
     }
@@ -65,6 +67,7 @@ public class EditProjectServlet extends CustomProjectServlet {
         request.setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
         request.getSession().setAttribute(Attribute.PATH, EDIT_PROJECT + request.getParameter(ID));
         request.setAttribute(Attribute.PATH, EDIT_PROJECT + request.getParameter(ID));
+
         request.getRequestDispatcher(Attribute.PROJECT_VIEW).forward(request, response);
     }
 

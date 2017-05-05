@@ -104,8 +104,10 @@ public abstract class Validator {
     protected boolean validateFieldNumbers(Object field, String fieldName, List<String> errors) {
         if (!field.toString().matches(REGEX1)) {
             errors.add(String.format(NUMBER_ERROR, fieldName));
+
             return false;
         }
+
         return true;
     }
 
@@ -118,6 +120,7 @@ public abstract class Validator {
         } catch (ParseException e) {
             errors.add(error);
         }
+
         return date;
     }
 

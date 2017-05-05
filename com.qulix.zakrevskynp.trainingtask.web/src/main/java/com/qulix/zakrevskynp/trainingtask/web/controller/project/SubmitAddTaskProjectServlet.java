@@ -40,6 +40,7 @@ public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
                 newProject.setTasks(tasks);
             }
         }
+
         request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, newProject);
         request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDao().getAll());
         request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDao().getAll());
@@ -49,6 +50,7 @@ public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
         }
         request.setAttribute(IS_DISABLE, true);
         request.setAttribute(Attribute.ACTION, Attribute.TASK_PROJECT);
+
         request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
     }
 }

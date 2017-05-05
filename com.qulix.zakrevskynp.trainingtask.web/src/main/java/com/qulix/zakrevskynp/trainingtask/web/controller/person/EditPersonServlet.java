@@ -33,12 +33,14 @@ public class EditPersonServlet extends CustomPersonServlet {
         if (errors.isEmpty()) {
             Person person = parametersToObject(parameters);
             new PersonDao().update(person);
+
             response.sendRedirect(Attribute.REDIRECT_PERSON_LIST);
         }
         else {
             request.setAttribute(Attribute.PERSON_OBJECT_NAME, parameters);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
             request.setAttribute(Attribute.ACTION, Attribute.EDIT_PERSON);
+
             request.getRequestDispatcher(Attribute.PERSON_VIEW).forward(request, response);
         }
     }
@@ -47,6 +49,7 @@ public class EditPersonServlet extends CustomPersonServlet {
         Person person = new PersonDao().get(Integer.parseInt(request.getParameter(ID)));
         request.setAttribute(Attribute.PERSON_OBJECT_NAME, person);
         request.setAttribute(Attribute.ACTION, Attribute.EDIT_PERSON);
+
         request.getRequestDispatcher(Attribute.PERSON_VIEW).forward(request, response);
     }
 }
