@@ -1,11 +1,11 @@
-# Project Name
-Task manager
-## Building project
-1. Start tomcat server `gradlew startServer`
-2. Start database server `gradlew startDatabaseServer`
-3. Create database (if not already created) `gradlew createDatabase`
-4. Drop database (if necessary) `gradlew dropDatabase`
-5. Insert test data `gradlew insertTestData`
+# Название проекта
+Приложение для управления задачами
+## Сборка проекта
+1. Запуск Tomcat сервера `gradlew startServer`
+2. Запуск сервера базы данных `gradlew startDatabaseServer`
+3. Создания базы данных(если не создана) `gradlew createDatabase`
+4. Удаление базыданных (если необходимо) `gradlew dropDatabase`
+5. Вставка тестовых данных в баху данных `gradlew insertTestData`
 
-### Homepage 
+### Домашняя страница
 `localhost:8080`
