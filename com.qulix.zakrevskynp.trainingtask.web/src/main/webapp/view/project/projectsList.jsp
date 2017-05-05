@@ -1,9 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <title>Simple jsp page</title>
-</head>
+<%@ include file="../share/head.jsp" %>
 <body>
     <%@ include file="../share/navigationBar.jsp" %>
     <div class="panel-heading">

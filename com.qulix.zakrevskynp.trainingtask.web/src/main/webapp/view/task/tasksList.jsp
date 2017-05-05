@@ -1,10 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
-<head>
-    <meta charset=UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <title>Simple jsp page</title>
-</head>
+<%@ include file="../share/head.jsp" %>
 <body>
     <%@ include file="../share/navigationBar.jsp" %>
     <span class = "error">${requestScope.error}</span>
@@ -13,28 +9,11 @@
     </div>
     <div class="tablecontainer">
         <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Идентификатор</th>
-                    <th>Проект</th>
-                    <th>Название</th>
-                    <th>Дата начала</th>
-                    <th>Дата окончания</th>
-                    <th>Исполнитель</th>
-                    <th>Статус</th>
-                    <th width="20%"></th>
-                </tr>
-            </thead>
+            <%@ include file="../share/tasksHeader.jsp" %>
             <tbody>
                 <c:forEach items="${requestScope.tasks}" var="task">
                     <tr>
-                        <td>${task.id}</td>
-                        <td>${task.projectShortName}</td>
-                        <td>${task.name}</td>
-                        <td>${task.startDate}</td>
-                        <td>${task.endDate}</td>
-                        <td>${task.person.firstName} ${task.person.middleName} ${task.person.lastName}</td>
-                        <td>${task.status.toString()}</td>
+                        <%@ include file="../share/tasksContent.jsp" %>
                         <td>
                             <a href="editTask?id=${task.id}"><button type="button" class="btn btn-success custom-width">Изменить</button></a>  <a href="removeTask?id=${task.id}"><button type="button" class="btn btn-danger custom-width">Удалить</button></a>
                         </td>

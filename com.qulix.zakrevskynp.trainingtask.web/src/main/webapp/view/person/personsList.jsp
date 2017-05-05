@@ -1,9 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <title>Simple jsp page</title>
-</head>
+<%@ include file="../share/head.jsp" %>
 <body>
     <%@ include file="../share/navigationBar.jsp" %>
     ${requestScope.error}
@@ -40,4 +36,3 @@
     </div>
     <a href="addPerson"><button type="button" class="btn btn-success custom-width">Добавить</button></a>
 </body>
-</html>

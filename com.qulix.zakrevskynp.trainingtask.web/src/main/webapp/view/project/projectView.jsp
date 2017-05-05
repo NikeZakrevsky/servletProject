@@ -1,10 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Plugin tester</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-</head>
+<%@ include file="../share/head.jsp" %>
 <body>
     <%@ include file="../share/navigationBar.jsp" %>
     <span class="lead panel-heading">Управление проектами</span>
@@ -43,26 +39,11 @@
              <div class="tablecontainer">
                  <span class="lead panel-heading">Список задач</span>
                  <table class="table table-hover">
-                     <thead>
-                        <tr>
-                            <th>Идентификатор</th>
-                            <th>Название</th>
-                            <th>Дата начала</th>
-                             <th>Дата окончания</th>
-                            <th>Исполнитель</th>
-                            <th>Статус</th>
-                            <th width="20%"></th>
-                        </tr>
-                     </thead>
+                     <%@ include file="../share/tasksHeader.jsp" %>
                      <tbody>
                         <c:forEach items="${requestScope.project.tasks}" var="task">
                             <tr>
-                                <td>${task.id}</td>
-                                <td>${task.name}</td>
-                                <td>${task.startDate}</td>
-                                <td>${task.endDate}</td>
-                                <td>${task.person.firstName} ${task.person.middleName} ${task.person.lastName}</td>
-                                <td>${task.status.toString()}</td>
+                                <%@ include file="../share/tasksContent.jsp" %>
                                 <td>
                                     <button onclick="this.form.action = 'removeTaskProject?taskId=${task.id}&id=${requestScope.project.id}'" type="submit" class="btn btn-danger custom-width">Удалить</button>
                                     <button onclick = "this.form.action = 'editTaskProject1?taskId=${task.id}'" type="submit" class="btn btn-success custom-width">Изменить</button>
@@ -72,21 +53,21 @@
                      <tbody>
                  </table>
              </div>
+            <div style = "margin-bottom: 20px;">
+                <c:choose>
+                    <c:when test="${requestScope.action.equals('editProject')}">
+                        <button onclick = "this.form.action = 'taskProject1?projectId=${requestScope.project.id}'" type="submit" class="btn btn-success custom-width">Добавить</button>
+                    </c:when>
+                    <c:otherwise>
+                        <button onclick = "this.form.action = 'taskProject1'" type="submit" class="btn btn-success custom-width">Добавить</button>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-success col-md-1">Сохранить</button>
+                <a href="projectsList"><button type="button" class="btn btn-danger col-md-1">Отмена</button></a>
+            </div>
         </form>
-    </div>
-    <div style = "margin-bottom: 20px;">
-    <c:choose>
-        <c:when test="${requestScope.action.equals('editProject')}">
-            <button onclick = "this.form.action = 'taskProject1?projectId=${requestScope.project.id}'" type="submit" class="btn btn-success custom-width">Добавить</button>
-        </c:when>
-        <c:otherwise>
-            <button onclick = "this.form.action = 'taskProject1'" type="submit" class="btn btn-success custom-width">Добавить</button>
-        </c:otherwise>
-    </c:choose>
-    </div>
-    <div class="row">
-        <button type="submit" class="btn btn-success col-md-1">Сохранить</button>
-        <a href="projectsList"><button type="button" class="btn btn-danger col-md-1">Отмена</button></a>
     </div>
 </body>
 </html>
