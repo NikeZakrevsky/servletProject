@@ -64,6 +64,9 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
     }
 
     private List<Task> addTaskToList(Task task, List<Task> tasks) {
+        ProjectDao projectDao = new ProjectDao();
+        String shortName = projectDao.get(task.getProjectId()).getShortName();
+        task.setProjectShortName(shortName);
         int id = 0;
         if (tasks == null) {
             tasks = new ArrayList<>();

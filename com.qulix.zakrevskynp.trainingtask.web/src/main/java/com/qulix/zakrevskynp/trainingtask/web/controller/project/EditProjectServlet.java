@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
-import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
@@ -44,12 +43,12 @@ public class EditProjectServlet extends CustomProjectServlet {
         
         if (errors.isEmpty()) {
             Project project = parametersToObject(parameters);
-            Project project1 = new ProjectDao().get(Integer.parseInt(request.getParameter(ID)));
-            project.setTasks(project1.getTasks());
             Project newProject = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
+            if (newProject != null) {
+                project.setTasks(newProject.getTasks());
+            }
 
             new ProjectDao().update(project);
-            new TaskDao().updateChangedTasks(newProject, project);
 
             response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
         }

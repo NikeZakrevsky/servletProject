@@ -1,10 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
@@ -36,12 +33,37 @@ public class ProjectDao extends AbstractDao<Project> {
     /**
      * Updates information about project in database
      *
-     * @param project project data from form
+     * @param newProject project data from form
      */
     @Override
-    public void update(Project project) {
-        super.update(UPDATE_QUERY, project.getName(), project.getShortName(), project.getDescription(),
-            project.getId());
+    public void update(Project newProject) {
+        super.update(UPDATE_QUERY, newProject.getName(), newProject.getShortName(), newProject.getDescription(),
+            newProject.getId());
+        Project project = get(newProject.getId());
+        updateChangedTasks(newProject, project);
+    }
+
+    private void updateChangedTasks(Project newProject, Project project) {
+        List<Task> resultTasks = newProject.getTasks();
+        List<Task> tasksList = project.getTasks();
+        Set<Object> tasksSet = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
+        Set<Object> resultTasksSet = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
+        TaskDao taskDao = new TaskDao();
+        for (Task task : tasksList) {
+            if (!resultTasksSet.contains(task.getId())) {
+                taskDao.remove(task.getId());
+            }
+        }
+        for (Task resultTask : resultTasks) {
+            if (tasksSet.contains(resultTask.getId())) {
+                taskDao.update(resultTask);
+            }
+        }
+        for (Task resultTask : resultTasks) {
+            if (!tasksSet.contains(resultTask.getId())) {
+                taskDao.add(resultTask);
+            }
+        }
     }
 
     /**
@@ -54,7 +76,6 @@ public class ProjectDao extends AbstractDao<Project> {
     public Project get(int id) {
         return super.get(id, SELECT_PROJECT);
     }
-
 
     /**
      * Gets all projects from database

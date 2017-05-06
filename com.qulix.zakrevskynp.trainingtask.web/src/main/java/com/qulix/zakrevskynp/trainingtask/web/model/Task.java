@@ -142,4 +142,18 @@ public class Task extends BaseDaoEntity {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "name='" + name + '\'' +
+                ", workTime=" + workTime +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", status=" + status +
+                ", projectShortName='" + projectShortName + '\'' +
+                ", projectId=" + projectId +
+                ", person=" + person +
+                '}';
+    }
 }

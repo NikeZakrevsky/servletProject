@@ -6,11 +6,8 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
-import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
 
@@ -164,33 +161,5 @@ public class TaskDao extends AbstractDao<Task> {
             throw new DaoException(e);
         }
 
-    }
-
-    /**
-     * Updates tasks
-     *
-     * @param newProject project with new data
-     * @param project project with old data
-     */
-    public void updateChangedTasks(Project newProject, Project project) {
-        List<Task> resultTasks = newProject.getTasks();
-        List<Task> tasksList = project.getTasks();
-        Set<Object> tasksSet = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
-        Set<Object> resultTasksSet = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
-        for (Task task : tasksList) {
-            if (!resultTasksSet.contains(task.getId())) {
-                remove(task.getId());
-            }
-        }
-        for (Task resultTask : resultTasks) {
-            if (tasksSet.contains(resultTask.getId())) {
-                update(resultTask);
-            }
-        }
-        for (Task resultTask : resultTasks) {
-            if (!tasksSet.contains(resultTask.getId())) {
-                add(resultTask);
-            }
-        }
     }
 }

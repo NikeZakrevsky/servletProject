@@ -98,4 +98,13 @@ public class Project extends BaseDaoEntity {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return "Project{" +
+                "name='" + name + '\'' +
+                ", shortName='" + shortName + '\'' +
+                ", description='" + description + '\'' +
+                ", tasksList=" + tasksList +
+                '}';
+    }
 }
