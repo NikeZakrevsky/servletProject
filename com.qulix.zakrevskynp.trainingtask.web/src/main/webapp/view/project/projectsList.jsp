@@ -6,18 +6,17 @@
     <div class="panel-heading">
         <span class="lead">Список проектов</span>
     </div>
-    <div class="tablecontainer">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Идентификатор</th>
-                    <th>Название</th>
-                    <th>Сокращенное название</th>
-                    <th>Описание</th>
-                    <th width="20%"></th>
-                </tr>
-            </thead>
-            <tbody>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Идентификатор</th>
+                <th>Название</th>
+                <th>Сокращенное название</th>
+                <th>Описание</th>
+                <th width="20%"></th>
+            </tr>
+        </thead>
+        <tbody>
             <c:forEach items="${requestScope.projects}" var="project">
                 <tr>
                     <td>${project.id}</td>
@@ -29,9 +28,8 @@
                     </td>
                 </tr>
             </c:forEach>
-            <tbody>
-        </table>
-    </div>
+        <tbody>
+    </table>
     <a href="addProject"><button type="button" class="btn btn-success custom-width">Добавить</button></a>
 </body>
 </html>
