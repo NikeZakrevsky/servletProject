@@ -45,7 +45,7 @@ public class PersonDao extends AbstractDao<Person> {
      */
     @Override
     public void add(Person person)  {
-        super.add(person, INSERT_QUERY, person.getFirstName(), person.getMiddleName(), person.getLastName(),
+        super.add(INSERT_QUERY, person.getFirstName(), person.getMiddleName(), person.getLastName(),
             person.getPosition());
     }
 

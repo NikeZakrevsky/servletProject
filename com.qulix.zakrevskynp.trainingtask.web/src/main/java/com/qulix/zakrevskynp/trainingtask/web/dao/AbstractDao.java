@@ -53,10 +53,9 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     /**
      * Adds an entity
      *
-     * @param entity entity for adding
      * @param query sql query for inserting entity
      */
-    protected void add(T entity, String query, Object... parameters) {
+    protected void add(String query, Object... parameters) {
         executeQuery(query, parameters);
     }
 

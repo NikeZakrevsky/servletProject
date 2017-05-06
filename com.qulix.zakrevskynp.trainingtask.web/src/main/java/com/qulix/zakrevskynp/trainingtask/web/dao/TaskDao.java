@@ -74,7 +74,7 @@ public class TaskDao extends AbstractDao<Task> {
         if (person != null) {
             personId = person.getId();
         }
-        super.add(task, INSERT_QUERY, task.getName(), task.getWorkTime().toMinutes(), task.getStartDate(),
+        super.add(INSERT_QUERY, task.getName(), task.getWorkTime().toMinutes(), task.getStartDate(),
             task.getEndDate(), task.getStatus().toString(), task.getProjectId(), personId);
     }
     /**
