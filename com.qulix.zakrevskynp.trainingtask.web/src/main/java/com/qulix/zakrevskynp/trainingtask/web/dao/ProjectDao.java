@@ -129,8 +129,7 @@ public class ProjectDao extends AbstractDao<Project> {
      * @return created project object
      * @throws SQLException throws while getting data from @{{@link ResultSet}}
      */
-    @Override
-    protected Project resultSetAsObject(ResultSet resultSet) throws SQLException {
+    private Project resultSetAsObject(ResultSet resultSet) throws SQLException {
         try {
             Integer id = resultSet.getInt(ID);
             String name = resultSet.getString(NAME);

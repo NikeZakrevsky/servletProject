@@ -121,14 +121,6 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Creats Task object from the ResultSet
-     *
-     * @param resultSet resultSet for converting to object
-     * @return created task object
-     */
-    protected abstract T resultSetAsObject(ResultSet resultSet) throws SQLException;
-
-    /**
      * Converts of the ResultSet to a List of objects
      *
      * @param resultSet @{{@link ResultSet}} object converted to list

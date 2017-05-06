@@ -113,7 +113,6 @@ public class TaskDao extends AbstractDao<Task> {
      * @param resultSet resultSet for converting to object
      * @return created task object
      */
-    @Override
     protected Task resultSetAsObject(ResultSet resultSet) throws SQLException {
         try {
             Integer id = resultSet.getInt(ID);

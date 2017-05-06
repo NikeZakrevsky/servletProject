@@ -87,7 +87,6 @@ public class PersonDao extends AbstractDao<Person> {
      * @param resultSet resultSet for converting to object
      * @return created person object
      */
-    @Override
     protected Person resultSetAsObject(ResultSet resultSet) {
         try {
             Integer id = resultSet.getInt(ID);
