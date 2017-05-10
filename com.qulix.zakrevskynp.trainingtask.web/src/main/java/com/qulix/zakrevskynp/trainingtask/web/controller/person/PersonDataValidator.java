@@ -18,7 +18,6 @@ public class PersonDataValidator extends Validator {
     private static final String MIDDLE_NAME = "Фамилия";
     private static final String LAST_NAME = "Отчество";
     private static final String POSITION = "Должность";
-    private static final String ID = "id";
     private static final String FIRST_NAME_FIELD = "firstName";
     private static final String MIDDLE_NAME_FIELD = "middleName";
     private static final String LAST_NAME_FIELD = "lastName";
@@ -42,25 +41,25 @@ public class PersonDataValidator extends Validator {
     }
 
     private void validatePosition(String parameter, List<String> errors) {
-        validateFieldEmpty(parameter, POSITION_FIELD, errors);
-        validateFieldLength(parameter, POSITION_FIELD, errors, 60);
+        validateFieldEmpty(parameter, POSITION, errors);
+        validateFieldLength(parameter, POSITION, errors, 60);
     }
 
     private void validateLastName(String parameter, List<String> errors) {
-        validateFieldEmpty(parameter, LAST_NAME_FIELD, errors);
-        validateFieldLength(parameter, LAST_NAME_FIELD, errors, 20);
-        validateFieldSymbols(parameter, LAST_NAME_FIELD, errors);
+        validateFieldEmpty(parameter, LAST_NAME, errors);
+        validateFieldLength(parameter, LAST_NAME, errors, 20);
+        validateFieldSymbols(parameter, LAST_NAME, errors);
     }
 
     private void validateMiddleName(String parameter, List<String> errors) {
-        validateFieldEmpty(parameter, MIDDLE_NAME_FIELD, errors);
-        validateFieldLength(parameter, MIDDLE_NAME_FIELD, errors, 20);
-        validateFieldSymbols(parameter, MIDDLE_NAME_FIELD, errors);
+        validateFieldEmpty(parameter, MIDDLE_NAME, errors);
+        validateFieldLength(parameter, MIDDLE_NAME, errors, 20);
+        validateFieldSymbols(parameter, MIDDLE_NAME, errors);
     }
 
     private void validateFirstName(String parameter, List<String> errors) {
-        validateFieldEmpty(parameter, FIRST_NAME_FIELD, errors);
-        validateFieldLength(parameter, FIRST_NAME_FIELD, errors, 20);
-        validateFieldSymbols(parameter, FIRST_NAME_FIELD, errors);
+        validateFieldEmpty(parameter, FIRST_NAME, errors);
+        validateFieldLength(parameter, FIRST_NAME, errors, 20);
+        validateFieldSymbols(parameter, FIRST_NAME, errors);
     }
 }

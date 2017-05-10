@@ -16,7 +16,6 @@ public class ProjectDataValidator extends Validator {
 
     private static final String NAME = "Название";
     private static final String SHORT_NAME = "Сокращённое название";
-    private static final String ID = "id";
     private static final String NAME_FIELD = "name";
     private static final String SHORT_NAME_FIELD = "shortName";
 
@@ -36,12 +35,12 @@ public class ProjectDataValidator extends Validator {
     }
 
     private void validateShortName(Object parameter, List<String> errors) {
-        validateFieldEmpty(parameter, SHORT_NAME_FIELD, errors);
-        validateFieldLength(parameter, SHORT_NAME_FIELD, errors, 25);
+        validateFieldEmpty(parameter, SHORT_NAME, errors);
+        validateFieldLength(parameter, SHORT_NAME, errors, 25);
     }
 
     private void validateName(Object parameter, List<String> errors) {
-        validateFieldEmpty(parameter, NAME_FIELD, errors);
-        validateFieldLength(parameter, NAME_FIELD, errors, 25);
+        validateFieldEmpty(parameter, NAME, errors);
+        validateFieldLength(parameter, NAME, errors, 25);
     }
 }

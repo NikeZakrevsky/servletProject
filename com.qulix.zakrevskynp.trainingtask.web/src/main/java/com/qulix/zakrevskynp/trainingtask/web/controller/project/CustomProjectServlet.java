@@ -41,12 +41,4 @@ public class CustomProjectServlet extends BaseHttpServlet {
         request.setAttribute(SHORT_NAME, request.getParameter(SHORT_NAME));
         request.setAttribute(DESCRIPTION , request.getParameter(DESCRIPTION ));
     }
-
-    protected void setObjectToRequest(Project project, HttpServletRequest request) {
-        request.setAttribute(ID, project.getId());
-        request.setAttribute(NAME, project.getName());
-        request.setAttribute(SHORT_NAME, project.getShortName());
-        request.setAttribute(DESCRIPTION, project.getDescription());
-    }
-
 }

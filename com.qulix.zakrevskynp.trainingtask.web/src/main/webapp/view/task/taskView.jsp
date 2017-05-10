@@ -87,7 +87,7 @@
             <div class="form-group col-md-12">
                 <label class="col-md-2">Проект</label>
                 <div class="col-md-3">
-                    <select id = "lol" name="projectId1" ${requestScope.isDisable ? 'disabled="true"' : ''}>
+                    <select name="projectIdDisabled" ${requestScope.isDisable ? 'disabled="true"' : ''}>
                         <option value="" selected="selected"> -- select an option -- </option>
                         <c:forEach items="${requestScope.projects}" var="project">
                             <option value="${project.id}" ${((project.id.toString()).equals(requestScope.projectId.toString())) ? 'selected="selected"' : ''}>

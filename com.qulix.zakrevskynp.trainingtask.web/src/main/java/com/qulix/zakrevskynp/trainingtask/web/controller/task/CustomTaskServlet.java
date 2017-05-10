@@ -25,8 +25,8 @@ public class CustomTaskServlet extends BaseHttpServlet {
     private static final String STARTDATE = "startDate";
     private static final String ENDDATE = "endDate";
     private static final String STATUS = "taskStatus";
-    private static final String PROJECTID1 = "projectId1";
-    private static final String PROJECTID = "projectId";
+    private static final String PROJECT_ID_DISABLED = "projectIdDisabled";
+    private static final String PROJECT_ID = "projectId";
     private static final String PERSONID = "personId";
     private static final String SHORTNAME = "shortname";
     private static final String PERSON = "person";
@@ -41,9 +41,8 @@ public class CustomTaskServlet extends BaseHttpServlet {
         request.setAttribute(STARTDATE, request.getParameter(STARTDATE));
         request.setAttribute(ENDDATE , request.getParameter(ENDDATE));
         request.setAttribute(STATUS , request.getParameter(STATUS));
-        request.setAttribute(PROJECTID, request.getParameter(PROJECTID1));
+        request.setAttribute(PROJECT_ID, request.getParameter(PROJECT_ID_DISABLED));
         request.setAttribute(PERSONID , request.getParameter(PERSONID));
-        System.out.println("PR : " + request.getParameter(PROJECTID1));
     }
 
     /**
@@ -63,11 +62,11 @@ public class CustomTaskServlet extends BaseHttpServlet {
         Date endDate = stringToDate(parameters.getParameter(ENDDATE));
         TaskStatus status = TaskStatus.fromString(parameters.getParameter(STATUS));
         Integer projectId = null;
-        if (parameters.getParameter(PROJECTID1) != null && !parameters.getParameter(PROJECTID1).equals("")) {
-            projectId = Integer.parseInt(parameters.getParameter(PROJECTID1));
+        if (parameters.getParameter(PROJECT_ID_DISABLED) != null && !parameters.getParameter(PROJECT_ID_DISABLED).equals("")) {
+            projectId = Integer.parseInt(parameters.getParameter(PROJECT_ID_DISABLED));
         }
-        if (parameters.getParameter(PROJECTID) != null && !parameters.getParameter(PROJECTID).equals("")) {
-            projectId = Integer.parseInt(parameters.getParameter(PROJECTID));
+        if (parameters.getParameter(PROJECT_ID) != null && !parameters.getParameter(PROJECT_ID).equals("")) {
+            projectId = Integer.parseInt(parameters.getParameter(PROJECT_ID));
         }
         Integer personId = null;
         if (!parameters.getParameter(PERSONID).equals("")) {
@@ -107,7 +106,7 @@ public class CustomTaskServlet extends BaseHttpServlet {
         request.setAttribute(STARTDATE, task.getStartDate());
         request.setAttribute(ENDDATE , task.getEndDate());
         request.setAttribute(STATUS , task.getStatus());
-        request.setAttribute(PROJECTID, task.getProjectId());
+        request.setAttribute(PROJECT_ID, task.getProjectId());
         request.setAttribute(PERSON , task.getPerson());
     }
 

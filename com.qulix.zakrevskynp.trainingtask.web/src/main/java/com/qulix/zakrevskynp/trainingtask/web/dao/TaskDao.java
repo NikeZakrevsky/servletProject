@@ -111,7 +111,7 @@ public class TaskDao extends AbstractDao<Task> {
     protected Task resultSetAsObject(ResultSet resultSet) throws SQLException {
         Integer id = resultSet.getInt(ID);
         String name = resultSet.getString(NAME);
-        Duration time = Duration.ofMinutes(resultSet.getInt(TIME));
+        Duration workTime = Duration.ofMinutes(resultSet.getInt(TIME));
         Date startDate = resultSet.getDate(STARTDATE);
         Date endDate = resultSet.getDate(ENDDATE);
         String stringStatus = resultSet.getString(STATUS);
@@ -126,7 +126,7 @@ public class TaskDao extends AbstractDao<Task> {
         if (personId != null) {
             person = new PersonDao().resultSetAsObject(resultSet);
         }
-        Task task = new Task(id, name, time, startDate, endDate, status, person);
+        Task task = new Task(id, name, workTime, startDate, endDate, status, person);
         task.setProjectId(projectId);
         task.setPerson(person);
         task.setProjectShortName(projectShortName);

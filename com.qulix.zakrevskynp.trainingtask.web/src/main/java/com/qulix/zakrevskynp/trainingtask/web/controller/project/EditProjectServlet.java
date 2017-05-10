@@ -78,7 +78,6 @@ public class EditProjectServlet extends CustomProjectServlet {
         else {
             project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
         }
-        System.out.println(project);
         request.setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
         request.getSession().setAttribute(Attribute.PATH, EDIT_PROJECT + request.getParameter(ID));
         request.setAttribute(Attribute.PATH, EDIT_PROJECT + request.getParameter(ID));

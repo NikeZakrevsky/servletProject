@@ -108,8 +108,8 @@ public abstract class Validator {
     protected void validateDateTime(java.util.Date startDate, java.util.Date endDate, String workTime, String error,
         List<String> errors) {
         Duration duration = Duration.ofMinutes((long) (int) (Float.parseFloat(workTime) * 60));
-        long diff = endDate.getTime() - startDate.getTime();
-        if (duration.toMinutes() / 60.0 - (TimeUnit.HOURS.convert(diff, TimeUnit.MILLISECONDS) + 24) > 0) {
+        long timeDifference = endDate.getTime() - startDate.getTime();
+        if (duration.toMinutes() / 60.0 - (TimeUnit.HOURS.convert(timeDifference, TimeUnit.MILLISECONDS) + 24) > 0) {
             errors.add(error);
         }
     }

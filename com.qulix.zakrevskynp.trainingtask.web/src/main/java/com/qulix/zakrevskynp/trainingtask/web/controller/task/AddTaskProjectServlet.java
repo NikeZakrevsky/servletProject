@@ -1,6 +1,5 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.task;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,9 +70,9 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
         if (tasks == null) {
             tasks = new ArrayList<>();
         }
-        for (Task task1 : tasks) {
-            if (task1.getId() > id) {
-                id = task1.getId();
+        for (Task newTask : tasks) {
+            if (newTask.getId() > id) {
+                id = newTask.getId();
             }
         }
         task.setId(id + 1);

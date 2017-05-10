@@ -24,7 +24,7 @@ public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
 
     private static final String ID = "id";
     private static final String IS_DISABLE = "isDisable";
-
+    private static final String PROJECT_ID = "projectId";
     /**
      * Form data processing
      *
@@ -50,7 +50,7 @@ public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
         request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDao().getAll());
         request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDao().getAll());
         if (!request.getParameter(ID).equals("")) {
-            request.setAttribute("projectId", Integer.parseInt(request.getParameter(ID)));
+            request.setAttribute(PROJECT_ID , Integer.parseInt(request.getParameter(ID)));
         }
         request.setAttribute(IS_DISABLE, true);
         request.setAttribute(Attribute.ACTION, Attribute.TASK_PROJECT);

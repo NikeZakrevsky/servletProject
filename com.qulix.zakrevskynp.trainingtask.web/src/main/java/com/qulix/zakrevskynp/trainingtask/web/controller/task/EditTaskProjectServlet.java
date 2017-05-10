@@ -64,10 +64,10 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
         int index = 0;
         task.setStartDate(new java.sql.Date(task.getStartDate().getTime()));
         task.setEndDate(new java.sql.Date(task.getEndDate().getTime()));
-        for (Task task1 : tasks) {
-            if (task1.getId() == id) {
+        for (Task newTask : tasks) {
+            if (newTask.getId() == id) {
                 setPerformer(task);
-                index = tasks.indexOf(task1);
+                index = tasks.indexOf(newTask);
                 break;
             }
         }

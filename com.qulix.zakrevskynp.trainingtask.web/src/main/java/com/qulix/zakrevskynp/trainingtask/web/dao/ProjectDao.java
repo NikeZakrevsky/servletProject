@@ -29,6 +29,7 @@ public class ProjectDao extends AbstractDao<Project> {
     private static final String SHORTNAME = "short_name";
     private static final String DESCRIPTION = "description";
     private static final String ADD_ERROR = "Exception while adding entity";
+    private static final String TASK_ID = "task_id";
 
     /**
      * Updates information about project in database
@@ -108,7 +109,7 @@ public class ProjectDao extends AbstractDao<Project> {
      *
      *  @param project new project
      */
-    public void add(Project project, String insertQuery, Object... parameters) {
+    public void add(Project project, Object... parameters) {
         List<Task> tasks = project.getTasks();
         ResultSet generatedKeys = null;
         Connection connection = null;
@@ -181,7 +182,7 @@ public class ProjectDao extends AbstractDao<Project> {
             if (tasks == null) {
                 project.setTasks(new ArrayList<>());
             }
-            if (resultSet.getObject("task_id") != null) {
+            if (resultSet.getObject(TASK_ID) != null) {
                 Task task = taskDao.resultSetAsObject(resultSet);
                 project.getTasks().add(task);
             }

@@ -17,9 +17,9 @@ public class LoggingFactory {
 
     static {
         try {
-            FileInputStream configFile = new FileInputStream("com.qulix.zakrevskynp.trainingtask.web/src/main/resources/logger." +
+            FileInputStream configurationFile = new FileInputStream("com.qulix.zakrevskynp.trainingtask.web/src/main/resources/logger." +
                     "properties");
-            LogManager.getLogManager().readConfiguration(configFile);
+            LogManager.getLogManager().readConfiguration(configurationFile);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Exception: " + LOAD_CONFIGURATION_ERROR + e);
         }
