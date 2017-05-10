@@ -8,5 +8,6 @@
 5. Удаление базы данных (если необходимо) `gradlew dropDatabase`6
 6. Вставка тестовых данных в базу данных `gradlew insertTestData`
 7. Очистка сборки `gradlew clean`
+
 ### Домашняя страница
 `localhost:8080`
