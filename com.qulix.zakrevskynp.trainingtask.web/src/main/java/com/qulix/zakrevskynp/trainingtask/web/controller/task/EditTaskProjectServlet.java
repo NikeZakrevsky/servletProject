@@ -42,7 +42,8 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
         if (errors.isEmpty()) {
             Task task = parametersToObject(request);
             Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
-            List<Task> resultTasks = updateTaskInSessionList(task, project.getTasks(), Integer.parseInt(request.getParameter(ID)));
+            List<Task> resultTasks = updateTaskInSessionList(task, project.getTasks(), Integer.parseInt(request.
+                getParameter(ID)));
             project.setTasks(resultTasks);
             request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
 
