@@ -1,8 +1,8 @@
 package com.qulix.zakrevskynp.trainingtask.web.dao;
 
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -22,7 +22,7 @@ class ConnectionFactory {
     private static final String PASSWORD = "password";
     private static final String DRIVER_CLASS = "driverClass";
     private static final String URL = "url";
-    private static final String JDBC_PROPERTIES = "com.qulix.zakrevskynp.trainingtask.web/src/main/resources/jdbc.properties";
+    private static final String JDBC_PROPERTIES = "jdbc.properties";
     private static final String DATABASE_CONNECTION_ERROR = "Ошибка подключения к базе данных";
     private static final Logger LOGGER = LoggingFactory.getLogger();
     private static final String READ_PROPERTIES_ERROR = "Файл настроек базы данных не найден";
@@ -53,9 +53,10 @@ class ConnectionFactory {
      * Reads properties of the database connection
      */
     private static void readDatabaseProperties() {
+        InputStream stream = ConnectionFactory.class.getClassLoader().getResourceAsStream(JDBC_PROPERTIES);
         Properties databaseProperties = new Properties();
         try {
-            databaseProperties.load(new FileInputStream(JDBC_PROPERTIES));
+            databaseProperties.load(stream);
             urlProperty = databaseProperties.getProperty(URL);
             userProperty = databaseProperties.getProperty(USER);
             passwordProperty = databaseProperties.getProperty(PASSWORD);
