@@ -10,28 +10,32 @@
         <label class="col-md-2">Идентификатор</label>
         <div class="row">
             <div class="col-md-3">
-                <input class="form-group col-md-12" type = "text" name = "id" size = "65" value = "${requestScope.project.id}" readonly/>
+                <input class="form-group col-md-12" type = "text" name = "id" size = "65"
+                    value = "${requestScope.project.id}" readonly/>
             </div>
         </div>
 
         <label class="col-md-2">Название</label>
         <div class="row">
             <div class="col-md-3">
-                <input class="form-group col-md-12" type = "text" name = "name" size = "65" maxlength="20" value = "${requestScope.project.name}"/>
+                <input class="form-group col-md-12" type = "text" name = "name" size = "65" maxlength="20"
+                    value = "${requestScope.project.name}"/>
             </div>
         </div>
 
         <label class="col-md-2">Сокращенное название</label>
         <div class="row">
             <div class="col-md-3">
-                <input class="form-group col-md-12" type = "text" name = "shortName" size = "65" maxlength="20" value = "${requestScope.project.shortName}"/>
+                <input class="form-group col-md-12" type = "text" name = "shortName" size = "65" maxlength="20"
+                    value = "${requestScope.project.shortName}"/>
             </div>
         </div>
 
         <label class="col-md-2">Описание</label>
         <div class="row">
             <div class="col-md-3">
-                <input class="form-group col-md-12" type = "text" name = "description" size = "65" maxlength="20" value = "${requestScope.project.description}"/>
+                <input class="form-group col-md-12" type = "text" name = "description" size = "65" maxlength="20"
+                    value = "${requestScope.project.description}"/>
             </div>
         </div>
 
@@ -60,8 +64,10 @@
                         <td>${task.person.firstName} ${task.person.middleName} ${task.person.lastName}</td>
                         <td>${task.status.toString()}</td>
                         <td>
-                            <button onclick="this.form.action = 'removeTaskProject?taskId=${task.id}&id=${requestScope.project.id}'" type="submit" class="btn btn-danger custom-width">Удалить</button>
-                            <button onclick = "this.form.action = 'editTaskProject1?taskId=${task.id}'" type="submit" class="btn btn-success custom-width">Изменить</button>
+                            <button onclick="this.form.action = 'removeTaskProject?taskId=${task.id}&id=${requestScope.project.id}'"
+                                type="submit" class="btn btn-danger custom-width">Удалить</button>
+                            <button onclick = "this.form.action = 'editTaskProject1?taskId=${task.id}'" type="submit"
+                                class="btn btn-success custom-width">Изменить</button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -71,7 +77,8 @@
         <div style = "margin-bottom: 20px;">
             <c:choose>
                 <c:when test="${requestScope.action.equals('editProject')}">
-                    <button onclick = "this.form.action = 'taskProject1?projectId=${requestScope.project.id}'" type="submit" class="btn btn-success custom-width">Добавить</button>
+                    <button onclick = "this.form.action = 'taskProject1?projectId=${requestScope.project.id}'" type="submit"
+                        class="btn btn-success custom-width">Добавить</button>
                 </c:when>
                 <c:otherwise>
                     <button onclick = "this.form.action = 'taskProject1'" type="submit" class="btn btn-success custom-width">Добавить</button>
