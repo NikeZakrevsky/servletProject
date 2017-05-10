@@ -1,6 +1,5 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -18,7 +17,6 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
  */
 @WebServlet("/removeProject")
 public class RemoveProjectServlet extends CustomProjectServlet {
-
     private static final String ID = "id";
 
     /**

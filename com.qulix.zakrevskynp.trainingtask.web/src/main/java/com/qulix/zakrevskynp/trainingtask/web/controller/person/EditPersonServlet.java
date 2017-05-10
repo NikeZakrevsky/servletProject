@@ -20,7 +20,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
  */
 @WebServlet("/editPerson")
 public class EditPersonServlet extends CustomPersonServlet {
-
     private static final String ID = "id";
 
     /**
@@ -60,9 +59,10 @@ public class EditPersonServlet extends CustomPersonServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Person person = new PersonDao().get(Integer.parseInt(request.getParameter(ID)));
+
         request.setAttribute(Attribute.PERSON_OBJECT_NAME, person);
-        setObjectToRequest(person, request);
         request.setAttribute(Attribute.ACTION, Attribute.EDIT_PERSON);
+        setObjectToRequest(person, request);
 
         request.getRequestDispatcher(Attribute.PERSON_VIEW).forward(request, response);
     }

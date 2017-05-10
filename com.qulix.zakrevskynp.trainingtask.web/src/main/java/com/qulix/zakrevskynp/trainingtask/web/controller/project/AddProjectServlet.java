@@ -21,7 +21,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Project;
  */
 @WebServlet("/addProject")
 public class AddProjectServlet extends CustomProjectServlet {
-
     /**
      * Form data processing
      *

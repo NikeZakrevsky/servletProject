@@ -25,9 +25,9 @@ public class PersonDao extends AbstractDao<Person> {
     private static final String MIDDLE_NAME = "middle_name";
     private static final String LAST_NAME = "last_name";
     private static final String POSITION = "position";
-
     private static final String TO_LIST_ERROR = "Error while converting result set to list";
     private static final String TO_OBJECT_ERROR = "Error while converting result set to object";
+
     /**
      * Gets a list of persons
      *
@@ -94,6 +94,7 @@ public class PersonDao extends AbstractDao<Person> {
             String middleName = resultSet.getString(MIDDLE_NAME);
             String lastName = resultSet.getString(LAST_NAME);
             String position = resultSet.getString(POSITION);
+
             return new Person(id, firstName, middleName, lastName, position);
         }
         catch (SQLException e) {
@@ -114,11 +115,11 @@ public class PersonDao extends AbstractDao<Person> {
             while (resultSet.next()) {
                 persons.add(resultSetAsObject(resultSet));
             }
+
             return persons;
         }
         catch (SQLException e) {
             throw new DaoException(TO_LIST_ERROR, e);
         }
     }
-
 }

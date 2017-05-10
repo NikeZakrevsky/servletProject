@@ -14,7 +14,6 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
  * @author Q-NZA
  */
 public class TaskDataValidator extends Validator {
-
     private static final String START_DATE_ERROR = "Неверный формат поля \"Дата начала\"";
     private static final String END_DATE_ERROR = "Неверный формат поля \"Дата окончания\"";
     private static final String END_BEFORE_START_ERROR = "Дата начала должна быть раньше даты окончания";
@@ -25,13 +24,8 @@ public class TaskDataValidator extends Validator {
     private static final String NAME_FIELD = "name";
     private static final String END_DATE_FIELD = "endDate";
     private static final String WORK_TIME_FIELD = "workTime";
-    private static final String ID = "id";
-    private static final String PROJECT_ID_FIELD = "projectId";
-    private static final String PROJECT_ID1_FIELD = "projectId1";
     private static final String STATUS_FIELD = "taskStatus";
-    private static final String PERSON_ID_FIELD = "personId";
     private static final String BETWEEN_ERROR = "Время работы больше, чем между датами";
-
     private Date startDate;
     private Date endDate;
 
@@ -51,6 +45,7 @@ public class TaskDataValidator extends Validator {
         if (isWorkTimeValid && isDatesValid) {
             validateDateTime(startDate, endDate, parameters.getParameter(WORK_TIME_FIELD), BETWEEN_ERROR, errors);
         }
+
         return errors;
     }
 
@@ -63,7 +58,6 @@ public class TaskDataValidator extends Validator {
     }
 
     private boolean validateDates(String startDateField, String endDateField, List<String> errors) {
-
         startDate = validateDate(startDateField, START_DATE_ERROR, errors);
         endDate = validateDate(endDateField, END_DATE_ERROR, errors);
 
@@ -81,5 +75,4 @@ public class TaskDataValidator extends Validator {
         validateFieldEmpty(parameter, NAME, errors);
         validateFieldLength(parameter, NAME, errors, 20);
     }
-        
 }

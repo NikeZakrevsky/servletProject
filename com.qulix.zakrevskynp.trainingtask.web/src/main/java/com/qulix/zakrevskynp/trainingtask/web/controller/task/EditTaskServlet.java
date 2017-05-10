@@ -22,7 +22,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 @WebServlet("/editTask")
 public class EditTaskServlet extends CustomTaskServlet {
-
     private String returningPath;
     private static final String ID = "id";
     private static final String IS_DISABLE = "isDisable";
@@ -77,6 +76,7 @@ public class EditTaskServlet extends CustomTaskServlet {
             request.setAttribute(IS_DISABLE, true);
         }
         setObjectToRequest(task, request);
+
         request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
     }
 }

@@ -21,10 +21,10 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 @WebServlet("/taskProject1")
 public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
-
     private static final String ID = "id";
     private static final String IS_DISABLE = "isDisable";
     private static final String PROJECT_ID = "projectId";
+
     /**
      * Form data processing
      *

@@ -22,7 +22,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 @WebServlet("/editProject")
 public class EditProjectServlet extends CustomProjectServlet {
-
     private static final String ID = "id";
     private static final String EDIT_PROJECT = "editProject?id=";
 

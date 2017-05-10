@@ -11,7 +11,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Project;
  * @author Q-NZA
  */
 public class CustomProjectServlet extends BaseHttpServlet {
-
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String SHORT_NAME = "shortName";

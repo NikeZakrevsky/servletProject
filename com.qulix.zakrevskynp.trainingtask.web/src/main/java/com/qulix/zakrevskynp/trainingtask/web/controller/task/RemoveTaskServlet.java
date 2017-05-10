@@ -18,7 +18,6 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDao;
  */
 @WebServlet("/removeTask")
 public class RemoveTaskServlet extends BaseHttpServlet {
-
     private static final String ID = "id";
 
     /**

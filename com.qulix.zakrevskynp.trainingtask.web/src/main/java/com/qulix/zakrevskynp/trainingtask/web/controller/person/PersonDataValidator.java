@@ -13,7 +13,6 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
  * @author Q-NZA
  */
 public class PersonDataValidator extends Validator {
-
     private static final String FIRST_NAME = "Имя";
     private static final String MIDDLE_NAME = "Фамилия";
     private static final String LAST_NAME = "Отчество";

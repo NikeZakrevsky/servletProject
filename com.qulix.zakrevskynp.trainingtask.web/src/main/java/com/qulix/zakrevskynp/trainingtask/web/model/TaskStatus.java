@@ -17,7 +17,7 @@ public enum TaskStatus {
     /**
      * Gets status
      *
-     * @return
+     * @return status of the task
      */
     @Override
     public String toString() {

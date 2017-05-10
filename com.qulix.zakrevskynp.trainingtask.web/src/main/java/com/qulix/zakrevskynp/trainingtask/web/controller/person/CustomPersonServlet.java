@@ -11,7 +11,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
  * @author Q-NZA
  */
 class CustomPersonServlet extends BaseHttpServlet {
-
     private static final String ID = "id";
     private static final String FIRST_NAME = "firstName";
     private static final String MIDDLE_NAME = "middleName";

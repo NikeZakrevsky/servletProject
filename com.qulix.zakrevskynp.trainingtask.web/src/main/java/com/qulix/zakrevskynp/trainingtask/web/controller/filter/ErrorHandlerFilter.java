@@ -17,7 +17,6 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
  */
 @WebFilter(filterName = "errorHandlerServlet", urlPatterns = {"/*"})
 public class ErrorHandlerFilter implements Filter {
-
     private static final Logger LOGGER = LoggingFactory.getLogger();
     private static final String DATABASE_ERROR = "Ошибка при чтении данных";
 

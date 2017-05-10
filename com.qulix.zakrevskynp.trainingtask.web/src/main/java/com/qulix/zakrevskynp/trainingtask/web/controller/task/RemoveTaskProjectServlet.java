@@ -21,7 +21,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 @WebServlet("/removeTaskProject")
 public class RemoveTaskProjectServlet extends CustomProjectServlet {
-
     private static final String TASK_ID = "taskId";
 
     /**
@@ -52,6 +51,7 @@ public class RemoveTaskProjectServlet extends CustomProjectServlet {
 
     private List<Task> removeTask(int id, List<Task> tasks) {
         tasks.removeIf(task -> task.getId() == id);
+
         return tasks;
     }
 

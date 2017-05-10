@@ -7,14 +7,12 @@ import java.util.stream.Collectors;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
-
 /**
  * Using DAO pattern for operations with @{{@link Project}} objects
  *
  * @author Q-NZA
  */
 public class ProjectDao extends AbstractDao<Project> {
-
     private static final String SELECT_QUERY = "select project_id, project_name, short_name, description, task_id, task_name," +
         "work_time, start_date, end_date, status, project_id, person_id, first_name,middle_name, last_name, position as person " +
         "from projects left join tasks on tasks.project_id =projects.project_id left join persons on tasks.person_id = persons." +
@@ -87,7 +85,6 @@ public class ProjectDao extends AbstractDao<Project> {
     public List<Project> getAll() {
         return super.getAll(SELECT_QUERY);
     }
-
 
     /**
      * Removes project from database by id

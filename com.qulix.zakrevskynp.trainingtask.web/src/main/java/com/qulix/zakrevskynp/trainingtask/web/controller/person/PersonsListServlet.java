@@ -18,7 +18,6 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDao;
  */
 @WebServlet("/personsList")
 public class PersonsListServlet extends CustomPersonServlet {
-
     /**
      * Displays a list of persons
      *

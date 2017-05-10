@@ -22,7 +22,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 @WebServlet("/addTask")
 public class AddTaskServlet extends CustomTaskServlet {
-
     /**
      * Form data processing
      *

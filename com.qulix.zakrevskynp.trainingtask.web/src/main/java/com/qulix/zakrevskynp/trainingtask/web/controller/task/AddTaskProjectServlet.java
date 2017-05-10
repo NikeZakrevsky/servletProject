@@ -22,7 +22,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 @WebServlet("/taskProject")
 public class AddTaskProjectServlet extends CustomTaskServlet {
-
     private static final String IS_DISABLE = "isDisable";
 
     /**
@@ -54,6 +53,7 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
             request.setAttribute(Attribute.ACTION, Attribute.TASK_PROJECT);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
             setAttributesToRequest(request);
+
             request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
         }
     }
@@ -77,6 +77,7 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
         }
         task.setId(id + 1);
         tasks.add(task);
+
         return tasks;
     }
 }

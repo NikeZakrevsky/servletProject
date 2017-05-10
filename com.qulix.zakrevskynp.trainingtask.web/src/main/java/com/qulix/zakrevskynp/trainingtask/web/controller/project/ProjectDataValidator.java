@@ -13,7 +13,6 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
  * @author Q-NZA
  */
 public class ProjectDataValidator extends Validator {
-
     private static final String NAME = "Название";
     private static final String SHORT_NAME = "Сокращённое название";
     private static final String NAME_FIELD = "name";

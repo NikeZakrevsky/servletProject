@@ -75,7 +75,7 @@ public class Project extends BaseDaoEntity {
     /**
      * Sets name of the project
      *
-     * @param name
+     * @param name name of the project
      */
     public void setName(String name) {
         this.name = name;
@@ -84,15 +84,16 @@ public class Project extends BaseDaoEntity {
     /**
      * Sets short name of the project
      *
-     * @param shortName
+     * @param shortName short name of the project
      */
     public void setShortName(String shortName) {
         this.shortName = shortName;
     }
 
     /**
+     * Gets description of the project
      *
-     * @param description
+     * @param description description of the project
      */
     public void setDescription(String description) {
         this.description = description;

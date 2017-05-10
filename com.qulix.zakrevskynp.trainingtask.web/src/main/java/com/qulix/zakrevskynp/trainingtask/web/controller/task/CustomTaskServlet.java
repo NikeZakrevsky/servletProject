@@ -83,6 +83,7 @@ public class CustomTaskServlet extends BaseHttpServlet {
         task.setProjectId(projectId);
         task.setPerson(person);
         task.setProjectShortName(projectShortName);
+
         return task;
     }
 

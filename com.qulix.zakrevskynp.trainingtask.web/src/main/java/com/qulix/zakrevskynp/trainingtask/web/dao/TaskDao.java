@@ -64,7 +64,6 @@ public class TaskDao extends AbstractDao<Task> {
      *
      * @param task task form data
      */
-
     @Override
     public void add(Task task) {
         Person person = task.getPerson();
@@ -75,6 +74,7 @@ public class TaskDao extends AbstractDao<Task> {
         super.add(INSERT_QUERY, task.getName(), task.getWorkTime().toMinutes(), task.getStartDate(),
             task.getEndDate(), task.getStatus().toString(), task.getProjectId(), personId);
     }
+
     /**
      * Gets task by id
      *
@@ -130,9 +130,9 @@ public class TaskDao extends AbstractDao<Task> {
         task.setProjectId(projectId);
         task.setPerson(person);
         task.setProjectShortName(projectShortName);
+
         return task;
     }
-
 
     /**
      * Converts the ResultSet to a List of objects
@@ -146,6 +146,7 @@ public class TaskDao extends AbstractDao<Task> {
         while (resultSet.next()) {
             tasks.add(resultSetAsObject(resultSet));
         }
+
         return tasks;
     }
 }

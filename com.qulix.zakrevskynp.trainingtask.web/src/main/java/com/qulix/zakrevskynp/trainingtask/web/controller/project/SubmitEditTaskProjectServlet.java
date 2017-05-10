@@ -1,6 +1,5 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -23,7 +22,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 @WebServlet("/editTaskProject1")
 public class SubmitEditTaskProjectServlet extends CustomProjectServlet {
-
     private static final String IS_DISABLE = "isDisable";
     private static final String TASK_ID = "taskId";
     private static final String EDIT_TASK_PROJECT = "editTaskProject";

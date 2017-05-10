@@ -14,7 +14,6 @@ import java.util.function.Predicate;
  * @author Q-NZA
  */
 public abstract class Validator {
-
     private static final String EMPTY_ERROR = "Укажите значение поля \"%s\"";
     private static final String LENGTH_ERROR = "Длина поля \"%s\" не должна превышать 20 символов";
     private static final String SYMBOLS_ERROR = "Поле \"%s\" должно содержать только латинские и русские буквы";
@@ -38,6 +37,7 @@ public abstract class Validator {
             errors.add(String.format(LENGTH_ERROR, fieldName));
             return false;
         }
+
         return true;
     }
 
@@ -53,6 +53,7 @@ public abstract class Validator {
             errors.add(String.format(EMPTY_ERROR, fieldName));
             return false;
         }
+
         return true;
     }
 
@@ -92,6 +93,7 @@ public abstract class Validator {
             return dateFormat.parse(field.toString());
         } catch (ParseException e) {
             errors.add(error);
+
             return null;
         }
     }

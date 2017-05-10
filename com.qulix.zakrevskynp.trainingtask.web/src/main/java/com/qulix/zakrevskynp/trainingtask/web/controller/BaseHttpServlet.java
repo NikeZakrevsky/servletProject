@@ -13,7 +13,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  * @author Q-NZA
  */
 public class BaseHttpServlet extends HttpServlet {
-
     /**
      * Cast Object to List<Task> for avoiding unchecked cast warning
      *
@@ -35,5 +34,4 @@ public class BaseHttpServlet extends HttpServlet {
 
         return result;
     }
-
 }

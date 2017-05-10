@@ -23,7 +23,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
  */
 @WebServlet("/editTaskProject")
 public class EditTaskProjectServlet extends CustomTaskServlet {
-
     private static final String ID = "id";
 
     /**
@@ -72,6 +71,7 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
             }
         }
         tasks.set(index, task);
+
         return tasks;
     }
 
