@@ -3,7 +3,6 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.person;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,20 +30,18 @@ public class AddPersonServlet extends CustomPersonServlet {
      * @throws IOException input/output exception
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Map<String, Object> parameters = getParametersFromRequest(request);
-
         PersonDataValidator personDataValidator = new PersonDataValidator();
-        List<String> errors = personDataValidator.validate(parameters);
+        List<String> errors = personDataValidator.validate(request);
 
         if (errors.isEmpty()) {
-            Person person = parametersToObject(parameters);
+            Person person = parametersToObject(request);
             new PersonDao().add(person);
 
             response.sendRedirect(Attribute.REDIRECT_PERSON_LIST);
         }
         else {
+            setAttributesToRequest(request);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
-            request.setAttribute(Attribute.PERSON_OBJECT_NAME, parameters);
             request.setAttribute(Attribute.ACTION, Attribute.ADD_PERSON);
 
             request.getRequestDispatcher(Attribute.PERSON_VIEW).forward(request, response);

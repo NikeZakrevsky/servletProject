@@ -59,22 +59,20 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
         executeQuery(query, parameters);
     }
 
-    private void executeQuery(String query, Object... parameters) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+    /**
+     * Sets parameters to prepared statement
+     *
+     * @param preparedStatement link of the prepared statement for setting parameters
+     */
+    protected void setPreparedStatement(PreparedStatement preparedStatement, Object... parameters) {
         try {
-            connection = ConnectionFactory.getConnection();
-            preparedStatement = connection.prepareStatement(query);
-            setPreparedStatement(preparedStatement, parameters);
-            preparedStatement.execute();
-            connection.commit();
+            for (int i = 0; i < parameters.length; i++) {
+                Object param = parameters[i];
+                preparedStatement.setObject(i + 1, param);
+            }
         }
         catch (SQLException e) {
             throw new DaoException(e);
-        }
-        finally {
-            closeConnection(connection);
-            closeStatement(preparedStatement);
         }
     }
 
@@ -129,23 +127,6 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     protected abstract List<T> resultSetToList(ResultSet resultSet) throws SQLException;
 
     /**
-     * Sets parameters to prepared statement
-     *
-     * @param preparedStatement link of the prepared statement for setting parameters
-     */
-    protected void setPreparedStatement(PreparedStatement preparedStatement, Object... parameters) {
-        try {
-            for (int i = 0; i < parameters.length; i++) {
-                Object param = parameters[i];
-                preparedStatement.setObject(i + 1, param);
-            }
-        }
-        catch (SQLException e) {
-            throw new DaoException(e);
-        }
-    }
-
-    /**
      * Closes result set
      *
      * @param resultSet result set for closing
@@ -190,6 +171,25 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
             catch (SQLException e) {
                 //
             }
+        }
+    }
+
+    private void executeQuery(String query, Object... parameters) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionFactory.getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            setPreparedStatement(preparedStatement, parameters);
+            preparedStatement.execute();
+            connection.commit();
+        }
+        catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        finally {
+            closeConnection(connection);
+            closeStatement(preparedStatement);
         }
     }
 }

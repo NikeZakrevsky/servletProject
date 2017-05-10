@@ -143,6 +143,14 @@ public class Task extends BaseDaoEntity {
         this.person = person;
     }
 
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     @Override
     public String toString() {
         return "Task{" +

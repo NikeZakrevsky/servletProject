@@ -37,11 +37,28 @@
 
         <span class="lead panel-heading">Список задач</span>
         <table class="table table-hover">
-            <%@ include file="../share/tasksHeader.jsp" %>
+            <thead>
+                <tr>
+                    <th>Идентификатор</th>
+                    <th>Проект</th>
+                    <th>Название</th>
+                    <th>Дата начала</th>
+                    <th>Дата окончания</th>
+                    <th>Исполнитель</th>
+                    <th>Статус</th>
+                    <th width="20%"></th>
+                </tr>
+            </thead>
             <tbody>
                 <c:forEach items="${requestScope.project.tasks}" var="task">
                     <tr>
-                        <%@ include file="../share/tasksContent.jsp" %>
+                        <td>${task.id}</td>
+                        <td>${task.projectShortName}</td>
+                        <td>${task.name}</td>
+                        <td>${task.startDate}</td>
+                        <td>${task.endDate}</td>
+                        <td>${task.person.firstName} ${task.person.middleName} ${task.person.lastName}</td>
+                        <td>${task.status.toString()}</td>
                         <td>
                             <button onclick="this.form.action = 'removeTaskProject?taskId=${task.id}&id=${requestScope.project.id}'" type="submit" class="btn btn-danger custom-width">Удалить</button>
                             <button onclick = "this.form.action = 'editTaskProject1?taskId=${task.id}'" type="submit" class="btn btn-success custom-width">Изменить</button>

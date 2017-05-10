@@ -3,7 +3,6 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,12 +36,10 @@ public class SubmitEditTaskProjectServlet extends CustomProjectServlet {
      * @throws IOException input/output exception
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Map<String, Object> parameters = getParametersFromRequest(request);
-
         ProjectDataValidator projectDataValidator = new ProjectDataValidator();
-        projectDataValidator.validate(parameters);
+        projectDataValidator.validate(request);
 
-        Project newProject = parametersToObject(parameters);
+        Project newProject = parametersToObject(request);
         Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
         project.setName(newProject.getName());
         project.setShortName(newProject.getShortName());

@@ -4,7 +4,6 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.task;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,13 +37,11 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute(IS_DISABLE, true);
 
-        Map<String, Object> parameters = getParametersFromRequest(request);
-
         TaskDataValidator taskDataValidator = new TaskDataValidator();
-        List<String> errors = taskDataValidator.validate(parameters);
+        List<String> errors = taskDataValidator.validate(request);
 
         if (errors.isEmpty()) {
-            Task task = parametersToObject(parameters);
+            Task task = parametersToObject(request);
             Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
             List<Task> resultTasks = addTaskToList(task, project.getTasks());
             project.setTasks(resultTasks);
@@ -57,16 +54,20 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
             request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDao().getAll());
             request.setAttribute(Attribute.ACTION, Attribute.TASK_PROJECT);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
-            request.setAttribute(Attribute.TASK_OBJECT_NAME, parameters);
-
+            setAttributesToRequest(request);
             request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
         }
     }
 
     private List<Task> addTaskToList(Task task, List<Task> tasks) {
+        System.out.println(task);
         ProjectDao projectDao = new ProjectDao();
-        String shortName = projectDao.get(task.getProjectId()).getShortName();
-        task.setProjectShortName(shortName);
+        if (task.getProjectId() != null) {
+            String shortName = projectDao.get(task.getProjectId()).getShortName();
+            task.setProjectShortName(shortName);
+        }
+        task.setStartDate(new java.sql.Date(task.getStartDate().getTime()));
+        task.setEndDate(new java.sql.Date(task.getEndDate().getTime()));
         int id = 0;
         if (tasks == null) {
             tasks = new ArrayList<>();

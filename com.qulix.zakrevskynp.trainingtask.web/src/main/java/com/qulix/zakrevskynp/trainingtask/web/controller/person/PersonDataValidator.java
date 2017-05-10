@@ -2,7 +2,8 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.person;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
 
@@ -29,42 +30,37 @@ public class PersonDataValidator extends Validator {
      * @param parameters person data from the form
      * @return list of errors
      */
-    public List<String> validate(Map<String, Object> parameters) {
+    public List<String> validate(HttpServletRequest parameters) {
         List<String> errors = new ArrayList<>();
 
-        validateId(parameters);
-        validateFirstName(parameters, errors);
-        validateMiddleName(parameters, errors);
-        validateLastName(parameters, errors);
-        validatePosition(parameters, errors);
+        validateFirstName(parameters.getParameter(FIRST_NAME_FIELD), errors);
+        validateMiddleName(parameters.getParameter(MIDDLE_NAME_FIELD), errors);
+        validateLastName(parameters.getParameter(LAST_NAME_FIELD), errors);
+        validatePosition(parameters.getParameter(POSITION_FIELD), errors);
 
         return errors;
     }
 
-    private void validateId(Map<String, Object> parameters) {
-        parseIntegerParams(ID, parameters);
+    private void validatePosition(String parameter, List<String> errors) {
+        validateFieldEmpty(parameter, POSITION_FIELD, errors);
+        validateFieldLength(parameter, POSITION_FIELD, errors, 60);
     }
 
-    private void validatePosition(Map<String, Object> parameters, List<String> errors) {
-        validateFieldEmpty(parameters.get(POSITION_FIELD), POSITION, errors);
-        validateFieldLength(parameters.get(POSITION_FIELD), POSITION, errors, 60);
+    private void validateLastName(String parameter, List<String> errors) {
+        validateFieldEmpty(parameter, LAST_NAME_FIELD, errors);
+        validateFieldLength(parameter, LAST_NAME_FIELD, errors, 20);
+        validateFieldSymbols(parameter, LAST_NAME_FIELD, errors);
     }
 
-    private void validateLastName(Map<String, Object> parameters, List<String> errors) {
-        validateFieldEmpty(parameters.get(LAST_NAME_FIELD), LAST_NAME, errors);
-        validateFieldLength(parameters.get(LAST_NAME_FIELD), LAST_NAME, errors, 20);
-        validateFieldSymbols(parameters.get(LAST_NAME_FIELD), LAST_NAME, errors);
+    private void validateMiddleName(String parameter, List<String> errors) {
+        validateFieldEmpty(parameter, MIDDLE_NAME_FIELD, errors);
+        validateFieldLength(parameter, MIDDLE_NAME_FIELD, errors, 20);
+        validateFieldSymbols(parameter, MIDDLE_NAME_FIELD, errors);
     }
 
-    private void validateMiddleName(Map<String, Object> parameters, List<String> errors) {
-        validateFieldEmpty(parameters.get(MIDDLE_NAME_FIELD), MIDDLE_NAME, errors);
-        validateFieldLength(parameters.get(MIDDLE_NAME_FIELD), MIDDLE_NAME, errors, 20);
-        validateFieldSymbols(parameters.get(MIDDLE_NAME_FIELD), MIDDLE_NAME, errors);
-    }
-
-    private void validateFirstName(Map<String, Object> parameters, List<String> errors) {
-        validateFieldEmpty(parameters.get(FIRST_NAME_FIELD), FIRST_NAME, errors);
-        validateFieldLength(parameters.get(FIRST_NAME_FIELD), FIRST_NAME, errors, 20);
-        validateFieldSymbols(parameters.get(FIRST_NAME_FIELD), FIRST_NAME, errors);
+    private void validateFirstName(String parameter, List<String> errors) {
+        validateFieldEmpty(parameter, FIRST_NAME_FIELD, errors);
+        validateFieldLength(parameter, FIRST_NAME_FIELD, errors, 20);
+        validateFieldSymbols(parameter, FIRST_NAME_FIELD, errors);
     }
 }

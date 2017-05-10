@@ -3,7 +3,6 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.task;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,14 +35,13 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
      * @throws IOException input/output exception
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Map<String, Object> parameters = getParametersFromRequest(request);
         String returningPath = request.getSession().getAttribute(Attribute.PATH).toString();
 
         TaskDataValidator validator = new TaskDataValidator();
-        List<String> errors = validator.validate(parameters);
+        List<String> errors = validator.validate(request);
 
         if (errors.isEmpty()) {
-            Task task = parametersToObject(parameters);
+            Task task = parametersToObject(request);
             Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
             List<Task> resultTasks = updateTaskInList(task, project.getTasks(), Integer.parseInt(request.getParameter(ID)));
             project.setTasks(resultTasks);
@@ -56,7 +54,7 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
             request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDao().getAll());
             request.setAttribute(Attribute.ACTION, Attribute.EDIT_TASK_PROJECT);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
-            request.setAttribute(Attribute.TASK_OBJECT_NAME, parameters);
+            request.setAttribute(Attribute.TASK_OBJECT_NAME, request);
 
             request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
         }

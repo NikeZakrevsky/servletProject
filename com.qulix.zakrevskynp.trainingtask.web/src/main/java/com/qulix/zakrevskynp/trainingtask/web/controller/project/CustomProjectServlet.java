@@ -1,6 +1,6 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.BaseHttpServlet;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
@@ -23,15 +23,23 @@ public class CustomProjectServlet extends BaseHttpServlet {
      * @param parameters map with request parameters
      * @return @{{@link Project}} object
      */
-    protected Project parametersToObject(Map<String, Object> parameters) {
+    protected Project parametersToObject(HttpServletRequest parameters) {
         Integer id = null;
-        if (parameters.get(ID) != null) {
-            id = (Integer) parameters.get(ID);
+        if (!parameters.getParameter(ID).equals("")) {
+            id = Integer.parseInt(parameters.getParameter(ID));
         }
-        String name = (String) parameters.get(NAME);
-        String shortName = (String) parameters.get(SHORTNAME);
-        String description = (String) parameters.get(DESCRIPTION);
+        String name = parameters.getParameter(NAME);
+        String shortName = parameters.getParameter(SHORTNAME);
+        String description = parameters.getParameter(DESCRIPTION);
 
         return new Project(id, name, shortName, description);
     }
+
+    protected void setAttributesToRequest(HttpServletRequest request) {
+        request.setAttribute(ID, request.getParameter(ID));
+        request.setAttribute(NAME, request.getParameter(NAME));
+        request.setAttribute(SHORTNAME, request.getParameter(SHORTNAME));
+        request.setAttribute(DESCRIPTION , request.getParameter(DESCRIPTION ));
+    }
+
 }

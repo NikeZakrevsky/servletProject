@@ -3,7 +3,6 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,13 +35,11 @@ public class EditProjectServlet extends CustomProjectServlet {
      * @throws IOException input/output exception
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Map<String, Object> parameters = getParametersFromRequest(request);
-
         ProjectDataValidator validator = new ProjectDataValidator();
-        List<String> errors = validator.validate(parameters);
+        List<String> errors = validator.validate(request);
         
         if (errors.isEmpty()) {
-            Project project = parametersToObject(parameters);
+            Project project = parametersToObject(request);
             Project newProject = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
             if (newProject != null) {
                 project.setTasks(newProject.getTasks());
@@ -53,7 +50,7 @@ public class EditProjectServlet extends CustomProjectServlet {
             response.sendRedirect(Attribute.REDIRECT_PROJECT_LIST);
         }
         else {
-            request.setAttribute(Attribute.PROJECT_OBJECT_NAME, parameters);
+            setAttributesToRequest(request);
             HttpSession session = request.getSession();
             List<Task> resultTasks = getItems(session.getAttribute(Attribute.RESULT_TASKS_LIST_NAME));
             request.setAttribute(Attribute.TASKS_LIST_NAME, resultTasks);

@@ -2,7 +2,6 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.task;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,12 +33,10 @@ public class RemoveTaskProjectServlet extends CustomProjectServlet {
      * @throws IOException input/output exception
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Map<String, Object> parametersFromRequest = getParametersFromRequest(request);
-
         ProjectDataValidator projectDataValidator = new ProjectDataValidator();
-        projectDataValidator.validate(parametersFromRequest);
+        projectDataValidator.validate(request);
 
-        Project newProject = parametersToObject(parametersFromRequest);
+        Project newProject = parametersToObject(request);
         Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
         List<Task> tasks = project.getTasks();
         newProject.setTasks(tasks);

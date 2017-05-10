@@ -3,7 +3,6 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.person;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,19 +32,17 @@ public class EditPersonServlet extends CustomPersonServlet {
      * @throws IOException input/output exception
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Map<String, Object> parameters = getParametersFromRequest(request);
-
         PersonDataValidator personDataValidator = new PersonDataValidator();
-        List<String> errors = personDataValidator.validate(parameters);
+        List<String> errors = personDataValidator.validate(request);
 
         if (errors.isEmpty()) {
-            Person person = parametersToObject(parameters);
+            Person person = parametersToObject(request);
             new PersonDao().update(person);
 
             response.sendRedirect(Attribute.REDIRECT_PERSON_LIST);
         }
         else {
-            request.setAttribute(Attribute.PERSON_OBJECT_NAME, parameters);
+            setAttributesToRequest(request);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
             request.setAttribute(Attribute.ACTION, Attribute.EDIT_PERSON);
 
@@ -64,6 +61,7 @@ public class EditPersonServlet extends CustomPersonServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Person person = new PersonDao().get(Integer.parseInt(request.getParameter(ID)));
         request.setAttribute(Attribute.PERSON_OBJECT_NAME, person);
+        setObjectToRequest(person, request);
         request.setAttribute(Attribute.ACTION, Attribute.EDIT_PERSON);
 
         request.getRequestDispatcher(Attribute.PERSON_VIEW).forward(request, response);

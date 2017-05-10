@@ -1,6 +1,6 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.person;
 
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.BaseHttpServlet;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
@@ -24,16 +24,32 @@ class CustomPersonServlet extends BaseHttpServlet {
      * @param parameters map with request parameters
      * @return @{{@link Person}} object
      */
-    protected Person parametersToObject(Map<String, Object> parameters) {
+    protected Person parametersToObject(HttpServletRequest parameters) {
         Integer id = null;
-        if (parameters.get(ID) != null) {
-            id = (Integer) parameters.get(ID);
+        if (!parameters.getParameter(ID).equals("")) {
+            id = Integer.parseInt(parameters.getParameter(ID));
         }
-        String firstName = (String) parameters.get(FIRST_NAME);
-        String middleName = (String) parameters.get(MIDDLE_NAME);
-        String lastName = (String) parameters.get(LAST_NAME);
-        String position = (String) parameters.get(POSITION);
+        String firstName = parameters.getParameter(FIRST_NAME);
+        String middleName = parameters.getParameter(MIDDLE_NAME);
+        String lastName = parameters.getParameter(LAST_NAME);
+        String position = parameters.getParameter(POSITION);
 
         return new Person(id, firstName, middleName, lastName, position);
+    }
+
+    protected void setAttributesToRequest(HttpServletRequest request) {
+        request.setAttribute(ID, request.getParameter("id"));
+        request.setAttribute(FIRST_NAME, request.getParameter("firstName"));
+        request.setAttribute(MIDDLE_NAME, request.getParameter("middleName"));
+        request.setAttribute(LAST_NAME, request.getParameter("lastName"));
+        request.setAttribute(POSITION , request.getParameter("position"));
+    }
+
+    protected void setObjectToRequest(Person person, HttpServletRequest request) {
+        request.setAttribute(ID, person.getId());
+        request.setAttribute(FIRST_NAME, person.getFirstName());
+        request.setAttribute(MIDDLE_NAME, person.getMiddleName());
+        request.setAttribute(LAST_NAME, person.getLastName());
+        request.setAttribute(POSITION, person.getPosition());
     }
 }

@@ -2,7 +2,6 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,12 +34,10 @@ public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
      * @throws IOException input/output exception
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Map<String, Object> parameters = getParametersFromRequest(request);
-
         ProjectDataValidator projectDataValidator = new ProjectDataValidator();
-        projectDataValidator.validate(parameters);
+        projectDataValidator.validate(request);
 
-        Project newProject = parametersToObject(parameters);
+        Project newProject = parametersToObject(request);
         Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
         if (project != null) {
             List<Task> tasks = project.getTasks();
@@ -53,8 +50,7 @@ public class SubmitAddTaskProjectServlet extends CustomProjectServlet {
         request.setAttribute(Attribute.PROJECTS_LIST_NAME, new ProjectDao().getAll());
         request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDao().getAll());
         if (!request.getParameter(ID).equals("")) {
-            Task task = new Task(Integer.parseInt(request.getParameter(ID)));
-            request.setAttribute(Attribute.TASK_OBJECT_NAME, task);
+            request.setAttribute("projectId", Integer.parseInt(request.getParameter(ID)));
         }
         request.setAttribute(IS_DISABLE, true);
         request.setAttribute(Attribute.ACTION, Attribute.TASK_PROJECT);

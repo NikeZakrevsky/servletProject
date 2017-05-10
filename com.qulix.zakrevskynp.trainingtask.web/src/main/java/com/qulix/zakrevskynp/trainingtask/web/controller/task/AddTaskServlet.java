@@ -3,7 +3,6 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.task;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,13 +32,11 @@ public class AddTaskServlet extends CustomTaskServlet {
      * @throws IOException input/output exception
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Map<String, Object> parameters = getParametersFromRequest(request);
-
         TaskDataValidator taskDataValidator = new TaskDataValidator();
-        List<String> errors = taskDataValidator.validate(parameters);
+        List<String> errors = taskDataValidator.validate(request);
 
         if (errors.isEmpty()) {
-            Task task = parametersToObject(parameters);
+            Task task = parametersToObject(request);
             new TaskDao().add(task);
 
             response.sendRedirect(Attribute.TASKS_LIST);
@@ -49,8 +46,8 @@ public class AddTaskServlet extends CustomTaskServlet {
             request.setAttribute(Attribute.PERSONS_LIST_NAME,  new PersonDao().getAll());
             request.setAttribute(Attribute.ACTION, Attribute.ADD_TASK);
             request.setAttribute(Attribute.ERROR_LIST_NAME, errors);
-            request.setAttribute(Attribute.TASK_OBJECT_NAME, parameters);
-
+            //request.setAttribute(Attribute.TASK_OBJECT_NAME, parameters);
+            setAttributesToRequest(request);
             request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
         }
     }

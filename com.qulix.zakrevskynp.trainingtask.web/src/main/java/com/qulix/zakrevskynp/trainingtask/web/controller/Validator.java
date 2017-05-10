@@ -3,8 +3,8 @@ package com.qulix.zakrevskynp.trainingtask.web.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
@@ -32,10 +32,12 @@ public abstract class Validator {
      * @param errors list of the errors
      * @param fieldLength allowable field length
      */
-    protected void validateFieldLength(Object field, String fieldName, List<String> errors, int fieldLength) {
+    protected boolean validateFieldLength(Object field, String fieldName, List<String> errors, int fieldLength) {
         if (field.toString().length() > fieldLength) {
             errors.add(String.format(LENGTH_ERROR, fieldName));
+            return false;
         }
+        return true;
     }
 
     /**
@@ -45,40 +47,12 @@ public abstract class Validator {
      * @param fieldName field name for validation
      * @param errors list of the errors
      */
-    protected void validateFieldEmpty(Object field, String fieldName, List<String> errors) {
+    protected boolean validateFieldEmpty(Object field, String fieldName, List<String> errors) {
         if (testEmpty.test(field)) {
             errors.add(String.format(EMPTY_ERROR, fieldName));
+            return false;
         }
-    }
-
-    /**
-     * Parsing a string field to integer
-     *
-     * @param field field for validation
-     * @param parameters parameters from the request
-     */
-    protected void parseIntegerParams(String field, Map<String, Object> parameters) {
-        if (!parameters.get(field).toString().equals("")) {
-            parameters.put(field, Integer.parseInt(parameters.get(field).toString()));
-        }
-        else {
-            parameters.put(field, null);
-        }
-    }
-
-    /**
-     * Parsing a string field to float
-     *
-     * @param field field name for validation
-     * @param parameters parameters from the request
-     */
-    protected void parseFloatParams(String field, Map<String, Object> parameters) {
-        if (!parameters.get(field).toString().equals("")) {
-            parameters.put(field, Float.parseFloat(parameters.get(field).toString()));
-        }
-        else {
-            parameters.put(field, null);
-        }
+        return true;
     }
 
     /**
@@ -102,7 +76,7 @@ public abstract class Validator {
      * @param errors list of the errors
      */
     protected boolean validateFieldNumbers(Object field, String fieldName, List<String> errors) {
-        if (!field.toString().matches(REGEX1)) {
+        if (!field.toString().equals("") && !field.toString().matches(REGEX1)) {
             errors.add(String.format(NUMBER_ERROR, fieldName));
 
             return false;
@@ -111,10 +85,10 @@ public abstract class Validator {
         return true;
     }
 
-    protected java.util.Date validateDate(Object field, String error, List<String> errors) {
+    protected Date validateDate(Object field, String error, List<String> errors) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         dateFormat.setLenient(false);
-        java.util.Date date = null;
+        Date date = null;
         try {
             date = dateFormat.parse(field.toString());
         } catch (ParseException e) {
@@ -133,10 +107,11 @@ public abstract class Validator {
         }
     }
 
-    protected void validateDateTime(java.util.Date startDate, java.util.Date endDate, Duration duration, String error,
+    protected void validateDateTime(java.util.Date startDate, java.util.Date endDate, String workTime, String error,
         List<String> errors) {
+        Duration duration = Duration.ofMinutes((long) (int) (Float.parseFloat(workTime) * 60));
         long diff = endDate.getTime() - startDate.getTime();
-        if (duration.toMinutes() / 60.0 - TimeUnit.HOURS.convert(diff, TimeUnit.MILLISECONDS) > 0) {
+        if (duration.toMinutes() / 60.0 - (TimeUnit.HOURS.convert(diff, TimeUnit.MILLISECONDS) + 24) > 0) {
             errors.add(error);
         }
     }

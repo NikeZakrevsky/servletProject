@@ -13,7 +13,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
  * @author Q-NZA
  */
 public class PersonDao extends AbstractDao<Person> {
-    
     private static final String SELECT_QUERY = "select person_id, first_name, middle_name, last_name, position from persons";
     private static final String INSERT_QUERY = "insert into persons(first_name, middle_name, last_name,position) values(?,?,?,?)";
     private static final String DELETE_QUERY = "delete from persons where person_id=?";
@@ -21,7 +20,6 @@ public class PersonDao extends AbstractDao<Person> {
         "where person_id=?";
     private static final String UPDATE_QUERY = "update persons set first_name = ?, middle_name = ?, last_name = ?,position = ? " +
         "where person_id = ?";
-
     private static final String ID = "person_id";
     private static final String FIRST_NAME = "first_name";
     private static final String MIDDLE_NAME = "middle_name";

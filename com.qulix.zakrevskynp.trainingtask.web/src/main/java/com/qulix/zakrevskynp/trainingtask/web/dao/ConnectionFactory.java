@@ -40,6 +40,16 @@ class ConnectionFactory {
     }
 
     /**
+     * Obtains an existing connection
+     *
+     * @return Connection object
+     * @throws SQLException throws while getting connection to database
+     */
+    static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(urlProperty, userProperty, passwordProperty);
+    }
+    
+    /**
      * Reads properties of the database connection
      */
     private static void readDatabaseProperties() {
@@ -66,15 +76,5 @@ class ConnectionFactory {
         catch (ClassNotFoundException e) {
             LOGGER.log(Level.SEVERE, "Exception: " + DATABASE_CONNECTION_ERROR + e);
         }
-    }
-
-    /**
-     * Obtains an existing connection
-     *
-     * @return Connection object
-     * @throws SQLException throws while getting connection to database
-     */
-    static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(urlProperty, userProperty, passwordProperty);
     }
 }

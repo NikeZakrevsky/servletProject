@@ -2,7 +2,8 @@ package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
 
@@ -25,28 +26,22 @@ public class ProjectDataValidator extends Validator {
      * @param parameters project data from the form
      * @return list of errors
      */
-    public List<String> validate(Map<String, Object> parameters) {
+    public List<String> validate(HttpServletRequest parameters) {
         List<String> errors = new ArrayList<>();
-        validateId(parameters);
-        validateName(parameters, errors);
-        validateShortName(parameters, errors);
+
+        validateName(parameters.getParameter(NAME_FIELD), errors);
+        validateShortName(parameters.getParameter(SHORT_NAME_FIELD), errors);
 
         return errors;
     }
 
-    private void validateShortName(Map<String, Object> parameters, List<String> errors) {
-        validateFieldEmpty(parameters.get(SHORT_NAME_FIELD), SHORT_NAME, errors);
-        validateFieldLength(parameters.get(SHORT_NAME_FIELD), SHORT_NAME, errors, 20);
+    private void validateShortName(Object parameter, List<String> errors) {
+        validateFieldEmpty(parameter, SHORT_NAME_FIELD, errors);
+        validateFieldLength(parameter, SHORT_NAME_FIELD, errors, 20);
     }
 
-    private void validateName(Map<String, Object> parameters, List<String> errors) {
-        validateFieldEmpty(parameters.get(NAME_FIELD), NAME, errors);
-        validateFieldLength(parameters.get(NAME_FIELD), NAME, errors, 20);
+    private void validateName(Object parameter, List<String> errors) {
+        validateFieldEmpty(parameter, NAME_FIELD, errors);
+        validateFieldLength(parameter, NAME_FIELD, errors, 20);
     }
-
-    private void validateId(Map<String, Object> parameters) {
-        parseIntegerParams(ID, parameters);
-    }
-
-
 }

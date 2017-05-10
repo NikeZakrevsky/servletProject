@@ -1,10 +1,10 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.task;
 
-import java.sql.Date;
-import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
 
@@ -32,88 +32,54 @@ public class TaskDataValidator extends Validator {
     private static final String PERSON_ID_FIELD = "personId";
     private static final String BETWEEN_ERROR = "Время работы больше, чем между датами";
 
+    private Date startDate;
+    private Date endDate;
+
     /**
      * Validate task information
      *
      * @param parameters form parameters for validation
      * @return list of errors
      */
-    public List<String> validate(Map<String, Object> parameters) {
+    public List<String> validate(HttpServletRequest parameters) {
         List<String> errors = new ArrayList<>();
-        validateIds(parameters);
-        validateName(parameters, errors);
-        validateStatus(parameters, errors);
-        validateDates(parameters, errors);
-
+        
+        validateName(parameters.getParameter(NAME_FIELD), errors);
+        validateStatus(parameters.getParameter(STATUS_FIELD), errors);
+        boolean isDatesValid = validateDates(parameters.getParameter(START_DATE_FIELD), parameters.getParameter(END_DATE_FIELD), errors);
+        boolean isWorkTimeValid = validateWorkTime(parameters.getParameter(WORK_TIME_FIELD), errors);
+        if (isWorkTimeValid && isDatesValid) {
+            validateDateTime(startDate, endDate, parameters.getParameter(WORK_TIME_FIELD), BETWEEN_ERROR, errors);
+        }
         return errors;
     }
 
-    private void validateDates(Map<String, Object> parameters, List<String> errors) {
-        java.util.Date startDate = validateStartDate(parameters, errors);
-        java.util.Date endDate = validateEndDate(parameters, errors);
+    private boolean validateWorkTime(String workTime, List<String> errors) {
+        boolean isEmpty = validateFieldEmpty(workTime, JOB, errors);
+        boolean isLengthValid = validateFieldLength(workTime, JOB, errors, 8);
+        boolean isNumbersValid = validateFieldNumbers(workTime, JOB, errors);
+
+        return isEmpty && isLengthValid && isNumbersValid;
+    }
+
+    private boolean validateDates(String startDateField, String endDateField, List<String> errors) {
+
+        startDate = validateDate(startDateField, START_DATE_ERROR, errors);
+        endDate = validateDate(endDateField, END_DATE_ERROR, errors);
 
         validateEndDateBeforeStartDate(startDate, endDate, END_BEFORE_START_ERROR, errors);
 
-        boolean isWorkTimeValid = validateWorkTime(parameters, errors);
-        if (isWorkTimeValid && startDate != null && endDate != null) {
-            validateDateTime(startDate, endDate, (Duration) parameters.get(WORK_TIME_FIELD), BETWEEN_ERROR, errors);
-        }
+        return startDate != null && endDate != null;
     }
 
-    private java.util.Date validateEndDate(Map<String, Object> parameters, List<String> errors) {
-        java.util.Date date = validateDate(parameters.get(END_DATE_FIELD), END_DATE_ERROR, errors);
-        if (date != null) {
-            parameters.put(END_DATE_FIELD, new Date(date.getTime()));
-        }
-        return date;
+    private void validateStatus(Object parameter, List<String> errors) {
+        validateFieldEmpty(parameter, STATUS, errors);
+        validateFieldLength(parameter, STATUS, errors, 20);
     }
 
-    private java.util.Date validateStartDate(Map<String, Object> parameters, List<String> errors) {
-        java.util.Date date = validateDate(parameters.get(START_DATE_FIELD), START_DATE_ERROR, errors);
-        if (date != null) {
-            parameters.put(START_DATE_FIELD, new Date(date.getTime()));
-        }
-        return date;
+    private void validateName(Object parameter, List<String> errors) {
+        validateFieldEmpty(parameter, NAME, errors);
+        validateFieldLength(parameter, NAME, errors, 20);
     }
-
-    private void validateIds(Map<String, Object> parameters) {
-        parseIntegerParams(PROJECT_ID_FIELD, parameters);
-        parseIntegerParams(PERSON_ID_FIELD, parameters);
-        parseIntegerParams(ID, parameters);
-        if (parameters.get(PROJECT_ID1_FIELD) != null) {
-            parseIntegerParams(PROJECT_ID1_FIELD, parameters);
-            parameters.put(PROJECT_ID_FIELD, parameters.get(PROJECT_ID1_FIELD));
-        }
-    }
-
-    private boolean validateWorkTime(Map<String, Object> parameters, List<String> errors) {
-        validateFieldEmpty(parameters.get(WORK_TIME_FIELD), JOB, errors);
-        validateFieldLength(parameters.get(WORK_TIME_FIELD), JOB, errors, 8);
-
-        parameters.put("workTimeString", parameters.get(WORK_TIME_FIELD));
-
-        if (validateFieldNumbers(parameters.get(WORK_TIME_FIELD), JOB, errors)) {
-            parseFloatParams(WORK_TIME_FIELD, parameters);
-            if (parameters.get(WORK_TIME_FIELD) != null) {
-                parameters.put(WORK_TIME_FIELD, Duration.ofMinutes((long) (int) (Float.parseFloat(parameters.get(WORK_TIME_FIELD)
-                        .toString()) * 60)));
-            }
-            return true;
-        }
-        else {
-            parameters.put(WORK_TIME_FIELD, null);
-            return false;
-        }
-    }
-
-    private void validateStatus(Map<String, Object> parameters, List<String> errors) {
-        validateFieldEmpty(parameters.get(STATUS_FIELD), STATUS, errors);
-        validateFieldLength(parameters.get(STATUS_FIELD), STATUS, errors, 20);
-    }
-
-    private void validateName(Map<String, Object> parameters, List<String> errors) {
-        validateFieldEmpty(parameters.get(NAME_FIELD), NAME, errors);
-        validateFieldLength(parameters.get(NAME_FIELD), NAME, errors, 20);
-    }
-
+        
 }
