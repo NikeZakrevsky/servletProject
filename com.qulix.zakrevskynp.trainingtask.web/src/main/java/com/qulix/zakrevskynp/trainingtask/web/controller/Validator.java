@@ -18,7 +18,7 @@ public abstract class Validator {
     private static final String EMPTY_ERROR = "Укажите значение поля \"%s\"";
     private static final String LENGTH_ERROR = "Длина поля \"%s\" не должна превышать 20 символов";
     private static final String SYMBOLS_ERROR = "Поле \"%s\" должно содержать только латинские и русские буквы";
-    private static final String NUMBER_ERROR = "Поле \"%s\" должно содержать только цифры";
+    private static final String NUMBER_ERROR = "Неверный формат поля \"%s\"";
     private static final String REGEX = "^[a-zA-ZА-Яа-яёЁ\\s]*$";
     private static final String REGEX1 = "\\d{1,8}(.\\d)?";
     private Predicate<Object> testEmpty = e -> e == null || e.equals("");
