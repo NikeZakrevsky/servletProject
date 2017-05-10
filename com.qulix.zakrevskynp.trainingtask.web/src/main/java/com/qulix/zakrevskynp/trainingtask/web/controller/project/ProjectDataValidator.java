@@ -33,13 +33,13 @@ public class ProjectDataValidator extends Validator {
         return errors;
     }
 
-    private void validateShortName(Object parameter, List<String> errors) {
-        validateFieldEmpty(parameter, SHORT_NAME, errors);
-        validateFieldLength(parameter, SHORT_NAME, errors, 25);
-    }
-
     private void validateName(Object parameter, List<String> errors) {
         validateFieldEmpty(parameter, NAME, errors);
         validateFieldLength(parameter, NAME, errors, 25);
+    }
+
+    private void validateShortName(Object parameter, List<String> errors) {
+        validateFieldEmpty(parameter, SHORT_NAME, errors);
+        validateFieldLength(parameter, SHORT_NAME, errors, 25);
     }
 }

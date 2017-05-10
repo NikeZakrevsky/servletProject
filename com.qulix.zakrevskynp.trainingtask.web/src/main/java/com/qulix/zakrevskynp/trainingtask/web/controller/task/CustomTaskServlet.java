@@ -32,6 +32,23 @@ public class CustomTaskServlet extends BaseHttpServlet {
     private static final String PERSON = "person";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
+    /**
+     * Sets attributes of the request
+     *
+     * @param task task with request attributes
+     * @param request request for setting attributes
+     */
+    public void setObjectToRequest(Task task, HttpServletRequest request) {
+        request.setAttribute(ID, task.getId());
+        request.setAttribute(NAME, task.getName());
+        request.setAttribute(WORK_TIME, task.getWorkTime());
+        request.setAttribute(STARTDATE, task.getStartDate());
+        request.setAttribute(ENDDATE , task.getEndDate());
+        request.setAttribute(STATUS , task.getStatus());
+        request.setAttribute(PROJECT_ID, task.getProjectId());
+        request.setAttribute(PERSON , task.getPerson());
+    }
+
     protected void setAttributesToRequest(HttpServletRequest request) {
         request.setAttribute(ID, request.getParameter(ID));
         request.setAttribute(NAME, request.getParameter(NAME));
@@ -100,16 +117,4 @@ public class CustomTaskServlet extends BaseHttpServlet {
 
         return date;
     }
-
-    public void setObjectToRequest(Task task, HttpServletRequest request) {
-        request.setAttribute(ID, task.getId());
-        request.setAttribute(NAME, task.getName());
-        request.setAttribute(WORK_TIME, task.getWorkTime());
-        request.setAttribute(STARTDATE, task.getStartDate());
-        request.setAttribute(ENDDATE , task.getEndDate());
-        request.setAttribute(STATUS , task.getStatus());
-        request.setAttribute(PROJECT_ID, task.getProjectId());
-        request.setAttribute(PERSON , task.getPerson());
-    }
-
 }

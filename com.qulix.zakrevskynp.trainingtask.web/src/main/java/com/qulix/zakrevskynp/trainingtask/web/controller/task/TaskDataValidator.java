@@ -50,12 +50,15 @@ public class TaskDataValidator extends Validator {
         return errors;
     }
 
-    private boolean validateWorkTime(String workTime, List<String> errors) {
-        boolean isEmpty = validateFieldEmpty(workTime, JOB, errors);
-        boolean isLengthValid = validateFieldLength(workTime, JOB, errors, 8);
-        boolean isNumbersValid = validateFieldNumbers(workTime, JOB, errors);
+    private void validateName(Object parameter, List<String> errors) {
+        validateFieldEmpty(parameter, NAME, errors);
+        validateFieldLength(parameter, NAME, errors, 20);
+    }
 
-        return isEmpty && isLengthValid && isNumbersValid;
+
+    private void validateStatus(Object parameter, List<String> errors) {
+        validateFieldEmpty(parameter, STATUS, errors);
+        validateFieldLength(parameter, STATUS, errors, 20);
     }
 
     private boolean validateDates(String startDateField, String endDateField, List<String> errors) {
@@ -67,13 +70,12 @@ public class TaskDataValidator extends Validator {
         return startDate != null && endDate != null;
     }
 
-    private void validateStatus(Object parameter, List<String> errors) {
-        validateFieldEmpty(parameter, STATUS, errors);
-        validateFieldLength(parameter, STATUS, errors, 20);
+    private boolean validateWorkTime(String workTime, List<String> errors) {
+        boolean isEmpty = validateFieldEmpty(workTime, JOB, errors);
+        boolean isLengthValid = validateFieldLength(workTime, JOB, errors, 8);
+        boolean isNumbersValid = validateFieldNumbers(workTime, JOB, errors);
+
+        return isEmpty && isLengthValid && isNumbersValid;
     }
 
-    private void validateName(Object parameter, List<String> errors) {
-        validateFieldEmpty(parameter, NAME, errors);
-        validateFieldLength(parameter, NAME, errors, 20);
-    }
 }

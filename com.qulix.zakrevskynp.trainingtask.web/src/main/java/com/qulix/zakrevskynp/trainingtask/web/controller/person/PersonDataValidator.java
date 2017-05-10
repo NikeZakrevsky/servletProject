@@ -39,15 +39,10 @@ public class PersonDataValidator extends Validator {
         return errors;
     }
 
-    private void validatePosition(String parameter, List<String> errors) {
-        validateFieldEmpty(parameter, POSITION, errors);
-        validateFieldLength(parameter, POSITION, errors, 60);
-    }
-
-    private void validateLastName(String parameter, List<String> errors) {
-        validateFieldEmpty(parameter, LAST_NAME, errors);
-        validateFieldLength(parameter, LAST_NAME, errors, 20);
-        validateFieldSymbols(parameter, LAST_NAME, errors);
+    private void validateFirstName(String parameter, List<String> errors) {
+        validateFieldEmpty(parameter, FIRST_NAME, errors);
+        validateFieldLength(parameter, FIRST_NAME, errors, 20);
+        validateFieldSymbols(parameter, FIRST_NAME, errors);
     }
 
     private void validateMiddleName(String parameter, List<String> errors) {
@@ -56,9 +51,16 @@ public class PersonDataValidator extends Validator {
         validateFieldSymbols(parameter, MIDDLE_NAME, errors);
     }
 
-    private void validateFirstName(String parameter, List<String> errors) {
-        validateFieldEmpty(parameter, FIRST_NAME, errors);
-        validateFieldLength(parameter, FIRST_NAME, errors, 20);
-        validateFieldSymbols(parameter, FIRST_NAME, errors);
+    private void validateLastName(String parameter, List<String> errors) {
+        validateFieldEmpty(parameter, LAST_NAME, errors);
+        validateFieldLength(parameter, LAST_NAME, errors, 20);
+        validateFieldSymbols(parameter, LAST_NAME, errors);
     }
+
+    private void validatePosition(String parameter, List<String> errors) {
+        validateFieldEmpty(parameter, POSITION, errors);
+        validateFieldLength(parameter, POSITION, errors, 60);
+    }
+
+
 }

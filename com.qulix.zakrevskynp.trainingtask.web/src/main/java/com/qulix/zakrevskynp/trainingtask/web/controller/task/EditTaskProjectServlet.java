@@ -59,6 +59,13 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
         }
     }
 
+    private void setPerformer(Task task) {
+        if (task.getPerson() != null) {
+            Person person = new PersonDao().get(task.getPerson().getId());
+            task.setPerson(person);
+        }
+    }
+
     private List<Task> updateTaskInSessionList(Task task, List<Task> tasks, int id) {
         int index = 0;
         task.setStartDate(new java.sql.Date(task.getStartDate().getTime()));
@@ -74,12 +81,4 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
 
         return tasks;
     }
-
-    private void setPerformer(Task task) {
-        if (task.getPerson() != null) {
-            Person person = new PersonDao().get(task.getPerson().getId());
-            task.setPerson(person);
-        }
-    }
-
 }

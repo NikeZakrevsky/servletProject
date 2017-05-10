@@ -42,29 +42,6 @@ public class ProjectDao extends AbstractDao<Project> {
         updateChangedTasks(newProject, project);
     }
 
-    private void updateChangedTasks(Project newProject, Project project) {
-        List<Task> resultTasks = newProject.getTasks();
-        List<Task> tasksList = project.getTasks();
-        Set<Object> tasksSet = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
-        Set<Object> resultTasksSet = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
-        TaskDao taskDao = new TaskDao();
-        for (Task task : tasksList) {
-            if (!resultTasksSet.contains(task.getId())) {
-                taskDao.remove(task.getId());
-            }
-        }
-        for (Task resultTask : resultTasks) {
-            if (tasksSet.contains(resultTask.getId())) {
-                taskDao.update(resultTask);
-            }
-        }
-        for (Task resultTask : resultTasks) {
-            if (!tasksSet.contains(resultTask.getId())) {
-                taskDao.add(resultTask);
-            }
-        }
-    }
-
     /**
      * Gets project id
      *
@@ -131,32 +108,6 @@ public class ProjectDao extends AbstractDao<Project> {
         }
     }
 
-    private void addProjectTasks(List<Task> tasks, ResultSet resultSet) throws SQLException {
-        TaskDao tasksDAO = new TaskDao();
-        if (tasks != null && !tasks.isEmpty()) {
-            for (Task task : tasks) {
-                task.setProjectId(resultSet.getInt(1));
-                tasksDAO.add(task);
-            }
-        }
-    }
-
-    /**
-     * Creates object from ResutSet
-     *
-     * @param resultSet resultSet for converting to object
-     * @return created project object
-     * @throws SQLException throws while getting data from @{{@link ResultSet}}
-     */
-    private Project resultSetAsObject(ResultSet resultSet) throws SQLException {
-        Integer id = resultSet.getInt(ID);
-        String name = resultSet.getString(NAME);
-        String shortName = resultSet.getString(SHORTNAME);
-        String description = resultSet.getString(DESCRIPTION);
-
-        return new Project(id, name, shortName, description);
-    }
-
     /**
      * Converts the ResultSet to a List of objects
      *
@@ -187,5 +138,55 @@ public class ProjectDao extends AbstractDao<Project> {
         }
 
         return projects.entrySet().stream().map(Map.Entry::getValue).collect(Collectors.toList());
+    }
+
+    private void updateChangedTasks(Project newProject, Project project) {
+        List<Task> resultTasks = newProject.getTasks();
+        List<Task> tasksList = project.getTasks();
+        Set<Object> tasksSet = tasksList.stream().map(Task::getId).collect(Collectors.toSet());
+        Set<Object> resultTasksSet = resultTasks.stream().map(Task::getId).collect(Collectors.toSet());
+        TaskDao taskDao = new TaskDao();
+        for (Task task : tasksList) {
+            if (!resultTasksSet.contains(task.getId())) {
+                taskDao.remove(task.getId());
+            }
+        }
+        for (Task resultTask : resultTasks) {
+            if (tasksSet.contains(resultTask.getId())) {
+                taskDao.update(resultTask);
+            }
+        }
+        for (Task resultTask : resultTasks) {
+            if (!tasksSet.contains(resultTask.getId())) {
+                taskDao.add(resultTask);
+            }
+        }
+    }
+
+
+    private void addProjectTasks(List<Task> tasks, ResultSet resultSet) throws SQLException {
+        TaskDao tasksDAO = new TaskDao();
+        if (tasks != null && !tasks.isEmpty()) {
+            for (Task task : tasks) {
+                task.setProjectId(resultSet.getInt(1));
+                tasksDAO.add(task);
+            }
+        }
+    }
+
+    /**
+     * Creates object from ResutSet
+     *
+     * @param resultSet resultSet for converting to object
+     * @return created project object
+     * @throws SQLException throws while getting data from @{{@link ResultSet}}
+     */
+    private Project resultSetAsObject(ResultSet resultSet) throws SQLException {
+        Integer id = resultSet.getInt(ID);
+        String name = resultSet.getString(NAME);
+        String shortName = resultSet.getString(SHORTNAME);
+        String description = resultSet.getString(DESCRIPTION);
+
+        return new Project(id, name, shortName, description);
     }
 }
