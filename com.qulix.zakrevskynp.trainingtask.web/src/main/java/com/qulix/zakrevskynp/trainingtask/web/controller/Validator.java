@@ -23,7 +23,8 @@ public abstract class Validator {
     private static final String REGEX1 = "\\d{1,8}(.\\d)?";
     private Predicate<Object> testEmpty = e -> e == null || e.equals("");
     private static final String DATE_FORMAT = "yyyy-MM-dd";
-
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+    
     /**
      * Field length validation
      *
@@ -86,16 +87,13 @@ public abstract class Validator {
     }
 
     protected Date validateDate(Object field, String error, List<String> errors) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         dateFormat.setLenient(false);
-        Date date = null;
         try {
-            date = dateFormat.parse(field.toString());
+            return dateFormat.parse(field.toString());
         } catch (ParseException e) {
             errors.add(error);
+            return null;
         }
-
-        return date;
     }
 
     protected void validateEndDateBeforeStartDate(java.util.Date startDate, java.util.Date endDate, String error, List<String>
