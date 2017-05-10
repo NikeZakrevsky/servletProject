@@ -26,6 +26,8 @@ public class PersonDao extends AbstractDao<Person> {
     private static final String LAST_NAME = "last_name";
     private static final String POSITION = "position";
 
+    private static final String TO_LIST_ERROR = "Error while converting result set to list";
+    private static final String TO_OBJECT_ERROR = "Error while converting result set to object";
     /**
      * Gets a list of persons
      *
@@ -95,7 +97,7 @@ public class PersonDao extends AbstractDao<Person> {
             return new Person(id, firstName, middleName, lastName, position);
         }
         catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(TO_OBJECT_ERROR, e);
         }
     }
 
@@ -115,7 +117,7 @@ public class PersonDao extends AbstractDao<Person> {
             return persons;
         }
         catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(TO_LIST_ERROR, e);
         }
     }
 

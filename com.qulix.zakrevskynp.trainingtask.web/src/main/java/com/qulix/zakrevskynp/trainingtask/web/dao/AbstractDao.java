@@ -12,6 +12,12 @@ import com.qulix.zakrevskynp.trainingtask.web.model.BaseDaoEntity;
  * @author Q-NZA
  */
 abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
+    private static final String GET_ALL_ERROR = "Exception while getting all entities";
+    private static final String REMOVE_ERROR = "Exception while removing entity";
+    private static final String ADD_ERROR = "Exception while adding entity";
+    private static final String UPDATE_ERROR = "Exception while getting entity";
+    private static final String GET_ERROR = "Exception while getting entity";
+    private static final String PREPARED_STATEMENT_ERROR = "Exception while getting entity";
 
     /**
      * Gets all entities
@@ -30,7 +36,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
             return resultSetToList(resultSet);
         }
         catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(GET_ALL_ERROR, e);
         }
         finally {
             closeResultSet(resultSet);
@@ -47,7 +53,11 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
      * @param query sql query for removing entity
      */
     protected void remove(int id, String query)  {
-        executeQuery(query, id);
+        try {
+            executeQuery(query, id);
+        } catch (SQLException e) {
+            throw new DaoException(REMOVE_ERROR, e);
+        }
     }
 
     /**
@@ -56,7 +66,11 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
      * @param query sql query for inserting entity
      */
     protected void add(String query, Object... parameters) {
-        executeQuery(query, parameters);
+        try {
+            executeQuery(query, parameters);
+        } catch (SQLException e) {
+            throw new DaoException(ADD_ERROR, e);
+        }
     }
 
     /**
@@ -72,7 +86,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
             }
         }
         catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(PREPARED_STATEMENT_ERROR, e);
         }
     }
 
@@ -99,7 +113,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
             return null;
         }
         catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(GET_ERROR, e);
         }
         finally {
             closeResultSet(resultSet);
@@ -114,7 +128,11 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
      * @param query sql query for updating entity
      */
     protected void update(String query, Object... parameters) {
-        executeQuery(query, parameters);
+        try {
+            executeQuery(query, parameters);
+        } catch (SQLException e) {
+            throw new DaoException(UPDATE_ERROR, e);
+        }
     }
 
     /**
@@ -174,7 +192,7 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
         }
     }
 
-    private void executeQuery(String query, Object... parameters) throws DaoException {
+    private void executeQuery(String query, Object... parameters) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -183,9 +201,6 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
             setPreparedStatement(preparedStatement, parameters);
             preparedStatement.execute();
             connection.commit();
-        }
-        catch (SQLException e) {
-            throw new DaoException(e);
         }
         finally {
             closeConnection(connection);

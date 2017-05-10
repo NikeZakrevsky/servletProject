@@ -24,11 +24,11 @@ public class ProjectDao extends AbstractDao<Project> {
     private static final String SELECT_PROJECT = SELECT_QUERY + " where project_id =?";
     private static final String UPDATE_QUERY = "update projects set project_name = ?, short_name = ?, description = ? where " +
         "project_id = ?";
-
     private static final String ID = "project_id";
     private static final String NAME = "project_name";
     private static final String SHORTNAME = "short_name";
     private static final String DESCRIPTION = "description";
+    private static final String ADD_ERROR = "Exception while adding entity";
 
     /**
      * Updates information about project in database
@@ -124,7 +124,7 @@ public class ProjectDao extends AbstractDao<Project> {
             ProjectDao.this.addProjectTasks(tasks, generatedKeys);
         }
         catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(ADD_ERROR, e);
         }
         finally {
             closeResultSet(generatedKeys);
@@ -151,17 +151,12 @@ public class ProjectDao extends AbstractDao<Project> {
      * @throws SQLException throws while getting data from @{{@link ResultSet}}
      */
     private Project resultSetAsObject(ResultSet resultSet) throws SQLException {
-        try {
-            Integer id = resultSet.getInt(ID);
-            String name = resultSet.getString(NAME);
-            String shortName = resultSet.getString(SHORTNAME);
-            String description = resultSet.getString(DESCRIPTION);
+        Integer id = resultSet.getInt(ID);
+        String name = resultSet.getString(NAME);
+        String shortName = resultSet.getString(SHORTNAME);
+        String description = resultSet.getString(DESCRIPTION);
 
-            return new Project(id, name, shortName, description);
-        }
-        catch (SQLException e) {
-            throw new DaoException(e);
-        }
+        return new Project(id, name, shortName, description);
     }
 
     /**

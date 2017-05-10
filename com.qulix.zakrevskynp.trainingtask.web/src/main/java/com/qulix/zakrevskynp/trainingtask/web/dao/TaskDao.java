@@ -17,7 +17,6 @@ import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
  * @author Q-NZA
  */
 public class TaskDao extends AbstractDao<Task> {
-    
     private static final String SELECT_QUERY = "select task_id, task_name, work_time, start_date, end_date, status, short_name," +
         "project_id, person_id, first_name, middle_name, last_name, position from tasks left join projects on" +
         " tasks.project_id = projects.project_id left join persons on tasks.person_id = persons.person_id";
@@ -30,7 +29,6 @@ public class TaskDao extends AbstractDao<Task> {
         "project_id, person_id) values (?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_QUERY = "update tasks set task_name = ?, work_time = ?, start_date = ?, end_date = ?, " +
         "status = ?, project_id = ?, person_id = ? where task_id = ?";
-
     private static final String ID = "task_id";
     private static final String NAME = "task_name";
     private static final String TIME = "work_time";
@@ -111,34 +109,28 @@ public class TaskDao extends AbstractDao<Task> {
      * @return created task object
      */
     protected Task resultSetAsObject(ResultSet resultSet) throws SQLException {
-        try {
-            Integer id = resultSet.getInt(ID);
-            String name = resultSet.getString(NAME);
-            Duration time = Duration.ofMinutes(resultSet.getInt(TIME));
-            Date startDate = resultSet.getDate(STARTDATE);
-            Date endDate = resultSet.getDate(ENDDATE);
-            String stringStatus = resultSet.getString(STATUS);
-            TaskStatus status = null;
-            if (stringStatus != null) {
-                status = TaskStatus.fromString(stringStatus);
-            }
-            Integer projectId = resultSet.getInt(PROJECTID);
-            String projectShortName = resultSet.getString(SHORTNAME);
-            Object personId = resultSet.getObject(PERSONID);
-            Person person = null;
-            if (personId != null) {
-                person = new PersonDao().resultSetAsObject(resultSet);
-            }
-            Task task = new Task(id, name, time, startDate, endDate, status, person);
-            task.setProjectId(projectId);
-            task.setPerson(person);
-            task.setProjectShortName(projectShortName);
-            return task;
+        Integer id = resultSet.getInt(ID);
+        String name = resultSet.getString(NAME);
+        Duration time = Duration.ofMinutes(resultSet.getInt(TIME));
+        Date startDate = resultSet.getDate(STARTDATE);
+        Date endDate = resultSet.getDate(ENDDATE);
+        String stringStatus = resultSet.getString(STATUS);
+        TaskStatus status = null;
+        if (stringStatus != null) {
+            status = TaskStatus.fromString(stringStatus);
         }
-        catch (SQLException e) {
-            throw new DaoException(e);
+        Integer projectId = resultSet.getInt(PROJECTID);
+        String projectShortName = resultSet.getString(SHORTNAME);
+        Object personId = resultSet.getObject(PERSONID);
+        Person person = null;
+        if (personId != null) {
+            person = new PersonDao().resultSetAsObject(resultSet);
         }
-
+        Task task = new Task(id, name, time, startDate, endDate, status, person);
+        task.setProjectId(projectId);
+        task.setPerson(person);
+        task.setProjectShortName(projectShortName);
+        return task;
     }
 
 
@@ -149,17 +141,11 @@ public class TaskDao extends AbstractDao<Task> {
      * @return tasks list
      */
     @Override
-    protected List<Task> resultSetToList(ResultSet resultSet) {
-        try {
-            List<Task> tasks = new ArrayList<>();
-            while (resultSet.next()) {
-                tasks.add(resultSetAsObject(resultSet));
-            }
-            return tasks;
+    protected List<Task> resultSetToList(ResultSet resultSet) throws SQLException {
+        List<Task> tasks = new ArrayList<>();
+        while (resultSet.next()) {
+            tasks.add(resultSetAsObject(resultSet));
         }
-        catch (SQLException e) {
-            throw new DaoException(e);
-        }
-
+        return tasks;
     }
 }
