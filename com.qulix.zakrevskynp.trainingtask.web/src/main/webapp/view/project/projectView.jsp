@@ -6,7 +6,6 @@
     <span class="lead panel-heading">Управление проектами</span>
     <form action = "${requestScope.action}" method = "POST">
         <%@ include file="../share/errors.jsp" %>
-
         <label class="col-md-2">Идентификатор</label>
         <div class="row">
             <div class="col-md-3">
@@ -14,7 +13,6 @@
                     value = "${requestScope.project.id}" readonly/>
             </div>
         </div>
-
         <label class="col-md-2">Название</label>
         <div class="row">
             <div class="col-md-3">
@@ -22,7 +20,6 @@
                     value = "${requestScope.project.name}"/>
             </div>
         </div>
-
         <label class="col-md-2">Сокращенное название</label>
         <div class="row">
             <div class="col-md-3">
@@ -30,7 +27,6 @@
                     value = "${requestScope.project.shortName}"/>
             </div>
         </div>
-
         <label class="col-md-2">Описание</label>
         <div class="row">
             <div class="col-md-3">
@@ -38,13 +34,11 @@
                     value = "${requestScope.project.description}"/>
             </div>
         </div>
-
         <span class="lead panel-heading">Список задач</span>
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Идентификатор</th>
-                    <th>Проект</th>
                     <th>Название</th>
                     <th>Дата начала</th>
                     <th>Дата окончания</th>
@@ -57,7 +51,6 @@
                 <c:forEach items="${requestScope.project.tasks}" var="task">
                     <tr>
                         <td>${task.id}</td>
-                        <td>${task.projectShortName}</td>
                         <td>${task.name}</td>
                         <td>${task.startDate}</td>
                         <td>${task.endDate}</td>
@@ -73,7 +66,6 @@
                 </c:forEach>
             <tbody>
         </table>
-
         <div style = "margin-bottom: 20px;">
             <c:choose>
                 <c:when test="${requestScope.action.equals('editProject')}">

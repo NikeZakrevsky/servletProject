@@ -100,7 +100,7 @@ public class CustomTaskServlet extends BaseHttpServlet {
         return date;
     }
 
-    protected void setObjectToRequest(Task task, HttpServletRequest request) {
+    public void setObjectToRequest(Task task, HttpServletRequest request) {
         request.setAttribute(ID, task.getId());
         request.setAttribute(NAME, task.getName());
         request.setAttribute(WORK_TIME, task.getWorkTime());

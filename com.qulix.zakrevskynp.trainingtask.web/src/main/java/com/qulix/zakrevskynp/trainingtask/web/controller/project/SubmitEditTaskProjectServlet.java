@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
+import com.qulix.zakrevskynp.trainingtask.web.controller.task.CustomTaskServlet;
 import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDao;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
@@ -56,6 +57,7 @@ public class SubmitEditTaskProjectServlet extends CustomProjectServlet {
                 request.setAttribute(Attribute.PERSONS_LIST_NAME, new PersonDao().getAll());
                 request.setAttribute(IS_DISABLE, true);
                 request.setAttribute(Attribute.ACTION, EDIT_TASK_PROJECT);
+                new CustomTaskServlet().setObjectToRequest(task, request);
 
                 request.getRequestDispatcher(Attribute.TASK_VIEW).forward(request, response);
             }

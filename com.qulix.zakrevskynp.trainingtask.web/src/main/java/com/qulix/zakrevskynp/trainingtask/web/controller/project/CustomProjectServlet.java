@@ -14,7 +14,7 @@ public class CustomProjectServlet extends BaseHttpServlet {
 
     private static final String ID = "id";
     private static final String NAME = "name";
-    private static final String SHORTNAME = "shortName";
+    private static final String SHORT_NAME = "shortName";
     private static final String DESCRIPTION = "description";
 
     /**
@@ -29,7 +29,7 @@ public class CustomProjectServlet extends BaseHttpServlet {
             id = Integer.parseInt(parameters.getParameter(ID));
         }
         String name = parameters.getParameter(NAME);
-        String shortName = parameters.getParameter(SHORTNAME);
+        String shortName = parameters.getParameter(SHORT_NAME);
         String description = parameters.getParameter(DESCRIPTION);
 
         return new Project(id, name, shortName, description);
@@ -38,8 +38,15 @@ public class CustomProjectServlet extends BaseHttpServlet {
     protected void setAttributesToRequest(HttpServletRequest request) {
         request.setAttribute(ID, request.getParameter(ID));
         request.setAttribute(NAME, request.getParameter(NAME));
-        request.setAttribute(SHORTNAME, request.getParameter(SHORTNAME));
+        request.setAttribute(SHORT_NAME, request.getParameter(SHORT_NAME));
         request.setAttribute(DESCRIPTION , request.getParameter(DESCRIPTION ));
+    }
+
+    protected void setObjectToRequest(Project project, HttpServletRequest request) {
+        request.setAttribute(ID, project.getId());
+        request.setAttribute(NAME, project.getName());
+        request.setAttribute(SHORT_NAME, project.getShortName());
+        request.setAttribute(DESCRIPTION, project.getDescription());
     }
 
 }
