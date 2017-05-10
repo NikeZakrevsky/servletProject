@@ -41,7 +41,7 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
         if (errors.isEmpty()) {
             Task task = parametersToObject(request);
             Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
-            List<Task> resultTasks = addTaskToList(task, project.getTasks());
+            List<Task> resultTasks = addTaskToSessionList(task, project.getTasks());
             project.setTasks(resultTasks);
             request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
 
@@ -58,7 +58,7 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
         }
     }
 
-    private List<Task> addTaskToList(Task task, List<Task> tasks) {
+    private List<Task> addTaskToSessionList(Task task, List<Task> tasks) {
         ProjectDao projectDao = new ProjectDao();
         if (task.getProjectId() != null) {
             String shortName = projectDao.get(task.getProjectId()).getShortName();

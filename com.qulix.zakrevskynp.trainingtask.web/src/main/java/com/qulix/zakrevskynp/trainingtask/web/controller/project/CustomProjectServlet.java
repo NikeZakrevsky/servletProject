@@ -38,6 +38,6 @@ public class CustomProjectServlet extends BaseHttpServlet {
         request.setAttribute(ID, request.getParameter(ID));
         request.setAttribute(NAME, request.getParameter(NAME));
         request.setAttribute(SHORT_NAME, request.getParameter(SHORT_NAME));
-        request.setAttribute(DESCRIPTION , request.getParameter(DESCRIPTION ));
+        request.setAttribute(DESCRIPTION, request.getParameter(DESCRIPTION));
     }
 }

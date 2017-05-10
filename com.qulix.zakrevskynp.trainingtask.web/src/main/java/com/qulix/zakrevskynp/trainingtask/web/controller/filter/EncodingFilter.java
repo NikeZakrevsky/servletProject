@@ -14,7 +14,9 @@ import javax.servlet.annotation.WebFilter;
 public class EncodingFilter implements Filter {
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {}
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
 
     /**
      * Sets character encoding
@@ -34,5 +36,7 @@ public class EncodingFilter implements Filter {
     }
 
     @Override
-    public void destroy() {}
+    public void destroy() {
+        
+    }
 }

@@ -42,7 +42,7 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
         if (errors.isEmpty()) {
             Task task = parametersToObject(request);
             Project project = (Project) request.getSession().getAttribute(Attribute.PROJECT_OBJECT_NAME);
-            List<Task> resultTasks = updateTaskInList(task, project.getTasks(), Integer.parseInt(request.getParameter(ID)));
+            List<Task> resultTasks = updateTaskInSessionList(task, project.getTasks(), Integer.parseInt(request.getParameter(ID)));
             project.setTasks(resultTasks);
             request.getSession().setAttribute(Attribute.PROJECT_OBJECT_NAME, project);
 
@@ -59,7 +59,7 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
         }
     }
 
-    private List<Task> updateTaskInList(Task task, List<Task> tasks, int id) {
+    private List<Task> updateTaskInSessionList(Task task, List<Task> tasks, int id) {
         int index = 0;
         task.setStartDate(new java.sql.Date(task.getStartDate().getTime()));
         task.setEndDate(new java.sql.Date(task.getEndDate().getTime()));

@@ -36,7 +36,8 @@ public class CustomTaskServlet extends BaseHttpServlet {
         request.setAttribute(ID, request.getParameter(ID));
         request.setAttribute(NAME, request.getParameter(NAME));
         if (!request.getParameter(WORK_TIME).equals("")) {
-            request.setAttribute(WORK_TIME, Duration.ofMinutes((long) (int) (Float.parseFloat(request.getParameter(WORK_TIME)) * 60)));
+            request.setAttribute(WORK_TIME, Duration.ofMinutes((long) (int) (Float.parseFloat(request.getParameter(WORK_TIME))
+                * 60)));
         }
         request.setAttribute(STARTDATE, request.getParameter(STARTDATE));
         request.setAttribute(ENDDATE , request.getParameter(ENDDATE));

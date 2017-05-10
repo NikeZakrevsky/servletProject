@@ -40,7 +40,8 @@ public class TaskDataValidator extends Validator {
         
         validateName(parameters.getParameter(NAME_FIELD), errors);
         validateStatus(parameters.getParameter(STATUS_FIELD), errors);
-        boolean isDatesValid = validateDates(parameters.getParameter(START_DATE_FIELD), parameters.getParameter(END_DATE_FIELD), errors);
+        boolean isDatesValid = validateDates(parameters.getParameter(START_DATE_FIELD), parameters.getParameter(END_DATE_FIELD),
+            errors);
         boolean isWorkTimeValid = validateWorkTime(parameters.getParameter(WORK_TIME_FIELD), errors);
         if (isWorkTimeValid && isDatesValid) {
             validateDateTime(startDate, endDate, parameters.getParameter(WORK_TIME_FIELD), BETWEEN_ERROR, errors);
