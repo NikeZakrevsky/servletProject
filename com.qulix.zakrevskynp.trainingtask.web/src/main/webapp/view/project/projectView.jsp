@@ -57,10 +57,10 @@
                         <td>${task.person.firstName} ${task.person.middleName} ${task.person.lastName}</td>
                         <td>${task.status.toString()}</td>
                         <td>
-                            <button onclick="this.form.action = 'removeTaskProject?taskId=${task.id}&id=${requestScope.project.id}'"
-                                type="submit" class="btn btn-danger custom-width">Удалить</button>
                             <button onclick = "this.form.action = 'editTaskProject1?taskId=${task.id}'" type="submit"
                                 class="btn btn-success custom-width">Изменить</button>
+                            <button onclick="this.form.action = 'removeTaskProject?taskId=${task.id}&id=${requestScope.project.id}'"
+                                type="submit" class="btn btn-danger custom-width">Удалить</button>
                         </td>
                     </tr>
                 </c:forEach>
