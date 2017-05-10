@@ -37,11 +37,11 @@ public class ProjectDataValidator extends Validator {
 
     private void validateShortName(Object parameter, List<String> errors) {
         validateFieldEmpty(parameter, SHORT_NAME_FIELD, errors);
-        validateFieldLength(parameter, SHORT_NAME_FIELD, errors, 20);
+        validateFieldLength(parameter, SHORT_NAME_FIELD, errors, 25);
     }
 
     private void validateName(Object parameter, List<String> errors) {
         validateFieldEmpty(parameter, NAME_FIELD, errors);
-        validateFieldLength(parameter, NAME_FIELD, errors, 20);
+        validateFieldLength(parameter, NAME_FIELD, errors, 25);
     }
 }

@@ -16,21 +16,21 @@
         <label class="col-md-2">Название</label>
         <div class="row">
             <div class="col-md-3">
-                <input class="form-group col-md-12" type = "text" name = "name" size = "65" maxlength="20"
+                <input class="form-group col-md-12" type = "text" name = "name" size = "65" maxlength="25"
                     value = "${requestScope.project.name}"/>
             </div>
         </div>
         <label class="col-md-2">Сокращенное название</label>
         <div class="row">
             <div class="col-md-3">
-                <input class="form-group col-md-12" type = "text" name = "shortName" size = "65" maxlength="20"
+                <input class="form-group col-md-12" type = "text" name = "shortName" size = "65" maxlength="25"
                     value = "${requestScope.project.shortName}"/>
             </div>
         </div>
         <label class="col-md-2">Описание</label>
         <div class="row">
             <div class="col-md-3">
-                <input class="form-group col-md-12" type = "text" name = "description" size = "65" maxlength="20"
+                <input class="form-group col-md-12" type = "text" name = "description" size = "65" maxlength="50"
                     value = "${requestScope.project.description}"/>
             </div>
         </div>
