@@ -12,7 +12,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
 
 /**
- * Using DAO pattern for operations with @{{@link Task}} objects
+ * Using DAO pattern for operations with @{{@link Task}} objects.
  *
  * @author Q-NZA
  */
@@ -40,9 +40,9 @@ public class TaskDao extends AbstractDao<Task> {
     private static final String SHORTNAME = "short_name";
 
     /**
-     * Gets all tasks from the database
+     * Gets all tasks from the database.
      *
-     * @return list of all tasks in database
+     * @return list of all tasks in database.
      */
     @Override
     public List<Task> getAll()  {
@@ -50,9 +50,9 @@ public class TaskDao extends AbstractDao<Task> {
     }
 
     /**
-     * Removes project from the database by id
+     * Removes project from the database by id.
      *
-     * @param id project's id
+     * @param id project's id.
      */
     @Override
     public void remove(int id)  {
@@ -60,9 +60,9 @@ public class TaskDao extends AbstractDao<Task> {
     }
 
     /**
-     * Inserts task in the database
+     * Inserts task in the database.
      *
-     * @param task task form data
+     * @param task task form data.
      */
     @Override
     public void add(Task task) {
@@ -76,10 +76,10 @@ public class TaskDao extends AbstractDao<Task> {
     }
 
     /**
-     * Gets task by id
+     * Gets task by id.
      *
-     * @param id task's id
-     * @return Task object
+     * @param id task's id.
+     * @return Task object.
      */
     @Override
     public Task get(int id) {
@@ -87,9 +87,9 @@ public class TaskDao extends AbstractDao<Task> {
     }
 
     /**
-     * Updates task in the database
+     * Updates task in the database.
      *
-     * @param task task data from the form
+     * @param task task data from the form.
      */
     @Override
     public void update(Task task)  {
@@ -103,10 +103,10 @@ public class TaskDao extends AbstractDao<Task> {
     }
 
     /**
-     * Creates Task object from ResultSet
+     * Creates Task object from ResultSet.
      *
-     * @param resultSet resultSet for converting to object
-     * @return created task object
+     * @param resultSet resultSet for converting to object.
+     * @return created task object.
      */
     protected Task resultSetAsObject(ResultSet resultSet) throws SQLException {
         Integer id = resultSet.getInt(ID);
@@ -135,10 +135,10 @@ public class TaskDao extends AbstractDao<Task> {
     }
 
     /**
-     * Converts the ResultSet to a List of objects
+     * Converts the ResultSet to a List of objects.
      *
-     * @param resultSet @{{@link ResultSet}} object converted to list
-     * @return tasks list
+     * @param resultSet @{{@link ResultSet}} object converted to list.
+     * @return tasks list.
      */
     @Override
     protected List<Task> resultSetToList(ResultSet resultSet) throws SQLException {

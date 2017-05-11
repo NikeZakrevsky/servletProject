@@ -11,7 +11,7 @@ import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 
 /**
- * Filter for handling and processing exceptions
+ * Filter for handling and processing exceptions.
  *
  * @author Q-NZA
  */
@@ -25,13 +25,13 @@ public class ErrorHandlerFilter implements Filter {
     }
 
     /**
-     * Processing and logging exceptions
+     * Processing and logging exceptions.
      *
-     * @param request @{({@link ServletRequest}} object
-     * @param response @{({@link ServletResponse}} object
-     * @param filter @{{@link FilterChain}} object
-     * @throws IOException throws while forwarding request
-     * @throws ServletException throws while forwarding request
+     * @param request @{({@link ServletRequest}} object.
+     * @param response @{({@link ServletResponse}} object.
+     * @param filter @{{@link FilterChain}} object.
+     * @throws IOException throws while forwarding request.
+     * @throws ServletException throws while forwarding request.
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filter) throws IOException,

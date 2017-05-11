@@ -6,7 +6,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 
 /**
- * Filter to set the encoding of the request
+ * Filter to set the encoding of the request.
  *
  * @author Q-NZA
  */
@@ -19,13 +19,13 @@ public class EncodingFilter implements Filter {
     }
 
     /**
-     * Sets character encoding
+     * Sets character encoding.
      *
-     * @param request @{({@link ServletRequest}} object
-     * @param response @{({@link ServletResponse}} object
-     * @param filter @{{@link FilterChain}} object
-     * @throws IOException throws while forwarding request
-     * @throws ServletException throws while forwarding request
+     * @param request @{({@link ServletRequest}} object.
+     * @param response @{({@link ServletResponse}} object.
+     * @param filter @{{@link FilterChain}} object.
+     * @throws IOException throws while forwarding request.
+     * @throws ServletException throws while forwarding request.
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filter) throws IOException,

@@ -1,7 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller;
 
 /**
- * Class with string constants
+ * Class with string constants.
  *
  * @author Q-NZA
  */

@@ -11,7 +11,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
 
 /**
- * Handling the action of removing a project and redirects to the @{{@link ProjectsListServlet}}
+ * Handling the action of removing a project and redirects to the @{{@link ProjectsListServlet}}.
  *
  * @author Q-NZA
  */
@@ -20,12 +20,12 @@ public class RemoveProjectServlet extends CustomProjectServlet {
     private static final String ID = "id";
 
     /**
-     * Processes a delete request
+     * Processes a delete request.
      *
-     * @param request http request with form data
-     * @param response response object
-     * @throws ServletException servlet exception
-     * @throws IOException input/output exception
+     * @param request http request with form data.
+     * @param response response object.
+     * @throws ServletException servlet exception.
+     * @throws IOException input/output exception.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         new ProjectDao().remove(Integer.parseInt(request.getParameter(ID)));

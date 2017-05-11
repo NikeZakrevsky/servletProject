@@ -11,19 +11,19 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
 
 /**
- * Shows a page with all projects from the database
+ * Shows a page with all projects from the database.
  *
  * @author Q-NZA
  */
 @WebServlet("/projectsList")
 public class ProjectsListServlet extends CustomProjectServlet {
     /**
-     * Displays a list of projects
+     * Displays a list of projects.
      *
-     * @param request http request with form data
-     * @param response response object
-     * @throws ServletException servlet exception
-     * @throws IOException input/output exception
+     * @param request http request with form data.
+     * @param response response object.
+     * @throws ServletException servlet exception.
+     * @throws IOException input/output exception.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().invalidate();

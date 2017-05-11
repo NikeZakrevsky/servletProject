@@ -11,7 +11,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDao;
 
 /**
- * Handling the action of removing a person and redirects to the @{{@link PersonsListServlet}}
+ * Handling the action of removing a person and redirects to the @{{@link PersonsListServlet}}.
  * 
  * @author Q-NZA
  */
@@ -22,10 +22,10 @@ public class RemovePersonServlet extends CustomPersonServlet {
     /**
      * Processes a delete request
      *
-     * @param request http request with form data
-     * @param response response object
-     * @throws ServletException servlet exception
-     * @throws IOException input/output exception
+     * @param request http request with form data.
+     * @param response response object.
+     * @throws ServletException servlet exception.
+     * @throws IOException input/output exception.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         new PersonDao().remove(Integer.parseInt(request.getParameter(ID)));

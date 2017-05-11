@@ -14,7 +14,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
- * Shows the form of adding a new person and processing its data
+ * Shows the form of adding a new person and processing its data.
  *
  * @author Q-NZA
  */
@@ -22,12 +22,12 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 public class AddPersonServlet extends CustomPersonServlet {
 
     /**
-     * Form data processing
+     * Form data processing.
      *
-     * @param request http request with form data
-     * @param response response object
-     * @throws ServletException servlet exception
-     * @throws IOException input/output exception
+     * @param request http request with form data.
+     * @param response response object.
+     * @throws ServletException servlet exception.
+     * @throws IOException input/output exception.
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PersonDataValidator personDataValidator = new PersonDataValidator();
@@ -49,12 +49,12 @@ public class AddPersonServlet extends CustomPersonServlet {
     }
 
     /**
-     * Displays a page with a form
+     * Displays a page with a form.
      *
-     * @param request http request with form data
-     * @param response response object
-     * @throws ServletException servlet exception
-     * @throws IOException input/output exception
+     * @param request http request with form data.
+     * @param response response object.
+     * @throws ServletException servlet exception.
+     * @throws IOException input/output exception.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute(Attribute.ACTION, Attribute.ADD_PERSON);

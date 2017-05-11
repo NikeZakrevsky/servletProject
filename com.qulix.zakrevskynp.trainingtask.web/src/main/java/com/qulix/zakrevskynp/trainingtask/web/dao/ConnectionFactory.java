@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
 
 /**
- * Factory fot getting Connection object
+ * Factory fot getting Connection object.
  *
  * @author Q-NZA
  */
@@ -40,17 +40,17 @@ class ConnectionFactory {
     }
 
     /**
-     * Obtains an existing connection
+     * Obtains an existing connection.
      *
-     * @return Connection object
-     * @throws SQLException throws while getting connection to database
+     * @return Connection object.
+     * @throws SQLException throws while getting connection to database.
      */
     static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(urlProperty, userProperty, passwordProperty);
     }
     
     /**
-     * Reads properties of the database connection
+     * Reads properties of the database connection.
      */
     private static void readDatabaseProperties() {
         InputStream stream = ConnectionFactory.class.getClassLoader().getResourceAsStream(JDBC_PROPERTIES);
@@ -68,7 +68,7 @@ class ConnectionFactory {
     }
 
     /**
-     * Loads the database driver
+     * Loads the database driver.
      */
     private static void loadDriver() {
         try {

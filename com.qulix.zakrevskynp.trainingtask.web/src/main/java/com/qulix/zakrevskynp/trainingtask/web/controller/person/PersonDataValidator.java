@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
 
 /**
- * Validate data from the forms of working with the persons
+ * Validate data from the forms of working with the persons.
  *
  * @author Q-NZA
  */
@@ -23,10 +23,10 @@ public class PersonDataValidator extends Validator {
     private static final String POSITION_FIELD = "position";
 
     /**
-     * Validation of person data
+     * Validation of person data.
      *
-     * @param parameters person data from the form
-     * @return list of errors
+     * @param parameters person data from the form.
+     * @return list of errors.
      */
     public List<String> validate(HttpServletRequest parameters) {
         List<String> errors = new ArrayList<>();

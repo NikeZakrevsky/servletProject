@@ -15,19 +15,19 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 
 /**
- * Shows the form of adding a new project and processing its data
+ * Shows the form of adding a new project and processing its data.
  *
  * @author Q-NZA
  */
 @WebServlet("/addProject")
 public class AddProjectServlet extends CustomProjectServlet {
     /**
-     * Form data processing
+     * Form data processing.
      *
-     * @param request http request with form data
-     * @param response response object
-     * @throws ServletException servlet exception
-     * @throws IOException input/output exception
+     * @param request http request with form data.
+     * @param response response object.
+     * @throws ServletException servlet exception.
+     * @throws IOException input/output exception.
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProjectDataValidator projectDataValidator = new ProjectDataValidator();
@@ -57,12 +57,12 @@ public class AddProjectServlet extends CustomProjectServlet {
     }
 
     /**
-     * Displays a page with a form
+     * Displays a page with a form.
      *
-     * @param request http request with form data
-     * @param response response object
-     * @throws ServletException servlet exception
-     * @throws IOException input/output exception
+     * @param request http request with form data.
+     * @param response response object.
+     * @throws ServletException servlet exception.
+     * @throws IOException input/output exception.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();

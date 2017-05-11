@@ -16,7 +16,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Shows the form of updating a project and processes its data
+ * Shows the form of updating a project and processes its data.
  *
  * @author Q-NZA
  */
@@ -26,12 +26,12 @@ public class EditProjectServlet extends CustomProjectServlet {
     private static final String EDIT_PROJECT = "editProject?id=";
 
     /**
-     * Form data processing
+     * Form data processing.
      *
-     * @param request http request with form data
-     * @param response response object
-     * @throws ServletException servlet exception
-     * @throws IOException input/output exception
+     * @param request http request with form data.
+     * @param response response object.
+     * @throws ServletException servlet exception.
+     * @throws IOException input/output exception.
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProjectDataValidator validator = new ProjectDataValidator();
@@ -60,12 +60,12 @@ public class EditProjectServlet extends CustomProjectServlet {
     }
 
     /**
-     * Displays a page with a form
+     * Displays a page with a form.
      *
-     * @param request http request with form data
-     * @param response response object
-     * @throws ServletException servlet exception
-     * @throws IOException input/output exception
+     * @param request http request with form data.
+     * @param response response object.
+     * @throws ServletException servlet exception.
+     * @throws IOException input/output exception.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Project project;

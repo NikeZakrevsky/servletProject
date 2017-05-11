@@ -16,7 +16,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Shows the form of updating a task and processing its data
+ * Shows the form of updating a task and processing its data.
  *
  * @author Q-NZA
  */
@@ -29,10 +29,10 @@ public class EditTaskServlet extends CustomTaskServlet {
     /**
      * Form data processing
      *
-     * @param request http request with form data
-     * @param response response object
-     * @throws ServletException servlet exception
-     * @throws IOException input/output exception
+     * @param request http request with form data.
+     * @param response response object.
+     * @throws ServletException servlet exception.
+     * @throws IOException input/output exception.
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         TaskDataValidator validator = new TaskDataValidator();
@@ -56,12 +56,12 @@ public class EditTaskServlet extends CustomTaskServlet {
     }
 
     /**
-     * Displays a page with a form
+     * Displays a page with a form.
      *
-     * @param request http request with form data
-     * @param response response object
-     * @throws ServletException servlet exception
-     * @throws IOException input/output exception
+     * @param request http request with form data.
+     * @param response response object.
+     * @throws ServletException servlet exception.
+     * @throws IOException input/output exception.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute(Attribute.PATH, request.getSession().getAttribute(Attribute.PATH).toString());

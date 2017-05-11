@@ -16,7 +16,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Shows the form of adding a new task in session
+ * Shows the form of adding a new task in session.
  *
  * @author Q-NZA
  */
@@ -25,12 +25,12 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
     private static final String IS_DISABLE = "isDisable";
 
     /**
-     * Form data processing
+     * Form data processing.
      *
-     * @param request http request with form data
-     * @param response response object
-     * @throws ServletException servlet exception
-     * @throws IOException input/output exception
+     * @param request http request with form data.
+     * @param response response object.
+     * @throws ServletException servlet exception.
+     * @throws IOException input/output exception.
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute(IS_DISABLE, true);

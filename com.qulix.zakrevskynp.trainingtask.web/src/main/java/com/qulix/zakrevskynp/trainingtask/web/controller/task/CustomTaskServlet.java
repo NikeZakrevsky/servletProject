@@ -14,7 +14,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
 
 /**
- * Custom servlet for constructing a @{{@link Task}} object from Map
+ * Custom servlet for constructing a @{{@link Task}} object from Map.
  *
  * @author Q-NZA
  */
@@ -33,10 +33,10 @@ public class CustomTaskServlet extends BaseHttpServlet {
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     /**
-     * Sets attributes of the request
+     * Sets attributes of the request.
      *
-     * @param task task with request attributes
-     * @param request request for setting attributes
+     * @param task task with request attributes.
+     * @param request request for setting attributes.
      */
     public void setObjectToRequest(Task task, HttpServletRequest request) {
         request.setAttribute(ID, task.getId());
@@ -64,10 +64,10 @@ public class CustomTaskServlet extends BaseHttpServlet {
     }
 
     /**
-     * Converts a map with request parameters to a @{{@link Task}} object
+     * Converts a map with request parameters to a @{{@link Task}} object.
      *
-     * @param parameters map with request parameters
-     * @return @{{@link Task}} object
+     * @param parameters map with request parameters.
+     * @return @{{@link Task}} object.
      */
     protected Task parametersToObject(HttpServletRequest parameters) {
         Integer id = null;

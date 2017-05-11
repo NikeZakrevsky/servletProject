@@ -8,7 +8,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Using DAO pattern for operations with @{{@link Project}} objects
+ * Using DAO pattern for operations with @{{@link Project}} objects.
  *
  * @author Q-NZA
  */
@@ -30,9 +30,9 @@ public class ProjectDao extends AbstractDao<Project> {
     private static final String TASK_ID = "task_id";
 
     /**
-     * Updates information about project in database
+     * Updates information about project in database.
      *
-     * @param newProject project data from form
+     * @param newProject project data from form.
      */
     @Override
     public void update(Project newProject) {
@@ -43,10 +43,10 @@ public class ProjectDao extends AbstractDao<Project> {
     }
 
     /**
-     * Gets project id
+     * Gets project id.
      *
-     * @param id project's id
-     * @return Project object
+     * @param id project's id.
+     * @return Project object.
      */
     @Override
     public Project get(int id) {
@@ -54,9 +54,9 @@ public class ProjectDao extends AbstractDao<Project> {
     }
 
     /**
-     * Gets all projects from database
+     * Gets all projects from database.
      *
-     * @return list of all projects from database
+     * @return list of all projects from database.
      */
     @Override
     public List<Project> getAll() {
@@ -64,9 +64,9 @@ public class ProjectDao extends AbstractDao<Project> {
     }
 
     /**
-     * Removes project from database by id
+     * Removes project from database by id.
      *
-     * @param id project id
+     * @param id project id.
      */
     @Override
     public void remove(int id) {
@@ -79,9 +79,9 @@ public class ProjectDao extends AbstractDao<Project> {
     }
 
     /**
-     *  Creates new project with tasks
+     *  Creates new project with tasks.
      *
-     *  @param project new project
+     *  @param project new project.
      */
     public void add(Project project, Object... parameters) {
         List<Task> tasks = project.getTasks();
@@ -109,11 +109,11 @@ public class ProjectDao extends AbstractDao<Project> {
     }
 
     /**
-     * Converts the ResultSet to a List of objects
+     * Converts the ResultSet to a List of objects.
      *
-     * @param resultSet @{{@link ResultSet}} object converted to list
-     * @return tasks list
-     * @throws SQLException throws while getting data from result set
+     * @param resultSet @{{@link ResultSet}} object converted to list.
+     * @return tasks list.
+     * @throws SQLException throws while getting data from result set.
      */
     @Override
     protected List<Project> resultSetToList(ResultSet resultSet) throws SQLException {
@@ -174,13 +174,6 @@ public class ProjectDao extends AbstractDao<Project> {
         }
     }
 
-    /**
-     * Creates object from ResutSet
-     *
-     * @param resultSet resultSet for converting to object
-     * @return created project object
-     * @throws SQLException throws while getting data from @{{@link ResultSet}}
-     */
     private Project resultSetAsObject(ResultSet resultSet) throws SQLException {
         Integer id = resultSet.getInt(ID);
         String name = resultSet.getString(NAME);

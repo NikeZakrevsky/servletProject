@@ -6,7 +6,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.BaseHttpServlet;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
- * Custom servlet for constructing the @{{@link Person}} object from Map
+ * Custom servlet for constructing the @{{@link Person}} object from Map.
  *
  * @author Q-NZA
  */
@@ -18,10 +18,10 @@ class CustomPersonServlet extends BaseHttpServlet {
     private static final String POSITION = "position";
 
     /**
-     * Converts a map with request parameters to a @{{@link Person}} object
+     * Converts a map with request parameters to a @{{@link Person}} object.
      * 
-     * @param parameters map with request parameters
-     * @return @{{@link Person}} object
+     * @param parameters map with request parameters.
+     * @return @{{@link Person}} object.
      */
     protected Person parametersToObject(HttpServletRequest parameters) {
         Integer id = null;

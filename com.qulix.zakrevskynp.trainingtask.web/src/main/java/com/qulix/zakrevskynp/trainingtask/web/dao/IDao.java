@@ -3,9 +3,9 @@ package com.qulix.zakrevskynp.trainingtask.web.dao;
 import java.util.List;
 
 /**
- * Interface with dao methods
+ * Interface with dao methods.
  *
- * @param <T> class of the entity
+ * @param <T> class of the entity.
  * @author Q-NZA
  */
 public interface IDao<T> {

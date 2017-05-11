@@ -8,7 +8,7 @@ import java.util.List;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
- * Using DAO pattern for operations with @{{@link Person}} objects
+ * Using DAO pattern for operations with @{{@link Person}} objects.
  *
  * @author Q-NZA
  */
@@ -29,9 +29,9 @@ public class PersonDao extends AbstractDao<Person> {
     private static final String TO_OBJECT_ERROR = "Error while converting result set to object";
 
     /**
-     * Gets a list of persons
+     * Gets a list of persons.
      *
-     * @return list of all persons from the database
+     * @return list of all persons from the database.
      */
     @Override
     public List<Person> getAll()  {
@@ -39,9 +39,9 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     /**
-     * Inserts a new person in the database
+     * Inserts a new person in the database.
      *
-     * @param person person data from the form
+     * @param person person data from the form.
      */
     @Override
     public void add(Person person)  {
@@ -50,9 +50,9 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     /**
-     * Removes a person from the database by id
+     * Removes a person from the database by id.
      *
-     * @param id person's id
+     * @param id person's id.
      */
     @Override
     public void remove(int id)  {
@@ -60,10 +60,10 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     /**
-     * Gets a person by id
+     * Gets a person by id.
      *
-     * @param id person's id
-     * @return @{{@link Person}}
+     * @param id person's id.
+     * @return @{{@link Person}}.
      */
     @Override
     public Person get(int id) {
@@ -71,9 +71,9 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     /**
-     * Updates information about a person
+     * Updates information about a person.
      *
-     * @param person Person object
+     * @param person Person object.
      */
     @Override
     public void update(Person person) {
@@ -82,10 +82,10 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     /**
-     * Creats object from the ResultSet
+     * Creats object from the ResultSet.
      *
-     * @param resultSet resultSet for converting to object
-     * @return created person object
+     * @param resultSet resultSet for converting to object.
+     * @return created person object.
      */
     protected Person resultSetAsObject(ResultSet resultSet) {
         try {
@@ -103,10 +103,10 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     /**
-     * Converts the ResultSet to a list of objects
+     * Converts the ResultSet to a list of objects.
      *
-     * @param resultSet @{{@link ResultSet}} object converted to list
-     * @return tasks list
+     * @param resultSet @{{@link ResultSet}} object converted to list.
+     * @return tasks list.
      */
     @Override
     protected List<Person> resultSetToList(ResultSet resultSet) {

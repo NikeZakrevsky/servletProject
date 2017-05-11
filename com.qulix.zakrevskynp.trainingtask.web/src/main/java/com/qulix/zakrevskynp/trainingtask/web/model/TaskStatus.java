@@ -1,7 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web.model;
 
 /**
- * TaskStatus entity
+ * TaskStatus entity.
  *
  * @author Q-NZA
  */
@@ -15,9 +15,9 @@ public enum TaskStatus {
     }
 
     /**
-     * Gets status
+     * Gets status.
      *
-     * @return status of the task
+     * @return status of the task.
      */
     @Override
     public String toString() {
@@ -25,10 +25,10 @@ public enum TaskStatus {
     }
 
     /**
-     * Converts String to the enum type
+     * Converts String to the enum type.
      *
-     * @param text text for converting
-     * @return enum object
+     * @param text text for converting.
+     * @return enum object.
      */
     public static TaskStatus fromString(String text) {
         for (TaskStatus taskStatus : TaskStatus.values()) {

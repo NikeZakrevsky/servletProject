@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServlet;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Base servlet with common methods for controllers
+ * Base servlet with common methods for controllers.
  *
  * @author Q-NZA
  */
 public class BaseHttpServlet extends HttpServlet {
     /**
-     * Cast Object to List<Task> for avoiding unchecked cast warning
+     * Cast Object to List<Task> for avoiding unchecked cast warning.
      *
-     * @param object object for casting
-     * @return list of tasks
+     * @param object object for casting.
+     * @return list of tasks.
      */
     protected List<Task> getItems(Object object) {
         if (object == null) {

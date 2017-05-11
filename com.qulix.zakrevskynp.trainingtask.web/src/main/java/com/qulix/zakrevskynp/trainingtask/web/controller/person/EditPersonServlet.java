@@ -14,7 +14,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
- * Shows the form of updating a person and processing its data
+ * Shows the form of updating a person and processing its data.
  *
  * @author Q-NZA
  */
@@ -23,7 +23,7 @@ public class EditPersonServlet extends CustomPersonServlet {
     private static final String ID = "id";
 
     /**
-     * Form data processing
+     * Form data processing.
      *
      * @param request http request with form data
      * @param response response object
@@ -50,12 +50,12 @@ public class EditPersonServlet extends CustomPersonServlet {
     }
 
     /**
-     * Displays a page with a form
+     * Displays a page with a form.
      *
-     * @param request http request with form data
-     * @param response response object
-     * @throws ServletException servlet exception
-     * @throws IOException input/output exception
+     * @param request http request with form data.
+     * @param response response object.
+     * @throws ServletException servlet exception.
+     * @throws IOException input/output exception.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Person person = new PersonDao().get(Integer.parseInt(request.getParameter(ID)));

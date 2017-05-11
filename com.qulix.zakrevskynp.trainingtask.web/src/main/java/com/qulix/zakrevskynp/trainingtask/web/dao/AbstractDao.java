@@ -6,7 +6,7 @@ import java.util.List;
 import com.qulix.zakrevskynp.trainingtask.web.model.BaseDaoEntity;
 
 /**
- * Abstract class with shared methods for DAOs
+ * Abstract class with shared methods for DAOs.
  *
  * @param <T>
  * @author Q-NZA
@@ -20,10 +20,10 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     private static final String PREPARED_STATEMENT_ERROR = "Exception while getting entity";
 
     /**
-     * Gets all entities
+     * Gets all entities.
      *
-     * @param query sql query for selecting entities
-     * @return list of entities
+     * @param query sql query for selecting entities.
+     * @return list of entities.
      */
     protected List<T> getAll(String query) {
         Connection connection = null;
@@ -47,10 +47,10 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Deletion of an entity
+     * Deletion of an entity.
      *
-     * @param id id of entity
-     * @param query sql query for removing entity
+     * @param id id of entity.
+     * @param query sql query for removing entity.
      */
     protected void remove(int id, String query)  {
         try {
@@ -61,9 +61,9 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Adds an entity
+     * Adds an entity.
      *
-     * @param query sql query for inserting entity
+     * @param query sql query for inserting entity.
      */
     protected void add(String query, Object... parameters) {
         try {
@@ -74,9 +74,9 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Sets parameters to prepared statement
+     * Sets parameters to prepared statement.
      *
-     * @param preparedStatement link of the prepared statement for setting parameters
+     * @param preparedStatement link of the prepared statement for setting parameters.
      */
     protected void setPreparedStatement(PreparedStatement preparedStatement, Object... parameters) {
         try {
@@ -91,11 +91,11 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Gets the entity by identifier
+     * Gets the entity by identifier.
      *
-     * @param id id of entity
-     * @param query sql query for getting entity by id
-     * @return entity
+     * @param id id of entity.
+     * @param query sql query for getting entity by id.
+     * @return entity.
      */
     protected T get(int id, String query)  {
         ResultSet resultSet = null;
@@ -123,9 +123,9 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Updates an entity
+     * Updates an entity.
      *
-     * @param query sql query for updating entity
+     * @param query sql query for updating entity.
      */
     protected void update(String query, Object... parameters) {
         try {
@@ -136,18 +136,18 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Converts of the ResultSet to a List of objects
+     * Converts of the ResultSet to a List of objects.
      *
-     * @param resultSet @{{@link ResultSet}} object converted to list
-     * @return tasks list
-     * @throws SQLException throws while getting data from result set
+     * @param resultSet @{{@link ResultSet}} object converted to list.
+     * @return tasks list.
+     * @throws SQLException throws while getting data from result set.
      */
     protected abstract List<T> resultSetToList(ResultSet resultSet) throws SQLException;
 
     /**
-     * Closes result set
+     * Closes result set.
      *
-     * @param resultSet result set for closing
+     * @param resultSet result set for closing.
      */
     protected void closeResultSet(ResultSet resultSet) {
         if (resultSet != null) {
@@ -161,9 +161,9 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Closes statement
+     * Closes statement.
      *
-     * @param statement statement closing
+     * @param statement statement closing.
      */
     protected void closeStatement(Statement statement) {
         if (statement != null) {
@@ -177,9 +177,9 @@ abstract class AbstractDao<T extends BaseDaoEntity> implements IDao<T> {
     }
 
     /**
-     * Closes connection
+     * Closes connection.
      *
-     * @param connection connection for closing
+     * @param connection connection for closing.
      */
     protected void closeConnection(Connection connection) {
         if (connection != null) {

@@ -1,7 +1,7 @@
 package com.qulix.zakrevskynp.trainingtask.web.model;
 
 /**
- * Person entity model
+ * Person entity model.
  *
  * @author Q-NZA
  */
@@ -12,7 +12,7 @@ public class Person extends BaseDaoEntity {
     private String position;
 
     /**
-     * Create person object
+     * Create person object.
      *
      * @param id id of person
      * @param firstName first name
@@ -33,27 +33,27 @@ public class Person extends BaseDaoEntity {
     }
 
     /**
-     * Gets middle name of the person
+     * Gets middle name of the person.
      *
-     * @return person middle name
+     * @return person middle name.
      */
     public String getMiddleName() {
         return middleName;
     }
 
     /**
-     * Gets last name of the person
+     * Gets last name of the person.
      *
-     * @return person last name
+     * @return person last name.
      */
     public String getLastName() {
         return lastName;
     }
 
     /**
-     * Gets position of the person
+     * Gets position of the person.
      *
-     * @return person position
+     * @return person position.
      */
     public String getPosition() {
         return position;

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
 
 /**
- * Validate data from the forms of working with projects
+ * Validate data from the forms of working with projects.
  *
  * @author Q-NZA
  */
@@ -19,10 +19,10 @@ public class ProjectDataValidator extends Validator {
     private static final String SHORT_NAME_FIELD = "shortName";
 
     /**
-     * Validate project information
+     * Validate project information.
      * 
-     * @param parameters project data from the form
-     * @return list of errors
+     * @param parameters project data from the form.
+     * @return list of errors.
      */
     public List<String> validate(HttpServletRequest parameters) {
         List<String> errors = new ArrayList<>();

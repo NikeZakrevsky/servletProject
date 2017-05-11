@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 /**
- * Validates data from forms
+ * Validates data from forms.
  *
  * @author Q-NZA
  */
@@ -25,12 +25,12 @@ public abstract class Validator {
     private static SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
     
     /**
-     * Field length validation
+     * Field length validation.
      *
-     * @param field field for validation
-     * @param fieldName field name for validation
-     * @param errors list of the errors
-     * @param fieldLength allowable field length
+     * @param field field for validation.
+     * @param fieldName field name for validation.
+     * @param errors list of the errors.
+     * @param fieldLength allowable field length .
      */
     protected boolean validateFieldLength(Object field, String fieldName, List<String> errors, int fieldLength) {
         if (field.toString().length() > fieldLength) {
@@ -42,11 +42,11 @@ public abstract class Validator {
     }
 
     /**
-     * Field empties validation
+     * Field empties validation.
      *
-     * @param field field for validation
-     * @param fieldName field name for validation
-     * @param errors list of the errors
+     * @param field field for validation.
+     * @param fieldName field name for validation.
+     * @param errors list of the errors.
      */
     protected boolean validateFieldEmpty(Object field, String fieldName, List<String> errors) {
         if (testEmpty.test(field)) {
@@ -58,11 +58,11 @@ public abstract class Validator {
     }
 
     /**
-     * Character field validation
+     * Character field validation.
      *
-     * @param field field for validation
-     * @param fieldName field name for validation
-     * @param errors list of the errors
+     * @param field field for validation.
+     * @param fieldName field name for validation.
+     * @param errors list of the errors.
      */
     protected void validateFieldSymbols(Object field, String fieldName, List<String> errors) {
         if (!field.toString().matches(REGEX)) {
@@ -71,11 +71,11 @@ public abstract class Validator {
     }
 
     /**
-     * Number field validation
+     * Number field validation.
      *
-     * @param field field for validation
-     * @param fieldName field name for validation
-     * @param errors list of the errors
+     * @param field field for validation.
+     * @param fieldName field name for validation.
+     * @param errors list of the errors.
      */
     protected boolean validateFieldNumbers(Object field, String fieldName, List<String> errors) {
         if (!field.toString().equals("") && !field.toString().matches(REGEX1)) {

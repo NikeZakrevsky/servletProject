@@ -12,7 +12,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.BaseHttpServlet;
 import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDao;
 
 /**
- * Handling the action of removing a task and redirects to the @{{@link TasksListServlet}}
+ * Handling the action of removing a task and redirects to the @{{@link TasksListServlet}}.
  *
  * @author Q-NZA
  */
@@ -21,12 +21,12 @@ public class RemoveTaskServlet extends BaseHttpServlet {
     private static final String ID = "id";
 
     /**
-     * Processes a delete request
+     * Processes a delete request.
      *
-     * @param request http request with form data
-     * @param response response object
-     * @throws ServletException servlet exception
-     * @throws IOException input/output exception
+     * @param request http request with form data.
+     * @param response response object.
+     * @throws ServletException servlet exception.
+     * @throws IOException input/output exception.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String returningPath = request.getSession(false).getAttribute(Attribute.PATH).toString();
