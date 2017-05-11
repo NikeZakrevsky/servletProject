@@ -14,7 +14,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
- * Shows the form of updating a person and processing its data.
+ * The servlet displays the form of updating a person and processes the entered data.
  *
  * @author Q-NZA
  */
@@ -23,12 +23,14 @@ public class EditPersonServlet extends CustomPersonServlet {
     private static final String ID = "id";
 
     /**
-     * Form data processing.
+     * The method receives data from a form, validates it and updates the person's data in the database.
+     * In the case of validation errors, its displayed to the user.
+     * If there are no validation errors, the list of persons is displayed.
      *
-     * @param request http request with form data
-     * @param response response object
-     * @throws ServletException servlet exception
-     * @throws IOException input/output exception
+     * @param request http request with form data.
+     * @param response response object.
+     * @throws ServletException servlet exception.
+     * @throws IOException input/output exception.
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PersonDataValidator personDataValidator = new PersonDataValidator();

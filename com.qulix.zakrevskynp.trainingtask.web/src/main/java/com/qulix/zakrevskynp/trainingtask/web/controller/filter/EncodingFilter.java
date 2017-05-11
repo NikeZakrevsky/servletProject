@@ -6,7 +6,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 
 /**
- * Filter to set the encoding of the request.
+ * The filters sets the encoding of the request parameters.
  *
  * @author Q-NZA
  */
@@ -19,7 +19,8 @@ public class EncodingFilter implements Filter {
     }
 
     /**
-     * Sets character encoding.
+     * The method sets the encoding of the request to UTF-8.
+     * The UTF-8 encoding allows to use Cyrillic characters in the forms.
      *
      * @param request @{({@link ServletRequest}} object.
      * @param response @{({@link ServletResponse}} object.

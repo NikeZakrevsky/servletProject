@@ -11,7 +11,7 @@ import com.qulix.zakrevskynp.trainingtask.web.LoggingFactory;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 
 /**
- * Filter for handling and processing exceptions.
+ * The filter intercepts and handles exceptions.
  *
  * @author Q-NZA
  */
@@ -25,7 +25,7 @@ public class ErrorHandlerFilter implements Filter {
     }
 
     /**
-     * Processing and logging exceptions.
+     * The method intercepts, logs and displays to the user exceptions.
      *
      * @param request @{({@link ServletRequest}} object.
      * @param response @{({@link ServletResponse}} object.

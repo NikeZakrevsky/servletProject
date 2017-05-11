@@ -14,7 +14,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
- * Shows the form of adding a new person and processing its data.
+ * The servlet displays the form of creating a person and processes the entered data.
  *
  * @author Q-NZA
  */
@@ -22,7 +22,9 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 public class AddPersonServlet extends CustomPersonServlet {
 
     /**
-     * Form data processing.
+     * The method receives data from a form, validates it and adds the person's data to the database.
+     * In the case of validation errors, its displayed to the user.
+     * If there are no validation errors, the list of persons is displayed.
      *
      * @param request http request with form data.
      * @param response response object.
@@ -49,7 +51,7 @@ public class AddPersonServlet extends CustomPersonServlet {
     }
 
     /**
-     * Displays a page with a form.
+     * The method displays the list if persons
      *
      * @param request http request with form data.
      * @param response response object.

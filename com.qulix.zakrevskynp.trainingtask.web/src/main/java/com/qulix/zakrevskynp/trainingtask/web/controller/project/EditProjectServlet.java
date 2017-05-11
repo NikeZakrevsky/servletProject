@@ -16,7 +16,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Shows the form of updating a project and processes its data.
+ * The servlet displays the form of updating a project and processes the entered data.
  *
  * @author Q-NZA
  */
@@ -26,7 +26,9 @@ public class EditProjectServlet extends CustomProjectServlet {
     private static final String EDIT_PROJECT = "editProject?id=";
 
     /**
-     * Form data processing.
+     * The method receives data from a form, validates it and updates the project's data in the database.
+     * In the case of validation errors, its displayed to the user.
+     * If there are no validation errors, the list of persons is displayed.
      *
      * @param request http request with form data.
      * @param response response object.

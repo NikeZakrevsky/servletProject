@@ -11,12 +11,13 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
 
 /**
- * Shows a page with all projects from the database.
+ * The servlet displays the list of the projects.
  *
  * @author Q-NZA
  */
 @WebServlet("/projectsList")
 public class ProjectsListServlet extends CustomProjectServlet {
+
     /**
      * Displays a list of projects.
      *

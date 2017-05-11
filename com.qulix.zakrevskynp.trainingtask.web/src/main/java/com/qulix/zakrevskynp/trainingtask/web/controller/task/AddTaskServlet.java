@@ -16,14 +16,17 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Shows the form of adding a new task and processing its data.
+ * The servlet displays the form of adding a task and processes the entered data.
  *
  * @author Q-NZA
  */
 @WebServlet("/addTask")
 public class AddTaskServlet extends CustomTaskServlet {
+
     /**
-     * Form data processing.
+     * The method receives data from a form, validates it and adds the task's data in the database.
+     * In the case of validation errors, its displayed to the user.
+     * If there are no validation errors, the list of persons is displayed.
      *
      * @param request http request with form data.
      * @param response response object.

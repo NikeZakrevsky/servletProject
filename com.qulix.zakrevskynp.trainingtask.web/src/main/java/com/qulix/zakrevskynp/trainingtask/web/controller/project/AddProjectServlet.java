@@ -15,14 +15,17 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 
 /**
- * Shows the form of adding a new project and processing its data.
+ * The servlet displays the form of adding a project and processes the entered data.
  *
  * @author Q-NZA
  */
 @WebServlet("/addProject")
 public class AddProjectServlet extends CustomProjectServlet {
+    
     /**
-     * Form data processing.
+     * The method receives data from a form, validates it and adds the project's data in the database.
+     * In the case of validation errors, its displayed to the user.
+     * If there are no validation errors, the list of persons is displayed.
      *
      * @param request http request with form data.
      * @param response response object.

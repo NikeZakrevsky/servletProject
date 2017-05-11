@@ -12,14 +12,15 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDao;
 
 /**
- * Shows a page with all persons from the database.
+ * The servlet displays the list of the persons.
  *
  * @author Q-NZA
  */
 @WebServlet("/personsList")
 public class PersonsListServlet extends CustomPersonServlet {
+
     /**
-     * Displays a list of persons.
+     * The method displays the page with list of the person.
      *
      * @param request http request with form data.
      * @param response response object.

@@ -16,7 +16,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDao;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Shows the form of updating a task and processing its data.
+ * The servlet displays the form of updating a task and processes the entered data.
  *
  * @author Q-NZA
  */
@@ -27,7 +27,9 @@ public class EditTaskServlet extends CustomTaskServlet {
     private static final String IS_DISABLE = "isDisable";
 
     /**
-     * Form data processing
+     * The method receives data from a form, validates it and updates the task's data in the database.
+     * In the case of validation errors, its displayed to the user.
+     * If there are no validation errors, the list of persons is displayed.
      *
      * @param request http request with form data.
      * @param response response object.
