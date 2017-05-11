@@ -6,7 +6,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.BaseHttpServlet;
 import com.qulix.zakrevskynp.trainingtask.web.model.Person;
 
 /**
- * The servlet contains common methods form *Person servlets.
+ * The servlet contains common methods for *Person servlets.
  *
  * @author Q-NZA
  */

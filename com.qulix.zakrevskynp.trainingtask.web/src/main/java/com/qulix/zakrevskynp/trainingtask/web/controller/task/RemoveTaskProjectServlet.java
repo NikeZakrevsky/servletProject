@@ -24,7 +24,7 @@ public class RemoveTaskProjectServlet extends CustomProjectServlet {
     private static final String TASK_ID = "taskId";
 
     /**
-     * Form data processing
+     * The method removes a task from the session by id and displays edit project form.
      *
      * @param request http request with form data.
      * @param response response object.

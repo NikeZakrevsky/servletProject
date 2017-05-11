@@ -11,7 +11,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
 
 /**
- * Handling the action of removing a project and redirects to the @{{@link ProjectsListServlet}}.
+ * The servlet removes a project from the database.
  *
  * @author Q-NZA
  */
@@ -20,7 +20,7 @@ public class RemoveProjectServlet extends CustomProjectServlet {
     private static final String ID = "id";
 
     /**
-     * Processes a delete request.
+     * The method removes a project from the database by id and displays the list of the projects.
      *
      * @param request http request with form data.
      * @param response response object.

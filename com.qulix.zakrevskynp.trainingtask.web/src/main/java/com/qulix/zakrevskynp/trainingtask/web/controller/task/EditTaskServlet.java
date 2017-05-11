@@ -58,7 +58,7 @@ public class EditTaskServlet extends CustomTaskServlet {
     }
 
     /**
-     * Displays a page with a form.
+     * The method displays a form for updating a task
      *
      * @param request http request with form data.
      * @param response response object.

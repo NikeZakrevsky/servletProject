@@ -16,7 +16,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Shows the form of adding a new task in session.
+ * The servlet displays the form of adding a task and adds the entered data to the session.
  *
  * @author Q-NZA
  */
@@ -25,7 +25,9 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
     private static final String IS_DISABLE = "isDisable";
 
     /**
-     * Form data processing.
+     * The method receives data from a form, validates it and adds the task's data in the session.
+     * In the case of validation errors, its displayed to the user.
+     * If there are no validation errors, the edit project form is displayed.
      *
      * @param request http request with form data.
      * @param response response object.

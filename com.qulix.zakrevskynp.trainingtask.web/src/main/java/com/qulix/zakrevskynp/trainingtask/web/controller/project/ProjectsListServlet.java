@@ -19,7 +19,7 @@ import com.qulix.zakrevskynp.trainingtask.web.dao.ProjectDao;
 public class ProjectsListServlet extends CustomProjectServlet {
 
     /**
-     * Displays a list of projects.
+     * The method displays a list of projects.
      *
      * @param request http request with form data.
      * @param response response object.

@@ -11,7 +11,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.Attribute;
 import com.qulix.zakrevskynp.trainingtask.web.dao.PersonDao;
 
 /**
- * Handling the action of removing a person and redirects to the @{{@link PersonsListServlet}}.
+ * The servlet removes a person from the database.
  * 
  * @author Q-NZA
  */
@@ -20,7 +20,7 @@ public class RemovePersonServlet extends CustomPersonServlet {
     private static final String ID = "id";
 
     /**
-     * Processes a delete request
+     * The method removes a person from the database by id and displays the list of the persons.
      *
      * @param request http request with form data.
      * @param response response object.

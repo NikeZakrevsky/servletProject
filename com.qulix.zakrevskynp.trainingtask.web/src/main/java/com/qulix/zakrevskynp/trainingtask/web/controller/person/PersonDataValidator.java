@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
 
 /**
- * Validate data from the forms of working with the persons.
+ * The class validates data from the forms of working with persons.
  *
  * @author Q-NZA
  */

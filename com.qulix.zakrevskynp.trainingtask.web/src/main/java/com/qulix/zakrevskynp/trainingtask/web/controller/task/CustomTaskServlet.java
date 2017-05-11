@@ -14,7 +14,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 import com.qulix.zakrevskynp.trainingtask.web.model.TaskStatus;
 
 /**
- * Custom servlet for constructing a @{{@link Task}} object from Map.
+ * The servlet contains common methods for *Task servlets.
  *
  * @author Q-NZA
  */
@@ -33,7 +33,7 @@ public class CustomTaskServlet extends BaseHttpServlet {
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     /**
-     * Sets attributes of the request.
+     * The method creates the @{{@link Task}} object from the http request parameters.
      *
      * @param task task with request attributes.
      * @param request request for setting attributes.
@@ -49,6 +49,12 @@ public class CustomTaskServlet extends BaseHttpServlet {
         request.setAttribute(PERSON , task.getPerson());
     }
 
+    /**
+     * The method sets the attributes of the http request.
+     * The method is used if parameters from the request are not valid.
+     *
+     * @param request @{{@link HttpServletRequest}} object from setting of the attributes.
+     */
     protected void setAttributesToRequest(HttpServletRequest request) {
         request.setAttribute(ID, request.getParameter(ID));
         request.setAttribute(NAME, request.getParameter(NAME));
@@ -64,7 +70,7 @@ public class CustomTaskServlet extends BaseHttpServlet {
     }
 
     /**
-     * Converts a map with request parameters to a @{{@link Task}} object.
+     * The method creates the @{{@link Task}} object from the http request parameters.
      *
      * @param parameters map with request parameters.
      * @return @{{@link Task}} object.

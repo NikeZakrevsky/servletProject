@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.qulix.zakrevskynp.trainingtask.web.controller.Validator;
 
 /**
- * Validate data from the forms of working with tasks.
+ * The class validates data from the forms of working with tasks.
  *
  * @author Q-NZA
  */
@@ -30,9 +30,9 @@ public class TaskDataValidator extends Validator {
     private Date endDate;
 
     /**
-     * Validate task information.
+     * The method validates the parameters of the http request.
      *
-     * @param parameters form parameters for validation.
+     * @param parameters http request with parameters.
      * @return list of errors.
      */
     public List<String> validate(HttpServletRequest parameters) {

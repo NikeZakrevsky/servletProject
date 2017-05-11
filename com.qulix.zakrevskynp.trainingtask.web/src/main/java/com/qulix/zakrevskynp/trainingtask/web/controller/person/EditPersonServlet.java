@@ -52,7 +52,7 @@ public class EditPersonServlet extends CustomPersonServlet {
     }
 
     /**
-     * Displays a page with a form.
+     * The method displays a form for updating a person.
      *
      * @param request http request with form data.
      * @param response response object.

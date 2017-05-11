@@ -12,7 +12,7 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.BaseHttpServlet;
 import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDao;
 
 /**
- * Handling the action of removing a task and redirects to the @{{@link TasksListServlet}}.
+ * The servlet removes a task from the database.
  *
  * @author Q-NZA
  */
@@ -21,7 +21,7 @@ public class RemoveTaskServlet extends BaseHttpServlet {
     private static final String ID = "id";
 
     /**
-     * Processes a delete request.
+     * The method removes a task from the database by id and displays the list of the tasks.
      *
      * @param request http request with form data.
      * @param response response object.

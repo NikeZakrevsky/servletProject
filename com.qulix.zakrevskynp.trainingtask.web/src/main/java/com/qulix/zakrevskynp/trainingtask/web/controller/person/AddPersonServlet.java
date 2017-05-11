@@ -51,7 +51,7 @@ public class AddPersonServlet extends CustomPersonServlet {
     }
 
     /**
-     * The method displays the list if persons
+     * The method displays a form for adding a person.
      *
      * @param request http request with form data.
      * @param response response object.

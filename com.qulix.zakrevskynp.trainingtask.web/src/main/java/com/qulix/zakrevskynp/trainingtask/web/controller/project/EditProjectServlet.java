@@ -1,6 +1,5 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.project;
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -62,7 +61,7 @@ public class EditProjectServlet extends CustomProjectServlet {
     }
 
     /**
-     * Displays a page with a form.
+     * The method displays a form for updating a project.
      *
      * @param request http request with form data.
      * @param response response object.

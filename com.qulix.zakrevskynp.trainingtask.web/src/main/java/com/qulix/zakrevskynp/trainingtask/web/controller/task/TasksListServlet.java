@@ -12,14 +12,15 @@ import com.qulix.zakrevskynp.trainingtask.web.controller.BaseHttpServlet;
 import com.qulix.zakrevskynp.trainingtask.web.dao.TaskDao;
 
 /**
- * Shows a page with all tasks from the database.
+ * The servlet displays the list of the tasks.
  *
  * @author Q-NZA
  */
 @WebServlet("/tasksList")
 public class TasksListServlet extends BaseHttpServlet {
+
     /**
-     * Displays a list of tasks.
+     * The method displays a list of tasks.
      *
      * @param request http request with form data.
      * @param response response object.

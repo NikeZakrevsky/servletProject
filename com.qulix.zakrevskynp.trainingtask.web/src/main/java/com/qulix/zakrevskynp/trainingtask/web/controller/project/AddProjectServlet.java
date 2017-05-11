@@ -60,7 +60,7 @@ public class AddProjectServlet extends CustomProjectServlet {
     }
 
     /**
-     * Displays a page with a form.
+     * The method displays a form for adding a project.
      *
      * @param request http request with form data.
      * @param response response object.

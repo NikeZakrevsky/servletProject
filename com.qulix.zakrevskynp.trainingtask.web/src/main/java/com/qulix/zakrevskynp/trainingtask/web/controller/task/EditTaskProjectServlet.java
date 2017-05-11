@@ -17,7 +17,7 @@ import com.qulix.zakrevskynp.trainingtask.web.model.Project;
 import com.qulix.zakrevskynp.trainingtask.web.model.Task;
 
 /**
- * Shows the form of updating a task in session.
+ * The servlet displays the form of updating a task and updates the entered data in the session.
  *
  * @author Q-NZA
  */
@@ -26,7 +26,9 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
     private static final String ID = "id";
 
     /**
-     * Form data processing
+     * The method receives data from a form, validates it and updates the task's data in the session.
+     * In the case of validation errors, its displayed to the user.
+     * If there are no validation errors, the edit project form is displayed.
      *
      * @param request http request with form data.
      * @param response response object.
