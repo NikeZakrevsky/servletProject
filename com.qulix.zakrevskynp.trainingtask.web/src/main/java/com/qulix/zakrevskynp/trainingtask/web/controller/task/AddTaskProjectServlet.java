@@ -60,6 +60,14 @@ public class AddTaskProjectServlet extends CustomTaskServlet {
         }
     }
 
+
+    /**
+     * The method sets the task performer and adds it in the session.
+     *
+     * @param task task for updating.
+     * @param tasks task list.
+     * @return task list with updated task.
+     */
     private List<Task> addTaskToSessionList(Task task, List<Task> tasks) {
         ProjectDao projectDao = new ProjectDao();
         if (task.getProjectId() != null) {

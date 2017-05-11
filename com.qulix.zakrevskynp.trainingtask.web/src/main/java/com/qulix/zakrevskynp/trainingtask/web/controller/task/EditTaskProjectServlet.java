@@ -69,6 +69,14 @@ public class EditTaskProjectServlet extends CustomTaskServlet {
         }
     }
 
+    /**
+     * The method sets the task performer and updates it in the session.
+     *
+     * @param task task for updating.
+     * @param tasks task list.
+     * @param id task id.
+     * @return task list with updated task.
+     */
     private List<Task> updateTaskInSessionList(Task task, List<Task> tasks, int id) {
         int index = 0;
         task.setStartDate(new java.sql.Date(task.getStartDate().getTime()));
