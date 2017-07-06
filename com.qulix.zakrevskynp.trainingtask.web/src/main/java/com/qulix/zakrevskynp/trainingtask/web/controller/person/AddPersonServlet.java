@@ -1,6 +1,5 @@
 package com.qulix.zakrevskynp.trainingtask.web.controller.person;
 
-
 import java.io.IOException;
 import java.util.List;
 

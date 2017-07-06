@@ -25,7 +25,7 @@ public class ErrorHandlerFilter implements Filter {
     }
 
     /**
-     * The method intercepts, logs and displays to the user exceptions.
+     * The method intercepts, logs and displays error to the user .
      *
      * @param request @{({@link ServletRequest}} object.
      * @param response @{({@link ServletResponse}} object.
